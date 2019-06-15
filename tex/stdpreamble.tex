@@ -1,0 +1,91 @@
+\documentclass[a4paper, 12pt]{report}
+\parindent9pt
+
+
+\relpenalty=9999
+\binoppenalty=9999
+
+\usepackage[margin=1.2in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz-cd}
+\usepackage{longtable}
+\usepackage{amsthm}
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=blue,  %choose some color if you want links to stand out
+	citecolor=blue,
+	urlcolor  = blue,
+}
+\usepackage[normalem]{ulem}
+\usepackage{marginnote}
+\usepackage{mathabx}
+\usepackage{theoremref}
+
+%need to find this package
+
+\DeclareFontFamily{U}{mathc}{}
+\DeclareFontShape{U}{mathc}{m}{it}%
+{<->s*[1.03] mathc10}{}
+
+\DeclareMathAlphabet{\mathscr}{U}{mathc}{m}{it}
+
+
+\newcommand{\ca}[1]{\mathcal{#1}}
+\newcommand{\caf}{\mathcal{F}}
+\newcommand{\cag}{\mathcal{G}}
+\newcommand{\cau}{\mathcal{U}}
+\newcommand{\caa}{\mathcal{A}}
+\newcommand{\oxmod}{$\mathcal{O}_X$-module }
+\newcommand{\oxmods}{$\mathcal{O}_X$-modules }
+\newcommand{\oymod}{$\mathcal{O}_Y$-module }
+\newcommand{\oymods}{$\mathcal{O}_Y$-modules }
+\newcommand{\ox}{\mathcal{O}_X}
+\newcommand{\oy}{\mathcal{O}_Y}
+\newcommand{\oxx}{\mathcal{O}_{X,x}}
+\newcommand{\oyy}{\mathcal{O}_{Y,y}}
+%\newcommand{\hhom}{\mathcal{H}om}
+\newcommand{\hhom}{\mathscr{Hom}}
+\newcommand{\bbp}{\mathbb{P}}
+\newcommand{\bbz}{\mathbb{Z}}
+
+
+
+
+\theoremstyle{plain}
+%\newtheorem{prop}{Proposition}[chapter]
+%\newtheorem{lem}[prop]{Lemma}
+%\newtheorem{up}[prop]{Universal Property}
+%\newtheorem{thmdef}[prop]{Definition/Theorem}
+%\newtheorem{thm}[prop]{Theorem}
+
+%\theoremstyle{definition}
+%\newtheorem{defn}{Definition}[chapter]
+%\newtheorem{note}[defn]{Note}
+%\newtheorem{fact}[defn]{Fact}
+%\newtheorem{ex}[defn]{Example}
+
+
+
+\DeclareMathOperator{\mor}{Mor}
+
+\DeclareMathOperator{\ob}{Ob}
+
+\DeclareMathOperator{\id}{id}
+
+\DeclareMathOperator{\spec}{Spec}
+
+\DeclareMathOperator{\kom}{Kom}
+
+\DeclareMathOperator{\Hom}{Hom}
+
+\DeclareMathOperator{\R}{R}
+
+\DeclareMathOperator{\Ll}{L}
+
+\DeclareMathOperator{\K}{K}
+
+\DeclareMathOperator{\tot}{tot}
