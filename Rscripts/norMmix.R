@@ -5,7 +5,7 @@
 
 library(abind)
 
-Shilf <- function(L, p){
+Shilf <- function(L, p){ # help function for norMmix
 	Shilfarray <- array(0, c(p,p,length(L)))
 	for (i in 1:length(L)){
 		Shilfarray[,,i] <- L[i]*diag(p)
@@ -56,7 +56,7 @@ norMmix <- function(
 
 
 	#ispect sigma
-	if (!is.numeric(sigma)) stop("'sigma must be numeric'")
+	if (!is.numeric(sigma)) stop("'sigma' must be numeric")
 	if (is.vector(sigma) && length(sigma)==1)
 		Sigma <- abind( rep(list(sigma*diag(p)), k), along = 3)
 	else if (is.vector(sigma) && length(sigma)==k)
@@ -65,7 +65,12 @@ norMmix <- function(
 		Sigma <- sigma
 	else stop("'sigma not among recognized formats, see source code for help'")
 
-
+	#inspect weight
+	if (!is.numeric(weight)) stop("'weight' must be numeric")
+	if (! (is.vector(weight) && length(weight)==k) )
+		stop("weight is not of correct dimension")
+	if (!(all(weight >=0) && (sum(weight) - 1 < 1000*.Machine$double.eps)))
+		stop("weight doesn't sum to 1 or isn't positive")
 
 	structure( name = name,
 		  class = "norMmix",
@@ -74,6 +79,28 @@ norMmix <- function(
 	)
 
 }
+
+
+is.norMmix <- function(obj){
+	inherits(obj, "norMmix")
+}
+
+mean.norMmix <- function(obj){
+	if (!is.norMmix(obj)) stop("object is not norMmix")
+	k <- obj$k
+	mu <- obj$mu
+	w <- obj$weight
+
+	me <- rep(0, obj$dim)
+
+	for (i in 1:k) {
+		me <- me + w[i]*mu[,i]
+	}
+	return(me)
+}
+
+
+
 
 
 
@@ -97,5 +124,6 @@ rnorMmix <- function(
 
 	if(!inherits(obj, "norMmix")) stop("'obj' must be of type norMmix")
 
+	# with weights split sample size and generate subportion of sample with MASS function mvrnorm and append them
 
 }
