@@ -61,7 +61,8 @@ norMmix <- function(
 
 	structure( name = name,
 		  class = "norMmix",
-		  .Data = list(mu = mu , Sigma = Sigma, weight = weight)
+		  .Data = list(mu = mu , Sigma = Sigma, weight = weight,
+		  		k=k, dim=p)
 	)
 
 }
