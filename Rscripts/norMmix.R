@@ -5,6 +5,14 @@
 
 library(abind)
 
+Shilf <- function(L, p){
+	Shilfarray <- array(0, c(p,p,length(L)))
+	for (i in 1:length(L)){
+		Shilfarray[,,i] <- L[i]*diag(p)
+	}
+	return(Shilfarray)
+}
+
 norMmix <- function(
 		    mu,
 		    sigma = abind( rep(list(diag(p)), k), along = 3),
@@ -52,7 +60,7 @@ norMmix <- function(
 	if (is.vector(sigma) && length(sigma)==1)
 		Sigma <- abind( rep(list(sigma*diag(p)), k), along = 3)
 	else if (is.vector(sigma) && length(sigma)==k)
-		Sigma <- abind( rep(list(diag(p)), k), along = 3) # not correct, have to implement this feature
+		Sigma <- Shilf(L=sigma, p=p) 
 	else if (is.array(sigma) && dim(sigma) == c(p,p,k))
 		Sigma <- sigma
 	else stop("'sigma not among recognized formats, see source code for help'")
