@@ -3,12 +3,14 @@
 
 ## norMmix constructor
 
+library(abind)
+
 norMmix <- function(
-		    mu = ,
-		    Sigma = ,
-		    weight = NULL,
-		    name = NULL,
-		    type = c(""), 
+		    mu,
+		    sigma = abind( rep(list(diag(p)), k), along = 3),
+		    weight = rep(1/k, k),
+		    name = NULL
+#		    type = c("")
 		    )
 {
 	## Purpose: constructor for 'norMmix' (multivariate normix)
@@ -16,8 +18,13 @@ norMmix <- function(
 	## --------------------------------------------------------
 	## Arguments:
 	##	mu: matrix with columns as vector means of dist.
-	##	Sigma: array of dimension p x p x k. covariance mat
-	##		rices of distributions
+	##	sigma: 	option 0: default, generates all identity
+	##			covariance mat.
+	##		option 1: scalar, generates EII dist
+	##		option 2: vector of length k, generates VII
+	##			distribution
+	##		option 3: array of dimension p x p x k. 
+	##			covariance matrices of distributions
 	##	weight: vector of length k, sums to 1
 	##	name: name attribute
 	##	type: type of distribution VVV, IVV etc.
@@ -29,12 +36,57 @@ norMmix <- function(
 	# p dimension 
 	# k number of components
 
-	if(!is.numeric(mu)) stop("'mu' must be numeric")
-	k <- ncol(mu)
-	p <- nrow(mu)
+	# ispect mu 
+	if (!is.numeric(mu)) stop("'mu' must be numeric")
+	if (is.matrix(mu) == FALSE){
+		p <- 1
+		k <- length(mu)
+	} else {
+		k <- ncol(mu)
+		p <- nrow(mu)
+	}
+
+
+	#ispect sigma
+	if (!is.numeric(sigma)) stop("'sigma must be numeric'")
+	if (is.vector(sigma) && length(sigma)==1)
+		Sigma <- abind( rep(list(sigma*diag(p)), k), along = 3)
+	else if (is.vector(sigma) && length(sigma)==k)
+		Sigma <- abind( rep(list(diag(p)), k), along = 3) # not correct, have to implement this feature
+	else if (is.array(sigma) && dim(sigma) == c(p,p,k))
+		Sigma <- sigma
+	else stop("'sigma not among recognized formats, see source code for help'")
 
 
 
-	structure( name = name, class = norMmix, .Data = list(mu, Sigma, weight) )
+	structure( name = name,
+		  class = "norMmix",
+		  .Data = list(mu = mu , Sigma = Sigma, weight = weight)
+	)
+
+}
+
+
+
+### rnorMmix
+
+rnorMmix <- function(
+		     obj,
+		     n = 511
+	  )
+{
+
+	## Purpose: generates random values distributed by NMD
+	## -------------------------------------------------------------------
+	## Arguments:
+	## 	obj: of type norMmix
+	##	n: number of values desired
+       	## -------------------------------------------------------------------
+	## Value: matrix, columns are vectors
+	## -------------------------------------------------------------------
+	## Author: nicolas trutmann, Date:2019-06-21
+
+	if(!inherits(obj, "norMmix")) stop("'obj' must be of type norMmix")
+
 
 }
