@@ -8,6 +8,7 @@ tole <- 1000*.Machine$double.eps
 library(abind)
 library(matrixcalc)
 library(MASS)
+library(scatterplot3d)
 
 Shilf <- function(L, p){ # help function for norMmix
 	Shilfarray <- array(0, c(p,p,length(L)))
@@ -144,9 +145,6 @@ rnorMmix <- function(
 	weight <- obj$weight
 
 	nj <- rmultinom(n=1, size=n, prob=weight)
-	a <- (unlist(lapply( seq(along=nj), function(j)
-			    mvrnorm(n=nj[j], mu=mu[,j], Sigma=Sigma[,,j]) )))
-	#doesnt work yet
-
+	a <- matrix(unlist(lapply( seq(along=nj), function(j) mvrnorm(n=nj[j], mu=mu[,j], Sigma=Sigma[,,j]) )), ncol=length(weight), byrow=TRUE)
 
 }
