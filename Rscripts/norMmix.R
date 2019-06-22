@@ -3,7 +3,11 @@
 
 ## norMmix constructor
 
+tole <- 1000*.Machine$double.eps
+
 library(abind)
+library(matrixcalc)
+library(MASS)
 
 Shilf <- function(L, p){ # help function for norMmix
 	Shilfarray <- array(0, c(p,p,length(L)))
@@ -12,6 +16,16 @@ Shilf <- function(L, p){ # help function for norMmix
 	}
 	return(Shilfarray)
 }
+
+hilf <- function(x, k){ # help function evals to true if x is sym pos def
+	for (i in 1:k){
+		if ( !(isSymmetric(x[,,i], tol=tole)&& is.positive.definite(x[,,i],tol=tole)) )
+			stop("Sigma is not sym pos def")
+	}
+	return(TRUE)
+}
+
+
 
 norMmix <- function(
 		    mu,
@@ -64,6 +78,7 @@ norMmix <- function(
 	else if (is.array(sigma) && dim(sigma) == c(p,p,k))
 		Sigma <- sigma
 	else stop("'sigma not among recognized formats, see source code for help'")
+	if (!hilf(Sigma,k)) stop("error with sym pos def Sigma")
 
 	#inspect weight
 	if (!is.numeric(weight)) stop("'weight' must be numeric")
@@ -124,6 +139,14 @@ rnorMmix <- function(
 
 	if(!inherits(obj, "norMmix")) stop("'obj' must be of type norMmix")
 
-	# with weights split sample size and generate subportion of sample with MASS function mvrnorm and append them
+	mu <- obj$mu
+	Sigma <- obj$Sigma
+	weight <- obj$weight
+
+	nj <- rmultinom(n=1, size=n, prob=weight)
+	a <- (unlist(lapply( seq(along=nj), function(j)
+			    mvrnorm(n=nj[j], mu=mu[,j], Sigma=Sigma[,,j]) )))
+	#doesnt work yet
+
 
 }
