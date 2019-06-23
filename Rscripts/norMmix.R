@@ -20,7 +20,7 @@ Shilf <- function(L, p){ # help function for norMmix
 
 hilf <- function(x, k){ # help function evals to true if x is sym pos def
 	for (i in 1:k){
-		if ( !(isSymmetric(x[,,i], tol=tole)&& is.positive.definite(x[,,i],tol=tole)) )
+		if ( !(isSymmetric(x[,,i], tol=tole)&& is.positive.semi.definite(x[,,i],tol=tole)) )
 			stop("Sigma is not sym pos def")
 	}
 	return(TRUE)
@@ -143,8 +143,12 @@ rnorMmix <- function(
 	mu <- obj$mu
 	Sigma <- obj$Sigma
 	weight <- obj$weight
+	p <- obj$dim
+
+	#need case n=1 distiction here
 
 	nj <- rmultinom(n=1, size=n, prob=weight)
-	a <- matrix(unlist(lapply( seq(along=nj), function(j) mvrnorm(n=nj[j], mu=mu[,j], Sigma=Sigma[,,j]) )), ncol=length(weight), byrow=TRUE)
-
+#	a <- matrix(unlist(lapply( seq(along=nj), function(j)mvrnorm(n=nj[j], mu=mu[,j], Sigma=Sigma[,,j]) )), ncol=p, byrow=TRUE)
+	## this approach doesnt work matrices arent concatenated properly
+	a <- do.call( rbind, lapply( seq(along=nj), function(j)mvrnorm(n=nj[j], mu=mu[,j], Sigma=Sigma[,,j]) ))
 }
