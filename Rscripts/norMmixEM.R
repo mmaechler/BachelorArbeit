@@ -32,6 +32,7 @@ mstep.eMm <- function( x, par ){
 	weight <- T1[,i]/nrow(x)
 
 	##return params
+
 }
 
 
