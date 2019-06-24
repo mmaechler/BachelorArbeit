@@ -3,7 +3,22 @@
 ## have not figured out how to do the details here,
 ## for now only scetch of programm !!not functional!!
 
+
+## nomenclature used throughout:
+## n sample size
+## k number of clusters
+## p dimension of sample
+
 library(mixtools)
+
+
+initPar <- function(tau, mu, Sigma, weight){
+
+	#checking inputs here
+
+	par <- structure(class="par", .Data=list(tau=tau, mu=mu, Sigma=Sigma, weight=weightr))
+
+}
 
 
 # M step
@@ -14,16 +29,22 @@ mstep.eMm <- function( y, par ){
 
 	#  calculating T_i
 
-	T1[,i] <- rowSums(tau[i,])
+	T1 <- rowSums(tau) # vec of length k
 
-	T2[,i] <- rowSums(tau[i,]*y[??])  # sum_j tau_ij*y_j
+	T2 <- tau %*% y # matrix of size k x p
 
-	T3[,i] <- rowSums(tau[i,]* y[??]%*%y[??])
+	T3 <- array(0, dim=c(p,p,k))
+
+	for (i in 1:k){
+		for (j in 1:n){
+		T3[,,i] <- T3[,,i] + (t(tau[i,]* y[j,])%*%y[j,])
+		}
+	}
 
 
 	#mu
 
-	mu[i,] <- T2[,i]/T1[,i]
+	mu[i,] <- T2/T1
 
 	#sigma
 
@@ -31,7 +52,7 @@ mstep.eMm <- function( y, par ){
 
 	# weight
 
-	weight <- T1[,i]/nrow(y)
+	weight <- T1/ncol(y)
 
 	##return params
 
@@ -39,6 +60,10 @@ mstep.eMm <- function( y, par ){
 
 
 estep.nMm <- function(y, par){
+
+	mu <- par$mu
+	Sigma <- par$Sigma
+	weight <- par$weight
 
 	phi <- matrix(0,k,n)
 	
@@ -53,6 +78,7 @@ estep.nMm <- function(y, par){
 	
 
 	## return params
+	par$tau <- tau
 }
 
 	
