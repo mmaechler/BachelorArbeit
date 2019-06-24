@@ -1,8 +1,6 @@
 ### EM-algorithm for norMmix datasets
 
-## have not figured out how to do the details here,
-## for now only scetch of programm !!not functional!!
-
+## following the description in McLachlan & Peel (2000) p.82
 
 ## nomenclature used throughout:
 ## n sample size
@@ -48,7 +46,11 @@ mstep.eMm <- function( y, par ){
 
 	#sigma
 
-	Sigma[,,i] <- ( T3[,i]-T1[,i]^-1 *(T2[,i]%*%T2[,i]) ) / T1[,i]
+	Sigma <- array(0, c(p,p,k))
+
+	for (i in 1:k){
+		Sigma[,,i] <- ( T3[,,i]-T1[i]^-1 *(t(T2[,i])%*%T2[,i]) ) / T1[i]
+	}
 
 	# weight
 
