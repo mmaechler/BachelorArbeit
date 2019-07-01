@@ -13,7 +13,7 @@
 
 ## works
 
-dtv <- function(mat){
+udtv <- function(mat){
 	upper.tri(chol(mat), diag=TRUE)
 }
 
@@ -42,7 +42,10 @@ nMm2par <- function(obj,
 	  p, #dimension
 	  model, #model name
 	  w <- switch(trafo, #weights either logit or centered log ratio
-		    "logit" = ,
+		    "logit" = {
+			    w <- w/sum(w) #necessary?
+			    wlog <- log(w/(1+w))[-1L]
+		    },
 
 		    "clr1" = {
 			    lw <- log(w)
@@ -58,7 +61,7 @@ nMm2par <- function(obj,
 
 			  "VII" = sig[1,1,],
 
-			  "EEI" = dtv(sig[,,1]),
+			  "EEI" = diag(sig[,,1]),
 
 			  "VEI" = c( sig[1,1,]/min(sig[1,1,]), sig[,,1]*min(sig[1,1,])/sig[1,1,1] ),
 			  
@@ -66,7 +69,7 @@ nMm2par <- function(obj,
 
 			  "VVI" = ,
 
-			  "EEE" = ,
+			  "EEE" = udtv(sig[,,1]),
 
 			  "EVE" = ,
 
@@ -82,9 +85,38 @@ nMm2par <- function(obj,
 
 			  "VVV" = {S <- matrix(p*(p+1L),k)
 			  	for (i in 1:k){
-					S[,i] <- dtv(sig[,,i])
+					S[,i] <- udtv(sig[,,i])
 				}
 			  }
+
+			  stop("invalid argument in 'model'")
 			  )
 	)
 }
+
+
+
+
+par2nMm <- function(p,  ??){
+
+	##
+	##
+
+	k <- p[1L]
+	p <- p[2L]
+	model <- p[3L]
+
+	w <- switch(trafo,
+		    "plogit" = ,
+
+		    "clr1" = 
+		    )
+
+	mu <- matrix(0, c(p,k))
+
+	for (i in 1:k){
+		mu[,i] <- p[(3L+i*p):(2L+(i+1L)*p)]
+	}
+
+
+
