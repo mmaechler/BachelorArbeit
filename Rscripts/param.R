@@ -5,11 +5,11 @@
 ## a way to make upper/lower triangular matrix into vector without lower/upper half
 
 # suppose l is a matrix:
-l.index <- upper.tri(l, diag=TRUE)
-x <- l[l.index==TRUE]
+#l.index <- upper.tri(l, diag=TRUE)
+#x <- l[l.index==TRUE]
 
 #reverse
-l[upper.tri(l, diag=TRUE)==TRUE] <- x
+#l[upper.tri(l, diag=TRUE)==TRUE] <- x
 
 ## works
 
@@ -42,13 +42,13 @@ nMm2par <- function(obj,
 	  p, #dimension
 	  model, #model name
 	  w <- switch(trafo, #weights either logit or centered log ratio
-		    "logit" = 
+		    "logit" = ,
 
 		    "clr1" = {
 			    lw <- log(w)
 			    lp <- lw - mean(lw)
 			    lp
-		    	     }
+		    	     },
 
 		    stop("invalid argument trafo, ",trafo)
 		    ),
@@ -78,9 +78,13 @@ nMm2par <- function(obj,
 
 			  "VEV" = ,
 
-			  "EVV" = ,
+			  #"EVV" = ,same as VVV
 
-			  "VVV" = 
+			  "VVV" = {S <- matrix(p*(p+1L),k)
+			  	for (i in 1:k){
+					S[,i] <- dtv(sig[,,i])
+				}
+			  }
 			  )
 	)
 }
