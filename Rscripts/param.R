@@ -61,13 +61,23 @@ nMm2par <- function(obj,
 
 			  "VII" = sig[1,1,],
 
-			  "EEI" = diag(sig[,,1]),
+			  "EEI" = {D <- diag(sig[,,1])
+			  	   alpha <- (prod(D)^(1/p))
+			  	   c(alpha, D)
+			  	  }
 
-			  "VEI" = c( sig[1,1,]/min(sig[1,1,]), sig[,,1]*min(sig[1,1,])/sig[1,1,1] ),
+			  "VEI" = {alpha <- apply(sig, 3, function(j) prod(diag(j))^(1/p) )
+			  	   D <- diag(sig[,,1])/alpha[1]
+			  	   c(alpha, D)
+				  },
 			  
-			  "EVI" = ,
+			  "EVI" = {alpha <- prod(diag(sig[,,1]))^(1/p)
+			  	   D <- apply(sig,3,diag) # need to divide by alpha
+			  	   c(alpha,D)
+			  	  },
 
-			  "VVI" = ,
+			  "VVI" = {alpha <- apply(sig, 3, function(j) det(j)^(1/p)) 
+			  	   D <- apply(), # need to divide by alpha
 
 			  "EEE" = udtv(sig[,,1]),
 
@@ -87,7 +97,7 @@ nMm2par <- function(obj,
 			  	for (i in 1:k){
 					S[,i] <- udtv(sig[,,i])
 				}
-			  }
+			  },
 
 			  stop("invalid argument in 'model'")
 			  )
@@ -97,7 +107,7 @@ nMm2par <- function(obj,
 
 
 
-par2nMm <- function(p,  ??){
+par2nMm <- function(p){
 
 	##
 	##
@@ -117,6 +127,12 @@ par2nMm <- function(p,  ??){
 	for (i in 1:k){
 		mu[,i] <- p[(3L+i*p):(2L+(i+1L)*p)]
 	}
+
+
+	Sigma <- switch()
+
+
+}
 
 
 
