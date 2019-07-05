@@ -12,9 +12,9 @@ nMm2par: almost complete
 
 missing:
 
-*not all model cases written
+* not all model cases written
 
-*not tested for correctness
+* not tested for correctness
 
 par2nMm: empty
 
@@ -24,4 +24,4 @@ norMmix: almost complete
 
 missing:
 
-*functionality for model cases
+* functionality for model cases
