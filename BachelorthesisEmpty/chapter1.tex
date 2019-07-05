@@ -1,0 +1,42 @@
+\chapter{The Künsch Estimator}% Umlaute work thanks to \inputencoding{..} % in main file
+
+\section{Citation etc (Erster Abschnitt / First Section)}
+Put a text between quotes: make sure to use nice quotes, such as ``quote''.
+
+Cite an article or book you refer shortly here, and then listed in the bibliography: \cite{ReferenceKey}. 
+%%--> in file   myReferences.bib  (same directory)
+Or mention that \citeauthor{HamF85} (a person) or \citeauthor{StaWW91} (two
+persons) have already done quite a bit work.
+
+Referencing a different part of your work: please refer to Appendix \ref{app:complement}.
+
+\section{Including a figure/picture ($=$ 2nd Section)}
+
+Wie man in Figur~\ref{fig:geys1} sieht, geht das so ---
+As you see in Figure~\ref{fig:geys1}, \dots :
+
+\begin{figure}[hbt!]%--- A picture 'H'ere, 'B'ottom or 'T'op | ``!'' ich WANT!
+  %% File original is /u/maechler/R/Pkgs/WpDensity/Old-S3-etc/geys-2kern.ps}
+  \epsfCfile{.85}{geys-2kern} %<< no file extension
+  %%         --- d.h.  85% of normal text width (Text-Breite)
+  \caption[Geyser data: binned histogram, Silverman's and another
+  kernel]%<<-- Legende für 'List of Figures'  (ohne ``[..]'': 2x dasselbe).
+  {Old Faithful Geyser eruption lengths, $n=272$; binned
+    data and 
+    two (Gaussian) kernel density estimates ($\times 10$) with $h=h^*= .3348$
+    and $h= .1$ (dotted).}% eigentliche Bild-Legende.
+  \label{fig:geys1}
+\end{figure}
+Now we \emph{proof} something really hard
+((Jetzt beweisen wir noch etwas Schwieriges)) \dots
+
+\begin{proof}
+  $1 + 1 = 2$
+\end{proof}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "BachelorThesis-Engl"
+%%% End: 

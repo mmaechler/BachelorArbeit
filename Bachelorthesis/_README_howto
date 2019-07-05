@@ -1,0 +1,16 @@
+don't touch anything with .sty extension. They're style documents.
+
+write into chapter'%d'.tex documents
+
+do file searches for 'placeholder', the comments will tell you what to fill in
+do file searches for 'outcommented', remove '%' as soon as you've written the corresponding texts
+
+possible errors:
+
+compilation gives output of the form:
+I couldn't open style file chicago.bst
+---line 2 of file test.aux
+ : \bibstyle{chicago
+ :                      }
+make sure you have the corresponding files installed. On Linux for example
+install texlive-bibtex-extra
