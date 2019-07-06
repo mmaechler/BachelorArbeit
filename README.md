@@ -6,7 +6,7 @@ as of now tex documents are mostly layout and some typeface tests
 
 ## R Scripts
 
-status of R scripts:
+### status of R scripts:
 
 nMm2par: almost complete
 

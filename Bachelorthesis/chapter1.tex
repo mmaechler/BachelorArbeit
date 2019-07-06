@@ -1,3 +1,43 @@
-\chapter{placeholder}% Umlaute work thanks to \inputencoding{..} % in main file
+\chapter{Introduction to normal mixture models}% Umlaute work thanks to \inputencoding{..} % in main file
 
-placeholder
+here intro to normal mixtures
+
+explain in scetch EM algo
+
+explain idea to use parameter optimizer instead,
+EM has pathological insufficiencies, like 'getting stuck' for many iterations.
+we hope we need less iterations, and as concequence less time.
+'special' idea: using cholesky decomp.
+
+
+\section{choice of notation}
+
+describe difference in notation between ceuleux \& govaert and our covariance matrix decomposition.
+
+make clear that the models can not be translated one to one to ldlt model
+
+make nice table(maybe sideways to account for parameter list)
+
+
+\rotatebox{90}{
+	\begin{tabular}{c c c c c}
+		\hline
+		Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation \\
+		\hline
+
+		EII	& $ \alpha \pmb{I} $ & equal & & \\
+		VII	& $ \alpha_k \pmb{I} $ 		& variable & & \\
+		EEI	& $ \alpha \pmb{\Lambda} $ 	& equal & & \\
+		VEI	& $ \alpha_k \pmb{\Lambda} $ & variable && \\
+		EVI	& $ \alpha \pmb{\Lambda}_k $ &equal && \\
+		VVI	& $ \alpha_k \pmb{\Lambda}_k $ & variable && \\
+		EEE	& $ \alpha \pmb{Q \Lambda Q}^\top $ &equal && \\
+		EVE	& $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal && \\
+		VEE	& $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable && \\
+		VVE	& $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable && \\
+		EEV	& $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal && \\
+		VEV	& $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable && \\
+		EVV	& $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ &equal && \\
+		VVV	& $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $&variable &&
+	\end{tabular}
+	}

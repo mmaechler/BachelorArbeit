@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.7)  5 JUL 2019 14:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.7)  5 JUL 2019 22:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -772,20 +772,20 @@ File: lstlang3.sty 2015/06/04 1.6 listings language file
 (./BachelorThesis-Engl.aux (./chapter1.aux) (./chapter2.aux))
 \openout1 = `BachelorThesis-Engl.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 114.
-LaTeX Font Info:    ... okay on input line 114.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 116.
+LaTeX Font Info:    ... okay on input line 116.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -802,7 +802,7 @@ LaTeX Font Info:    ... okay on input line 114.
 \everyMPtoPDFconversion=\toks32
 )
 \AtBeginShipoutBox=\box35
-Package hyperref Info: Link coloring ON on input line 114.
+Package hyperref Info: Link coloring ON on input line 116.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
@@ -811,9 +811,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count133
 )
-LaTeX Info: Redefining \ref on input line 114.
-LaTeX Info: Redefining \pageref on input line 114.
-LaTeX Info: Redefining \nameref on input line 114.
+LaTeX Info: Redefining \ref on input line 116.
+LaTeX Info: Redefining \pageref on input line 116.
+LaTeX Info: Redefining \nameref on input line 116.
 
 (./BachelorThesis-Engl.out) (./BachelorThesis-Engl.out)
 \@outlinefile=\write3
@@ -845,15 +845,15 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
 )
 \c@lstlisting=\count134
 
-Underfull \hbox (badness 10000) in paragraph at lines 134--134
+Underfull \hbox (badness 10000) in paragraph at lines 136--136
 
  []
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 134.
+LaTeX Font Info:    Try loading font information for U+msa on input line 136.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 134.
+LaTeX Font Info:    Try loading font information for U+msb on input line 136.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -889,99 +889,106 @@ Overfull \vbox (7.17722pt too high) has occurred while \output is active []
 
  (./chapter1.tex
 Chapter 1.
-) [1
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1
 
 
 ]
+[2]
 \openout2 = `chapter2.aux'.
 
- (./chapter2.tex [2
-
-
-
-]
+ (./chapter2.tex
 Chapter 2.
-) [3] (./BachelorThesis-Engl.bbl [4
+) [3
+
+
+
+] (./BachelorThesis-Engl.bbl [4
 
 
 ]) [5] [6
 
 ]
-<confirmation-originality-scan.pdf, id=83, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=91, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
 Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
-04.
+06.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
 Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
-04.
+06.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 
-<confirmation-originality-scan.pdf, id=86, page=1, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=94, page=1, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 204.
-(pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
-File: confirmation-originality-scan.pdf Graphic file (type pdf)
-
-<use confirmation-originality-scan.pdf, page 1>
-Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 204.
+ line 206.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 204.
+ line 206.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 204.
+ line 206.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 204.
+ line 206.
+(pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
+File: confirmation-originality-scan.pdf Graphic file (type pdf)
+
+<use confirmation-originality-scan.pdf, page 1>
+Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
+ line 206.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
  [7 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 205.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 205.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 207.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 207.
  (./BachelorThesis-Engl.aux
 (./chapter1.aux) (./chapter2.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 205.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 205.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 207.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 207.
 Package rerunfilecheck Info: File `BachelorThesis-Engl.out' has not changed.
-(rerunfilecheck)             Checksum: 3BBDCEDF71E86A601884194167F452CB;140.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 205.
+(rerunfilecheck)             Checksum: 20EE20BAE88208EAD9F5BCA4F8F7854B;230.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 207.
  ) 
 Here is how much of TeX's memory you used:
- 10380 strings out of 494953
- 141733 string characters out of 6180978
+ 10382 strings out of 494953
+ 141757 string characters out of 6180978
  287320 words of memory out of 5000000
- 13365 multiletter control sequences out of 15000+600000
+ 13366 multiletter control sequences out of 15000+600000
  46042 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  43i,20n,47p,297b,473s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/latxfont/linew10.pfb>
-Output written on BachelorThesis-Engl.pdf (13 pages, 538173 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/latxfont/linew10.pfb>
+Output written on BachelorThesis-Engl.pdf (13 pages, 568232 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
- 97 compressed objects within 1 object stream
- 24 named destinations out of 1000 (max. 500000)
- 45 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 144 PDF objects out of 1000 (max. 8388607)
+ 112 compressed objects within 2 object streams
+ 25 named destinations out of 1000 (max. 500000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

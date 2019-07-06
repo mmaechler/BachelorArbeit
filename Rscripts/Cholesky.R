@@ -22,9 +22,9 @@ ldl <- function(mat){
 }
 
 
-FF <- cbind( c(4.2,12,-16), c(12,37.07,-43), c(-16,-43,98.43) )
-FF
-ldl(FF)
+# FF <- cbind( c(4.2,12,-16), c(12,37.07,-43), c(-16,-43,98.43) )
+# FF
+# ldl(FF)
 # $L
 #      [,1] [,2] [,3]
 # [1,]    1    0    0
@@ -35,12 +35,12 @@ ldl(FF)
 # [1] 4 1 9
 # 
 
-system.time(  {for (i in 1:10000){ldl(FF)}}  )
+# system.time(  {for (i in 1:10000){ldl(FF)}}  )
 #    user  system elapsed 
 #   0.244   0.000   0.246 
 
 # with isSymmetric
-system.time(  {for (i in 1:10000){ldl(FF)}}  )
+# system.time(  {for (i in 1:10000){ldl(FF)}}  )
 #    user  system elapsed 
 #   2.236   0.000   2.235 
 
