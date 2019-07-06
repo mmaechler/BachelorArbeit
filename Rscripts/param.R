@@ -1,27 +1,18 @@
 #### functions handling parameter manipulation. par2nM nM2par etc
 
+### for info on models see Celeux and Govaert 1995
+
 
 source(file="Cholesky.R")
 
-## a way to make upper/lower triangular matrix into vector without lower/upper half
 
-# suppose l is a matrix:
-#l.index <- upper.tri(l, diag=TRUE)
-#x <- l[l.index==TRUE]
-
-#reverse
-#l[upper.tri(l, diag=TRUE)==TRUE] <- x
-
-## works
-
-
-#wrapper function for lower.tri to vector
-
+## map lower.tri to vec
 ld. <- function(mat){
 	x <- mat[lower.tri(mat, diag=FALSE)]
 	x
 }
 
+## map vec to lower.tri
 dl. <- function(d,x,p){
 	mat <- matrix(0,p,p)
 	mat[lower.tri(mat,diag=FALSE)==TRUE] <- x
@@ -37,6 +28,12 @@ nMm2par <- function(obj,
 		    model=c("EII","VII","EEI","VEI","EVI","VVI","EEE",
 		    "EVE","VEE","VVE","EEV","VEV","EVV","VVV")
 		    ){
+	#-------------------------------------------------
+	#
+	#
+	#
+	#
+	#-------------------------------------------------
 
 	#transferring values of obj to handier variables
 	sig <- obj$Sigma
@@ -94,49 +91,15 @@ nMm2par <- function(obj,
 			 	   D. <- D.temp %*% diag(1/alpha) # this is fastest?? https://stackoverflow.com/questions/20596433/how-to-divide-each-row-of-a-matrix-by-elements-of-a-vector-in-r
 				  },
 
-			  "EEE" = {A.temp <- ldl(sig)
-			  	   L <- A.temp$L
-			  	   D.temp <- A.temp$Diag
-				   D. <- D.temp/(lambda <- prod(D.temp)^(1/p))
-				   c( alpha, D., ld.(L) )
-				  },
+			  "EVV" = {alpha <- prod( ldl(sig[,,1])$Diag )^(1/p)
+			  	   D. <- apply(sig,3, function(j) ldl(j)$Diag/alpha)
+			  	   L. <- apply(sig,3, function(j) ld.( ldl(j)$L ))
+				   c(alpha, D., L.)},
 
-			  "EVE" = {A.temp <- ldl(sig[,,1])
-			  	   D.temp <- A.temp$Diag
-
-			  	   L <- A.temp$L
-				   alpha <- prod(D.temp)^(1/p)
-				   D. <- c( apply(sig,3, function(j) ldl(j)$Diag/alpha) )
-
-				   c( alpha, D., ld.(L) )
-			  	  },
-
-			  "VEE" = {alpha <- apply(sig,3, function(j) prod(ldl(j)$Diag)^(1/p))
-			  	   L <- ldl(sig[,,1])$L
-			  	   D. <- ldl(sig[,,1])/alpha[1]
-
-				   c(alpha, D., ld.(L))
-				  },
-
-			  "VVE" = {alpha <- apply(sig,3, function(j) prod(ldl(j)$Diag)^(1/p))
-			  	   L <- ldl(sig[,,1]$L)
-			  	   D.temp <- apply(sig,3, function(j) ldl(j)$Diag)
-				   D. <- D.temp %*% diag(1/alpha)
-
-				   c(alpha, D., ld.(L))
-				  },
-
-			  "EEV" = ,
-
-			  "VEV" = ,
-
-			  #"EVV" = ,same as VVV
-
-			  #"VVV" = {S <- matrix(p*(p+1L),k)
-#			  for (i in 1:k){
-#					S[,i] <- ldl(sig[,,i])$L
-#				}
-#			  },
+			  "VVV" = {alpha <- apply(sig,3, function(j) prod(ldl(j)$Diag )^(1/p))
+			  	   D. <- apply(sig,3, function(j) ldl(j)$Diag/alpha)
+			  	   L. <- apply(sig,3, function(j) ld.( ldl(j)$L ))
+			  	   c(alpha, D., L.)},
 
 			  stop("invalid argument in 'model'")
 			  )
