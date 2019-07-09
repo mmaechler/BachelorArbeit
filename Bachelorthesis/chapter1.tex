@@ -14,30 +14,90 @@ we hope we need less iterations, and as concequence less time.
 
 describe difference in notation between ceuleux \& govaert and our covariance matrix decomposition.
 
+explanation for the volume, shape and orientation descriptors
+
 make clear that the models can not be translated one to one to ldlt model
 
 make nice table(maybe sideways to account for parameter list)
 
 
-\rotatebox{90}{
-	\begin{tabular}{c c c c c}
+\begin{table}[h]
+	\centering
+\rotatebox{90}
+{
+	\begin{tabular}{| c | c c c c c c | c c c |}
 		\hline
-		Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation \\
+		Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation & parameters & count & $ \pmb{LDL}^\top $ & parameters & count \\
 		\hline
 
-		EII	& $ \alpha \pmb{I} $ & equal & & \\
-		VII	& $ \alpha_k \pmb{I} $ 		& variable & & \\
-		EEI	& $ \alpha \pmb{\Lambda} $ 	& equal & & \\
-		VEI	& $ \alpha_k \pmb{\Lambda} $ & variable && \\
-		EVI	& $ \alpha \pmb{\Lambda}_k $ &equal && \\
-		VVI	& $ \alpha_k \pmb{\Lambda}_k $ & variable && \\
-		EEE	& $ \alpha \pmb{Q \Lambda Q}^\top $ &equal && \\
-		EVE	& $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal && \\
-		VEE	& $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable && \\
-		VVE	& $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable && \\
-		EEV	& $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal && \\
-		VEV	& $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable && \\
-		EVV	& $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ &equal && \\
-		VVV	& $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $&variable &&
+		EII	& $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ 
+				& 1 & same as C\&G
+						& & \\
+
+		VII	& $ \alpha_k \pmb{I} $ 		& variable & equal & - & $ \alpha_k $ 
+				& $ K $ &
+					& & \\
+
+		EEI	& $ \alpha \pmb{\Lambda} $ 	& equal & equal & coordinate axes & $ \alpha, \lambda_i $ 
+				& $ 1+p $ &
+					& & \\
+
+		VEI	& $ \alpha_k \pmb{\Lambda} $ & variable & equal & coordinate axes & $ \alpha_k, \lambda_{i}$ 
+				& $ K+p $ &
+					& & \\
+
+		EVI	& $ \alpha \pmb{\Lambda}_k $ &equal & variable & coordinate axes & $ \alpha, \lambda_{i,k} $ 
+				& $ 1+pK $ &
+					& & \\
+
+		VVI	& $ \alpha_k \pmb{\Lambda}_k $ & variable & variable & coordinate axes & $ \alpha_k, \lambda_{i,k} $ 
+				& $ K+pK $ &
+					& & \\
+
+		\hline
+
+		EEE	& $ \alpha \pmb{Q \Lambda Q}^\top $ &equal & equal & equal & $ \alpha, \lambda_{i}, q_{i,j} $ 
+				& $ 1+p+p^2 $ & don't exist
+					& & \\
+
+		EVE	& $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & variable & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $ 
+				& $ 1+pK+p^2 $ &
+					& & \\
+
+		VEE	& $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ 
+				& $ K+p+p^2 $ &
+					& & \\
+					
+		VVE	& $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable & variable & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ 
+				& $ K+pK+p^2 $ &
+					& & \\
+
+		EEV	& $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ 
+				& $ 1+p+Kp^2 $ &
+					& & \\
+
+		VEV	& $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable & equal & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ 
+				& $ K+p+Kp^2 $ &
+					& & \\
+
+		\hline
+
+		EVV	& $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & variable & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ 
+				& $ 1+pK+Kp^2 $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ 
+					& $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $ \\
+
+		VVV	& $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & variable & variable & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ 
+				& $ K+pK+Kp^2 $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ 
+					& $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+pK+K\frac{p(p-1)}{2} $ \\
+
+		\hline
+
 	\end{tabular}
-	}
+
+	\label{table:1}
+
+}
+
+\caption{Table of Parameters}
+
+\end{table}

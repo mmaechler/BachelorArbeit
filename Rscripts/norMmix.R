@@ -1,4 +1,7 @@
-### the extra m stands for multivariate
+#### the extra m stands for multivariate
+
+
+
 
 
 ## norMmix constructor
@@ -18,6 +21,13 @@ Shilf <- function(L, p){ # help function for norMmix
 	return(Shilfarray)
 }
 
+
+
+
+
+
+
+
 hilf <- function(x, k){ # help function evals to true if x is sym pos def
 	for (i in 1:k){
 		if ( !(isSymmetric(x[,,i], tol=tole)&& is.positive.semi.definite(x[,,i],tol=tole)) )
@@ -25,6 +35,10 @@ hilf <- function(x, k){ # help function evals to true if x is sym pos def
 	}
 	return(TRUE)
 }
+
+
+
+
 
 
 
@@ -97,9 +111,18 @@ norMmix <- function(
 }
 
 
+
+
+
+
 is.norMmix <- function(obj){
 	inherits(obj, "norMmix")
 }
+
+
+
+
+
 
 mean.norMmix <- function(obj){
 	if (!is.norMmix(obj)) stop("object is not norMmix")
