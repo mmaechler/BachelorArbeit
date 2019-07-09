@@ -20,7 +20,11 @@ missing:
 
 * not tested for correctness
 
-par2nMm: begun
+par2nMm: almost complete
+
+missing:
+
+* not tested for correctness
 
 llnorMmix: begun
 
@@ -29,3 +33,5 @@ norMmix: almost complete
 missing:
 
 * functionality for model cases
+
+* now somewhat old now, not checked for coherence with the rest of the scripts
