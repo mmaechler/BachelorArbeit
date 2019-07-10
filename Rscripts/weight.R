@@ -2,6 +2,7 @@
 clr1 <- function(w) {
 
 	stopifnot(is.numeric(w) && all(w >= 0))
+
 	# calculate clr1
 	ln <- log(w)
 	res <- ln[-1L] - mean(ln)
@@ -11,6 +12,7 @@ clr1 <- function(w) {
 
 clr1inv <- function(p) {
 
+	if (length(p)==0) {return(c(1))}
 	stopifnot(is.numeric(p))
 	# calc weights
 	p1 <- exp(c(-sum(p), p))

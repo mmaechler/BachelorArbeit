@@ -26,7 +26,11 @@ missing:
 
 * not tested for correctness
 
-llnorMmix: begun
+llnorMmix: general structure in place
+missing:
+	* san checks
+
+	* testing for correctness
 
 norMmix: almost complete
 

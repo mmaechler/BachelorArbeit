@@ -65,9 +65,10 @@ nMm2par <- function(obj,
 
 			  "VII" = sig[1,1,],
 
-			  "EEI" = {D. <- diag(sig[,,1])
-			  	   alpha <- (prod(D.)^(1/p))
-			  	   c(alpha, D)
+			  "EEI" = {D.temp <- diag(sig[,,1])
+			  	   alpha <- (prod(D.temp)^(1/p))
+			  	   D. <- D.temp/alpha
+			  	   c(alpha, D.)
 			  	  },
 
 			  "VEI" = {alpha <- apply(sig, 3, function(j) prod(diag(j))^(1/p) )
@@ -83,6 +84,7 @@ nMm2par <- function(obj,
 			  "VVI" = {alpha <- apply(sig,3, function(j) det(j)^(1/p)) 
 			  	   D.temp <- apply(sig,3,diag)
 			 	   D. <- D.temp %*% diag(1/alpha) # this is fastest?? https://stackoverflow.com/questions/20596433/how-to-divide-each-row-of-a-matrix-by-elements-of-a-vector-in-r
+				   c(alpha,D.)
 				  },
 
 			  "EVV" = {alpha <- prod( ldl(sig[,,1])$Diag )^(1/p)
@@ -91,7 +93,8 @@ nMm2par <- function(obj,
 				   c(alpha, D., L.)},
 
 			  "VVV" = {alpha <- apply(sig,3, function(j) prod(ldl(j)$Diag )^(1/p))
-			  	   D. <- apply(sig,3, function(j) ldl(j)$Diag/alpha)
+			  	   D.temp <- apply(sig,3, function(j) ldl(j)$Diag)
+			  	   D. <- D.temp %*% diag(1/alpha)
 			  	   L. <- apply(sig,3, function(j) ld.( ldl(j)$L ))
 			  	   c(alpha, D., L.)},
 
@@ -99,6 +102,9 @@ nMm2par <- function(obj,
 			  )
 	)
 }
+
+
+
 
 
 
@@ -115,7 +121,8 @@ par2nMm <- function(par., p, k,
 	f <- k+p*k # start of Sigma/alpha
 	f1 <- f + k - 1L # end of alpha if variable
 
-	w.temp <- par.[1:(k-1)]
+	if (k ==1) {w.temp <- vector()}
+	else {w.temp <- par.[1:(k-1)]}
 	w <- switch(trafo,
 	"plogit" = {w.temp <- plogis(w.temp)
 		    if ((sp. <- sum(w.temp)) > 1) {
@@ -127,7 +134,7 @@ par2nMm <- function(par., p, k,
 	"clr1" = clr1inv(w.temp), 
 		    )
 
-	mu <- matrix(par[k:(k+p*k-1)], p, k)
+	mu <- matrix(par.[k:(k+p*k-1)], p, k)
 
 
 
@@ -188,14 +195,15 @@ par2nMm <- function(par., p, k,
 
 		 sig <- array(0, c(p,p,k))
 		 for (i in 1:k) {
-			 sig[,,i] <- dl.(D.temp[,i],L.temp[,i],p)
+			 sig[,,i] <- dl.(D.[,i],L.temp[,i],p)
 		 }
+		 sig
 		},
 		 
 
 	"VVV" = {lambda <- par.[f:f1]
 
-		 D.temp <- matrix(par.[f1+1:f1+p*k],p,k)
+		 D.temp <- matrix(par.[(f1+1):(f1+p*k)],p,k)
 
 		 D. <- D.temp %*% diag(lambda)
 
@@ -208,17 +216,22 @@ par2nMm <- function(par., p, k,
 
 		 sig <- array(0, c(p,p,k))
 		 for (i in 1:k) {
-			 sig[,,i] <- dl.(D.temp[,i],L.temp[,i],p)
+			 sig[,,i] <- dl.(D.[,i],L.temp[,i],p)
 		 }
+		 sig
 		},
 	stop("error in Sigma switch statement")
 	
 	)
 
 
-	list( w, mu, Sigma )
+	list( weight=w, mu=mu, Sigma=Sigma, k=k, dim=p )
 
 }
+
+
+
+
 
 
 

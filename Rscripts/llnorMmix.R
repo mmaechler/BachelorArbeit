@@ -4,9 +4,9 @@
 ## Author: Nicolas Trutmann 2019-07-06
 
 source(file="param.R")
+library(mixtools)
 
-
-llnorMmix <- function(par., p, k,
+llnorMmix <- function(par., x, p, k,
 		      trafo=c("clr1", "logit"),
 		      model=c("EII","VII","EEI","VEI",
 			      "EVI","VVI","EVV","VVV") ){
@@ -35,8 +35,8 @@ llnorMmix <- function(par., p, k,
 	nMmobj <- par2nMm(par., p, k,
 			  trafo=c("clr1", "logit"),
 			  model=c("EII","VII","EEI","VEI",
-				  "EVI","VVI","EVV","VVV")
-			  MLE=TRUE) {
+				  "EVI","VVI","EVV","VVV"),
+			  MLE=TRUE) 
 
 	# 3. calc log-lik
 
@@ -44,9 +44,14 @@ llnorMmix <- function(par., p, k,
 	mu <- nMmobj$mu
 	sig <- nMmobj$Sig
 
-	asdfadsfasfd
+	y <- 0
+
+	for (i in 1:k) {
+		y <- y + w[i]*dmvnorm(x,mean=mu,Sigma=sig)
+	}
 
 	# 4. return
 
+	res <- sum(log(y))
 
 }

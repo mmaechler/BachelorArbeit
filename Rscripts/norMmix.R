@@ -3,7 +3,6 @@
 
 
 
-
 ## norMmix constructor
 
 tole <- 1000*.Machine$double.eps
@@ -44,10 +43,10 @@ hilf <- function(x, k){ # help function evals to true if x is sym pos def
 
 norMmix <- function(
 		    mu,
-		    sigma = abind( rep(list(diag(p)), k), along = 3),
+		    Sigma = abind( rep(list(diag(p)), k), along = 3),
 		    weight = rep(1/k, k),
-		    name = NULL
-#		    type = c("")
+		    name = NULL,
+		    model= c("EII","VII","EEI","VEI","EVI","VVI","EVV","VVV")
 		    )
 {
 	## Purpose: constructor for 'norMmix' (multivariate normix)
@@ -55,7 +54,7 @@ norMmix <- function(
 	## --------------------------------------------------------
 	## Arguments:
 	##	mu: matrix with columns as vector means of dist.
-	##	sigma: 	option 0: default, generates all identity
+	##	Sigma: 	option 0: default, generates all identity
 	##			covariance mat.
 	##		option 1: scalar, generates EII dist
 	##		option 2: vector of length k, generates VII
@@ -84,15 +83,15 @@ norMmix <- function(
 	}
 
 
-	#ispect sigma
-	if (!is.numeric(sigma)) stop("'sigma' must be numeric")
-	if (is.vector(sigma) && length(sigma)==1)
-		Sigma <- abind( rep(list(sigma*diag(p)), k), along = 3)
-	else if (is.vector(sigma) && length(sigma)==k)
-		Sigma <- Shilf(L=sigma, p=p) 
-	else if (is.array(sigma) && dim(sigma) == c(p,p,k))
-		Sigma <- sigma
-	else stop("'sigma not among recognized formats, see source code for help'")
+	#ispect Sigma
+	if (!is.numeric(Sigma)) stop("'Sigma' must be numeric")
+	if (is.vector(Sigma) && length(Sigma)==1)
+		Sigma <- abind( rep(list(Sigma*diag(p)), k), along = 3)
+	else if (is.vector(Sigma) && length(Sigma)==k)
+		Sigma <- Shilf(L=Sigma, p=p) 
+	else if (is.array(Sigma) && dim(Sigma) == c(p,p,k))
+		Sigma <- Sigma
+	else stop("'Sigma not among recognized formats, see source code for help'")
 	if (!hilf(Sigma,k)) stop("error with sym pos def Sigma")
 
 	#inspect weight
@@ -102,10 +101,13 @@ norMmix <- function(
 	if (!(all(weight >=0) && (sum(weight) - 1 < 1000*.Machine$double.eps)))
 		stop("weight doesn't sum to 1 or isn't positive")
 
+	if (missing(model)) {model <- "VVV"}
+	else {model <- match.arg(model)}
+
 	structure( name = name,
 		  class = "norMmix",
 		  .Data = list(mu = mu , Sigma = Sigma, weight = weight,
-		  		k=k, dim=p)
+		  		k=k, dim=p, model=model)
 	)
 
 }
