@@ -47,11 +47,12 @@ llnorMmix <- function(par., x, p, k,
 	y <- 0
 
 	for (i in 1:k) {
-		y <- y + w[i]*dmvnorm(x,mean=mu,Sigma=sig)
+		y <- y + w[i]*mvtnorm::dmvnorm(x,mean=mu[,i],sigma=sig[,,i])
 	}
 
 	# 4. return
 
 	res <- sum(log(y))
+	res
 
 }
