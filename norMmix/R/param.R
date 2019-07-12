@@ -2,13 +2,9 @@
 
 ### for info on models see Celeux and Govaert 1995
 
+#' @include Cholesky.R
+#' @include weight.R
 
-source(file="Cholesky.R")
-source(file="weight.R")
-
-# temp source file
-source(file="norMmix.R")
-source(file="zmarrwandnMm.R")
 
 ## map lower.tri to vec
 ld. <- function(mat){
@@ -30,23 +26,26 @@ dl. <- function(d,x,p){
 #'
 #' \code{nMm2par} returns vector of parameters of norMmix objects
 #'
-#' asdfasdf
+#' This transformation forms a vector from the parameters of a normal
+#' mixture. These consist of weights, means and covariance matrices.
+#' Weights are transformed according to 'trafo' param; means are 
+#' unchanged.
+#' Cov mats are given as D and L from the LDLt decomposition
 #'
 #' @param obj list containing sig= covariance matrix array, mu= mean vector matrix, w= weights, k= number of clusters, p= dimension
 #' @param trafo either "clr1" or "logit"
 #' @param model one of "asdf..."
+#' @examples
+#' A  <- MW2nm4
+#' nMm2par( A, trafo="clr1", model=A$model )
+#'
+#' @export
 
 nMm2par <- function(obj, 
 		    trafo=c("clr1", "logit"),
 		    model=c("EII","VII","EEI","VEI",
 			    "EVI","VVI","EVV","VVV")
 		    ){
-	#-------------------------------------------------
-	#
-	#
-	#
-	#
-	#-------------------------------------------------
 
 	#transferring values of obj to handier variables
 	sig <- obj$Sigma
@@ -116,7 +115,21 @@ nMm2par <- function(obj,
 
 
 
-
+#' transform of parameter vector to normal mixture
+#'
+#' \code{par2nMm} returns list containing weight, mu, Sigma, k, dim
+#'
+#' this is the inverse function to nMm2par. Given a numeric vector
+#' dimension and cluster number this function reconstructs a normal mixture
+#' object.
+#'
+#' @param par. numeric vector of parameters
+#' @param p dimension of space
+#' @param trafo either "clr1" or "logit"
+#' @param model See description 
+#' @param MLE boolean, TRUE if nonnegative entries are permitted in par.
+#' 
+#' @export
 
 par2nMm <- function(par., p, k,
 		    trafo=c("clr1", "logit"),

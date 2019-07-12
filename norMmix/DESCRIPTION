@@ -1,0 +1,25 @@
+Package: norMmix
+Title: Implementation MLE for multivariate normal distributions
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Nicolas",
+           family = "Trutmann",
+           role = c("aut", "cre"),
+           email = "nicolatr@student.ethz.ch",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+License: GPLv3
+Imports:
+    mvtnorm,
+    MASS
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1.9000
+Collate: 
+    'Cholesky.R'
+    'weight.R'
+    'param.R'
+    'llnorMmix.R'
+    'norMmix.R'
+    'norMmixMLE.R'
+    'zmarrwandnMm.R'
