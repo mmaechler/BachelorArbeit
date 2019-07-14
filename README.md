@@ -12,6 +12,8 @@ table of model
 
 ## R Scripts
 
+## /Rscripts is deprecated, relevant documents are in /norMmix
+
 ### status of R scripts:
 
 nMm2par: almost complete

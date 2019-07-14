@@ -6,7 +6,7 @@
 \usage{
 norMmix(mu, Sigma = abind(rep(list(diag(p)), k), along = 3),
   weight = rep(1/k, k), name = NULL, model = c("EII", "VII", "EEI",
-  "VEI", "EVI", "VVI", "EVV", "VVV"))
+  "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
 \arguments{
 \item{mu}{matrix of means}
@@ -20,5 +20,6 @@ norMmix(mu, Sigma = abind(rep(list(diag(p)), k), along = 3),
 \item{model}{see desc}
 }
 \description{
-\code{norMmix} returns structure containing defining parameters of a normal mixture
+\code{norMmix} returns structure containing defining parameters of a normal
+mixture
 }

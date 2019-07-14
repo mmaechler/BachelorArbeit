@@ -5,7 +5,7 @@
 \title{transform of parameter vector to normal mixture}
 \usage{
 par2nMm(par., p, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
-  "EEI", "VEI", "EVI", "VVI", "EVV", "VVV"), MLE = FALSE)
+  "EEI", "VEI", "EEE", "VEE", "EVI", "VVI", "EVV", "VVV"))
 }
 \arguments{
 \item{par.}{numeric vector of parameters}
@@ -15,8 +15,9 @@ par2nMm(par., p, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
 \item{trafo}{either "clr1" or "logit"}
 
 \item{model}{See description}
-
-\item{MLE}{boolean, TRUE if nonnegative entries are permitted in par.}
+}
+\value{
+returns this list: list(weight=w, mu=mu, Sigma=Sigma, k=k, dim=p)
 }
 \description{
 \code{par2nMm} returns list containing weight, mu, Sigma, k, dim

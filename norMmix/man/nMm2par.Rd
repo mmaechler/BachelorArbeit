@@ -5,7 +5,7 @@
 \title{normal multivariate mixture model to parameter for MLE}
 \usage{
 nMm2par(obj, trafo = c("clr1", "logit"), model = c("EII", "VII", "EEI",
-  "VEI", "EVI", "VVI", "EVV", "VVV"))
+  "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
 \arguments{
 \item{obj}{list containing sig= covariance matrix array, mu= mean vector matrix, w= weights, k= number of clusters, p= dimension}
