@@ -25,3 +25,5 @@ Collate:
     'norMmixEM.R'
     'norMmixMLE.R'
     'zmarrwandnMm.R'
+Suggests: 
+    testthat (>= 2.1.0)
