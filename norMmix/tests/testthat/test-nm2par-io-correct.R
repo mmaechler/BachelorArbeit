@@ -50,7 +50,7 @@ test_that("test wrong inputs in mu", {
 		  expect_error(nMm2par(o1, trafo=tr,model=o1$model))
 
 		  o1$mu <- cbind( c(0,0),c(0,NA) )
-		  expect_warning(nMm2par(o1, trafo=tr,model=o1$model))
+		  expect_error(nMm2par(o1, trafo=tr,model=o1$model))
 })
 
 

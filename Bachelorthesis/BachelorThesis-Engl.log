@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.7)  11 JUL 2019 09:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.7)  17 JUL 2019 21:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -889,31 +889,32 @@ Overfull \vbox (7.17722pt too high) has occurred while \output is active []
 
  (./chapter1.tex
 Chapter 1.
+[1
 
-LaTeX Warning: Float too large for page by 82.26279pt on input line 111.
+
+]
+
+LaTeX Warning: Float too large for page by 82.26279pt on input line 127.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [1
-
-
-] [2]
+) [2] [3]
 \openout2 = `chapter2.aux'.
 
- (./chapter2.tex
-Chapter 2.
-) [3
+ (./chapter2.tex [4
 
 
-
-] (./BachelorThesis-Engl.bbl [4
-
-
-]) [5] [6
 
 ]
-<confirmation-originality-scan.pdf, id=95, 597.432pt x 845.07718pt>
+Chapter 2.
+) [5] (./BachelorThesis-Engl.bbl [6
+
+
+]) [7] [8
+
+]
+<confirmation-originality-scan.pdf, id=107, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
@@ -927,7 +928,7 @@ Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
 15.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 
-<confirmation-originality-scan.pdf, id=98, page=1, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=110, page=1, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
@@ -958,7 +959,7 @@ File: confirmation-originality-scan.pdf Graphic file (type pdf)
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
  line 215.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
- [7 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
+ [9 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 216.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 216.
  (./BachelorThesis-Engl.aux
@@ -970,28 +971,31 @@ Package rerunfilecheck Info: File `BachelorThesis-Engl.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 216.
  ) 
 Here is how much of TeX's memory you used:
- 10386 strings out of 494953
- 141804 string characters out of 6180978
- 294320 words of memory out of 5000000
+ 10388 strings out of 494953
+ 141816 string characters out of 6180978
+ 293320 words of memory out of 5000000
  13368 multiletter control sequences out of 15000+600000
  46042 words of font info for 94 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  43i,20n,47p,297b,473s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/lat
-xfont/linew10.pfb>
-Output written on BachelorThesis-Engl.pdf (13 pages, 583831 bytes).
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/latxfont/linew1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
+.pfb>
+Output written on BachelorThesis-Engl.pdf (15 pages, 606473 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 118 compressed objects within 2 object streams
- 27 named destinations out of 1000 (max. 500000)
+ 171 PDF objects out of 1000 (max. 8388607)
+ 133 compressed objects within 2 object streams
+ 29 named destinations out of 1000 (max. 500000)
  53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

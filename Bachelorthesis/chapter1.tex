@@ -4,10 +4,26 @@ here intro to normal mixtures
 
 A good and thorough introductory book is the work of McLachlan and Peel 2000 and
 the reader is encouraged to study that to learn in depth about normal mixtures. 
-We will here give a short explanation about normal mixtures to fix notation and nomenclature.
+We will here give a short overwiev of normal mixtures to fix notation and nomenclature.
+
+Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ and 
+$ \phi(\mu, \Sigma) $ be the normal distribution with
+mean $ \mu $ and covariance matrix $ \Sigma $.
+
+Normal mixture model are designed for situations where we assume that a given 
+dataset originates from more than one population of explaining variables.
+
+$ \pmb{Y}_1, \dots , \pmb{Y}_n $
 
 \begin{definition}
-	asdf
+	Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $ with 
+	probability density function $ \pmb{Y}_j \sim f(y_j) $ on $\mathbb{R}^p$
+	We assume that the density $ f(y_j) $ of $ \pmb{Y}_j $ can be written in
+	the form 
+
+	\[ f(y_j) = \sum_{i=1}^{K} \pi_i \phi_i (y_i) \]
+
+	The $ \pi_i $ are called the component densities of the mixture.
 \end{definition}
 
 explain in scetch EM algo
