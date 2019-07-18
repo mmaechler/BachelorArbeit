@@ -27,6 +27,105 @@ test_that("io test using MWnm", {
 		  expect_equal(m$k,b$k)
 		  expect_equal(m$dim,b$dim)
 
+		  m <- MW2nm4
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW2nm1.2
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW2nm5
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW26
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW27
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW28
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW29
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW210
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW211
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW212
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
+		  m <- MW213
+		  a <- n2p(m)
+		  b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+		  expect_equal(m$weight,b$weight)
+		  expect_equal(m$mu,b$mu)
+		  expect_equal(m$Sigma[,,1],b$Sigma[,,1])
+		  expect_equal(m$k,b$k)
+		  expect_equal(m$dim,b$dim)
+
 
 
 

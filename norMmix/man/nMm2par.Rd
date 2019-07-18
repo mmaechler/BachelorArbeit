@@ -29,3 +29,6 @@ A  <- MW2nm4
 nMm2par( A, trafo="clr1", model=A$model )
 
 }
+\seealso{
+n2p
+}

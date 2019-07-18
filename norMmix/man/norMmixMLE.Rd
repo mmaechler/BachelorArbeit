@@ -19,3 +19,7 @@ norMmixMLE(x, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
 \description{
 \code{norMmixMLE} returns fitted nMm obj
 }
+\details{
+Uses clara() and one M-step from EM-algorithm to initialize parameters
+after that uses general optimizer optim() to calculate ML.
+}

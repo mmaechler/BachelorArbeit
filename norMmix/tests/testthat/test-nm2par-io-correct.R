@@ -35,6 +35,85 @@ test_that("test length", {
 
 
 
+test_that("test if n2p(p2n()) == id ", {
+
+		  tr <- "clr1"
+		  m <- MW211
+		  l <- par211
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW212
+		  l <- par212
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW213
+		  l <- par213
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW26
+		  l <- par26
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW27
+		  l <- par27
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW28
+		  l <- par28
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW29
+		  l <- par29
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm1
+		  l <- par2nm1
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm1.2
+		  l <- par2nm1.2
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm2
+		  l <- par2nm2
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm4
+		  l <- par2nm4
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm5
+		  l <- par2nm5
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+})
+
+
+
 
 test_that("test wrong inputs in mu", {
 		  
