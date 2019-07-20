@@ -38,7 +38,37 @@ we hope we need less iterations, and as concequence less time.
 
 describe difference in notation between ceuleux \& govaert and our covariance matrix decomposition.
 
+The classification of models in this paper relies heavily on the work of Celeux and Grovaert,
+however, out of necessity for clarity, we break with their notation. 
+So as to not confuse the reader we describe here in depth the differences in notation
+between Celeux and Govaert and ours.
+
 explanation for the volume, shape and orientation descriptors
+
+The basis of classification in CnG is the decomposition of a symmetric matrix into
+an orthogonal and a diagonal component.
+A symmetric positive definite matrix $ \Sigma $ can be decomposed as follows
+\[ \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} \]
+with $ \pmb{D} $ an orthogonal matrix and $ \pmb{A} $ a diagonal matrix and 
+$ \lambda = \sqrt[\uproot{3}p]{det(\Sigma)} $ the $ p-th $ root of the determinant 
+of $ \Sigma $.
+
+This decomposition has an appealing geometric interpretation, with $ \pmb{D} $ 
+as the \textit{orientation} of the distribution, $ \pmb{A} $ the \textit{shape}, and $ \lambda $
+the \textit{volume}.
+The problem of notation comes from standard conventions in linear algebra, where
+the letters $A$ and $D$ are usually occupied by arbytrary and diagonal matrices 
+respectively. Furthermore, we intend to apply a variant of the Cholesky decomposition
+to $ \Sigma $, the $ \pmb{L}\pmb{D}\pmb{L}^{\top} $ decomposition.
+This obviously raises some conflicts in notation.
+
+Therefore we, from here on, when reffering to the decomposition as described
+by cng, will use the following modification of notation:
+
+\begin{align*} 
+	\pmb{D} \longmapsto \pmb{Q} \\
+	\pmb{A} \longmapsto \pmb{D} 
+\end{align*}
 
 make clear that the models can not be translated one to one to ldlt model
 
