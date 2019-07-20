@@ -30,6 +30,31 @@ test_that("test length", {
 		  expect_equal(length(t12),12)
 		  t13 <- nMm2par(MW213, trafo=tra, model=MW213$model)
 		  expect_equal(length(t13),13)
+		  
+		  
+		  tra <- "logit"
+		  t1 <- nMm2par(MW2nm1, trafo=tra, model=MW2nm1$model)
+		  expect_equal(length(t1),3)
+		  t2 <- nMm2par(MW2nm2, trafo=tra, model=MW2nm2$model)
+		  expect_equal(length(t2),11)
+		  t4 <- nMm2par(MW2nm4, trafo=tra, model=MW2nm4$model)
+		  expect_equal(length(t4),7)
+		  t6 <- nMm2par(MW26, trafo=tra, model=MW26$model)
+		  expect_equal(length(t6),8)
+		  t7 <- nMm2par(MW27, trafo=tra, model=MW27$model)
+		  expect_equal(length(t7),9)
+		  t8 <- nMm2par(MW28, trafo=tra, model=MW28$model)
+		  expect_equal(length(t8),15)
+		  t9 <- nMm2par(MW29, trafo=tra, model=MW29$model)
+		  expect_equal(length(t9),11)
+		  t10 <- nMm2par(MW210, trafo=tra, model=MW210$model)
+		  expect_equal(length(t10),9)
+		  t11 <- nMm2par(MW211, trafo=tra, model=MW211$model)
+		  expect_equal(length(t11),10)
+		  t12 <- nMm2par(MW212, trafo=tra, model=MW212$model)
+		  expect_equal(length(t12),12)
+		  t13 <- nMm2par(MW213, trafo=tra, model=MW213$model)
+		  expect_equal(length(t13),13)
 })
 
 
@@ -106,6 +131,81 @@ test_that("test if n2p(p2n()) == id ", {
 
 		  m <- MW2nm5
 		  l <- par2nm5
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+
+
+		  tr <- "logit"
+		  m <- MW211
+		  l <- lpar211
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW212
+		  l <- lpar212
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW213
+		  l <- lpar213
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW26
+		  l <- lpar26
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW27
+		  l <- lpar27
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW28
+		  l <- lpar28
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW29
+		  l <- lpar29
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm1
+		  l <- lpar2nm1
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm1.2
+		  l <- lpar2nm1.2
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm2
+		  l <- lpar2nm2
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm4
+		  l <- lpar2nm4
+		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
+			       trafo=tr,model=m$model)
+		  expect_equal(k,l)
+
+		  m <- MW2nm5
+		  l <- lpar2nm5
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)

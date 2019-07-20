@@ -40,6 +40,15 @@ test_that("VII test", {
 		  ret <- llnorMmix(par., x, p, k, trafo=tr, model=m)
 #		  expect_equal(ret,
 
+		  par. <- c(0,0,0,1,1,0,log(2))
+		  x <- cbind(c(0,0), c(1,1), c(-1,-1))
+		  p <- 2
+		  k <- 2
+		  
+		  ret <- llnorMmix(par., x, p, k, trafo=tr, model=m)
+		  expval <- 0.5*exp( -0.5*p*(log(2*pi)) -0.5*c(2,0,2)) + 0.5*exp( -0.5*p*(log(2*pi)+ log(2)) -0.5*c(0,4,16) )
+		  expect_equal(ret, sum(log(expval)))
+
 
 
 })
