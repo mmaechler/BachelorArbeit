@@ -20,7 +20,7 @@ test_that("EII test", {
 		  k <- 1
 		  
 		  ret <- llnorMmix(par., x, p, k, trafo=tr, model=m)
-		  expect_equal(ret, 2*(-log(2*pi)- 0.5*log(4)) -2)
+		  expect_equal(ret, 2*(-log(2*pi)- 0.5*log(4)) -0.5*1)
 
 
 
@@ -32,21 +32,13 @@ test_that("VII test", {
 		  tr <- "clr1"
 		  m <- "VII"
 
-		  par. <- c(0,0,0,0,log(2))
-		  x <- rbind(c(0,0), c(1,1))
-		  p <- 2
-		  k <- 2
-		  
-		  ret <- llnorMmix(par., x, p, k, trafo=tr, model=m)
-#		  expect_equal(ret,
-
 		  par. <- c(0,0,0,1,1,0,log(2))
 		  x <- cbind(c(0,0), c(1,1), c(-1,-1))
 		  p <- 2
 		  k <- 2
 		  
 		  ret <- llnorMmix(par., x, p, k, trafo=tr, model=m)
-		  expval <- 0.5*exp( -0.5*p*(log(2*pi)) -0.5*c(2,0,2)) + 0.5*exp( -0.5*p*(log(2*pi)+ log(2)) -0.5*c(0,4,16) )
+		  expval <- 0.5*exp( -0.5*p*(log(2*pi)) -0.5*c(0,2,2)) + 0.5*exp( -0.5*p*(log(2*pi)+ log(2)) -0.5*c(1,0,4) )
 		  expect_equal(ret, sum(log(expval)))
 
 

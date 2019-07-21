@@ -67,8 +67,16 @@ by cng, will use the following modification of notation:
 
 \begin{align*} 
 	\pmb{D} \longmapsto \pmb{Q} \\
-	\pmb{A} \longmapsto \pmb{D} 
+	\pmb{A} \longmapsto \pmb{\Lambda} \\
+	\lambda \longmapsto \alpha  \\
+	\Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} =
+		\alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^{\top}
 \end{align*}
+
+These were chosen according to general conventions of linear algebra.
+$ \pmb{Q} $ is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is 
+often a choice for eigen vectors and $ \alpha $ was somewhat arbitrarily chosen.
+
 
 make clear that the models can not be translated one to one to ldlt model
 
@@ -155,3 +163,6 @@ make nice table(maybe sideways to account for parameter list)
 \caption{Table of Parameters}
 
 \end{table}
+
+
+\section{problems of EM}
