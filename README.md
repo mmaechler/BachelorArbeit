@@ -16,28 +16,16 @@ table of model
 
 ### status of R scripts:
 
-nMm2par: almost complete
+nMm2par: complete
 
-missing:
+par2nMm: complete
 
-* not tested for correctness
+llnorMmix: complete
 
-par2nMm: almost complete
+norMmix: complete
 
-missing:
+norMmixMLE: work in progress
 
-* not tested for correctness
+* test for correctness
 
-llnorMmix: general structure in place
-missing:
-	* san checks
-
-	* testing for correctness
-
-norMmix: almost complete
-
-missing:
-
-* functionality for model cases
-
-* now somewhat old now, not checked for coherence with the rest of the scripts
+* what parameters for optim
