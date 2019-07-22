@@ -5,8 +5,7 @@
 \title{Log-likelihood of parameter vector given data}
 \usage{
 llnorMmix(par., x, p, k, trafo = c("clr1", "logit"), model = c("EII",
-  "VII", "EEI", "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"),
-  MLE = FALSE)
+  "VII", "EEI", "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
 \arguments{
 \item{par.}{parameter vector}
