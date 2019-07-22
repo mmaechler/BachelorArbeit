@@ -109,7 +109,55 @@ test_that("EEE llnorMmix against llmvtnorm", {
 		  mo <- "EEE"
 
 		  par. <- par210
-		  x <- rnorMmix(MW210, n= 6)
+		  x <- rnorMmix(MW210)
+		  p <- 2
+		  k <- 2
+
+		  retnMm <- llnorMmix(par., x, p, k, trafo=tr, model=mo)
+		  retmvt <- llmvtnorm(par., x, p, k, trafo=tr, model=mo)
+
+		  expect_equal(retnMm,retmvt)
+})
+
+
+test_that("VEE llnorMmix against llmvtnorm", {
+		  tr <- "clr1"
+		  mo <- "VEE"
+
+		  par. <- par211
+		  x <- rnorMmix(MW211)
+		  p <- 2
+		  k <- 2
+
+		  retnMm <- llnorMmix(par., x, p, k, trafo=tr, model=mo)
+		  retmvt <- llmvtnorm(par., x, p, k, trafo=tr, model=mo)
+
+		  expect_equal(retnMm,retmvt)
+})
+
+
+test_that("EVV llnorMmix against llmvtnorm", {
+		  tr <- "clr1"
+		  mo <- "EVV"
+
+		  par. <- par212
+		  x <- rnorMmix(MW212)
+		  p <- 2
+		  k <- 2
+
+		  retnMm <- llnorMmix(par., x, p, k, trafo=tr, model=mo)
+		  retmvt <- llmvtnorm(par., x, p, k, trafo=tr, model=mo)
+
+		  expect_equal(retnMm,retmvt)
+})
+
+
+test_that("VVV llnorMmix against llmvtnorm", {
+		  tr <- "clr1"
+		  mo <- "VVV"
+
+		  par. <- par213
+		  x <- rnorMmix(MW213)
 		  p <- 2
 		  k <- 2
 
