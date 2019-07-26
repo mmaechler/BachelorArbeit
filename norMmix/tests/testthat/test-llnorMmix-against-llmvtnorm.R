@@ -9,7 +9,7 @@ test_that("EII llnorMmix against llmvtnorm", {
 		  mo <- "EII"
 
 		  par. <- par2nm1
-		  x <- rnorMmix(MW2nm1)
+		  x <- rnorMmix(obj=MW2nm1)
 		  p <- 2
 		  k <- 1
 
@@ -27,7 +27,7 @@ test_that("VII llnorMmix against llmvtnorm", {
 
 		  set.seed(2019)
 		  par. <- par2nm2
-		  x <- rnorMmix(MW2nm2)
+		  x <- rnorMmix(obj=MW2nm2)
 		  p <- 2
 		  k <- 3
 
@@ -45,7 +45,7 @@ test_that("EEI llnorMmix against llmvtnorm", {
 		  mo <- "EEI"
 
 		  par. <- par26
-		  x <- rnorMmix(MW26)
+		  x <- rnorMmix(obj=MW26)
 		  p <- 2
 		  k <- 2
 
@@ -61,7 +61,7 @@ test_that("VEI llnorMmix against llmvtnorm", {
 		  mo <- "VEI"
 
 		  par. <- par27
-		  x <- rnorMmix(MW27)
+		  x <- rnorMmix(obj=MW27)
 		  p <- 2
 		  k <- 2
 
@@ -77,7 +77,7 @@ test_that("EVI llnorMmix against llmvtnorm", {
 		  mo <- "EVI"
 
 		  par. <- par28
-		  x <- rnorMmix(MW28)
+		  x <- rnorMmix(obj=MW28)
 		  p <- 2
 		  k <- 3
 
@@ -93,7 +93,7 @@ test_that("VVI llnorMmix against llmvtnorm", {
 		  mo <- "VVI"
 
 		  par. <- par29
-		  x <- rnorMmix(MW29)
+		  x <- rnorMmix(obj=MW29)
 		  p <- 2
 		  k <- 2
 
@@ -109,7 +109,7 @@ test_that("EEE llnorMmix against llmvtnorm", {
 		  mo <- "EEE"
 
 		  par. <- par210
-		  x <- rnorMmix(MW210)
+		  x <- rnorMmix(obj=MW210)
 		  p <- 2
 		  k <- 2
 
@@ -125,7 +125,7 @@ test_that("VEE llnorMmix against llmvtnorm", {
 		  mo <- "VEE"
 
 		  par. <- par211
-		  x <- rnorMmix(MW211)
+		  x <- rnorMmix(obj=MW211)
 		  p <- 2
 		  k <- 2
 
@@ -141,7 +141,7 @@ test_that("EVV llnorMmix against llmvtnorm", {
 		  mo <- "EVV"
 
 		  par. <- par212
-		  x <- rnorMmix(MW212)
+		  x <- rnorMmix(obj=MW212)
 		  p <- 2
 		  k <- 2
 
@@ -157,7 +157,7 @@ test_that("VVV llnorMmix against llmvtnorm", {
 		  mo <- "VVV"
 
 		  par. <- par213
-		  x <- rnorMmix(MW213)
+		  x <- rnorMmix(obj=MW213)
 		  p <- 2
 		  k <- 2
 

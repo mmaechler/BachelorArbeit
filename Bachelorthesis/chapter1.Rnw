@@ -175,16 +175,19 @@ the EM algo has stalling problems especially close to a local optimum
 show an example using nor1mix
 
 
-\begin{Schunk}
-\begin{Sinput}
-> library("nor1mix")
-> set.seed(2019)
-> plot(MW.nm9, lty=2, col = "blue", p.norm=FALSE, p.comp=TRUE)
-> x9 <- rnorMix(5000, MW.nm9)
-> lines(density(x9), lwd=1.8)# "clearly" 3 components
-\end{Sinput}
-\end{Schunk}
-\includegraphics{chapter1-001}
+<<fig=TRUE>>=
+
+library("nor1mix")
+
+set.seed(2019)
+
+plot(MW.nm9, lty=2, col = "blue", p.norm=FALSE, p.comp=TRUE)
+
+x9 <- rnorMix(5000, MW.nm9)
+
+
+lines(density(x9), lwd=1.8)# "clearly" 3 components
+@
 
 
 then an illustration of MW examples of pathological cases

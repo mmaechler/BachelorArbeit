@@ -8,7 +8,7 @@ tr <- "clr1"
 mo <- "EVV"
 
 par. <- par212
-x <- rnorMmix(MW212)
+x <- rnorMmix(MW212, n=5000)
 p <- 2
 k <- 2
 
@@ -31,7 +31,7 @@ norMmixMLE( x, p=2, k=2, trafo="clr1", model="EVV" )
 
 
 par. <- par213
-x <- rnorMmix(MW213)
+x <- rnorMmix(MW213, n=10000)
 
 norMmixMLE( x, p=2, k=2, trafo="clr1", model="VVV" )
 
