@@ -4,7 +4,7 @@
 \alias{norMmixMLE}
 \title{Maximum likelihood Estimation for normal mixture models}
 \usage{
-norMmixMLE(x, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
+norMmixMLE(x, p, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
   "EEI", "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
 \arguments{
