@@ -64,73 +64,73 @@ test_that("test if n2p(p2n()) == id ", {
 
 		  tr <- "clr1"
 		  m <- MW211
-		  l <- par211
+		  l <- n2m(MW211)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW212
-		  l <- par212
+		  l <- n2m(MW212)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW213
-		  l <- par213
+		  l <- n2m(MW213)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW26
-		  l <- par26
+		  l <- n2m(MW26)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW27
-		  l <- par27
+		  l <- n2m(MW27)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW28
-		  l <- par28
+		  l <- n2m(MW28)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW29
-		  l <- par29
+		  l <- n2m(MW29)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm1
-		  l <- par2nm1
+		  l <- n2m(MW2nm1)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm1.2
-		  l <- par2nm1.2
+		  l <- n2m(MW2nm1.2)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm2
-		  l <- par2nm2
+		  l <- n2m(MW2nm2)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm4
-		  l <- par2nm4
+		  l <- n2m(MW2nm4)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm5
-		  l <- par2nm5
+		  l <- n2m(MW2nm5)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
@@ -139,73 +139,73 @@ test_that("test if n2p(p2n()) == id ", {
 
 		  tr <- "logit"
 		  m <- MW211
-		  l <- lpar211
+		  l <- ln2m(MW211)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW212
-		  l <- lpar212
+		  l <- ln2m(MW212)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW213
-		  l <- lpar213
+		  l <- ln2m(MW213)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW26
-		  l <- lpar26
+		  l <- ln2m(MW26)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW27
-		  l <- lpar27
+		  l <- ln2m(MW27)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW28
-		  l <- lpar28
+		  l <- ln2m(MW28)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW29
-		  l <- lpar29
+		  l <- ln2m(MW29)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm1
-		  l <- lpar2nm1
+		  l <- ln2m(MW2nm1)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm1.2
-		  l <- lpar2nm1.2
+		  l <- ln2m(MW2nm1.2)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm2
-		  l <- lpar2nm2
+		  l <- ln2m(MW2nm2)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm4
-		  l <- lpar2nm4
+		  l <- ln2m(MW2nm4)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)
 
 		  m <- MW2nm5
-		  l <- lpar2nm5
+		  l <- ln2m(MW2nm5)
 		  k <- nMm2par(par2nMm(l,m$dim,m$k,trafo=tr,m$model),
 			       trafo=tr,model=m$model)
 		  expect_equal(k,l)

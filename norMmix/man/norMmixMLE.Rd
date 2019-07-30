@@ -5,7 +5,8 @@
 \title{Maximum likelihood Estimation for normal mixture models}
 \usage{
 norMmixMLE(x, p, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
-  "EEI", "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
+  "EEI", "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"), maxiter = 100,
+  trace = 2, tol = sqrt(.Machine$double.eps))
 }
 \arguments{
 \item{x}{sample matrix}
