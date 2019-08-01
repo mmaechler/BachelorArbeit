@@ -9,7 +9,8 @@ norMmix(mu, Sigma = NULL, weight = rep(1/k, k), name = NULL,
   "EVV", "VVV"))
 }
 \arguments{
-\item{mu}{matrix of means}
+\item{mu}{matrix of means. should mu be a vector it will assume k=1
+to circumvent this behavoiur use as.matrix(mu) beforehand}
 
 \item{Sigma}{array of covariance matrices}
 

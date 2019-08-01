@@ -18,13 +18,13 @@ LazyData: true
 RoxygenNote: 6.1.1.9000
 Collate: 
     'Cholesky.R'
+    'norMmixEM.R'
+    'norMmixMLE.R'
+    'fit.R'
     'weight.R'
     'param.R'
     'llnorMmix.R'
     'norMmix.R'
-    'metrics.R'
-    'norMmixEM.R'
-    'norMmixMLE.R'
     'zmarrwandnMm.R'
 Suggests: 
     testthat (>= 2.1.0)
