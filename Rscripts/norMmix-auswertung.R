@@ -390,3 +390,466 @@ mean(asas)
 ## seems finding 1 cluster solution is very stable.
 ## always gives result between 6,7.
 ## still, mclust seems marginally better, and a _lot_ faster
+
+
+
+####
+#-------------------------------------------------------------------------------
+####
+# work on 2019-08-07
+####
+
+## speeding up llnorMmix
+
+## setup
+
+x <- rnorMmix(n=5000,MW26)
+
+clus <- cluster::clara(x=x, 20, rngR=T, pamLike=T, samples=10)
+index <- clus$clustering
+tau <- matrix(0,5000,20)
+tau[cbind(1:5000,index)] <- 1
+
+nMm.temp <- mstep.nMm(x, tau,20)
+# create par. vector out of m-step
+initpar. <- nMm2par(obj=nMm.temp, trafo="clr1", model="VVV")
+
+
+bench <- function() {
+    system.time( {
+        for (i in 1:100) {
+            llnorMmix(initpar., x, 2, 20, trafo="clr1", model="VVV")
+# [1] -23856.56
+        }
+    })
+}
+
+bench()
+#    user  system elapsed 
+#   0.564   0.000   0.562 
+
+D. <- matrix(runif(40), 2, 20)
+alpha <- runif(20)
+
+## this should be faster
+system.time({for (i in 1:1000) {invalpha <- 1/exp(D.+rep(alpha,each=2))}})
+#    user  system elapsed 
+#   0.004   0.000   0.006 
+
+
+system.time({for (i in 1:1000){for (j in 1:20){invalpha <- 1/exp(alpha[j]+D.[,j])}}})
+#    user  system elapsed 
+#   0.020   0.000   0.018 
+
+bench()
+#    user  system elapsed 
+#   0.564   0.000   0.563 
+#    user  system elapsed 
+#   0.568   0.000   0.570 
+#    user  system elapsed 
+#   0.744   0.000   0.746 
+
+## first execution seems slower than subsequent exs??
+
+
+
+## make substitution of assignment of D.
+## D. <- matrix(....
+## D. <- apply(D.,2, function(j) j-sum(j)/p)
+
+
+bench()
+#    user  system elapsed 
+#   0.588   0.000   0.597 
+#    user  system elapsed 
+#   0.580   0.000   0.585 
+#    user  system elapsed 
+#   0.576   0.000   0.576 
+#    user  system elapsed 
+#   0.856   0.004   0.868 
+
+## seems also slower
+
+bench()
+#    user  system elapsed 
+#   0.572   0.000   0.574 
+#    user  system elapsed 
+#   0.568   0.000   0.569 
+#    user  system elapsed 
+#   0.732   0.000   0.735 
+
+## as untangling code seems to be making things faster, I try to make 
+## j-sum(j)/p its own function
+
+bench()
+#    user  system elapsed 
+#   0.572   0.000   0.582 
+#    user  system elapsed 
+#   0.576   0.000   0.577 
+#    user  system elapsed 
+#   0.576   0.004   0.580 
+#    user  system elapsed 
+#   0.580   0.000   0.578 
+#    user  system elapsed 
+#   0.724   0.008   0.732 
+
+## doesn't work
+## changed back
+
+bench()
+#    user  system elapsed 
+#   0.568   0.000   0.566 
+#    user  system elapsed 
+#   0.564   0.004   0.568 
+#    user  system elapsed 
+#   0.568   0.000   0.565 
+#    user  system elapsed 
+#    0.56    0.00    0.56 
+#    user  system elapsed 
+#   0.704   0.000   0.707 
+#    user  system elapsed 
+#    0.58    0.00    0.58 
+
+## about the same
+
+## trying preallocating invl
+ans <- bench()
+#    user  system elapsed 
+#   0.584   0.000   0.585 
+#    user  system elapsed 
+#   0.580   0.004   0.593 
+#    user  system elapsed 
+#   0.596   0.000   0.597 
+#    user  system elapsed 
+#   0.728   0.000   0.728 
+
+## no
+
+
+## change bench function for better visibility of speed
+
+
+bench <- function() {
+    times <- vector("numeric", length(30:100))
+    for (k in 30:100) {
+        times[k-29] <- system.time( {
+            for (i in 1:k) {
+                llnorMmix(initpar., x, 2, 20, trafo="clr1", model="VVV")
+                # [1] -23856.56
+            }
+        })[[3]]
+        print(times[k-29])
+    }
+    return(times)
+}
+
+
+tre <- bench()
+plot(tre, type="l")
+
+## from now on tre is the mark to beat
+
+
+
+## can take L. <- diag(1,p) out of the loop, needs to be done only once
+
+rew1 <- bench()
+points(rew1, type="l", col="green")
+## about the same
+
+## try again to predo invalpha
+
+rew2 <- bench()
+points(rew2, type="l", col="red")
+## now we see it is about the same
+
+## weird spikes
+
+
+## try bytecomplile the function
+
+library(compiler)
+
+llnorcmp <- cmpfun(llnorMmix)
+
+
+benchcmp <- function() {
+    times <- vector("numeric", length(30:100))
+    for (k in 30:100) {
+        times[k-29] <- system.time( {
+            for (i in 1:k) {
+                llnorcmp(initpar., x, 2, 20, trafo="clr1", model="VVV")
+                # [1] -23856.56
+            }
+        })[[3]]
+        print(times[k-29])
+    }
+    return(times)
+}
+
+
+rew3 <- benchcmp()
+points(rew3, type="l", col="blue")
+## didn't help
+
+
+## tried make function out of backsolve part
+
+rew4 <- bench()
+points(rew4, type="l", col="gray")
+
+## does nothing
+
+
+## calculations
+
+tables <- cbind(30:100,tre)
+df <- data.frame(tables)
+colnames(df) <- c("iterations", "time")
+lmfit <- lm(time~iterations, df)
+lmfit
+# 
+# Call:
+# lm(formula = time ~ iterations, data = df)
+# 
+# Coefficients:
+# (Intercept)   iterations  
+#   -0.006563     0.005994  
+# 
+
+
+## after rm(list=ls()) somehow runs faster, does R save functions into local 
+## memory???
+
+## turns out I need to re-source bench() to get it to recognize llnorMmix
+## can redo all tests
+
+## substitution of assignment
+
+rew5 <- bench()
+points(rew5, type="l", col="purple")
+
+# maybe better? hard to tell, probably irrelevant
+
+
+## try byte compile again
+
+rew6 <- benchcmp()
+points(rew6, type="l", col="orange")
+
+## not significantly better
+
+
+
+
+## again quit R console and restarted it, all of a sudden numbers are
+## improved
+
+## now R starts with --vanilla argument, maybe that helps.
+
+## writing benchmark as it is now
+
+tre <- bench()
+tre
+#  [1] 0.333 0.179 0.180 0.190 0.195 0.206 0.216 0.214 0.221
+# [10] 0.226 0.231 0.235 0.245 0.246 0.257 0.263 0.263 0.269
+# [19] 0.278 0.281 0.326 0.294 0.300 0.303 0.307 0.317 0.319
+# [28] 0.321 0.324 0.333 0.339 0.347 0.360 0.358 0.366 0.366
+# [37] 0.374 0.392 0.387 0.436 0.399 0.399 0.410 0.421 0.417
+# [46] 0.422 0.428 0.440 0.437 0.450 0.450 0.466 0.461 0.464
+# [55] 0.517 0.481 0.482 0.487 0.502 0.496 0.508 0.517 0.538
+# [64] 0.521 0.533 0.533 0.576 0.546 0.549 0.548 0.564
+plot(tre, type="l")
+
+## this is a bit better than it was this morning
+
+
+
+system.time(for (l in 1:100) alpha <- par.[f:f2] )
+#    user  system elapsed 
+#   0.004   0.000   0.002 
+system.time(for (l in 1:100) D. <- apply(matrix(par.[f2.1:f22],p,k),2, function(j) j-sum(j)/p) )
+#    user  system elapsed 
+#   0.012   0.000   0.010 
+system.time(for (l in 1:100) invalpha <- (1/exp(rep(alpha, each=p)+D.)))
+#    user  system elapsed 
+#   0.004   0.000   0.004 
+system.time(for (l in 1:100) L.temp <- matrix(par.[f22.1:f221],p*(p-1)/2,k))
+#    user  system elapsed 
+#   0.004   0.000   0.004 
+system.time(for (l in 1:100) L. <- diag(1,p))
+#    user  system elapsed 
+#   0.000   0.000   0.002 
+for (i in 1:k) {
+ system.time(for (l in 1:100)    L.[lower.tri(L., diag=FALSE)] <- L.temp[,i])
+#    user  system elapsed 
+#   0.000   0.000   0.003 
+ system.time(for (l in 1:100)    rss <- colSums(invalpha[,i]*backsolve(L., (x-mu[,i]), upper.tri=FALSE)^2))
+#    user  system elapsed 
+#   0.008   0.000   0.007 
+ system.time(for (l in 1:100)    invl <- invl+w[i]*exp(-0.5*(p*(alpha[i]+l2pi)+rss)))
+#    user  system elapsed 
+#   0.004   0.000   0.006 
+}
+system.time(for (l in 1:100) sum(log(invl)))
+#    user  system elapsed 
+#   0.004   0.000   0.002 
+
+##
+
+
+
+        alpha <- par.[f:f2]
+        D. <- apply(matrix(par.[f2.1:f22],p,k),2, function(j) j-sum(j)/p)
+        invalpha <- (1/exp(rep(alpha, each=p)+D.))
+        L.temp <- matrix(par.[f22.1:f221],p*(p-1)/2,k)
+        L. <- diag(1,p)
+system.time(
+        for (l in 1:100) {
+            for (i in 1:k) {
+            L.[lower.tri(L., diag=FALSE)] <- L.temp[,i]
+            rss <- colSums(invalpha[,i]*backsolve(L., (x-mu[,i]), upper.tri=FALSE)^2)
+            invl <- invl+w[i]*exp(-0.5*(p*(alpha[i]+l2pi)+rss))
+        }})
+
+# user  system elapsed
+# 0.100   0.012   0.111
+        sum(log(invl))
+
+
+
+system.time( 
+
+    for (l in 1:100) {
+
+        alpha <- par.[f:f2]
+        D. <- apply(matrix(par.[f2.1:f22],p,k),2, function(j) j-sum(j)/p)
+        invalpha <- (1/exp(rep(alpha, each=p)+D.))
+        L.temp <- matrix(par.[f22.1:f221],p*(p-1)/2,k)
+        L. <- diag(1,p)
+        for (i in 1:k) {
+            L.[lower.tri(L., diag=FALSE)] <- L.temp[,i]
+            rss <- colSums(invalpha[,i]*backsolve(L., (x-mu[,i]), upper.tri=FALSE)^2)
+            invl <- invl+w[i]*exp(-0.5*(p*(alpha[i]+l2pi)+rss))
+        }
+        sum(log(invl))
+
+    })
+
+
+## try Rprof
+
+Rprof(file="profile.out", line.profiling=TRUE)
+        alpha <- par.[f:f2]
+        D. <- apply(matrix(par.[f2.1:f22],p,k),2, function(j) j-sum(j)/p)
+        invalpha <- (1/exp(rep(alpha, each=p)+D.))
+        L.temp <- matrix(par.[f22.1:f221],p*(p-1)/2,k)
+        L. <- diag(1,p)
+        for (i in 1:k) {
+            L.[lower.tri(L., diag=FALSE)] <- L.temp[,i]
+            rss <- colSums(invalpha[,i]*backsolve(L., (x-mu[,i]), upper.tri=FALSE)^2)
+            invl <- invl+w[i]*exp(-0.5*(p*(alpha[i]+l2pi)+rss))
+        }
+        sum(log(invl))
+
+Rprof(NULL)
+
+summaryRprof("profile.out", lines = "show")
+
+
+Rprof(file="profile.out", line.profiling="TRUE")
+eval(parse(file="~/ethz/BA/norMmix/R/llnorMmix.R", keep.source=TRUE))
+Rprof(NULL)
+summaryRprof("profile.out", lines= "show")
+
+
+## no clue what to do.
+## e-mail to Mächler??
+## tomorrows problem.
+
+
+####
+#-------------------------------------------------------------------------------
+####
+# work on 2019-08-09
+####
+# implement smaller parameters by using fewer params in D.
+
+
+## finally tests don't return errors
+## this has to be an error
+
+
+####
+#-------------------------------------------------------------------------------
+####
+# work on 2019-08-10
+####
+
+
+## fixed unrelated issue and all of a sudden all bugs are gone???
+
+## not gonna complain
+
+## random test as sanity check
+
+ansnmm <- fit.norMmix(x, k= 1:5, models=1:10,trafo="clr1", ini="cla")
+
+ansmcl <- mclust::Mclust(x, G=1:5, modelNames=models)
+
+diffbic <- ansnmm$BIC --ansmcl$BIC
+# Bayesian Information Criterion (BIC): 
+#             EII           VII        EEI        VEI        EVI
+# 1  2.910383e-10  2.910383e-10   0.000000   0.000000   0.000000
+# 2 -1.544405e+00 -4.805815e+00  -1.815754  -5.152510  -1.756925
+# 3 -1.280272e+01 -7.160097e+00 -15.053828  -6.772972 -10.997506
+# 4 -9.986395e+00 -5.756005e+00 -15.835385 -12.186757  -7.619998
+# 5 -8.631051e+00 -1.526588e+01 -14.627508 -13.272501 -13.462888
+#             VVI           EEE           VEE           EVV
+# 1  5.239697e-04  2.182787e-11  2.182787e-11  2.182787e-11
+# 2 -4.955601e+00 -1.918936e+00 -5.843762e+00 -4.231558e+00
+# 3 -9.309414e+00 -4.802646e+00 -3.740256e+00 -5.803574e+00
+# 4 -1.773906e+01 -8.903814e+00 -8.377495e+00 -1.135212e+01
+# 5 -1.829755e+01 -9.935866e+00 -1.106693e+01 -2.856427e+01
+#             VVV
+# 1  2.182787e-11
+# 2 -1.021222e+01
+# 3 -5.392810e+00
+# 4 -1.773004e+01
+# 5 -2.383822e+01
+
+## really good now
+
+mean(diffbic)
+# [1] -7.93045
+hist(diffbic)
+
+colSums(diffbic)
+#       EII       VII       EEI       VEI       EVI       VVI 
+# -32.96457 -32.98780 -47.33248 -37.38474 -33.83732 -50.30110 
+#       EEE       VEE       EVV       VVV 
+# -25.56126 -29.02844 -49.95153 -57.17328 
+rowSums(diffbic)
+#             1             2             3             4 
+#  5.239703e-04 -4.223748e+01 -8.183583e+01 -1.154871e+02 
+#             5 
+# -1.569627e+02 
+colMeans(diffbic)
+#        EII        VII        EEI        VEI        EVI 
+#  -6.592915  -6.597560  -9.466495  -7.476948  -6.767463 
+#        VVI        EEE        VEE        EVV        VVV 
+# -10.060220  -5.112252  -5.805688  -9.990306 -11.434656 
+rowMeans(diffbic)
+#             1             2             3             4 
+#  5.239703e-05 -4.223748e+00 -8.183583e+00 -1.154871e+01 
+#             5 
+# -1.569627e+01 
+
+## big improvement, seems strictly better in all but k=1 cases.
+## no longer weird fluctuations in values, seems proportional to k.
+## not as much proportional to models.
+
+## TODO
+## figure out what stat tests to use. maybe relative likelihood or something
+## finish plot function
+## larger cases p>2 k>3
