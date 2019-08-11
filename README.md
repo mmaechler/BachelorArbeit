@@ -14,6 +14,8 @@ table of model
 
 ## /Rscripts is deprecated, relevant documents are in /norMmix
 
+except for norMmix-auswertung.R which contains daily work and testing
+
 ### status of R scripts:
 
 nMm2par: complete
@@ -24,8 +26,4 @@ llnorMmix: complete
 
 norMmix: complete
 
-norMmixMLE: work in progress
-
-* test for correctness
-
-* what parameters for optim
+norMmixMLE: complete

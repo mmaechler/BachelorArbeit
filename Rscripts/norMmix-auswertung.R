@@ -853,3 +853,25 @@ rowMeans(diffbic)
 ## figure out what stat tests to use. maybe relative likelihood or something
 ## finish plot function
 ## larger cases p>2 k>3
+
+## out of curiosity
+hist(c(ansnmm$BIC[-1,], -ansmcl$BIC[-1,]))
+
+plot(sort(ansmcl$BIC))
+plot(sort(ansnmm$BIC), col="red")
+points(sort(-ansmcl$BIC),col="blue")
+
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-11
+####
+
+## fix up plot function
+## uses plot functionality
+
+
+
+## started plotnd.norMmix,  doesn't work yet, but close
+
