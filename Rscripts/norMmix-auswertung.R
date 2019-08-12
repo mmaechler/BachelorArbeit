@@ -875,3 +875,13 @@ points(sort(-ansmcl$BIC),col="blue")
 
 ## started plotnd.norMmix,  doesn't work yet, but close
 
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-12
+####
+
+## today, work on larger cases and trying to finish plot fctn
+## maybe see if mcl still gives errors
+
