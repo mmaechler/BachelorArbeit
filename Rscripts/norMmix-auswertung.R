@@ -885,3 +885,37 @@ points(sort(-ansmcl$BIC),col="blue")
 ## today, work on larger cases and trying to finish plot fctn
 ## maybe see if mcl still gives errors
 
+## wrote some cases with p=3,5 and plot function works now for p>2
+
+x3 <- rnorMmix(2000, MW33)
+rnmm <- fit.norMmix(x3, k=1:5, models=1:10, ini="cla", trafo="clr1")
+
+rmcl <- mclust::Mclust(x3, G=1:5, modelNames=models)
+
+diffbic <- rnmm$BIC --rmcl$BIC
+# Bayesian Information Criterion (BIC): 
+#             EII           VII         EEI        VEI        EVI
+# 1  8.731149e-11  8.731149e-11   0.0000000   0.000000   0.000000
+# 2 -2.766107e-01 -6.967244e-01  -0.8540788  -3.071501  -2.911382
+# 3 -1.587003e+00 -1.729446e+00  -5.8811812  -9.260836  -4.150406
+# 4 -5.631269e+00 -2.476995e+00 -10.7263792  -8.995189 -23.402054
+# 5 -2.579224e+01 -5.149856e+00 -20.1837536 -29.090563  -6.702159
+#             VVI           EEE           VEE           EVV
+# 1  7.930794e-10 -1.455192e-11 -1.455192e-11 -1.455192e-11
+# 2 -2.801682e+00 -1.199729e+00 -3.503617e+00 -1.805226e+00
+# 3 -8.893355e+00 -7.843882e+00 -1.579852e+01 -1.752565e+01
+# 4 -1.968783e+01 -9.987366e+00 -3.088096e+01 -2.535595e+01
+# 5 -1.926292e+01 -1.415199e+01  1.598953e+01 -2.495358e+01
+#             VVV
+# 1 -1.455192e-11
+# 2 -6.335436e+00
+# 3 -1.309323e+01
+# 4 -2.410534e+01
+# 5 -4.285166e+01
+
+
+tmp <- fit.norMmix(x3, k=1:10, model=1:10, ini="mcl", trafo="clr1", maxiter=6)
+tmp
+
+## "mcl" issue could not be reproduced here, possibly other mixture is ill 
+## conditioned
