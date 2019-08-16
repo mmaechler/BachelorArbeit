@@ -919,3 +919,15 @@ tmp
 
 ## "mcl" issue could not be reproduced here, possibly other mixture is ill 
 ## conditioned
+
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-16
+####
+
+## establish connection to sfs servers
+
+## maybe fix up rnorMmix a bit
+## now rnorMmix supports cluster index and sampling
