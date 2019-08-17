@@ -4,15 +4,14 @@
 \alias{llnorMmix}
 \title{Log-likelihood of parameter vector given data}
 \usage{
-llnorMmix(par., x, p, k, trafo = c("clr1", "logit"), model = c("EII",
-  "VII", "EEI", "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
+llnorMmix(par., x, k, trafo = c("clr1", "logit"),
+          model = c("EII", "VII", "EEI", "VEI", "EVI",
+                    "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
 \arguments{
 \item{par.}{parameter vector}
 
 \item{x}{sample matrix}
-
-\item{p}{dimension}
 
 \item{k}{number of clusters}
 

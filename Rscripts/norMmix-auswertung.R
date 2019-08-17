@@ -410,7 +410,7 @@ index <- clus$clustering
 tau <- matrix(0,5000,20)
 tau[cbind(1:5000,index)] <- 1
 
-nMm.temp <- mstep.nMm(x, tau,20)
+nMm.temp <- mstep.nMm(x, tau)
 # create par. vector out of m-step
 initpar. <- nMm2par(obj=nMm.temp, trafo="clr1", model="VVV")
 

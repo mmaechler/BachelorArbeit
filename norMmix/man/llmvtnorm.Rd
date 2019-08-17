@@ -4,15 +4,14 @@
 \alias{llmvtnorm}
 \title{log-likelihood function relying on mvtnorm function}
 \usage{
-llmvtnorm(par., x, p, k, trafo = c("clr1", "logit"), model = c("EII",
-  "VII", "EEI", "VEI", "EEE", "VEE", "EVI", "VVI", "EVV", "VVV"))
+llmvtnorm(par., x, k, trafo = c("clr1", "logit"),
+          model = c("EII", "VII", "EEI", "VEI", "EEE",
+                    "VEE", "EVI", "VVI", "EVV", "VVV"))
 }
 \arguments{
 \item{par.}{parameter vector as calculated by nMm2par}
 
 \item{x}{matrix of samples}
-
-\item{p}{dimension of sample}
 
 \item{k}{number of cluster}
 
