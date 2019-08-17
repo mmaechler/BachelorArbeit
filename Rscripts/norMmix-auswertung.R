@@ -931,3 +931,32 @@ tmp
 
 ## maybe fix up rnorMmix a bit
 ## now rnorMmix supports cluster index and sampling
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-17
+####
+
+## test saving objects
+
+x <- rnorMmix(1000, MW26, index=TRUE, sampling=TRUE)
+
+
+saveRDS(x, file="MW26e3")
+
+x26 <- readRDS("MW26e3")
+
+mods <- list(MW210,MW213,MW28,MW22,MW25,MW33,MW211,MW26,MW29,MW23,MW31,MW34,MW212,MW27,MW21,MW24,MW32,MW51)
+
+rnorMmix(12, mods[[3]])
+
+set.seed(2019)
+
+asdf <- function(j) {
+    set.seed(2019)
+    x <- rnorMmix(1000, j, index=T, sampling=T)
+    saveRDS(x, file=paste0("mw", ".1e3.", j$dim, j$k, j$model,".RDS"))
+}
+
+lapply(mods, asdf)
