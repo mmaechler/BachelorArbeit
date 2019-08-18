@@ -19,3 +19,22 @@ for (i in rdat) {
     saveRDS(ans2, file=paste0("~/BScThesis/4MM/","logit.mcl.k17m110.",i))
 }
 
+### Nomenklatur:
+
+## Daten in norMmix/data/  :
+
+## xx.yy.zz.RDS
+
+# x: Ursprungsdatensatz z.B: MW-- norMmix Objekte
+# y: sample size: z.B 1e4
+# z: "korrekte" cluster und model
+
+
+## output von diesem Script :
+
+## aa.bb.cc.d
+
+# a: trafo
+# b: ini
+# c: range d.h. k=1:7 models=1:10 -> k17m110
+# d: objekt auf dem operiert wird z.B. mw.1e3.22EEE.RDS
