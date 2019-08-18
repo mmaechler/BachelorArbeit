@@ -955,8 +955,10 @@ set.seed(2019)
 
 asdf <- function(j) {
     set.seed(2019)
-    x <- rnorMmix(1000, j, index=T, sampling=T)
-    saveRDS(x, file=paste0("mw", ".1e3.", j$dim, j$k, j$model,".RDS"))
+    x <- rnorMmix(10000, j, index=T, sampling=T)
+    saveRDS(x, file=paste0("mw.1e4.", j$dim, j$k, j$model,".RDS"))
 }
 
 lapply(mods, asdf)
+
+
