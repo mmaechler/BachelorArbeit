@@ -955,10 +955,44 @@ set.seed(2019)
 
 asdf <- function(j) {
     set.seed(2019)
-    x <- rnorMmix(10000, j, index=T, sampling=T)
-    saveRDS(x, file=paste0("mw.1e4.", j$dim, j$k, j$model,".RDS"))
+    x <- rnorMmix(100, j, index=T, sampling=T)
+    saveRDS(x, file=paste0("mw.1e2.", j$dim, j$k, j$model,".RDS"))
 }
 
 lapply(mods, asdf)
 
 
+xx <- rnorMmix(10000, MW34)
+
+ans <- fit.norMmix(xx, k=1:10, models=1:10, trafo="clr1", ini="cla")
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-17
+####
+
+## get readRDS writeRDS to work with norMmix
+
+## list.files?
+
+aa <- list.files("~/ethz/BA/Rscripts")
+
+## regex?
+
+aa <- list.files("~/ethz/BA/Rscripts", pattern="mw.*")
+
+## yes, close to gettin it right
+
+
+
+aa <- list.files("~/ethz/BA/Rscripts", pattern="mw.*")
+
+for (i in aa) {
+    x <- readRDS(paste0("~/ethz/BA/Rscripts/",i))
+    print(x[1,])
+}
+
+## works!!
+
+## now write file Auswertung-fit-mw.R
