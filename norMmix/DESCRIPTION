@@ -1,30 +1,17 @@
 Package: norMmix
-Title: Implementation MLE for multivariate normal distributions
-Version: 0.0.0.9000
-Authors@R: 
-    person(given = "Nicolas",
-           family = "Trutmann",
-           role = c("aut", "cre"),
-           email = "nicolatr@student.ethz.ch",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: implements MLE for multivariate normal mixtures using ldlt decomposition
-License: GPLv3
-Imports:
-    mvtnorm,
-    MASS,
-    cluster
+Version: 0.0-1
+Title: Direct MLE for Multivariate Normal Mixture Distributions
+Description: Compute the MLE for multivariate normal mixtures via smart parametrization using
+  the LDLt decomposition
+Authors@R: c(person(given = "Nicolas", family = "Trutmann", role = c("aut", "cre"),
+                    email = "nicolatr@student.ethz.ch",
+                    comment = c(ORCID = "YOUR-ORCID-ID"))
+           , person("Martin", "Maechler", role = c("aut"),# + "sup"(ervisor)
+                    email = "maechler@stat.math.ethz.ch",
+                    comment = c(ORCID = "0000-0002-8685-9910", "based on 'nor1mix'"))
+            )
+Imports: cluster, MASS, mvtnorm, mclust, mixtools
+Suggests: testthat (>= 2.1.0)
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1.9000
-Collate: 
-    'Cholesky.R'
-    'norMmixEM.R'
-    'norMmixMLE.R'
-    'fit.R'
-    'weight.R'
-    'param.R'
-    'llnorMmix.R'
-    'norMmix.R'
-    'zmarrwandnMm.R'
-Suggests: 
-    testthat (>= 2.1.0)

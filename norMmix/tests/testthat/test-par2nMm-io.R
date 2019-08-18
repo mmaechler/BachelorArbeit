@@ -4,11 +4,10 @@ context("test input/output of par2nMm")
 
 test_that("io test using MWnm", {
           
-          n2m <- function(obj) { nMm2par(obj, trafo="clr1", model=obj$model) }
           tr <- "clr1"
 
-          m <- MW2nm1
-          a <- n2m(m)
+          m <- MW21
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
 
           expect_equal(m$weight,b$weight)
@@ -17,8 +16,8 @@ test_that("io test using MWnm", {
           expect_equal(m$k,b$k)
           expect_equal(m$dim,b$dim)
 
-          m <- MW2nm2
-          a <- n2m(m)
+          m <- MW23
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
 
           expect_equal(m$weight,b$weight)
@@ -27,8 +26,8 @@ test_that("io test using MWnm", {
           expect_equal(m$k,b$k)
           expect_equal(m$dim,b$dim)
 
-          m <- MW2nm4
-          a <- n2m(m)
+          m <- MW24
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -36,8 +35,8 @@ test_that("io test using MWnm", {
           expect_equal(m$k,b$k)
           expect_equal(m$dim,b$dim)
 
-          m <- MW2nm1.2
-          a <- n2m(m)
+          m <- MW22
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -45,8 +44,8 @@ test_that("io test using MWnm", {
           expect_equal(m$k,b$k)
           expect_equal(m$dim,b$dim)
 
-          m <- MW2nm5
-          a <- n2m(m)
+          m <- MW25
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -55,7 +54,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW26
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -64,7 +63,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW27
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -73,7 +72,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW28
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -82,7 +81,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW29
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -91,7 +90,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW210
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -100,7 +99,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW211
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -109,7 +108,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW212
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -118,7 +117,7 @@ test_that("io test using MWnm", {
           expect_equal(m$dim,b$dim)
 
           m <- MW213
-          a <- n2m(m)
+          a <- nc2p(m)
           b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
