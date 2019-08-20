@@ -1005,3 +1005,21 @@ x <- rnorMmix(100, MW26)
 ans <- fit.norMmix(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
 
 ## important things work
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-20
+
+## llnorMmix wasn't used for norMmixMLE until now and now its broken!!
+
+x <- rnorMmix(100, MW26)
+
+ans <- norMmixMLE(x,3,trafo="clr1", model="EII", ini="clara")
+
+## non-finite finite-difference value
+
+pp <- nMm2par(MW26, trafo="clr1", model="VVV")
+
+llnorMmix(pp, x, 2, trafo="clr1", model="VVV")
