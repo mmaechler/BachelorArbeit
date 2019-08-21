@@ -1138,3 +1138,72 @@ BIC(uio)
 
 
 ## done, put it into a commit
+
+ij <- norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+plot(ij$norMmix)
+ij$norMmix$mu
+#          [,1]      [,2]     [,3]
+# [1,] 10.95137  6.267234 1.122263
+# [2,] 12.04606  6.907823 1.702433
+# [3,] 12.91923  8.034070 3.433608
+# [4,] 14.02475  8.738717 3.905640
+# [5,] 14.98502 10.057415 4.543396
+MW51$mu
+#      [,1] [,2] [,3]
+# [1,]    1    6   11
+# [2,]    2    7   12
+# [3,]    3    8   13
+# [4,]    4    9   14
+# [5,]    5   10   15
+
+## reasonable
+
+x <- rnorMmix(1000, MW51)
+ij <- norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+ij$norMmix$mu
+#          [,1]      [,2]     [,3]
+# [1,] 10.97616 0.9919569 6.043642
+# [2,] 11.97297 1.9991118 7.003464
+# [3,] 12.98681 2.9527947 8.042657
+# [4,] 13.99832 4.0824587 9.026949
+# [5,] 15.08960 5.0045929 9.900400
+MW51$mu
+#      [,1] [,2] [,3]
+# [1,]    1    6   11
+# [2,]    2    7   12
+# [3,]    3    8   13
+# [4,]    4    9   14
+# [5,]    5   10   15
+
+
+x <- rnorMmix(10000, MW51)
+ij <- norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+ij$norMmix$mu
+#           [,1]     [,2]     [,3]
+# [1,] 0.9916475 10.97603 5.997823
+# [2,] 1.9929993 11.97723 6.977599
+# [3,] 2.9983107 13.02145 8.021266
+# [4,] 3.9778741 14.01703 8.974741
+# [5,] 4.9951813 15.00860 9.998929
+
+
+## expected improvement in accuracy
+
+
+## time improvement?
+
+t1 <- system.time(norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm"))
+t2 <- system.time(norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="mvt"))
+
+t1
+#    user  system elapsed 
+#   3.764   0.128   3.895 
+t2
+#    user  system elapsed 
+#   5.380   0.176   5.563 
+t2/t1
+#     user   system  elapsed 
+# 1.429330 1.375000 1.428241 
