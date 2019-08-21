@@ -1020,6 +1020,121 @@ ans <- norMmixMLE(x,3,trafo="clr1", model="EII", ini="clara")
 
 ## non-finite finite-difference value
 
-pp <- nMm2par(MW26, trafo="clr1", model="VVV")
+pp <- nMm2par(MW23, trafo="clr1", model="VVV")
 
 llnorMmix(pp, x, 2, trafo="clr1", model="VVV")
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-21
+
+
+## fixed error with llnorMmix
+## problem was the  (if(weights>1) return inf)  statement
+## commented that out and suddenly it doesnt crash everytime
+
+## see if it is stable
+
+
+x <- rnorMmix(100, MW26)
+
+ans <- fit.norMmix(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
+
+aa <- BIC(ans)
+bb <- logLik(ans)
+
+mle <- norMmixMLE(x,k=1, model="EII", trafo="clr1", ini="clara")
+
+## testing tests
+
+asdf <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",ll="nmm")
+
+
+## larger numbers:
+
+(MWdat <- Filter(function(.) is.norMmix(get(., "package:norMmix")),
+                 ls("package:norMmix", pattern = "^MW[1-9]")))
+
+ret <- list()
+
+for (i in MWdat) {
+
+    nm <- get(i, "package:norMmix")
+
+    set.seed(2019); x <- rnorMmix(100, nm)
+
+    aa <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+                      ll="nmm")
+
+    bb <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+                      ll="mvt")
+
+    a <- BIC(aa)[[1]]
+    b <- BIC(bb)[[1]]
+
+    ret[[i]] <- a-b
+
+}
+
+
+for (i in MWdat) {print(max(abs(c(ret[[i]]))))}
+# [1] 9.71454e-09
+# [1] 0.9334958
+# [1] 0.2815176
+# [1] 3.326458
+# [1] 6.264971e-05
+# [1] 9.390533e-11
+# [1] 2.036131e-10
+# [1] 0.6392211
+# [1] 0.6392211
+# [1] 1.947797e-09
+# [1] 1.748394e-05
+# [1] 1.21986e-09
+# [1] 1.283524e-10
+# [1] 4.729372e-11
+# [1] 9.409709e-07
+# [1] 8.458301e-11
+# [1] 2.711181
+# [1] NA
+# NULL
+
+for (i in MWdat) {
+    print(ret[[i]])
+    readline(prompt="enter to cont")
+}
+
+## seems good but some weird values, maybe llnmm gives some weird retvals.
+## check manually
+
+retnmm <- list()
+
+for (i in MWdat) {
+
+    nm <- get(i, "package:norMmix")
+
+    set.seed(2019); x <- rnorMmix(100, nm)
+
+    aa <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+                      ll="nmm")
+
+    retnmm[[i]] <- BIC(aa)
+}
+
+
+for (i in MWdat) {
+    print(retnmm[[i]])
+    readline(prompt="enter to cont")
+}
+
+## ah, I see an issue. deleted value <- -value in MLE
+## change in logLik
+
+
+uio <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
+
+BIC(uio)
+
+
+## done, put it into a commit
