@@ -1,23 +1,63 @@
-devtools::load_all("BachelorArbeit/norMmix")
+GH_BA_dir <- normalizePath("~/BachelorArbeit")
+save_dir  <- normalizePath("~/BScThesis/4MM")
+##-------------------------------------------------
+stopifnot(dir.exists(GH_BA_dir),
+          dir.exists(save_dir))
 
-rdat <- list.files("~/BachelorArbeit/norMmix/data", pattern="mw.*")
+## MM: Dies ist *NICHT* die Art ein Paket zu laden .. 
+##     aber "good enough for now":
+devtools::load_all(file.path(GH_BA_dir, "norMmix"))
 
+## Es gibt gar kein '/data' subdirectory !!
+(rdat <- list.files(file.path(GH_BA_dir, "norMmix/data"), pattern="mw.*"))
 
-for (i in rdat) {
-    print(paste("work on data set:",i))
-    x <- readRDS(paste0("~/BachelorArbeit/norMmix/data/", i))
-    ans1 <- fit.norMmix(x, k=1:3, models=1:2, trafo="clr1", ini="cla", maxiter=300)
-    saveRDS(ans1, file=paste0("~/BScThesis/4MM/","clr1.cla.k17m110.",i))
+## Die Datensätze sind *Teil* der Paket Objekte :
+(MWdat <- Filter(function(.) is.norMmix(get(., "package:norMmix")),
+                 ls("package:norMmix", pattern = "^MW[1-9]")))
 
-    ans2 <- fit.norMmix(x, k=1:7, models=1:10, trafo="logit", ini="cla", maxiter=300)
-    saveRDS(ans2, file=paste0("~/BScThesis/4MM/","logit.cla.k17m110.",i))
+trafos <- c("clr1", "logit")
+inits <- c("clara", "mclVV") # <- neue Namen
 
-    ans3 <- fit.norMmix(x, k=1:7, models=1:10, trafo="clr1", ini="mcl", maxiter=300)
-    saveRDS(ans3, file=paste0("~/BScThesis/4MM/","clr1.mcl.k17m110.",i))
+seed.n <- 1
 
-    ans2 <- fit.norMmix(x, k=1:7, models=1:10, trafo="logit", ini="mcl", maxiter=300)
-    saveRDS(ans2, file=paste0("~/BScThesis/4MM/","logit.mcl.k17m110.",i))
+for (nm in MWdat) {
+    cat("work on norMmix model ",nm,"\n")
+    nMm <- get(nm ,"package:norMmix")
+    for(n in c(100, 200, 500, 1000)) {
+        cat(" seed = ",seed.n,"\n")
+        x <- rnorMmix(n, nMm)
+        cat("dataset x:"); str(x)
+        
+        for(trafo in trafos) {
+            cat(">--> trafo = ", dQuote(trafo),"\n")
+            for(ini in inits) {
+                set.seed(seed.n) # for reproducibility
+                st <- system.time(
+                    r <- tryCatch(fit.norMmix(x, k=1:7, models=1:10,
+                                              trafo=trafo, ini=ini, maxiter=300),
+                                  error = identity)
+                )
+                cat("result of fit: "); str(r, max=1)
+                sFile <- sprintf("fit_%s_n=%d_%s_%s.rds",
+                                 nm, n, trafo, ini)
+                cat("--> saving to file:", sFile, "\n")
+                ## save both time measurement *and* fit 
+                saveRDS(list(st = st, fit = r),
+                        file=file.path(save_dir, sFile))
+                seed.n <- seed.n + 1
+            }
+        }
+        cat("\n---end-of-dataset---------------------\n")
+    }
+    cat("\n***============================================***\n")
 }
+
+
+
+
+
+
+
 
 ### Nomenklatur:
 
