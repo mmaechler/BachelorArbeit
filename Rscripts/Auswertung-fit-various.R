@@ -1,5 +1,5 @@
-GH_BA_dir <- normalizePath("~/ethz/BA/")
-save_dir  <- normalizePath("~/BScThesis/4MM/fit-various")
+GH_BA_dir <- normalizePath("~/BachelorArbeit")
+save_dir  <- normalizePath("~/")
 ##--------------------------------------------------
 stopifnot(dir.exists(GH_BA_dir),
           dir.exists(save_dir))
@@ -7,24 +7,58 @@ stopifnot(dir.exists(GH_BA_dir),
 
 devtools::load_all(file.path(GH_BA_dir, "norMmix"))
 
+
+## data sets:
 data(SMI.12, package="copula")
+smi <- SMI.12
 
-## str(SMI.12)
-#  num [1:141, 1:20] 16.1 15.7 15.7 16.1 16.6 ...
-#  - attr(*, "dimnames")=List of 2
-#   ..$ : chr [1:141] "2011-09-09" "2011-09-12" "2011-09-13" "2011-09-14" ...
-#   ..$ : chr [1:20] "ABBN" "ATLN" "ADEN" "CSGN" ...
-# NULL
+iri <- iris[,-5]
 
-## parcond(SMI.12, k=10, model="VVV")
-# [1] 0.0610654
-## very bad
-## parcond(SMI.12, k=2, model="EII")
-# [1] 3.357143
-## no way to get "good" i.e. >5 values
+data(loss, package="copula")
+los <- loss
 
 
-####
-##--------------------------------------------------
-####
-## datasets: SMI.12, iris
+dat <- c("smi", "iri", "los")
+
+
+# options to vary over
+trafos <- c("clr1", "logit")
+inits <- c("clara", "mclVVV")
+lls <- c("nmm", "mvt")
+
+
+seed.n <- 1
+
+for (dd in dat) {
+    cat("work on data ", dd, "\n")
+    x <- get(dd)
+    for (trafo in trafos) {
+        cat(">--> trafo = ", dQuote(trafo), "\n")
+        for (ini in inits) {
+            cat(">--> init = ", dQuote(ini), "\n")
+            for (ll in lls) {
+                cat(">--> loglikelihood = ", dQuote(ll), "\n")
+                set.seed(seed.n)
+                st <- system.time(
+                    r <- tryCatch(
+                        fit.norMmix(x, k=1:9, models=1:10,
+                                    trafo=trafo, ini=ini, ll=ll,
+                                    maxit=300),
+                        error = identity)
+                )
+                cat("result of fit: "); str(r, max.level=1)
+                sFile <- sprintf("fit_%s_%s_%s_%s.rds",
+                                 dd, trafo, ini, ll)
+                cat("--saving to file:", sFile, "\n")
+                saveRDS(list(fit=r, st=st),
+                        file=file.path(save_dir, sFile))
+                seed.n <- seed.n+1
+            }
+        }
+        cat("\n---end-of-dataset---\n")
+    }
+    cat("\n***--------------------------------------------***\n")
+}
+
+
+

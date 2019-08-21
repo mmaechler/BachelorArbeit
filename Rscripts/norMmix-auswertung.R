@@ -1207,3 +1207,11 @@ t2
 t2/t1
 #     user   system  elapsed 
 # 1.429330 1.375000 1.428241 
+
+## after removing x <- t(x)
+t2/t1
+#     user   system  elapsed 
+# 1.483402 1.928571 1.496593 
+
+
+## 
