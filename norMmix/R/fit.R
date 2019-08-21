@@ -4,7 +4,7 @@
 
 
 
-fit.norMmix <- function(x, k=1:10, models=1:10, trafo=c("clr1","logit"),...) {
+fit.norMmix <- function(x, k=1:10, models=1:10, trafo=c("clr1","logit"),ll = c("nmm", "mvt"),...) {
     stopifnot(is.numeric(x),
               is.vector(models), length(models) <= 10,
               0 < models, models <= 10)
@@ -22,7 +22,7 @@ fit.norMmix <- function(x, k=1:10, models=1:10, trafo=c("clr1","logit"),...) {
 
     for (j in 1:length(k)) {
         for (i in m) {
-            nMm <- tryCatch(nMm <- norMmixMLE(x,k[j],trafo=trafo,model=i,...), error = function(e) paste("error",eval.parent(i,n=2),eval.parent(j,n=2)))
+            nMm <- tryCatch(nMm <- norMmixMLE(x,k[j],trafo=trafo,model=i,ll=ll,...), error = function(e) paste("error",eval.parent(i,n=2),eval.parent(j,n=2)))
             norMmixval[[paste0(i,j)]] <- nMm
         }
     }
@@ -34,11 +34,12 @@ fit.norMmix <- function(x, k=1:10, models=1:10, trafo=c("clr1","logit"),...) {
 }
 
 logLik.fittednorMmix <- function(obj) {
+    ## returns log-likelihood of fittednorMmix object
+
     stopifnot(inherits(obj, "fittednorMmix"))
 
     k <- obj$k
     models <- obj$models
-
 
     val <- matrix(0, length(k), length(models))
     rownames(val) <- k
@@ -46,7 +47,29 @@ logLik.fittednorMmix <- function(obj) {
 
     for (i in k) {
         for (j in models) {
-            val[i,j] <- obj$nMm[[paste0(j,i)]]$optr$value
+            nm <- obj$nMm[[paste0(j,i)]]
+            # need to catch errors, if nm is string return NA
+            val[i,j] <- ifelse(is.character(nm)&&length(nm)==1, NA, -nm$optr$value)
+        }
+    }
+
+    val
+}
+
+parlen <- function(obj) {
+    stopifnot(inherits(obj, "fittednorMmix"))
+    
+    k <- obj$k
+    models <- obj$models
+
+    val <- matrix(0, length(k), length(models))
+    rownames(val) <- k
+    colnames(val) <- models
+
+    for (i in k) {
+        for (j in models) {
+            nm <- obj$nMm[[paste0(j,i)]]
+            val[i,j] <- ifelse(is.character(nm)&&length(nm)==1, NA, nm$parlen)
         }
     }
 
@@ -61,20 +84,18 @@ BIC.fittednorMmix <- function(obj) {
     k <- obj$k
     models <- obj$models
 
-    parlen <- matrix(0, length(k), length(models))
-    rownames(parlen) <- k
-    colnames(parlen) <- models
-
-    for (i in k) {
-        for (j in models) {
-            parlen[i,j] <- obj$nMm[[paste0(j,i)]]$parlen
-        }
-    }
+    parlen <- parlen(obj)
 
     ll <- logLik.fittednorMmix(obj)
 
     val <- parlen*log(n) - 2*ll
 
-    val
+    mi <- which.min(val)
+    mirow <- mi%%length(k)
+    micol <- ifelse(mirow>0, (mi%/%length(k))+1, mi%/%length(k))
+
+    mindex <- c(k[mirow],models[micol])
+
+    list(val, best=mindex)
 
 }

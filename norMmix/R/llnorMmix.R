@@ -33,17 +33,10 @@ llnorMmix <- function(par., x, k,
                       "VVI","EEE","VEE","EVV","VVV")
               )
 {
-    # 1. sanity check on arguments
-    # 2. transform par. to norMmix
-    # 3. calculate log-lik
-    # 4. return log-lik
-
-
-    # 1. san check
     stopifnot(is.matrix(x),
               length(k <- as.integer(k)) == 1, k >= 1)
-    p <- ncol(x)
-    x <- t(x) ## then only needed in   (x-mu[,i])^2  i=1..k
+    p <- nrow(x)
+#    x <- t(x) ## then only needed in   (x-mu[,i])^2  i=1..k
 
     # 2. transform
 
@@ -70,7 +63,7 @@ llnorMmix <- function(par., x, k,
             stop("error in w switch in llnorMmix")
             )
 
-    if (!(sum(w)==1)) return(-Inf) ## FIXME allow tolerance
+#    if (!(sum(w)==1)) return(-Inf) ## FIXME allow tolerance
 
     # start of relevant parameters:
 

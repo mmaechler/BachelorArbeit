@@ -30,6 +30,7 @@ norMmixMLE <- function(
                model = c("EII","VII","EEI","VEI","EVI",
                          "VVI","EEE","VEE","EVV","VVV"),
                ini = c("clara", "mclVVV"),
+               ll = c("nmm", "mvt"),
                method = "BFGS", maxit = 100, trace = 2, reltol = sqrt(.Machine$double.eps),
                samples = 128,
                sampsize = ssClaraL,
@@ -46,6 +47,7 @@ norMmixMLE <- function(
     # 1.
     trafo <- match.arg(trafo)
     model <- match.arg(model)
+    ll <- match.arg(ll)
 
     if(!is.matrix(x)) x <- data.matrix(x) # e.g. for data frame
     stopifnot(is.numeric(x), length(k <- as.integer(k)) == 1, (n <- nrow(x)) > 1)
@@ -87,26 +89,27 @@ norMmixMLE <- function(
 
     # define function to optimize as negative log-lik
     # also reduces the number of arguments to par.
-    neglogl <- function(par.) {
-        -llmvtnorm(par.,x=x,k=k,trafo=trafo,model=model)
-         ##-------  why use this one, and not llnorMmix() - the latter should be faster for larger p !!
-        }
+    neglogl <- switch(ll,
+        "nmm" = function(par.) { -llnorMmix(par.,x=t(x),k=k,trafo=trafo,model=model) },
+
+        "mvt" = function(par.) { -llmvtnorm(par.,x=x,k=k,trafo=trafo,model=model) },
+
+        stop("error selecting neglogl") )
 
     control <- list(maxit=maxit, reltol=reltol,
                     trace=(trace > 0), REPORT= pmax(1, 10 %/% trace),
     		    ...)
 
-    optr <- optim(initpar., neglogl, method = "BFGS", control=control)
+    optr <- optim(initpar., neglogl, method=method, control=control)
 
-    optr$value <- -optr$value
-    ### should be changed
 
 
     # 4.
 
     nMm <- par2nMm(optr$par, p, k, trafo=trafo, model=model)
+    cond <- parcond(x, k=k, model=model)
 
-    ret <- list(norMmix=nMm, optr=optr, parlen=parlen, n=n, mstep=nMm.temp, ini=initpar.)
+    ret <- list(norMmix=nMm, optr=optr, parlen=parlen, n=n, mstep=nMm.temp, ini=initpar., cond=cond)
 
 
     class(ret) <- "norMmixfit"
