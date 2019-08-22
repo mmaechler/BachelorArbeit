@@ -12,13 +12,14 @@ devtools::load_all(file.path(GH_BA_dir, "norMmix"))
 data(SMI.12, package="copula")
 smi <- SMI.12
 
-iri <- iris[,-5]
+irt <- data.matrix(iris[,-5])
+iri <- data.matrix(iris)
 
 data(loss, package="copula")
-los <- loss
+los <- data.matrix(loss)
 
 
-dat <- c("smi", "iri", "los")
+dat <- c("smi", "irt", "iri", "los")
 
 
 # options to vary over

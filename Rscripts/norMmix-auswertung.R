@@ -1214,4 +1214,48 @@ t2/t1
 # 1.483402 1.928571 1.496593 
 
 
-## 
+## Auswertung-fit-various given to ada server
+
+## write analysis tools for various data sets
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-22
+
+## ada server done analysing data sets:
+
+## results:
+## smi: failed for k>=5, models=EII,VII,VVI
+## loss, iris, crashed because is.numeric failed
+
+data(SMI.12, package="copula")
+
+smi <- SMI.12
+
+ans <- norMmixMLE(smi,k=1, model="EII", trafo="clr1", ini="clara", ll="nmm")
+#Error in optim(initpar., neglogl, method = method, control = control) :
+#initial value in 'vmmin' is not finite
+#Error in inherits(ok, "try-error") : object 'ok' not found
+
+## no clue what that means
+
+ans <- norMmixMLE(smi,k=7, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+## D!>=0
+
+## need to remove the check for non degenerate case
+
+iri <- iris[-5]
+ans <- norMmixMLE(iri,k=1, model="EII", trafo="clr1", ini="clara", ll="nmm")
+## is ok
+ans <- norMmixMLE(iri,k=4, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+
+data(loss, package="copula")
+
+ans <- norMmixMLE(loss,k=4, model="EVI", trafo="clr1", ini="clara", ll="mvt")
+
+## issues with non-finite finite-difference value, with both nmm and mvt
+
+ret <- fit.norMmix(iri, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
+
