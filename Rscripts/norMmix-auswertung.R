@@ -1,6 +1,8 @@
 ## 
 
 devtools::load_all("~/ethz/BA/norMmix")
+options(error=recover)
+options(error=NULL)
 set.seed(2019)
 library(MASS)
 
@@ -1259,3 +1261,589 @@ ans <- norMmixMLE(loss,k=4, model="EVI", trafo="clr1", ini="clara", ll="mvt")
 
 ret <- fit.norMmix(iri, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
 
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-23
+
+## see if I can't speed up llnorMmix
+
+x <- rnorMmix(5000, MW29)
+
+models <- c("EII","VII","EEI","VEI","EVI",
+	    "VVI","EEE","VEE","EVV","VVV")
+
+retnmm <- list()
+retmvt <- list()
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retnmm[[i]] <- system.time(llnorMmix(pars, t(x), 2, trafo="clr1", model=i))
+}
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retmvt[[i]] <- system.time(llmvtnorm(pars, x, 2, trafo="clr1", model=i))
+}
+
+## no noticeable difference, more loops
+
+
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retnmm[[i]] <- system.time(
+        for (j in 1:100) {llnorMmix(pars, t(x), 2, trafo="clr1", model=i)})
+}
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retmvt[[i]] <- system.time(
+        for (j in 1:100) {llmvtnorm(pars, x, 2, trafo="clr1", model=i)})
+}
+
+## llnorMmix strictly better!!
+
+ret <- list()
+for (i in models) {
+    ret[[i]] <- retmvt[[i]]/retnmm[[i]]
+}
+ret
+# $EII
+#     user   system  elapsed 
+# 1.692308      NaN 1.784314 
+# 
+# $VII
+#     user   system  elapsed 
+# 1.769231      NaN 1.840000 
+# 
+# $EEI
+#     user   system  elapsed 
+# 1.571429      NaN 1.750000 
+# 
+# $VEI
+#     user   system  elapsed 
+# 1.923077      NaN 2.000000 
+# 
+# $EVI
+#     user   system  elapsed 
+# 1.785714      NaN 1.771930 
+# 
+# $VVI
+#     user   system  elapsed 
+# 1.866667      NaN 1.931034 
+# 
+# $EEE
+#    user  system elapsed 
+# 1.56250     NaN 1.59375 
+# 
+# $VEE
+#     user   system  elapsed 
+# 1.562500      NaN 1.584615 
+# 
+# $EVV
+#     user   system  elapsed 
+# 1.555556      NaN 1.513514 
+# 
+# $VVV
+#     user   system  elapsed 
+# 1.473684      NaN 1.473684 
+# 
+
+a <- lapply(ret, function(j) j[[1]] )
+a <- unlist(a, use.names=FALSE)
+a
+#  [1] 1.692308 1.769231 1.571429 1.923077 1.785714 1.866667
+#  [7] 1.562500 1.562500 1.555556 1.473684
+mean(a)
+# [1] 1.676266
+sqrt(var(a))
+# [1] 0.1529464
+
+
+## look again into error in smi.12
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- norMmixMLE(smi,k=1, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-23
+
+
+## forcing positive definite matrix
+
+d <- 1:4
+L <- matrix(c(1,2,3,4,0,1,2,1,0,0,1,4,0,0,0,1),4,4)
+
+A <- L%*% diag(d) %*% t(L)
+
+x <- rnorMmix(1000, MW51)
+
+ans <- norMmixMLE(x,3,model="VVI", trafo="clr1", ini="clara", ll="nmm")
+
+## wrote forcePositive and inserted into MLE
+ans <- norMmixMLE(x,3,model="VVI", trafo="clr1", ini="clara", ll="nmm")
+
+## test with known 
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- norMmixMLE(smi,k=7, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+
+## doesn't work...
+
+ds <- .Machine$double.eps
+# [1] 2.220446e-16
+
+## at p~20 numerical error is large enough to become non-negligible
+log2(.Machine$double.eps)
+# [1] -52
+
+## sleep on this
+
+
+## analyse fit-various
+
+fv_dir <- normalizePath("~/ethz/BA/fit-various")
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+library(mclust)
+models <- c("EII","VII","EEI","VEI","EVI",
+	    "VVI","EEE","VEE","EVV","VVV")
+mcl <- Mclust(smi, G=1:9, modelNames=models)
+mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 -27040.40 -27040.40 -18221.49 -18221.49 -18221.49 -18221.49
+# 2 -23616.88 -23210.41 -15963.08 -15855.59 -15804.29 -15706.51
+# 3 -21993.92 -21779.22 -15093.34 -15026.02 -15020.48 -14930.06
+# 4 -21145.54 -21020.72 -14449.88 -14612.14 -14333.75 -14457.47
+# 5 -20451.94 -20132.82 -14183.27 -14169.27 -14158.41 -14112.15
+# 6 -20374.68 -19867.57 -13902.63 -13920.47 -14259.14 -13974.76
+# 7 -19936.92 -20074.01 -13591.04 -13663.24 -13963.23 -13818.66
+# 8 -19962.27 -19592.58 -13502.57 -13323.99 -14020.86 -13614.06
+# 9 -19479.90 -19429.46 -13168.27 -13033.79 -13504.23 -13359.90
+#         EEE       VEE       EVV       VVV
+# 1 -12246.64 -12246.64 -12246.64 -12246.64
+# 2 -12113.03 -12108.64 -12025.43 -11805.19
+# 3 -11996.94        NA        NA        NA
+# 4 -11801.07        NA        NA        NA
+# 5 -11640.26        NA        NA        NA
+# 6 -11520.27        NA        NA        NA
+# 7 -11494.28        NA        NA        NA
+# 8 -11389.07        NA        NA        NA
+# 9 -11322.15        NA        NA        NA
+# 
+# Top 3 models based on the BIC criterion: 
+#     EEE,9     EEE,8     EEE,7 
+# -11322.15 -11389.07 -11494.28 
+
+## also has NAs for m=VEE,EVV,VVV k>2
+## possibly because it is ill conditioned?
+
+parcond(smi, k=3, model="VVV")
+# [1] 0.2037572
+## cutoff
+parcond(smi, k=2, model="VVV")
+# [1] 0.3058568
+
+## how did MLE do?
+
+nmm <- readRDS(file=file.path(fv_dir, "fit_smi_clr1_clara_nmm.rds"))
+
+BIC(nmm$fit)
+# [[1]]
+#   EII VII      EEI      VEI      EVI VVI      EEE      VEE
+# 1  NA  NA 18221.49 18221.49 18221.49  NA 12246.64 12246.64
+# 2  NA  NA 15963.10 15893.15 15804.21  NA 12142.69 12132.12
+# 3  NA  NA 15146.46 15085.00 14912.88  NA 12060.13 12031.97
+# 4  NA  NA 14449.88 14421.11 14353.18  NA 11796.38 11843.84
+# 5  NA  NA       NA       NA       NA  NA       NA       NA
+# 6  NA  NA       NA       NA       NA  NA       NA       NA
+# 7  NA  NA       NA       NA       NA  NA       NA       NA
+# 8  NA  NA       NA       NA       NA  NA       NA       NA
+# 9  NA  NA       NA       NA       NA  NA       NA       NA
+#        EVV      VVV
+# 1 12246.64 12246.64
+# 2 11844.60 11698.89
+# 3 11882.80 11872.70
+# 4 12214.68 12151.10
+# 5       NA       NA
+# 6       NA       NA
+# 7       NA       NA
+# 8       NA       NA
+# 9       NA       NA
+# 
+# $best
+# [1] "2"   "VVV"
+# 
+
+BIC(nmm$fit)[[1]] + mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#   EII VII          EEI        VEI           EVI VVI       EEE
+# 1  NA  NA  0.000000000    0.00000    0.00000000  NA  0.000000
+# 2  NA  NA  0.016141443   37.56204   -0.08607942  NA 29.654752
+# 3  NA  NA 53.115187442   58.98080 -107.59887927  NA 63.191110
+# 4  NA  NA  0.001328303 -191.03100   19.42585791  NA -4.696372
+# 5  NA  NA           NA         NA            NA  NA        NA
+# 6  NA  NA           NA         NA            NA  NA        NA
+# 7  NA  NA           NA         NA            NA  NA        NA
+# 8  NA  NA           NA         NA            NA  NA        NA
+# 9  NA  NA           NA         NA            NA  NA        NA
+#       VEE       EVV           VVV
+# 1  0.0000    0.0000  1.818989e-12
+# 2 23.4841 -180.8275 -1.063070e+02
+# 3      NA        NA            NA
+# 4      NA        NA            NA
+# 5      NA        NA            NA
+# 6      NA        NA            NA
+# 7      NA        NA            NA
+# 8      NA        NA            NA
+# 9      NA        NA            NA
+
+
+## varies wildly, not surprising as parcond is terrible
+
+
+nmmm <- readRDS(file=file.path(fv_dir, "fit_smi_clr1_mclVVV_nmm.rds"))
+
+BIC(nmmm$fit)[[1]] + mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#   EII VII          EEI        VEI          EVI VVI       EEE
+# 1  NA  NA 0.000000e+00    0.00000    0.0000000  NA   0.00000
+# 2  NA  NA 3.896003e-04   37.56039   -0.1053436  NA  17.82603
+# 3  NA  NA 7.330341e+01   58.98109 -107.5995117  NA 103.11319
+# 4  NA  NA 3.985540e-04 -191.03112  100.5534188  NA 126.96456
+# 5  NA  NA           NA         NA           NA  NA        NA
+# 6  NA  NA           NA         NA           NA  NA        NA
+# 7  NA  NA           NA         NA           NA  NA        NA
+# 8  NA  NA           NA         NA           NA  NA        NA
+# 9  NA  NA           NA         NA           NA  NA        NA
+#        VEE      EVV          VVV
+# 1  0.00000   0.0000 1.818989e-12
+# 2 72.64549 147.8577 3.741246e+02
+# 3       NA       NA           NA
+# 4       NA       NA           NA
+# 5       NA       NA           NA
+# 6       NA       NA           NA
+# 7       NA       NA           NA
+# 8       NA       NA           NA
+# 9       NA       NA           NA
+# 
+# Top 3 models based on the BIC criterion: 
+#    VVV,2    EVV,2    EEE,4 
+# 374.1246 147.8577 126.9646 
+
+
+
+
+data(loss , package="copula")
+mcll <- Mclust(loss, G=1:9, modelNames=models)
+
+nmml <- readRDS(file=file.path(fv_dir, "fit_los_clr1_clara_nmm.rds"))
+
+mcll$BIC
+# Bayesian Information Criterion (BIC): 
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 -164785.1 -164785.1 -115645.4 -115645.4 -115645.4 -115645.4
+# 2 -162295.2 -161948.7        NA        NA        NA        NA
+# 3 -161913.9 -153697.6        NA        NA        NA        NA
+# 4 -156442.1 -144833.1        NA        NA        NA        NA
+# 5 -156478.7 -143439.6        NA        NA        NA        NA
+# 6 -156337.3 -139234.4        NA        NA        NA        NA
+# 7 -152566.7 -137717.3        NA        NA        NA        NA
+# 8 -152603.3 -137276.6        NA        NA        NA        NA
+# 9 -152639.9 -135576.2        NA        NA        NA        NA
+#         EEE       VEE       EVV       VVV
+# 1 -115267.2 -115267.2 -115267.2 -115267.2
+# 2        NA        NA        NA        NA
+# 3        NA        NA        NA        NA
+# 4        NA        NA        NA        NA
+# 5        NA        NA        NA        NA
+# 6        NA        NA        NA        NA
+# 7        NA        NA        NA        NA
+# 8        NA        NA        NA        NA
+# 9        NA        NA        NA        NA
+# 
+# Top 3 models based on the BIC criterion: 
+#     EEE,1     EVV,1     VEE,1 
+# -115267.2 -115267.2 -115267.2 
+
+BIC(nmml$fit)
+# [[1]]
+#        EII      VII      EEI       VEI      EVI       VVI EEE
+# 1       NA       NA 115645.4 115645.45 115645.4 115645.45  NA
+# 2       NA       NA 115762.5  92460.41       NA  90259.66  NA
+# 3       NA       NA       NA        NA       NA  79833.80  NA
+# 4       NA       NA       NA        NA       NA  62367.79  NA
+# 5 156541.7       NA       NA        NA       NA        NA  NA
+# 6       NA 139884.9       NA        NA       NA        NA  NA
+# 7       NA 139529.2       NA        NA       NA        NA  NA
+# 8       NA 138531.6       NA        NA       NA        NA  NA
+# 9       NA       NA       NA        NA       NA        NA  NA
+#   VEE EVV VVV
+# 1  NA  NA  NA
+# 2  NA  NA  NA
+# 3  NA  NA  NA
+# 4  NA  NA  NA
+# 5  NA  NA  NA
+# 6  NA  NA  NA
+# 7  NA  NA  NA
+# 8  NA  NA  NA
+# 9  NA  NA  NA
+# 
+# $best
+# [1] "4"   "VVI"
+# 
+
+BIC(nmml$fit)[[1]] + mcll$BIC
+# Bayesian Information Criterion (BIC): 
+#        EII       VII EEI VEI EVI          VVI EEE VEE EVV VVV
+# 1       NA        NA   0   0   0 9.538839e-06  NA  NA  NA  NA
+# 2       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 3       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 4       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 5 63.04807        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 6       NA  650.5279  NA  NA  NA           NA  NA  NA  NA  NA
+# 7       NA 1811.8753  NA  NA  NA           NA  NA  NA  NA  NA
+# 8       NA 1254.9862  NA  NA  NA           NA  NA  NA  NA  NA
+# 9       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+
+
+irt <- iris[,-5]
+mclit <- Mclust(irt, G=1:9, modelNames=models)
+
+nmmit <- readRDS(file=file.path(fv_dir, "fit_irt_clr1_clara_nmm.rds"))
+
+mclit$BIC
+# Bayesian Information Criterion (BIC): 
+#          EII        VII        EEI        VEI        EVI
+# 1 -1804.0854 -1804.0854 -1522.1202 -1522.1202 -1522.1202
+# 2 -1123.4117 -1012.2352 -1042.9679  -956.2823 -1007.3082
+# 3  -878.7650  -853.8144  -813.0504  -779.1566  -797.8342
+# 4  -893.6140  -812.6048  -827.4036  -748.4529  -837.5452
+# 5  -782.6441  -742.6083  -741.9185  -688.3463  -766.8158
+# 6  -715.7136  -705.7811  -693.7908  -676.1697  -774.0673
+# 7  -731.8821  -698.5413  -713.1823  -680.7377  -813.5220
+# 8  -725.0805  -701.4806  -691.4133  -679.4640  -740.4068
+# 9  -694.5205  -700.0276  -696.2607  -702.0143  -767.8044
+#          VVI       EEE       VEE       EVV       VVV
+# 1 -1522.1202 -829.9782 -829.9782 -829.9782 -829.9782
+# 2  -857.5515 -688.0972 -656.3270 -658.3306 -574.0178
+# 3  -744.6382 -632.9647 -605.3982 -656.0359 -580.8396
+# 4  -751.0198 -646.0258 -604.8371 -725.2925 -630.6000
+# 5  -711.4502 -604.8131        NA        NA -676.6061
+# 6  -707.2901 -609.8543 -609.5584        NA -754.7938
+# 7  -766.6500 -632.4947        NA -809.8276 -806.9277
+# 8  -764.1969 -639.2640 -654.8237 -831.7520 -830.6373
+# 9  -755.8290 -653.0878        NA -882.4391 -883.6931
+# 
+# Top 3 models based on the BIC criterion: 
+#     VVV,2     VVV,3     EEE,5 
+# -574.0178 -580.8396 -604.8131 
+
+BIC(nmmit$fit)
+# [[1]]
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 1804.0854 1804.0854 1522.1202 1522.1202 1522.1202 1522.1202
+# 2 1123.4113 1012.2352 1042.9679  956.2823 1007.3082  857.5515
+# 3  878.7639  853.8090  813.0425  779.1502  797.8329  743.9974
+# 4  784.2954  783.8168  735.4786  716.5224  732.4552  714.9112
+# 5  734.3842  746.9900  694.3888  703.0489  695.6716  700.9021
+# 6  715.6928  705.7721  693.7673  675.5589  722.1392  696.8944
+# 7  712.0852  712.5276  671.6553  662.5188  704.1570  699.2258
+# 8  686.0821  692.0590  661.0738  661.7881  703.6519  709.8228
+# 9  694.5147  688.0760  678.5744  671.4087  737.3026  733.3708
+#        EEE      VEE      EVV      VVV
+# 1 829.9782 829.9782 829.9782 829.9782
+# 2 688.0972 656.3270 658.3306 574.0178
+# 3 632.9633 605.3968 621.5184 580.8389
+# 4 591.4057 611.9207 629.9138 616.8043
+# 5 600.5329 602.5561 670.4908 669.9706
+# 6 621.8101 618.3594 706.4132 433.2243
+# 7 617.5893 617.4666 758.0385 393.4651
+# 8 622.4162 626.2729 795.3359 787.2027
+# 9 638.2022 640.1674 859.4296 857.2945
+# 
+# $best
+# [1] "7"   "VVV"
+# 
+
+BIC(nmmit$fit)[[1]] + mclit$BIC
+# Bayesian Information Criterion (BIC): 
+#             EII           VII           EEI           VEI
+# 1  2.273737e-13  2.273737e-13  6.821210e-13  6.821210e-13
+# 2 -4.448742e-04  6.431594e-08 -2.055176e-05  6.435812e-09
+# 3 -1.104799e-03 -5.417018e-03 -7.953653e-03 -6.399837e-03
+# 4 -1.093186e+02 -2.878799e+01 -9.192505e+01 -3.193045e+01
+# 5 -4.825986e+01  4.381677e+00 -4.752970e+01  1.470255e+01
+# 6 -2.076121e-02 -8.947392e-03 -2.354640e-02 -6.108759e-01
+# 7 -1.979692e+01  1.398625e+01 -4.152700e+01 -1.821894e+01
+# 8 -3.899832e+01 -9.421606e+00 -3.033954e+01 -1.767594e+01
+# 9 -5.803030e-03 -1.195158e+01 -1.768631e+01 -3.060569e+01
+#             EVI           VVI           EEE           VEE
+# 1  6.821210e-13  2.989964e-10  0.000000e+00  0.000000e+00
+# 2  2.010631e-08  5.820621e-07  3.864592e-07 -6.269241e-07
+# 3 -1.257164e-03 -6.407446e-01 -1.399013e-03 -1.404603e-03
+# 4 -1.050899e+02 -3.610858e+01 -5.462006e+01  7.083578e+00
+# 5 -7.114416e+01 -1.054812e+01 -4.280213e+00            NA
+# 6 -5.192812e+01 -1.039569e+01  1.195577e+01  8.800940e+00
+# 7 -1.093650e+02 -6.742418e+01 -1.490546e+01            NA
+# 8 -3.675494e+01 -5.437412e+01 -1.684782e+01 -2.855085e+01
+# 9 -3.050181e+01 -2.245817e+01 -1.488556e+01            NA
+#             EVV           VVV
+# 1  0.000000e+00  0.000000e+00
+# 2  7.579956e-09  1.122521e-08
+# 3 -3.451749e+01 -7.226431e-04
+# 4 -9.537873e+01 -1.379562e+01
+# 5            NA -6.635417e+00
+# 6            NA -3.215696e+02
+# 7 -5.178908e+01 -4.134627e+02
+# 8 -3.641605e+01 -4.343452e+01
+# 9 -2.300949e+01 -2.639865e+01
+# 
+# Top 3 models based on the BIC criterion: 
+#    VEI,5    VII,7    EEE,6 
+# 14.70255 13.98625 11.95577 
+
+
+## results all over the place.., no idea what to do
+
+
+
+
+## try mahalanobis distance for matching
+
+mu <- t(MW32$mu)
+set.seed(2019);x <- rnorMmix(500, MW32)
+nm <- norMmixMLE(x, k=3, model="VEI",trafo="clr1", ini="clara")
+
+ret <- matrix(0, 3, 5)
+
+for (i in 1:5) {
+    ret[,i] <- mahalanobis(t(nm$norMmix$mu), center=mu[i,], cov=MW32$Sigma[,,i])
+}
+
+ret
+#              [,1]      [,2]      [,3]      [,4]      [,5]
+# [1,]   0.02723181 14.322284 37.087301 61.969810 87.699315
+# [2,] 336.73335067 86.521204 21.117156  1.915131  1.193917
+# [3,]  56.86232857  2.751678  2.714795 16.196353 35.085288
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-25
+
+
+## continuation of yesterday
+mumw <- t(MW32$mu)
+set.seed(2019);x <- rnorMmix(500, MW32)
+muf <- norMmixMLE(x, k=3, model="VEI", trafo="clr1", ini="clara")
+ret <- matrix(0, 5, 3)
+for (i in 1:3) {
+    ret[,i] <- mahalanobis(mumw, center=muf$norMmix$mu[,i], cov=muf$norMmix$Sigma[,,i])
+}
+ret
+#              [,1]       [,2]      [,3]
+# [1,]   0.02910772 49.8109160 13.581450
+# [2,]  31.15541733 25.5992264  1.311877
+# [3,] 121.05523549  9.3737762  1.951380
+# [4,] 269.72856218  1.1345655 15.499959
+# [5,] 477.17539740  0.8815942 41.957614
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-27
+
+
+## reproduce norMmixMLE up untill mstep
+
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+options(error = recover)
+ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+## here issue vmmin??
+
+ans <- norMmixMLE(smi, k=7, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+## here issue D<0
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-30
+
+
+## fix vmmin issue. put mean in first few cases
+ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+
+## in theory fixed for first 3 cases
+ans <- norMmixMLE(smi, k=2, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+## no
+ans <- norMmixMLE(smi, k=1, model="VII", trafo="clr1", ini="mclVVV", ll="nmm")
+## no
+ans <- norMmixMLE(smi, k=1, model="EEI", trafo="clr1", ini="mclVVV", ll="nmm")
+## converged
+ans <- norMmixMLE(smi, k=2, model="VII", trafo="clr1", ini="mclVVV", ll="nmm")
+## no
+
+
+ans <- fit.norMmix(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#   EII VII
+# 1  NA  NA
+# 2  NA  NA
+# 3  NA  NA
+# 
+# $best
+# character(0)
+# 
+
+
+## try again with force positive
+ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+
+
+ans <- fit.norMmix(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#   EII VII
+# 1  NA  NA
+# 2  NA  NA
+# 3  NA  NA
+# 
+# $best
+# character(0)
+# 
+
+## no
+ans <- norMmixMLE(smi, k=7, model="VVI", trafo="clr1", ini="mclVVV", ll="nmm")
+## something wrong here too
+
+
+## error handling
+## fit.norMmix now saves proper error
+
+## list with dim
+
+x9 <- rnorMmix(100, MW29)
+ans <- fit.norMmix(x9, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+rr <- ans$nMm
+dim(rr) <- c(3,2)
+
+## can't acces sublists after assigning dims
