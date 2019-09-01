@@ -33,10 +33,10 @@ test_that("test over MW* mcl against nMm", {
         nMm <- get(i, "package:norMmix")
         p <- nMm$dim
 
-        for(j in 3:4) { # done for 1:5, but too long
+        for(j in 2:3) { # done for 1:5, but too long
             set.seed(2014+j); x <- rnorMmix(200, nMm)
 
-            for (k in 3:5) { # done for 1:7
+            for (k in 1:2) { # done for 1:7
                 clu <- cluster::clara(x,k)$clustering
                 index <- matrix(0, 200,k)
                 index[cbind(1:200,clu)] <- 1

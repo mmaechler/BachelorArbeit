@@ -1847,3 +1847,29 @@ rr <- ans$nMm
 dim(rr) <- c(3,2)
 
 ## can't acces sublists after assigning dims
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-31
+
+
+## try again with numerical stability
+## make epsilon accessible variable
+ans <- norMmixMLE(smi, k=1, model="VII", trafo="clr1", ini="mclVVV", ll="nmm", epsilon=1e-1)
+## first converges with epsilon at 1e-1
+
+ans <- fit.norMmix(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+## this fixes it
