@@ -1873,3 +1873,143 @@ BIC(ans)
 # 
 
 ## this fixes it
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-01
+
+
+## further work on stability in n2p,p2n. mainly transforming to log scale
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-02
+
+## since nmm2par, par2nmm should now be more stable, see if numerically better
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans
+# $nMm
+# $nMm$EII1
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$VII1
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$EII2
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$VII2
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$EII3
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$VII3
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+
+## no... try larger epsilon
+
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-6)
+
+## no
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+## all converged
+
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=4e-2)
+str(ans$nMm,max=1)
+# List of 6
+#  $ EII1:List of 2
+#   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+#  $ VII1:List of 2
+#   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+#  $ EII2:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+#  $ VII2:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+#  $ EII3:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+#  $ VII3:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+# NULL
+
+## somewhere between 0.01 and 0.1 fitting fails
+ll <- ans$nMm$EII3$optr$value
+# [1] 10820.24
+parl <- ans$nMm$EII3$parlen
+n <- ans$nMm$EII3$n
+
+log(n)*parl + 2*ll
+# [1] 21952.26
+
+## same as value with tighter tolerances
+
+
+## removed one operation from llnorMmix
+
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+
+## how about large k
+ans <- fit.norMmix(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-10)
+ans
+# $nMm
+# $nMm$VVI1
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+ans <- fit.norMmix(smi, k=7, models=7, trafo="clr1", ini="clara", ll="nmm", epsilon=1e3)
+ans$nMm$EEE1$optr$value
+# [1] 6028.542
+## not fixed
+
+
+## there is still an issue with VVI model
+
+## loaded norMmix again
+ans <- fit.norMmix(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+## yay converged
+
+
+## try "claw" like norMmix obj
+
+mu <- matrix(c(0,0,0,-2,0,0,0,0,0,2,0,0), 3,4)
+we <- c(0.7,0.1,0.1,0.1)
+Si <- array( c(diag(5,3), diag(0.5,3), diag(0.5,3), diag(0.5,3)), c(3,3,4) )
+mo <- "VEI"
+obj <- norMmix(mu, Sigma=Si, weight=we, model=mo, name="claw like")
+xobj <- rnorMmix(1000, obj)
+
+plot(xobj)
+
+ans <- fit.norMmix(xobj, k=1:10, models=1:10, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+
+## new job to ada server?
+

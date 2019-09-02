@@ -190,90 +190,20 @@ show an example using nor1mix
 then an illustration of MW examples of pathological cases
 
 
+\includegraphics{chapter1-002}
+
+
+yay, got figure to print. solution was use of fig=TRUE, instead of various mutations like figure=true.
+
+here we see how change in loglik seems to stagnate. However, this does not stay that way, if we let EM run a bit further.
+
 \begin{Schunk}
 \begin{Sinput}
-> p.EMsteps <- function(nSteps, x, nmObj,
-+                       main = "EM for 1-dim normal mixtures",
-+                       sleep = nSteps <= 40, sec.sleep = 0.2, col2 = "tomato",
-+                       showLik = nSteps <= 80,
-+                       plotIni = FALSE, # plot the initial param. ?
-+                       doNote = TRUE)
-+ {
-+     ## Purpose: show progress of EM - steps -- only few steps
-+     ## ----------------------------------------------------------------------
-+     ## Author: Martin Maechler, Date: 26 Nov 2009
-+     stopifnot(is.norMix(nmObj), is.numeric(x), nSteps >= 1)
-+     nm. <- nmObj
-+     ll.em <- numeric(nSteps)
-+     for(k in 1:nSteps) {
-+         z. <- estep.nm(x9, obj = nm.)
-+         nm. <- do.call(norMix, c(mstep.nm(x=x9, z=z.), name=""))
-+         if(k == 1) { ## only after the first E+M - step
-+             op <- par(mar = c(0,0,0, 2.) + par("mar")); on.exit(par(op))
-+             plot(nm., p.norm=FALSE, main = main)
-+             if(plotIni) lines(nmObj, p.norm=FALSE)
-+             rug(x) ; mtext(paste("n = ", length(x)),
-+                            line = -1., adj=.99)
-+             nm2 <<- nm. ## save the 2nd
-+             if(showLik) {
-+                 yVal <- approxfun(x=c(nSteps,1), y=par("usr")[3:4])
-+                 xV <- { u <- par("usr")[1:2]; u[2] + .01*(u[2]-u[1]) }
-+             }
-+         } else lines(nm., p.norm=FALSE, col = rgb(0,0,0, 0.2))
-+         print(ll <- llnorMix(nM2par(nm.), x=x9))
-+         ll.em[k] <- ll
-+         if(showLik)
-+             text(xV, yVal(k), sprintf("%3d: %5.1f", k, ll),
-+                  cex = 0.8, adj = 0, xpd = NA)
-+         if(sleep) Sys.sleep(sec.sleep)
-+     }
-+     ## plot the last one more visibly
-+     lines(nm., p.norm=FALSE, col = col2, lwd = 2)
-+     if(doNote)
-+         mtext(paste(nSteps," E-, M-steps seem to have converged nicely .."),
-+               col=col2)
-+     ## return final normal mixture {but invisibly}:
-+     invisible(list(nm = nm., logLik = ll.em))
-+ }
-> 
+> r <- p.EMsteps(200, x9, nm1)
 \end{Sinput}
 \end{Schunk}
+\includegraphics{chapter1-003}
 
-here figure maybe
+In fact, it seems that the previous solution is a saddle point in the likelihood function, where EM has chronic problems continuing improvements.
 
-\begin{figure}
-\begin{Schunk}
-\begin{Sinput}
-> clp0 <- cluster::clara(x9, k=3, samples=1000, medoids.x = FALSE, rngR=TRUE)
-> nm1 <- clus2norMix(clp0$clustering, x9) ## <-- M-step from cluster:
-> p.EMsteps(20, x9, nm1, plotIni=TRUE)# 20 steps: final logLik ("ll"): -7779.5
-\end{Sinput}
-\begin{Soutput}
-[1] -7881.319
-[1] -7864.054
-[1] -7857.641
-[1] -7854.718
-[1] -7853.212
-[1] -7852.369
-[1] -7851.864
-[1] -7851.543
-[1] -7851.327
-[1] -7851.173
-[1] -7851.055
-[1] -7850.961
-[1] -7850.88
-[1] -7850.808
-[1] -7850.742
-[1] -7850.679
-[1] -7850.617
-[1] -7850.557
-[1] -7850.498
-[1] -7850.439
-\end{Soutput}
-\begin{Sinput}
-> 
-\end{Sinput}
-\end{Schunk}
-\end{figure}
-
-
+should include animations?? like mix\_est\_1d.R line 249+24 lines

@@ -189,7 +189,7 @@ lines(density(x9), lwd=1.8)# "clearly" 3 components
 then an illustration of MW examples of pathological cases
 
 
-<<echo=T>>=
+<<fig=TRUE,echo=FALSE,results=hide>>=
 
 p.EMsteps <- function(nSteps, x, nmObj,
                       main = "EM for 1-dim normal mixtures",
@@ -235,18 +235,21 @@ p.EMsteps <- function(nSteps, x, nmObj,
     invisible(list(nm = nm., logLik = ll.em))
 }
 
-@
-
-here figure maybe
-
-\begin{figure}
-<<figure=T>>=
-
 clp0 <- cluster::clara(x9, k=3, samples=1000, medoids.x = FALSE, rngR=TRUE)
 nm1 <- clus2norMix(clp0$clustering, x9) ## <-- M-step from cluster:
-p.EMsteps(20, x9, nm1, plotIni=TRUE)# 20 steps: final logLik ("ll"): -7779.5
+p.EMsteps(20, x9, nm1, plotIni=TRUE, sec.sleep=0)# 20 steps: final logLik ("ll"): -7779.5
 
 @
-\end{figure}
 
 
+yay, got figure to print. solution was use of fig=TRUE, instead of various mutations like figure=true.
+
+here we see how change in loglik seems to stagnate. However, this does not stay that way, if we let EM run a bit further.
+
+<<fig=TRUE,results=hide>>=
+r <- p.EMsteps(200, x9, nm1)
+@
+
+In fact, it seems that the previous solution is a saddle point in the likelihood function, where EM has chronic problems continuing improvements.
+
+should include animations?? like mix\_est\_1d.R line 249+24 lines
