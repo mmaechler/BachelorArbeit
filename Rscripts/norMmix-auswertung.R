@@ -5,6 +5,7 @@ options(error=recover)
 options(error=NULL)
 set.seed(2019)
 library(MASS)
+library(mclust)
 
 
 models <- c("EII","VII","EEI","VEI","EVI",
@@ -2008,8 +2009,114 @@ xobj <- rnorMmix(1000, obj)
 
 plot(xobj)
 
-ans <- fit.norMmix(xobj, k=1:10, models=1:10, trafo="clr1", ini="clara", ll="nmm")
+ans <- fit.norMmix(xobj, k=1:7, models=1:10, trafo="clr1", ini="clara", ll="nmm")
 BIC(ans)
+# [[1]]
+#        EII      VII      EEI      VEI      EVI      VVI      EEE
+# 1 12514.64 12514.64 12515.14 12515.14 12515.14 12515.14 12532.40
+# 2 12530.85 12471.10 12539.99 12465.14 12538.02 12393.42 12558.56
+# 3 12536.75 12412.84 12516.08 12420.65 12543.71 12441.77 12530.19
+# 4 12549.31 12447.40 12527.37 12393.90 12571.28 12452.86 12548.26
+# 5 12565.23 12427.95 12539.18 12468.53 12581.23 12503.19 12547.36
+# 6 12585.76 12453.27 12586.42 12498.22 12592.22 12528.97 12584.07
+# 7 12584.41 12473.97 12538.82 12512.06 12611.30 12547.71 12552.78
+#        VEE      EVV      VVV
+# 1 12532.40 12532.40 12532.40
+# 2 12482.45 12562.94 12429.94
+# 3 12438.77 12583.96 12472.64
+# 4 12474.73 12606.72 12518.75
+# 5 12483.54 12630.01 12569.62
+# 6 12507.25 12666.35 12613.50
+# 7 12532.87 12698.68 12664.01
+# 
+# $best
+# [1] "2"   "VVI"
+# 
+models <- c("EII","VII","EEI","VEI","EVI",
+	    "VVI","EEE","VEE","EVV","VVV")
+mcl <- Mclust(xobj, G=1:7, modelNames=models)
+mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 -12514.64 -12514.64 -12515.14 -12515.14 -12515.14 -12515.14
+# 2 -12531.12 -12475.69 -12541.27 -12466.05 -12526.41 -12394.05
+# 3 -12539.01 -12413.44 -12567.55 -12421.31 -12557.92 -12423.00
+# 4 -12565.27 -12442.04 -12547.05 -12446.81 -12578.69 -12464.37
+# 5 -12590.65 -12473.32 -12554.24 -12470.79 -12586.67 -12494.65
+# 6 -12618.90 -12459.89 -12582.05 -12472.23 -12623.80 -12517.19
+# 7 -12617.83 -12487.67 -12609.62 -12500.03 -12633.18 -12563.38
+#         EEE       VEE       EVV       VVV
+# 1 -12532.40 -12532.40 -12532.40 -12532.40
+# 2 -12559.68 -12483.36 -12575.60 -12430.51
+# 3 -12585.91 -12439.46 -12569.62 -12470.78
+# 4 -12559.25 -12467.58 -12611.11 -12532.16
+# 5 -12568.25 -12484.44 -12651.87 -12578.99
+# 6 -12595.83 -12491.05 -12675.75 -12621.69
+# 7 -12614.12 -12518.31 -12717.92 -12678.44
+# 
+# Top 3 models based on the BIC criterion: 
+#     VVI,2     VII,3     VEI,3 
+# -12394.05 -12413.44 -12421.31 
 
 ## new job to ada server?
 
+
+dd <- norMmixMLE(smi, k=1, model="EII", trace=1)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-04
+
+
+
+## today implement other models for mstep
+
+## inserted mclusts functions, and browser(). look at data:
+x <- matrix(rnorm(400), 200,2)
+
+ret <- norMmixMLE(x, k=3)
+## so far so good.
+
+## added transform to norMmix
+ret <- norMmixMLE(x, k=3)
+## ok seems to work.
+
+## try to remove forcePositive
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+## yay seems to converge accurately, ie to same place as forced pos results
+## of earlier results
+
+## try  <- VVI, since it also had problems
+ans <- fit.norMmix(smi, k=1:3, models=6)
+BIC(ans)
+# [[1]]
+#        VVI
+# 1 18221.49
+# 2 15695.47
+# 3 14885.71
+# 
+# $best
+# [1] "VVI"
+# 
+## also converges, but BIC seems to not return best k
+## fixed
+
+## do some documentation
+
+## give smi as job to ada-server
