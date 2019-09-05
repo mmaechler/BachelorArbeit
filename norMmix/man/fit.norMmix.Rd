@@ -20,5 +20,5 @@ fit.norMmix <- function(x, k=1:10, models=1:10, trafo=c("clr1","logit"),ll = c("
     \item{n}{number of observations of x}
     \item{p}{number of variables of x}
 }
-\details{Essentially wrapper function for norMmixMLE, applying norMmixMLE to all k and models specified}
+\details{Wrapper function for norMmixMLE, applying norMmixMLE to all k and models specified}
 \examples{}

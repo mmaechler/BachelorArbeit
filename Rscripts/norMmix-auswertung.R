@@ -2120,3 +2120,52 @@ BIC(ans)
 ## do some documentation
 
 ## give smi as job to ada-server
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-05
+
+
+## ada job done, examine results
+
+smifit <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_clr1_clara_nmm.rds")
+
+BIC(smifit$fit)
+
+## wrote displayError.fittednorMmix()
+displayError.fittednorMmix(smifit$fit)
+# VEE 5 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 5 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 5 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+#  
+# VEE 6 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+#  
+# EVV 6 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 6 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+# 
+# VEE 7 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 7 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 7 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+# 
+# VEE 8 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 8 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 8 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+#  
+# VEE 9 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 9 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 9 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+
+
+## wrote AIC.fittednorMmix()
+AIC(smifit$fit)
