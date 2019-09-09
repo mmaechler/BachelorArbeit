@@ -239,7 +239,7 @@ relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model p
 
 since mclust is one of the more popular packages implementing the EM algo, we employ a lot of functions from mclust, to keep things around EM as similar as possible.
 
-\section{Theoretical Groundwork} (this Section maybe one chapter earlier)
+\section{concept of package} (this Section maybe one chapter earlier)
 
 about Cholesky decomp as ldlt. has advantages: fast, parametrically parsimonious, can easily compute loglikelihood
 
