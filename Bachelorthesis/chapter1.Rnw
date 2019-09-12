@@ -256,6 +256,7 @@ So caomparison of algos done through throwing difficult mixtures and non-mixture
 
 \chapter{Comparing Algotithms}
 
+display abilities of norMmix on its own. can find correct models
 
 maybe apply to MW[0-9] objects?
 

@@ -2131,8 +2131,11 @@ BIC(ans)
 ## ada job done, examine results
 
 smifit <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_clr1_clara_nmm.rds")
+smifit2 <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_logit_clara_nmm.rds")
 
 BIC(smifit$fit)
+BIC(smifit2$fit)
+round(BIC(smifit$fit)[[1]]-BIC(smifit2$fit)[[1]], 1)
 
 ## wrote displayError.fittednorMmix()
 displayError.fittednorMmix(smifit$fit)
@@ -2169,3 +2172,93 @@ displayError.fittednorMmix(smifit$fit)
 
 ## wrote AIC.fittednorMmix()
 AIC(smifit$fit)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-11
+
+## try again getting dim(list) to work
+
+a1 <- list(aa="a", ab="b", ac="c")
+a2 <- list(aa="a", ab="b", ac="c")
+a3 <- list(aa="a", ab="b", ac="c")
+a4 <- list(aa="a", ab="b", ac="c")
+a5 <- list(aa="a", ab="b", ac="c")
+a6 <- list(aa="a", ab="b", ac="c")
+b <- list(a1,a2,a3,a4,a5,a6)
+dim(b) <- c(2,3)
+
+b[2,3][[1]]$ab
+# [1] "b"
+## works with [[1]] modifier
+
+smifit <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_clr1_clara_nmm.rds")
+
+d <- smifit$fit$nMm
+dim(d) <- c(10,9)
+e <- t(d)
+colnames(e) <- smifit$fit$models
+rownames(e) <- smifit$fit$k
+
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+## ok now change analysis tools to fit this
+logLik(ans)
+## ok
+BIC(ans)
+## ok
+ans$nMm[3,2][[1]] <- list("asdfsadlfkajsd", c(33,44))
+displayError.fittednorMmix(ans)
+## ok
+
+
+## write plot.fittednorMmix
+plot(ans, name="smi")
+## ok better
+## add "best"
+plot(ans, name="smi")
+## cols "fixed"
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-12
+
+
+## write sllnorMmix()
+set.seed(2019); x <- rnorMmix(400, MW27)
+sllnorMmix(x, MW27)
+# [1] -1986.315
+
+## played around in NAMESPACE
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+
+## test mle against true model
+ret <- norMmixMLE(x, k=2, model="VEI", maxit=1e4)
+sllnorMmix(x, MW27)
+# [1] -1986.315
+sllnorMmix(x, ret$norMmix)
+# [1] -1980.861
+
+plot(BIC(ans)[[3]]$norMmix)
+
+
+
+(rdat <- list.files(file.path(GH_BA_dir, "norMmix/data"), pattern="mw.*"))
+
+(MWdat <- Filter(function(.) is.norMmix(get(., "package:norMmix")),
+                 ls("package:norMmix", pattern = "^MW[1-9]")))
+
+trafos <- c("clr1", "logit")
+inits <- c("clara", "mclVVV")
+lls <- c("nmm", "mvt")
+size <- c(400,500)
+seeds <- 1:50

@@ -26,13 +26,15 @@ importFrom("mixtools", ellipse)
 ### This package exports ---------------------------------
 
 ## Functions
-export(llmvtnorm
+export(
+       llmvtnorm
      , llnorMmix
      , nMm2par, nc2p, nl2p
      , norMmix
      , norMmixMLE
      , par2nMm
      , rnorMmix
+     , sllnorMmix
        )
 
 ## all the "norMmix"  example objects
@@ -46,3 +48,5 @@ export(MW21, MW22
 
 
 S3method(plot, norMmix)
+S3method(plot, fittednorMmix)
+S3method(BIC, fittednorMmix)
