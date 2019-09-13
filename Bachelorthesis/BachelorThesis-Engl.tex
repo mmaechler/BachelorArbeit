@@ -38,6 +38,9 @@
 \usepackage{color} %% to allow coloring in code listings
 \usepackage{Sweave}
 \usepackage{listings}% Fuer R-code, C-code, ....  and settings for these:
+
+\usepackage{lineno}  %TODO comment this out when not needed anymore
+
 \definecolor{Mygrey}{gray}{0.75}% for linenumbers only!
 \definecolor{Cgrey}{gray}{0.4}% for comments
 \lstloadlanguages{R}
@@ -146,12 +149,10 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 	case of multivariate normal mixture models using the Cholesky decomposition.
 	The EM algorithm is widely used in statistics and is proven to converge, 
 	however in pathological cases convergence slows down considerably. 
-	MLE doesn't have this particular error, but is computationally costly.
-	The Cholesky decomposition cuts down the necessary parameters almost in half....
 
 	methods(not done)
 
-	results(not done)% insert your abstract
+	results(not done)
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -174,6 +175,7 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %%% or even better: write in separate files   %%%
 %%% that you just have to include here.       %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\linenumbers  %% TODO remove after not needed anymore
 \include{chapter1}
 \include{chapter2}
 %% and more
