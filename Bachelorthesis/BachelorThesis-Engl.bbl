@@ -1,21 +1,24 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citeauthoryear{Bar and Meier}{Bar and
-  Meier}{2001}]{ReferenceKey}
-Bar, F. and H.~Meier (2001).
-\newblock Title of the article.
-\newblock {\em Journal where the article has been published\/}~{\em volume of
-  the journal}, 12--77.
+\bibitem[\protect\citeauthoryear{Benaglia, Chauveau, and Hunter}{Benaglia
+  et~al.}{2009}]{Ben09}
+Benaglia, T., D.~Chauveau, and D.~R. Hunter (2009).
+\newblock An em-like algorithm for semi- and nonparametric estimation in
+  multivariate mixtures.
+\newblock {\em Journal of Computational and Graphical Statistics\/}~{\em
+  18\/}(2), 505--526.
 
-\bibitem[\protect\citeauthoryear{Hampel}{Hampel}{1985}]{HamF85}
-Hampel, F.~R. (1985).
-\newblock The breakdown points of the mean combined with some rejection rules.
-\newblock {\em Technometrics\/}~{\em 27\/}(2), 95--107.
+\bibitem[\protect\citeauthoryear{McLachlan and Peel}{McLachlan and
+  Peel}{2000}]{McL00}
+McLachlan, G. and D.~Peel (2000).
+\newblock {\em Finite Mixture Models\/} (1 ed.).
+\newblock Wiley Series in Probability and Statistics. Wiley-Interscience.
 
-\bibitem[\protect\citeauthoryear{Stahel and Weisberg}{Stahel and
-  Weisberg}{1991}]{StaWW91}
-Stahel, W. and S.~Weisberg (1991).
-\newblock {\em Directions in Robust Statistics and Diagnostics, 2 vol.}
-\newblock N.~Y.: Springer-Verlag.
+\bibitem[\protect\citeauthoryear{Roeder and Wasserman}{Roeder and
+  Wasserman}{1997}]{Roe97}
+Roeder, K. and L.~Wasserman (1997).
+\newblock Practical bayesian density estimation using mixtures of normals.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  92\/}(439), 894--902.
 
 \end{thebibliography}
