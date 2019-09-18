@@ -1,14 +1,24 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citeauthoryear{Bar and Meier}{Bar and Meier}{2002}]{asdf}
-Bar, F. and H.~Meier (2002).
-\newblock asdftitle of the article.
-\newblock {\em Journal where the article has been published\/}~{\em volume of
-  the journal}, 12--77.
+\bibitem[\protect\citeauthoryear{Benaglia, Chauveau, and Hunter}{Benaglia
+  et~al.}{2009}]{Ben09}
+Benaglia, T., D.~Chauveau, and D.~R. Hunter (2009).
+\newblock An em-like algorithm for semi- and nonparametric estimation in
+  multivariate mixtures.
+\newblock {\em Journal of Computational and Graphical Statistics\/}~{\em
+  18\/}(2), 505--526.
 
-\bibitem[\protect\citeauthoryear{Buhlmann}{Buhlmann}{1995}]{Buhl93}
-Buhlmann, P. (1995).
-\newblock {\em Halli}.
-\newblock Springer.
+\bibitem[\protect\citeauthoryear{McLachlan and Peel}{McLachlan and
+  Peel}{2000}]{McL00}
+McLachlan, G. and D.~Peel (2000).
+\newblock {\em Finite Mixture Models\/} (1 ed.).
+\newblock Wiley Series in Probability and Statistics. Wiley-Interscience.
+
+\bibitem[\protect\citeauthoryear{Roeder and Wasserman}{Roeder and
+  Wasserman}{1997}]{Roe97}
+Roeder, K. and L.~Wasserman (1997).
+\newblock Practical bayesian density estimation using mixtures of normals.
+\newblock {\em Journal of the American Statistical Association\/}~{\em
+  92\/}(439), 894--902.
 
 \end{thebibliography}

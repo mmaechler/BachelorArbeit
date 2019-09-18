@@ -3,6 +3,7 @@
 devtools::load_all("~/ethz/BA/norMmix")
 options(error=recover)
 options(error=NULL)
+source(file="~/ethz/BA/Rscripts/adafuncs.R")
 set.seed(2019)
 library(MASS)
 library(mclust)
@@ -2262,3 +2263,172 @@ inits <- c("clara", "mclVVV")
 lls <- c("nmm", "mvt")
 size <- c(400,500)
 seeds <- 1:50
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-15
+
+
+## get data from ada
+## ok looks weird. logit doesnt seem to work..
+
+adabic <- function(string, na.rm=FALSE) {
+    arr <- array(0, c(7,10,50))
+    val <- list()
+
+    for (i in 1:50) {
+        dir1 <- "~/ethz/BA/Rscripts/nm2"
+        nm <- readRDS(file.path(dir1,paste0(string,as.character(i),".rds")))
+        arr[,,i] <- BIC(nm$fit)[[1]]
+        val[[i]] <- BIC(nm$fit)[[2]]
+    }
+
+    mus <- apply(arr,c(1,2), function(j) mean(j, na.rm=na.rm))
+    sds <- apply(arr,c(1,2), sd)
+
+    list(mu=mus, sd=sds, best=val)
+}
+
+string1 <- "fit_MW21_n=400_clr1_mclVVV_seed="
+adabic(string1)
+mean(adabic(string1)$sd)
+# [1] 43.32461
+
+rle(sort(unlist(lapply(adabic(string1)$best, function(j)paste(j[[1]],j[[2]])))))
+
+
+adabest <- function(string) {
+    ret <- rle(sort(unlist(lapply(adabic(string1)$best, function(j)paste(j[[1]],j[[2]])))))
+    cbind(ret$values, ret$lengths)
+}
+adabest(string1)
+#      [,1]    [,2]
+# [1,] "1 EEI" "2" 
+# [2,] "1 EII" "40"
+# [3,] "1 VII" "2" 
+# [4,] "2 VEE" "2" 
+# [5,] "2 VEI" "1" 
+# [6,] "2 VII" "2" 
+# [7,] "5 VII" "1" 
+
+string2 <- "fit_MW21_n=500_logit_mclVVV_seed="
+adabic(string2)
+mean(adabic(string2)$sd)
+# [1] 47.40294
+
+strings <- c("fit_MW21_n=400_clr1_clara_seed=",
+             "fit_MW21_n=400_clr1_mclVVV_seed=",
+             "fit_MW21_n=400_logit_clara_seed=",
+             "fit_MW21_n=400_logit_mclVVV_seed=",
+             "fit_MW21_n=500_clr1_clara_seed=",
+             "fit_MW21_n=500_clr1_mclVVV_seed=",
+             "fit_MW21_n=500_logit_clara_seed=",
+             "fit_MW21_n=500_logit_mclVVV_seed=")
+sapply(strings, function(j) mean(adabic(j)$sd))
+#   fit_MW21_n=400_clr1_clara_seed= 
+#                          43.05809 
+#  fit_MW21_n=400_clr1_mclVVV_seed= 
+#                          43.32461 
+#  fit_MW21_n=400_logit_clara_seed= 
+#                                NA 
+# fit_MW21_n=400_logit_mclVVV_seed= 
+#                                NA 
+#   fit_MW21_n=500_clr1_clara_seed= 
+#                          47.47940 
+#  fit_MW21_n=500_clr1_mclVVV_seed= 
+#                          47.40294 
+#  fit_MW21_n=500_logit_clara_seed= 
+#                                NA 
+# fit_MW21_n=500_logit_mclVVV_seed= 
+#                                NA 
+
+sapply(strings, function(j) mean(adabic(j)$sd, na.rm=TRUE))
+#   fit_MW21_n=400_clr1_clara_seed= 
+#                          43.05809 
+#  fit_MW21_n=400_clr1_mclVVV_seed= 
+#                          43.32461 
+#  fit_MW21_n=400_logit_clara_seed= 
+#                         196.20206 
+# fit_MW21_n=400_logit_mclVVV_seed= 
+#                         185.64215 
+#   fit_MW21_n=500_clr1_clara_seed= 
+#                          47.47940 
+#  fit_MW21_n=500_clr1_mclVVV_seed= 
+#                          47.40294 
+#  fit_MW21_n=500_logit_clara_seed= 
+#                         265.28591 
+# fit_MW21_n=500_logit_mclVVV_seed= 
+#                         259.51564 
+
+
+adall <- function(string, model) {
+    rettrue <- numeric(50)
+    retfit <- numeric(50)
+    truenm <- get(model, "package:norMmix")
+
+    for (i in 1:50) {
+        dir1 <- "~/ethz/BA/Rscripts/nm2"
+        nm <- readRDS(file.path(dir1,paste0(string,as.character(i),".rds")))
+        val <- BIC(nm$fit)[[2]]
+        fitnm <- nm$fit$nMm[val[1],val[2]][[1]]$norMmix
+        retfit[i] <- tryCatch(sllnorMmix(nm$fit$x, fitnm), error = function(e) NA)
+        rettrue[i] <- sllnorMmix(nm$fit$x, truenm)
+    }
+
+    list(retfit,rettrue,retfit/rettrue)
+}
+
+string <- "fit_MW21_n=400_clr1_mclVVV_seed="
+model <- "MW21"
+llratio <- adall(string, model)
+hist(llratio[[3]])
+
+string3 <- "fit_MW21_n=400_clr1_clara_seed="
+model <- "MW21"
+llratio3 <- adall(string3, model)
+llratio3[[3]]
+#  [1] 0.9977740 0.9799483 0.9808983 0.9775089 0.9992064
+#  [6] 0.9997829 0.9995015 0.9992125 0.9998252 0.9520283
+# [11] 0.9993791 0.9989665 0.9984381 0.9992428 0.9973943
+# [16] 0.9953392 0.9985002 0.9997708 0.9989852 0.9997341
+# [21] 0.9768726 0.9976401 0.9979366 0.9959528 0.9985689
+# [26] 0.9996389 0.9982626 0.9985632 0.9992450 0.9998493
+# [31] 0.9988006 0.9994192 0.9961450 0.9991374 0.9975383
+# [36] 0.9988674 0.9994284 0.9768115 0.9988178 0.9993823
+# [41] 0.9982006 0.9984465 0.9974469 0.9986910 0.9993383
+# [46] 0.9989461 0.9969418 0.9995362 0.9996832 0.9948402
+mean(llratio3[[3]])
+# [1] 0.9956077
+sd(llratio3[[3]])
+# [1] 0.00884974
+
+## see how logit does
+
+string4 <- "fit_MW21_n=400_logit_clara_seed="
+model <- "MW21"
+llratio4 <- adall(string4, model)
+llratio4[[3]]
+#  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+# [20] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+# [39] NA NA NA NA NA NA NA NA NA NA NA NA
+
+## turns out logit doesn't return correct weights
+sllnorMmix(nm$fit$x, fitnm)
+# Error in clr1(w) : all(w >= 0) not TRUE
+
+## seems uses clr1 for some reason???
+
+## put functions so far into own script "adafunc" source command on line 6
+## sweep out summary stats from several .rds files according to some pattern
+
+
+sllnorMmix(nm$fit$x, fitnm, trafo="logit")
+# Error in logit(w) : all(e >= 0) is not TRUE
+
+## ok some error in logit. not fault of sllnorMmix
+
+
+## ok logit doesn't work
+## maybe just work with clr1

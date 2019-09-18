@@ -6,7 +6,7 @@
 
 A good and thorough introductory book is the work of McLachlan and Peel 2000 and the reader is encouraged to study that to learn in depth about normal mixtures. We will here give a short overwiev of normal mixtures to fix notation and nomenclature.
 
-Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ and $ \phi(\mu, \Sigma) $ be the normal distribution with mean $ \mu $ and covariance matrix $ \Sigma $.
+Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ and $ \phi(- ; \mu, \Sigma) $ be the normal distribution with mean $ \mu $ and covariance matrix $ \Sigma $.
 
 Normal mixture model are designed for situations where we assume that a given dataset originates from more than one population of explaining variables.
 
@@ -15,7 +15,7 @@ $ \pmb{Y}_1, \dots , \pmb{Y}_n $
 \begin{definition}
     Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $ with probability density function $ \pmb{Y}_j \sim f(y_j) $ on $\mathbb{R}^p$ We assume that the density $ f(y_j) $ of $ \pmb{Y}_j $ can be written in the form 
 
-    \[ f(y_j) = \sum_{i=1}^{K} \pi_i \phi_i (y_i) \]
+    \[ f(y_j) = \sum_{i=1}^{K} \pi_i \phi_i (y_i; \mu, \Sigma) \]
 
     The $ \pi_i $ are called the component densities of the mixture.
 \end{definition}
@@ -135,10 +135,16 @@ here we see how change in loglik seems to stagnate. However, this does not stay 
 \begin{Schunk}
 \begin{Sinput}
 > r <- p.EMsteps(200, x9, nm1)
-> 
 \end{Sinput}
 \end{Schunk}
-\includegraphics{chapter1-003}
+
+\begin{figure}
+    \begin{center}
+\includegraphics{chapter1-004}
+    \end{center}
+    \caption{200 EM steps}
+    \label{adfafdafds}
+\end{figure}
 
 to conclude example show part of mixest that shows it takes 1200 iterations to converge
 
@@ -197,5 +203,7 @@ as in Raftery2002, Benaglia2009, Roeder 1997, maybe compare to MISE of various f
 also wanted is accuracy of model selection. generate from model and then compare fitted to original. either by acc-model==fit-model and acc-k==fit-k or acc-ll - fit-ll.
 
 
-\chapter{Coclusions}
+\chapter{Conclusions}
 
+testing citations
+\cite{McL00} \cite{Ben09} \cite{Roe97}

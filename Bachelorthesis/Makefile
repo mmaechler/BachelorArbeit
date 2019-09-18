@@ -6,7 +6,7 @@ chapter1.tex : chapter1.Rnw
 
 .PHONY: bib
 bib:
-	pdflatex BachelorThesis-Engl.tex
+	make -B
 	bibtex BachelorThesis-Engl
 	pdflatex BachelorThesis-Engl.tex
 	pdflatex BachelorThesis-Engl.tex
