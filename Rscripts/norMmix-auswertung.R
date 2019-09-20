@@ -10,7 +10,7 @@ library(mclust)
 
 
 models <- c("EII","VII","EEI","VEI","EVI",
-	    "VVI","EEE","VEE","EVV","VVV")
+    	    "VVI","EEE","VEE","EVV","VVV")
 
 
 n <- 2000
@@ -2432,3 +2432,46 @@ sllnorMmix(nm$fit$x, fitnm, trafo="logit")
 
 ## ok logit doesn't work
 ## maybe just work with clr1
+
+
+## test if using set.seed affects norMmixMLE
+
+set.seed(2019); x <- rnorMmix(500, MW25)
+
+## let's assume 'correct' model
+
+set.seed(20191); ret1 <- norMmixMLE(x,2, model="VII")
+set.seed(20192); ret2 <- norMmixMLE(x,2, model="VII")
+
+## yes, need to vary over seed for MLE.
+## although differences minimal.
+## do 2 ada jobs to analyse this.
+
+
+set.seed(20191); ret1 <- fit.norMmix(x,k=5, models=1)
+set.seed(20192); ret2 <- fit.norMmix(x,k=5, models=1)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-19
+
+## analyse small-data
+
+massbic <- function(string, DIR) {
+    val <- array(0, c(8,10,length(string)))
+
+    for (i in 1:length(string)) {
+        nm <- readRDS(file=file.path(DIR,string[i]))
+        val[,,i] <- BIC()
+    }
+
+    mus <- apply(val,3, mean)
+    sds <- apply(val,3, sds)
+    list(mean=mus, sd=sds)
+}
+
+dat <- list.files("~/ethz/BA/Rscripts/smallsize/", pattern="fit*")
+DIR <- "~/ethz/BA/Rscripts/smallsize"
+massbic(dat, DIR)

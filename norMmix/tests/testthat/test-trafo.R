@@ -10,11 +10,3 @@ test_that("test clr1 against clr1inv", {
           expect_equal(w2,clr1inv(clr1(w2)))
 
 })
-
-
-test_that("test logit against logitinv", {
-          w <- 1
-          expect_equal(w,logitinv(logit(w)))
-          w1 <- c(1,2)/3
-          expect_equal(w1,logitinv(logit(w1)))
-})

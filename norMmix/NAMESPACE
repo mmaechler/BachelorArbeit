@@ -29,7 +29,7 @@ importFrom("mixtools", ellipse)
 export(
        llmvtnorm
      , llnorMmix
-     , nMm2par, nc2p, nl2p
+     , nMm2par, nc2p
      , norMmix
      , norMmixMLE
      , par2nMm

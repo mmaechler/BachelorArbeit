@@ -11,8 +11,8 @@ test_that("EII llnorMmix against llmvtnorm", {
           p <- 2
           k <- 1
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -29,8 +29,8 @@ test_that("VII llnorMmix against llmvtnorm", {
           p <- 2
           k <- 3
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -47,8 +47,8 @@ test_that("EEI llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -63,8 +63,8 @@ test_that("VEI llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -79,8 +79,8 @@ test_that("EVI llnorMmix against llmvtnorm", {
           p <- 2
           k <- 3
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -95,8 +95,8 @@ test_that("VVI llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -111,8 +111,8 @@ test_that("EEE llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -127,8 +127,8 @@ test_that("VEE llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -143,8 +143,8 @@ test_that("EVV llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })
@@ -159,8 +159,8 @@ test_that("VVV llnorMmix against llmvtnorm", {
           p <- 2
           k <- 2
 
-          retnMm <- llnorMmix(par., t(x), k, trafo=tr, model=mo)
-          retmvt <- llmvtnorm(par., x, k, trafo=tr, model=mo)
+          retnMm <- llnorMmix(par., t(x), k, model=mo)
+          retmvt <- llmvtnorm(par., x, k, model=mo)
 
           expect_equal(retnMm,retmvt)
 })

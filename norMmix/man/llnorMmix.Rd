@@ -3,7 +3,7 @@
 \alias{llnorMmix}
 \title{Log-likelihood of parameter vector given data}
 \usage{
-llnorMmix(par., tx, k, trafo = c("clr1", "logit"),
+llnorMmix(par., tx, k,
           model = c("EII", "VII", "EEI", "VEI", "EVI",
                     "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
@@ -11,7 +11,6 @@ llnorMmix(par., tx, k, trafo = c("clr1", "logit"),
     \item{par.}{parameter vector}
     \item{tx}{Transposed sample matrix. Rows are variables and columns are observations}
     \item{k}{number of clusters}
-    \item{trafo}{either centered log ratio or logit}
     \item{model}{assumed distribution model of normal mixture}
 }
 \description{

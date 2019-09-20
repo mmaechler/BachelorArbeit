@@ -4,26 +4,22 @@
 \alias{par2nMm}
 \title{transform of parameter vector to normal mixture}
 \usage{
-par2nMm(par., p, k, trafo = c("clr1", "logit"), model = c("EII", "VII",
-  "EEI", "VEI", "EEE", "VEE", "EVI", "VVI", "EVV", "VVV"))
+    par2nMm(par., p, k, model = c("EII", "VII", "EEI", "VEI", "EEE",
+                                  "VEE", "EVI", "VVI", "EVV", "VVV"))
 }
 \arguments{
-\item{par.}{numeric vector of parameters}
-
-\item{p}{dimension of space}
-
-\item{trafo}{either "clr1" or "logit"}
-
-\item{model}{See description}
+    \item{par.}{numeric vector of parameters}
+    \item{p}{dimension of space}
+    \item{model}{See description}
 }
 \value{
-returns this list: list(weight=w, mu=mu, Sigma=Sigma, k=k, dim=p)
+    returns this list: list(weight=w, mu=mu, Sigma=Sigma, k=k, dim=p)
 }
 \description{
-\code{par2nMm} returns list containing weight, mu, Sigma, k, dim
+    \code{par2nMm} returns list containing weight, mu, Sigma, k, dim
 }
 \details{
-this is the inverse function to nMm2par. Given a numeric vector
-dimension and cluster number this function reconstructs a normal mixture
-object.
+    this is the inverse function to nMm2par. Given a numeric vector
+    dimension and cluster number this function reconstructs a normal mixture
+    object.
 }

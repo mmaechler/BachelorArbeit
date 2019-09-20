@@ -4,11 +4,9 @@ context("test input/output of par2nMm")
 
 test_that("io test using MWnm", {
           
-          tr <- "clr1"
-
           m <- MW21
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
 
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -18,7 +16,7 @@ test_that("io test using MWnm", {
 
           m <- MW23
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
 
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
@@ -28,7 +26,7 @@ test_that("io test using MWnm", {
 
           m <- MW24
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -37,7 +35,7 @@ test_that("io test using MWnm", {
 
           m <- MW22
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -46,7 +44,7 @@ test_that("io test using MWnm", {
 
           m <- MW25
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -55,7 +53,7 @@ test_that("io test using MWnm", {
 
           m <- MW26
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -64,7 +62,7 @@ test_that("io test using MWnm", {
 
           m <- MW27
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -73,7 +71,7 @@ test_that("io test using MWnm", {
 
           m <- MW28
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -82,7 +80,7 @@ test_that("io test using MWnm", {
 
           m <- MW29
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -91,7 +89,7 @@ test_that("io test using MWnm", {
 
           m <- MW210
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -100,7 +98,7 @@ test_that("io test using MWnm", {
 
           m <- MW211
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -109,7 +107,7 @@ test_that("io test using MWnm", {
 
           m <- MW212
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])
@@ -118,7 +116,7 @@ test_that("io test using MWnm", {
 
           m <- MW213
           a <- nc2p(m)
-          b <- par2nMm(a,m$dim,m$k,trafo=tr,m$model)
+          b <- par2nMm(a,m$dim,m$k,m$model)
           expect_equal(m$weight,b$weight)
           expect_equal(m$mu,b$mu)
           expect_equal(m$Sigma[,,1],b$Sigma[,,1])

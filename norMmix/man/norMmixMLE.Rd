@@ -4,7 +4,7 @@
 \alias{norMmixMLE}
 \alias{ssClaraL}
 \usage{
-norMmixMLE(x, k, trafo = c("clr1", "logit"),
+norMmixMLE(x, k,
           model = c("EII","VII","EEI","VEI","EVI",
                     "VVI","EEE","VEE","EVV","VVV"),
           ini = c("clara", "mclVVV"),
@@ -17,7 +17,6 @@ ssClaraL(n, k, p)
 \arguments{
   \item{x}{numeric [n x p] matrix}
   \item{k}{positive number of clusters}
-  \item{trafo}{a \code{\link{character}} string, transformation to be used.}
   \item{model}{a \code{\link{character}} string, the model to be assumed.}
   \item{ini}{a \code{\link{character}} string specifying the initialization step.}
 
