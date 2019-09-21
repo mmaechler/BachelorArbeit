@@ -109,41 +109,28 @@ the EM algo has stalling problems especially close to a local optimum
 show an example using nor1mix
 
 
-\begin{Schunk}
-\begin{Sinput}
-> library("nor1mix")
-> plot(MW.nm9, lty=2, col = "blue", p.norm=FALSE, p.comp=TRUE)
-> set.seed(2019)
-> x9 <- rnorMix(5000, MW.nm9)
-> lines(density(x9), lwd=1.8)# "clearly" 3 components
-> 
-\end{Sinput}
-\end{Schunk}
-\includegraphics{chapter1-001}
+
+\includegraphics{chapter1-002}
+
 
 
 then an illustration of MW examples of pathological cases
 
 
-\includegraphics{chapter1-002}
+\includegraphics{chapter1-nor1mixEx}
 
 
 yay, got figure to print. solution was use of fig=TRUE, instead of various mutations like figure=true.
 
 here we see how change in loglik seems to stagnate. However, this does not stay that way, if we let EM run a bit further.
 
-\begin{Schunk}
-\begin{Sinput}
-> r <- p.EMsteps(200, x9, nm1)
-\end{Sinput}
-\end{Schunk}
 
 \begin{figure}
-    \begin{center}
-\includegraphics{chapter1-004}
-    \end{center}
-    \caption{200 EM steps}
-    \label{adfafdafds}
+\begin{center}
+\includegraphics{chapter1-005}
+\end{center}
+\caption{200 EM steps}
+\label{adfafdafds}
 \end{figure}
 
 to conclude example show part of mixest that shows it takes 1200 iterations to converge

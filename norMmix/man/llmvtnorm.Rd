@@ -4,7 +4,7 @@
 \alias{llmvtnorm}
 \title{log-likelihood function relying on mvtnorm function}
 \usage{
-llmvtnorm(par., x, k, trafo = c("clr1", "logit"),
+llmvtnorm(par., x, k,
           model = c("EII", "VII", "EEI", "VEI", "EEE",
                     "VEE", "EVI", "VVI", "EVV", "VVV"))
 }
@@ -14,8 +14,6 @@ llmvtnorm(par., x, k, trafo = c("clr1", "logit"),
 \item{x}{matrix of samples}
 
 \item{k}{number of cluster}
-
-\item{trafo}{transformation of weights}
 
 \item{model}{assumed model of the distribution}
 }

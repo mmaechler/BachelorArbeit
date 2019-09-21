@@ -4,6 +4,11 @@ The top-level auxiliary file: BachelorThesis-Engl.aux
 The style file: chicago.bst
 A level-1 auxiliary file: chapter1.aux
 Database file #1: References.bib
+You're missing a field name---line 70 of file References.bib
+ :     
+ :     8(1):289–317.
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
 You've used 3 entries,
             2861 wiz_defined-function locations,
             638 strings with 5423 characters,
@@ -45,3 +50,4 @@ warning$ -- 0
 while$ -- 28
 width$ -- 0
 write$ -- 42
+(There was 1 error message)

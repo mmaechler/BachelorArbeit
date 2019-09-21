@@ -4,25 +4,25 @@
 \alias{nMm2par}
 \title{normal multivariate mixture model to parameter for MLE}
 \usage{
-nMm2par(obj, trafo = c("clr1", "logit"), model = c("EII", "VII", "EEI",
-  "VEI", "EVI", "VVI", "EEE", "VEE", "EVV", "VVV"))
+    nMm2par(obj, model = c("EII", "VII", "EEI", "VEI", "EVI",
+                           "VVI", "EEE", "VEE", "EVV", "VVV"),
+            meanFUN=mean)
 }
 \arguments{
-\item{obj}{list containing sig= covariance matrix array, mu= mean vector matrix, w= weights, k= number of clusters, p= dimension}
-
-\item{trafo}{either "clr1" or "logit"}
-
-\item{model}{one of "asdf..."}
+    \item{obj}{list containing sig= covariance matrix array, mu= mean vector matrix, w= weights, k= number of clusters, p= dimension}
+    \item{trafo}{either "clr1" or "logit"}
+    \item{model}{one of "asdf..."}
+    \item{meanFUN}{}
 }
 \description{
-\code{nMm2par} returns vector of parameters of norMmix objects
+    \code{nMm2par} returns vector of parameters of norMmix objects
 }
 \details{
-This transformation forms a vector from the parameters of a normal
-mixture. These consist of weights, means and covariance matrices.
-Weights are transformed according to 'trafo' param; means are 
-unchanged.
-Cov mats are given as D and L from the LDLt decomposition
+    This transformation forms a vector from the parameters of a normal
+    mixture. These consist of weights, means and covariance matrices.
+    Weights are transformed according to 'trafo' param; means are 
+    unchanged.
+    Cov mats are given as D and L from the LDLt decomposition
 }
 \examples{
 A  <- MW2nm4

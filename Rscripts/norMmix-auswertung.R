@@ -10,7 +10,7 @@ library(mclust)
 
 
 models <- c("EII","VII","EEI","VEI","EVI",
-	    "VVI","EEE","VEE","EVV","VVV")
+    	    "VVI","EEE","VEE","EVV","VVV")
 
 
 n <- 2000
@@ -2432,3 +2432,90 @@ sllnorMmix(nm$fit$x, fitnm, trafo="logit")
 
 ## ok logit doesn't work
 ## maybe just work with clr1
+
+
+## test if using set.seed affects norMmixMLE
+
+set.seed(2019); x <- rnorMmix(500, MW25)
+
+## let's assume 'correct' model
+
+set.seed(20191); ret1 <- norMmixMLE(x,2, model="VII")
+set.seed(20192); ret2 <- norMmixMLE(x,2, model="VII")
+
+## yes, need to vary over seed for MLE.
+## although differences minimal.
+## do 2 ada jobs to analyse this.
+
+
+set.seed(20191); ret1 <- fit.norMmix(x,k=5, models=1)
+set.seed(20192); ret2 <- fit.norMmix(x,k=5, models=1)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-19
+
+## analyse small-data
+
+massbic <- function(string, DIR) {
+    nm1 <- readRDS(file=file.path(DIR,string[1]))
+    aa <- dim(nm1$fit$nMm)
+    val <- array(0, c(aa[1],aa[2],length(string)))
+
+    for (i in 1:length(string)) {
+        nm <- readRDS(file=file.path(DIR,string[i]))
+        val[,,i] <- BIC(nm$fit)[[1]]
+    }
+
+    mus <- apply(val,3, mean)
+    sds <- apply(val,3, sd)
+    list(mean=mus, sd=sds, v=val)
+}
+
+dat <- list.files("~/ethz/BA/Rscripts/smallsize/", pattern="^fit*")
+DIR <- "~/ethz/BA/Rscripts/smallsize"
+dat2 <- dat[grep("1500", dat)]
+x <- massbic(dat2, DIR)
+
+f <- x$v
+dimnames(f) <- list(a=1:8, b=models, seed=1:10)
+
+boxplot(x$v[1,,])
+
+matplot(f[,,1], col=rainbow(10), type="l")
+for (i in 2:10) {
+    matplot(f[,,i], col=rainbow(10), type="l",add=TRUE)
+}
+
+boxplot(t(f[,"VVV",]), col=rainbow(10)[10])
+
+op <- par(mfrow=c(4,5))
+for (i in 1:10) {
+    matplot(f[,i,], lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+for (i in 1:10) {
+    boxplot(t(f[,i,]), lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+par(op)
+
+
+DI <- "~/ethz/BA/Rscripts/smallseed"
+stri <- list.files(DI, pattern="*.rds")
+y <- massbic(stri, DI)
+g <- y$v
+pdf(file=file.path(DI,"summary.pdf"),20,16)
+op <- par(mfrow=c(4,5))
+for (i in 1:10) {
+    matplot(g[,i,], lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+for (i in 1:10) {
+    boxplot(t(g[,i,]), lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+par(op)
+dev.off()
+
+## ok for now. gives nice overview of data.
+
+
