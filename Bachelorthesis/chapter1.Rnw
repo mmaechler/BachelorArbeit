@@ -109,21 +109,24 @@ the EM algo has stalling problems especially close to a local optimum
 show an example using nor1mix
 
 
-<<fig=TRUE>>=
+<<Trimodal, echo=FALSE>>=
 library("nor1mix")
 plot(MW.nm9, lty=2, col = "blue", p.norm=FALSE, p.comp=TRUE)
 set.seed(2019)
 x9 <- rnorMix(5000, MW.nm9)
-
 lines(density(x9), lwd=1.8)# "clearly" 3 components
-
 @
+
+<<fig=TRUE, echo=FALSE>>=
+<<Trimodal>>
+@
+
 
 
 then an illustration of MW examples of pathological cases
 
 
-<<fig=TRUE,echo=FALSE,results=hide>>=
+<<nor1mixEx, fig=TRUE,echo=FALSE,results=hide>>=
 p.EMsteps <- function(nSteps, x, nmObj,
                       main = "EM for 1-dim normal mixtures",
                       sleep = nSteps <= 40, sec.sleep = 0.2, col2 = "tomato",
@@ -179,18 +182,18 @@ yay, got figure to print. solution was use of fig=TRUE, instead of various mutat
 
 here we see how change in loglik seems to stagnate. However, this does not stay that way, if we let EM run a bit further.
 
-<<label=plotemsteps,include=FALSE,results=hide>>=
+<<label=plotemsteps,echo=FALSE,include=FALSE,results=hide>>=
 r <- p.EMsteps(200, x9, nm1)
 @
 
 \begin{figure}
-    \begin{center}
+\begin{center}
 <<fig=TRUE,results=hide,echo=FALSE>>=
 <<plotemsteps>>
 @
-    \end{center}
-    \caption{200 EM steps}
-    \label{adfafdafds}
+\end{center}
+\caption{200 EM steps}
+\label{adfafdafds}
 \end{figure}
 
 to conclude example show part of mixest that shows it takes 1200 iterations to converge

@@ -24,7 +24,8 @@ if (testsize) {
             set.seed(2019+seed); x <- rnorMmix(s,nm)
             st <- system.time(
                 r <- tryCatch(fit.norMmix(x, k=1:8, models=1:10,
-                                          trafo="clr1", maxit=1e4),
+                                          trafo="clr1", maxit=1e4,
+                                          optREPORT=20),
                               error = identity)
                 )
 
