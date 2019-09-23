@@ -2518,4 +2518,119 @@ dev.off()
 
 ## ok for now. gives nice overview of data.
 
+set.seed(2020); x <- rnorMmix(500, MW214)
+nmm <- readRDS(file="~/ethz/BA/Rscripts/smallsize/fit_MW214_size=500_seed=1.rds")
+nmm <- BIC(nmm$fit)[[1]]
+
+mcl <- Mclust(x, modelNames=models)$BIC
+
+diffs <- nmm+mcl[1:8,]
+
+
+
+s <- dat[grep("=500", dat)]
+d <- DIR
+valnmm <- massbic(s,d)$v
+
+valmcl <- array(0, c(8,10,10))
+for (i in 1:10) {
+    valmcl[,,i] <- Mclust(x, modelNames=models)$BIC[1:8,]
+}
+
+massdiff <- valnmm+valmcl
+pdf(file="~/ethz/BA/Rscripts/smallsize_diffmcl.pdf", 25,20)
+massplot(massdiff)
+dev.off()
+
+
+
+s2 <- dat[grep("=1500", dat)]
+d2 <- DIR
+valnmm2 <- massbic(s,d)$v
+
+valmcl2 <- array(0, c(8,10,10))
+for (i in 1:10) {
+    set.seed(2019+i); x <- rnorMmix(1500, MW214)
+    valmcl2[,,i] <- Mclust(x, modelNames=models)$BIC[1:8,]
+}
+
+massdiff2 <- valnmm2+valmcl2
+pdf(file="~/ethz/BA/Rscripts/smallsize_diffmcl_size=1500.pdf", 25,20)
+massplot(massdiff2)
+dev.off()
+
+## unclear results for n=1500. try again tomorrow.
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-22
+
+
+##
+op <- par(mfrow=c(4,5))
+for (i in 1:10) {
+    matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],0.5), main=models[i], type="l")
+}
+for (i in 1:10) {
+    boxplot(t(f[,i,]), lty=1, col=adjustcolor(rainbow(10)[i],0.5), main=models[i], type="l")
+}
+par(op)
+
+
+## test adjustcolor for plots
+z <- matrix(cbind(seq(0,1,length.out=100),seq(1,0,length.out=100)),100,2)
+matplot(t(z),type="l", col=adjustcolor(c("red", "blue"), 0.3), lty=1)
+
+
+## analyse smallseed
+
+d <- "~/ethz/BA/Rscripts/smallseed"
+s <- list.files(d, pattern="^fit")
+
+valseed <- massbic(s,d)
+massplot(valseed$v)
+
+valseed10 <- massbic(list.files(d, pattern="*seed=10.rds"), d)
+massplot(valseed10$v)
+
+## compare against mclust
+set.seed(2029);x <- rnorMmix(500, MW214)
+
+valmcl <- array(0, c(7,10,100))
+for (i in 1:100) {
+    valmcl[,,i] <- Mclust(x, G=1:7, modelNames=models)$BIC
+}
+dimnames(valmcl) <- list(clusters=1:7, models=models, i=1:100)
+
+massplot(valmcl)
+adjvalmcl <- -valmcl
+massplot(adjvalmcl)
+
+diffval <- valseed10$v- adjvalmcl
+massplot(diffval)
+
+## mclust seems not to use any RNG functions...
+## diffval all over the place though
+
+## effect of size on loglik
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+zsh <- massbic(st,ds)
+rr <- array(0, c(8,10,110))
+rr[,,1:50] <- zsh$v[,,61:110]
+rr[,,51:110] <- zsh$v[,,1:60]
+dsd <- rep(5:15*100, each=8*100)
+dff <- data.frame(dsd, c(rr))
+lm(dff)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-23
+
+
 

@@ -29,32 +29,54 @@ explain idea to use parameter optimizer instead, EM has pathological insufficien
 
 \section{choice of notation}
 
+% it 1
 describe difference in notation between ceuleux \& govaert and our covariance matrix decomposition.
 
 The classification of models in this paper relies heavily on the work of Celeux and Grovaert, however, out of necessity for clarity, we break with their notation. So as to not confuse the reader we describe here in depth the differences in notation between Celeux and Govaert and ours.
 
 explanation for the volume, shape and orientation descriptors
 
-The basis of classification in CnG is the decomposition of a symmetric matrix into an orthogonal and a diagonal component. A symmetric positive definite matrix $ \Sigma $ can be decomposed as follows 
+The basis of classification in Celeux \& Grovaert is the decomposition of a
+symmetric matrix into an orthogonal and a diagonal component.
+A symmetric positive definite matrix $ \Sigma $ can be decomposed as follows
     \[ \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} \]
-with $ \pmb{D} $ an orthogonal matrix and $ \pmb{A} $ a diagonal matrix and $ \lambda = \sqrt[\uproot{3}p]{det(\Sigma)} $ the $ p-th $ root of the determinant of $ \Sigma $.
+with $ \pmb{D} $ an orthogonal matrix and $ \pmb{A} $ a diagonal matrix and
+$ \lambda = \sqrt[\uproot{3}p]{det(\Sigma)} $ the $ p-th $ root of the 
+determinant of $ \Sigma $.
 
 This decomposition has an appealing geometric interpretation, with $ \pmb{D} $ as the \textit{orientation} of the distribution, $ \pmb{A} $ the \textit{shape}, and $ \lambda $ the \textit{volume}. The problem of notation comes from standard conventions in linear algebra, where the letters $A$ and $D$ are usually occupied by arbytrary and diagonal matrices respectively. Furthermore, we intend to apply a variant of the Cholesky decomposition to $ \Sigma $, the $ \pmb{L}\pmb{D}\pmb{L}^{\top} $ decomposition. This obviously raises some conflicts in notation.
 
 Therefore we, from here on, when reffering to the decomposition as described by cng, will use the following modification of notation:
 
-\begin{align*} 
+\begin{gather*} 
     \pmb{D} \longmapsto \pmb{Q} \\
     \pmb{A} \longmapsto \pmb{\Lambda} \\
     \lambda \longmapsto \alpha  \\
     \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} =
         \alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^{\top}
-\end{align*}
+\end{gather*}
 
 These were chosen according to general conventions of linear algebra. $ \pmb{Q} $ is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice for eigen vectors and $ \alpha $ was somewhat arbitrarily chosen.
 
 
 make clear that the models can not be translated one to one to ldlt model
+
+There is howerver an issue with the Cholesky decomposition. For 10 out of 14
+cases as defined by Celeux \& Grovaert, there exists a canonical translation of
+decompositions.
+The 6 diagonal cases need no translation; the Eigen and Cholesky decomposition
+are equal to identity.
+For the non-diagonal cases note that for a given sym. pos. def. matrix
+$ \Sigma $ we have decompositions:
+\[\Sigma = \alpha \pmb{Q \Lambda Q}^\top \quad \Sigma =\alpha \pmb{L D L}^\top\]
+Since in both cases the bracketing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
+determinant $ 1 $ the determinant of $ \Sigma $ falls entirely on $ \alpha $.
+Therefore $ \alpha $, in these particular decompositions, is equal for both.
+So, for varying $ \Sigma $ we could vary $ \alpha, \pmb{Q} $ and $ \pmb{\Lambda} $
+either holding them constant or varying them. %% terrible wrinting TODO: fix
+giving 8 cases, plus 6 diagonal cases = 14.
+However we cannot do that in the case of a 
+
 
 make nice table(maybe sideways to account for parameter list)
 
