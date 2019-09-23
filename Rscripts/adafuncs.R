@@ -45,14 +45,20 @@ adall <- function(string, model) {
 
 
 massbic <- function(string, DIR) {
+
     nm1 <- readRDS(file=file.path(DIR,string[1]))
     aa <- dim(nm1$fit$nMm)
+    cl <- nm1$fit$k
+    mo <- nm1$fit$models
+
     val <- array(0, c(aa[1],aa[2],length(string)))
 
     for (i in 1:length(string)) {
         nm <- readRDS(file=file.path(DIR,string[i]))
         val[,,i] <- BIC(nm$fit)[[1]]
     }
+
+    dimnames(val) <- list(clusters=cl, models=mo, simulation=string)
 
     mus <- apply(val,3, mean)
     sds <- apply(val,3, sd)
@@ -62,12 +68,17 @@ massbic <- function(string, DIR) {
 
 
 massplot <- function(f) {
+    size <- dim(f)[3]
+    if (size>999) adj <- 0.05
+    else if (size) adj <- 0.1
+    else if (size) adj <- 0.3
+    else adj <- 0.9
     op <- par(mfrow=c(4,5))
     for (i in 1:10) {
-        matplot(f[,i,], lty=1, col=rainbow(10)[i], main=models[i], type="l")
+        matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],adj), main=models[i], type="l")
     }
     for (i in 1:10) {
-        boxplot(t(f[,i,]), lty=1, col=rainbow(10)[i], main=models[i], type="l")
+        boxplot(t(f[,i,]), lty=1, col=adjustcolor(rainbow(10)[i],0.4), main=models[i], type="l")
     }
     par(op)
 }
