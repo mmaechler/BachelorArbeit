@@ -4,11 +4,17 @@
 %% it 1
 \section{Definitions}
 
-A good and thorough introductory book is the work of McLachlan and Peel 2000 and the reader is encouraged to study that to learn in depth about normal mixtures. We will here give a short overwiev of normal mixtures to fix notation and nomenclature.
+A good and thorough introductory book is the work of McLachlan and Peel 2000 and
+the reader is encouraged to study that to learn in depth about normal mixtures. 
+We will here give a short overwiev of normal mixtures to fix notation and 
+nomenclature.
 
-Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ and $ \phi(- ; \mu, \Sigma) $ be the normal distribution with mean $ \mu $ and covariance matrix $ \Sigma $.
+Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ and 
+$ \phi(- ; \mu, \Sigma) $ be the normal distribution with mean $ \mu $ and 
+covariance matrix $ \Sigma $.
 
-Normal mixture model are designed for situations where we assume that a given dataset originates from more than one population of explaining variables.
+Normal mixture model are designed for situations where we assume that a given 
+dataset originates from more than one population of explaining variables.
 
 $ \pmb{Y}_1, \dots , \pmb{Y}_n $
 
@@ -24,15 +30,22 @@ explain in scetch EM algo
 
 EM has desirable qualities like proven convergence, (give reference to dempster 1977 paper)
 
-explain idea to use parameter optimizer instead, EM has pathological insufficiencies, like 'getting stuck' for many iterations. We hope we need less iterations, and as concequence less time. 'special' idea: using cholesky decomp.
+explain idea to use parameter optimizer instead, EM has pathological 
+insufficiencies, like 'getting stuck' for many iterations. We hope we need less 
+iterations, and as concequence less time. 'special' idea: using cholesky decomp.
 
 
 \section{choice of notation}
 
 % it 1
-describe difference in notation between ceuleux \& govaert and our covariance matrix decomposition.
+describe difference in notation between ceuleux \& govaert and our covariance 
+matrix decomposition.
 
-The classification of models in this paper relies heavily on the work of Celeux and Grovaert, however, out of necessity for clarity, we break with their notation. So as to not confuse the reader we describe here in depth the differences in notation between Celeux and Govaert and ours.
+The classification of models in this paper relies heavily on the work of Celeux
+and Grovaert, however, out of necessity for clarity, we break with their 
+notation. 
+So as to not confuse the reader we describe here in depth the differences in 
+notation between Celeux and Govaert and ours.
 
 explanation for the volume, shape and orientation descriptors
 
@@ -44,9 +57,17 @@ with $ \pmb{D} $ an orthogonal matrix and $ \pmb{A} $ a diagonal matrix and
 $ \lambda = \sqrt[\uproot{3}p]{det(\Sigma)} $ the $ p-th $ root of the 
 determinant of $ \Sigma $.
 
-This decomposition has an appealing geometric interpretation, with $ \pmb{D} $ as the \textit{orientation} of the distribution, $ \pmb{A} $ the \textit{shape}, and $ \lambda $ the \textit{volume}. The problem of notation comes from standard conventions in linear algebra, where the letters $A$ and $D$ are usually occupied by arbytrary and diagonal matrices respectively. Furthermore, we intend to apply a variant of the Cholesky decomposition to $ \Sigma $, the $ \pmb{L}\pmb{D}\pmb{L}^{\top} $ decomposition. This obviously raises some conflicts in notation.
+This decomposition has an appealing geometric interpretation, with $ \pmb{D} $ 
+as the \textit{orientation} of the distribution, $ \pmb{A} $ the \textit{shape},
+and $ \lambda $ the \textit{volume}. The problem of notation comes from standard 
+conventions in linear algebra, where the letters $A$ and $D$ are usually 
+occupied by arbytrary and diagonal matrices respectively. Furthermore, we intend
+to apply a variant of the Cholesky decomposition to $ \Sigma $, the 
+$ \alpha\pmb{L}\pmb{D}\pmb{L}^{\top} $ decomposition. This obviously raises some
+conflicts in notation.
 
-Therefore we, from here on, when reffering to the decomposition as described by cng, will use the following modification of notation:
+Therefore we, from here on, when reffering to the decomposition as described by 
+cng, will use the following modification of notation:
 
 \begin{gather*} 
     \pmb{D} \longmapsto \pmb{Q} \\
@@ -56,11 +77,15 @@ Therefore we, from here on, when reffering to the decomposition as described by 
         \alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^{\top}
 \end{gather*}
 
-These were chosen according to general conventions of linear algebra. $ \pmb{Q} $ is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice for eigen vectors and $ \alpha $ was somewhat arbitrarily chosen.
+These were chosen according to general conventions of linear algebra. $ \pmb{Q} $
+is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice 
+for diagonal matrices eigen vectors and $ \alpha $ was somewhat arbitrarily 
+chosen.
+
 
 
 make clear that the models can not be translated one to one to ldlt model
-
+% it 1
 There is howerver an issue with the Cholesky decomposition. For 10 out of 14
 cases as defined by Celeux \& Grovaert, there exists a canonical translation of
 decompositions.
@@ -72,11 +97,19 @@ $ \Sigma $ we have decompositions:
 Since in both cases the bracketing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
 determinant $ 1 $ the determinant of $ \Sigma $ falls entirely on $ \alpha $.
 Therefore $ \alpha $, in these particular decompositions, is equal for both.
-So, for varying $ \Sigma $ we could vary $ \alpha, \pmb{Q} $ and $ \pmb{\Lambda} $
-either holding them constant or varying them. %% terrible wrinting TODO: fix
-giving 8 cases, plus 6 diagonal cases = 14.
-However we cannot do that in the case of a 
-
+Celeux \& Grovaert vary $\Sigma$ by eihter varying or holding fixed the volume 
+$(\alpha / \alpha_k)$, shape $(\pmb{\Lambda} / \pmb{\Lambda_k})$ and orientation
+$(\pmb{Q} / \pmb{Q}_k)$.
+These 3 times 2 cases would yield the 8 out of 14 cases of non-diagonal cases.
+However there is no canonical transform for either variable orientation and 
+fixed shape or fixed orientation and variable shape.
+The reason for this is that in the $\pmb{LDL}^\top$ decomposition the lower
+diagonal matrix $\pmb{L}$ holds some of the shape of the matrix, which in 
+the Eigen decomposition is in the $\pmb{\Lambda}$ matrix.
+In fact, $\pmb{L}$ is orthogonal if and only if 
+$\pmb{L} = \mathrm{Id}_{n\times n}$.
+Therefore we can only decompose matrices where either both or neither shape and
+orientation vary. See table \ref{table:param}.
 
 make nice table(maybe sideways to account for parameter list)
 
@@ -112,21 +145,40 @@ make nice table(maybe sideways to account for parameter list)
         \hline
     \end{tabular}
 
-    \label{table:1}
-
 }
 
 \caption{Table of Parameters}
-
+\label{table:param}
 \end{table}
 
-
 \clearpage
+
 
 \section{problems of EM}
 
 
-the EM algo has stalling problems especially close to a local optimum
+the EM-algorithm has stalling problems especially close to a local optimum.
+% it 1
+In their seminal work, \cite{Dem77}, have proven that the EM-algorithm 
+converges under mild regularity conditions. 
+%TODO: talk more about Dem77, in more detail about convergence conditions
+However, convergence does not guarantee fast convergence. In fact, a lot of 
+the work, that has gone into the research around the EM-algorithm has been 
+concerned with speeding up convergence, see \cite{McL00}[section 2.17].
+In common software implementations, %TODO: mostly initial clustering?? not sure
+The concern here is that a slowing in convergence might be mistaken for actual
+convergence.
+
+% it 1
+This phenomenon is not infrequent and in difficult mixtures quite visible.
+To illustrate let us look at a particular mixture taken from \cite{Mar92} and
+the {\tt nor1mix} package from CRAN.
+
+<<marrx9>>=
+library("nor1mix")
+MW.nm9 ## Trimodal mixture
+@
+
 
 show an example using nor1mix
 
@@ -206,6 +258,7 @@ here we see how change in loglik seems to stagnate. However, this does not stay 
 
 <<label=plotemsteps,echo=FALSE,include=FALSE,results=hide>>=
 r <- p.EMsteps(200, x9, nm1)
+
 @
 
 \begin{figure}
@@ -231,51 +284,83 @@ give conclusion recapping the just demonstrated, and lead in for next chapter
 
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{The {\tt norMmix} Package}
 
 explain, that this package was written purposefully for this paper.
 
-The norMmix package is constructed around the {\tt norMmix} object, that codifies a {\tt nor}mal {\tt M}ultivariate {\tt mix}ture model,  and the {\tt llnorMmix()} function.
+The norMmix package is constructed around the {\tt norMmix} object, that 
+codifies a {\tt nor}mal {\tt M}ultivariate {\tt mix}ture model,  and the {\tt 
+llnorMmix()} function.
 
 quickly list contents of norMmix object
 
-relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model parameters.
+relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model 
+parameters.
 
-since mclust is one of the more popular packages implementing the EM algo, we employ a lot of functions from mclust, to keep things around EM as similar as possible.
+since mclust is one of the more popular packages implementing the EM algo, we 
+employ a lot of functions from mclust, to keep things around EM as similar as 
+possible.
 
-also relies on {\tt mixtools} package for random generating function {\tt rnorMmix} using {\tt rmvnorm}.
+% it 1
+Conceptually, at the start of a fitting algo, e.g. EM we need to initialize a
+mixture object. % TODO we (will?) have translation methods to and from mclust
+thereafter the paths diverge. at the heart of norMmix's functionality
+lie the functions: llnorMmix and nMm2par which are in turn employed by 
+norMmixMLE to funnel a mixture object into optim and give optim a function
+to optimize.
+
+also relies on {\tt mixtools} package for random generating function 
+{\tt rnorMmix} using {\tt rmvnorm}.
 
 \section{concept of package} (this Section maybe one chapter earlier)
 
-about Cholesky decomp as ldlt. has advantages: fast, parametrically parsimonious, can easily compute loglikelihood
+about Cholesky decomp as ldlt. has advantages: fast, parametrically 
+parsimonious, can easily compute loglikelihood
 
 maybe reread section in McLachlan about accelerating EM algo
 
-not possible to sensibly compare normal mixtures except maybe a strange sorting algorithm using mahalanobis distance or Kullback-Leibler distance or similar(Hellinger), but not numerically sensible to integrate over potentially high-dimensional spaces.
+not possible to sensibly compare normal mixtures except maybe a strange sorting 
+algorithm using mahalanobis distance or Kullback-Leibler distance or similar
+(Hellinger), but not numerically sensible to integrate over potentially 
+high-dimensional spaces.
 
-So caomparison of algos done through throwing difficult mixtures and non-mixtures at it and hoping that norMmix finds better solutions than EM. So the criteria for "better fit" are 1. better log-likelihood 2. correct model, where EM fails.
+So caomparison of algos done through throwing difficult mixtures and 
+non-mixtures at it and hoping that norMmix finds better solutions than EM. So
+the criteria for "better fit" are 1. better log-likelihood 2. correct model, 
+where EM fails.
 
 \section{finer details of {\tt norMmix} package}
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Comparing Algotithms}
 
+\section{General Setup}
 display abilities of norMmix on its own. can find correct models
+
+Mention, that mclust doesn't depend on seed(double check) and therefore norMmix has 
+advantage of 'confidence intervals'. We can run 50 simulations and see if there
+might be more sensible clusters.
 
 maybe apply to MW[0-9] objects?
 
 not sure
 
-as in Raftery2002, Benaglia2009, Roeder 1997, maybe compare to MISE of various forms. They all did and see it as adequate method for comparing accuracy of algorithm.
+as in Raftery2002, Benaglia2009, Roeder 1997, maybe compare to MISE of various 
+forms. They all did and see it as adequate method for comparing accuracy of 
+algorithm.
 
-also wanted is accuracy of model selection. generate from model and then compare fitted to original. either by acc-model==fit-model and acc-k==fit-k or acc-ll - fit-ll.
+also wanted is accuracy of model selection. generate from model and then compare
+fitted to original. either by acc-model==fit-model and acc-k==fit-k or acc-ll - fit-ll.
+
+\section{Findings}
 
 
-\chapter{Conclusions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-testing citations
-\cite{McL00} \cite{Ben09} \cite{Roe97}
+\chapter{Discussion}
+

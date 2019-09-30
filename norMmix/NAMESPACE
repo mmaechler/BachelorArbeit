@@ -3,12 +3,19 @@
 ## from 'standard' packages (but not 'base')
 
 importFrom("grDevices",
-           chull, col2rgb, rgb)
-importFrom("graphics", pairs, polygon, text)
+           chull, col2rgb, rgb, rainbow)
 
-importFrom("stats", median, optim
+importFrom("graphics", legend, matplot, mtext
+         , pairs
+         , plot, points
+         , polygon, text, title
+           )
+
+importFrom("stats", median, quantile
+         , optim
          , plogis, qchisq, qlogis
          , rmultinom
+         , AIC, BIC, logLik
            )
 
 ## from 'Recommended' packages:
@@ -33,6 +40,7 @@ export(
      , norMmix
      , norMmixMLE
      , par2nMm
+     , parlen # better name?
      , rnorMmix
      , sllnorMmix
        )

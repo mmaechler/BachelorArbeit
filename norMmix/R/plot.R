@@ -19,57 +19,34 @@ plot2d.norMmix <- function(nMm, data, xlim=NULL, ylim=NULL, bounds=0.05,
         for (i in 1:k) {
             ellipsecoords  <- rbind(ellipsecoords, mixtools::ellipse(mu=mu[,i], sigma=sig[,,i], newplot=FALSE, draw=FALSE, npoints=npoints))
         }
+
+        if (is.null(xlim)) xlim <- extendrange(ellipsecoords[,1], f=bounds)
+        if (is.null(ylim)) ylim <- extendrange(ellipsecoords[,2], f=bounds)
     }
-
-    xbounds <- 0
-    ybounds <- 0
-
-    if (is.null(xlim)) {
-        xlim <- c(min(ellipsecoords[,1]), max(ellipsecoords[,1]))
-        xbounds <- bounds
-    }
-
-    if (is.null(ylim)) {
-        ylim <- c(min(ellipsecoords[,2]), max(ellipsecoords[,2]))
-        ybounds <- bounds
-    }
-
-    diffx <- abs(xlim[1]-xlim[2])*xbounds
-    diffy <- abs(ylim[1]-ylim[2])*ybounds
-
-    xlim <- c(xlim[1]-diffx, xlim[2]+diffx)
-    ylim <- c(ylim[1]-diffy, ylim[2]+diffy)
-
 
     ## whether to plot new
-
     ifplot  <- vector("logical", k)
-
     if (newWindow) ifplot[1] <- TRUE
 
     ## determine fill color
-
-    fco <- c(col2rgb(fillcolor)/255,(w[i]*0.8+0.1))
+    fco <- sapply(w, function(j) adjustcolor(fillcolor, j*0.8+0.1))
 
     ## add ellipses
-
     for (i in 1:k) {
-        x <- mixtools::ellipse(mu=mu[,i], sigma=sig[,,i], newplot=ifplot[i], draw=TRUE, xlim=xlim, ylim=ylim,  type=type, lty=lty, col=col, npoints=npoints, ...)
-        if (fill) polygon(x[,1], x[,2], col=rgb(red=fco[1],green=fco[2],blue=fco[3],alpha=fco[4]), border= NA )
+        x <- mixtools::ellipse(mu=mu[,i], sigma=sig[,,i], newplot=ifplot[i], 
+                               draw=TRUE, xlim=xlim, ylim=ylim,  type=type, 
+                               lty=lty, col=col, npoints=npoints, ...)
+        if (fill) polygon(x[,1], x[,2], col=fco, border= NA )
     }
 
     ## label clusters
-
     text( mu[1,], mu[2,], sprintf("cluster %s", 1:k) )
-
     if (!is.null(data)) {
         points(data[,c(1,2)])
     }
 
-
     invisible(ellipsecoords)
 }
-
 
 
 
@@ -109,8 +86,7 @@ plotnd.norMmix <- function(nMm,npoints=500, fillcolor="red",
 
 
     ## color
-    fco <- c(col2rgb(fillcolor)/255,(w[i]*0.8+0.1))
-    fco <- rgb(red=fco[1],green=fco[2],blue=fco[3],alpha=fco[4])
+    fco <- sapply(w, function(j) adjustcolor(fillcolor, j*0.8+0.1))
 
     ploy <- function(x,y) {
         npoints <- eval.parent(npoints, n=2)
@@ -135,7 +111,6 @@ plotnd.norMmix <- function(nMm,npoints=500, fillcolor="red",
 
 
     invisible(coord)
-
 }
 
 
@@ -144,31 +119,29 @@ plotnd.norMmix <- function(nMm,npoints=500, fillcolor="red",
 #' \code{plot.norMmix} returns invisibly coordinates of bounding ellipses of distribution
 #'
 #' @export
-plot.norMmix <- function(obj, data=NULL, ... ) {
+plot.norMmix <- function(x, data=NULL, ... ) {
     ## TODO: make so data can also be missing
-    stopifnot(is.list(obj), length(p <- obj$dim) == 1)
+    stopifnot(is.list(x), length(p <- x$dim) == 1)
     if (p == 2)
-        plot2d.norMmix(obj, data, ... )
+        plot2d.norMmix(x, data, ... )
     else ## if (p>2)
-        plotnd.norMmix(obj, ...)
+        plotnd.norMmix(x, ...)
 }
-
-
 
 
 
 ############################################################
 
-plot.fittednorMmix <- function(obj, name="unnamed", plotbest=FALSE, ...) {
-    stopifnot(inherits(obj, "fittednorMmix"))
+plot.fittednorMmix <- function(x, name="unnamed", plotbest=FALSE, ...) {
+    stopifnot(inherits(x, "fittednorMmix"))
 
-    k <- obj$k
-    models <- obj$models
-    n <- obj$n
-    p <- obj$p
+    k <- x$k
+    models <- x$models
+    n <- x$n
+    p <- x$p
 
-    bicmat <- BIC(obj)[[1]]
-    best <- BIC(obj)[[2]]
+    bicmat <- BIC(x)[[1]]
+    best <- BIC(x)[[2]]
 
     cl <- rainbow(length(models))
 
@@ -180,7 +153,7 @@ plot.fittednorMmix <- function(obj, name="unnamed", plotbest=FALSE, ...) {
     } else {
         bk <- as.integer(best[1])
         bmodel <- best[2]
-        plot(obj$nMm[bk,bmodel][[1]]$norMmix, ...)
+        plot(x$nMm[bk,bmodel][[1]]$norMmix, ...)
         title(main=name)
         mtext(paste("best fit = ", best[1], best[2]))
     }
