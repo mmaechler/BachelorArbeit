@@ -12,7 +12,7 @@
     \item{obj}{list containing sig= covariance matrix array, mu= mean vector matrix, w= weights, k= number of clusters, p= dimension}
     \item{trafo}{either "clr1" or "logit"}
     \item{model}{one of "asdf..."}
-    \item{meanFUN}{}
+    \item{meanFUN}{a \code{\link{function}} to compute a mean}
 }
 \description{
     \code{nMm2par} returns vector of parameters of norMmix objects
@@ -20,15 +20,17 @@
 \details{
     This transformation forms a vector from the parameters of a normal
     mixture. These consist of weights, means and covariance matrices.
-    Weights are transformed according to 'trafo' param; means are 
+    Weights are transformed according to 'trafo' param; means are
     unchanged.
+
     Cov mats are given as D and L from the LDLt decomposition
 }
+\seealso{
+  \code{\link{n2p}}
+}
+
 \examples{
-A  <- MW2nm4
+A  <- MW24
 nMm2par( A, trafo="clr1", model=A$model )
 
-}
-\seealso{
-n2p
 }
