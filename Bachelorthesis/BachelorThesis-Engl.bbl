@@ -8,6 +8,19 @@ Benaglia, T., D.~Chauveau, and D.~R. Hunter (2009).
 \newblock {\em Journal of Computational and Graphical Statistics\/}~{\em
   18\/}(2), 505--526.
 
+\bibitem[\protect\citeauthoryear{Dempster, Laird, and Rubin}{Dempster
+  et~al.}{1977}]{Dem77}
+Dempster, A.~P., N.~M. Laird, and D.~B. Rubin (1977).
+\newblock Maximum likelihood from incomplete data via the em algorithm.
+\newblock {\em Journal of the Royal Statistical Society\/}~{\em 39\/}(1),
+  1--38.
+
+\bibitem[\protect\citeauthoryear{Marron and Wand}{Marron and
+  Wand}{1992}]{Mar92}
+Marron, J.~S. and M.~P. Wand (1992).
+\newblock Exact mean integrated squared error.
+\newblock {\em The Annals of Statistics\/}~{\em 20\/}(2), 712--736.
+
 \bibitem[\protect\citeauthoryear{McLachlan and Peel}{McLachlan and
   Peel}{2000}]{McL00}
 McLachlan, G. and D.~Peel (2000).

@@ -2633,4 +2633,478 @@ lm(dff)
 ## work on 2019-09-23
 
 
+set.seed(2019); x <- rnorMmix(500, MW28)
 
+val <- array(0, c(7,10,50))
+id <- 1:50
+for (i in id) {
+    set.seed(2019+i)
+    val[,,i] <- Mclust(x, G=1:7, modelNames=models)$BIC
+}
+ret <- massplot(val)
+
+## mclust seems to be independent of seed
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-24
+
+## work on tex files
+
+## improve massplot fctn
+
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+st <- st[grep("size=900", st)]
+val <- massbic(st, ds)
+massplot(val$v)
+range(val$v)
+# [1] 3233.913 4446.136
+
+## discovered extendrange function, adapting to plot.R
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-25
+
+## compare mclust to norMmix
+
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+st <- st[grep("size=900", st)]
+val <- massbic(st, ds)
+massplot(val$v)
+
+valm <- array(0, c(8,10,10))
+for (i in 1:10) {
+    nm <- readRDS(file.path(ds, st[i]))
+    x <- nm$fit$x
+    valm[,,i] <- Mclust(x, G=1:8, modelNames=models)$BIC
+}
+massplot(-valm)
+
+## added 'best' to massbic
+val <- massbic(st, ds)
+val$best
+#       [,1] [,2] 
+#  [1,] "8"  "VII"
+#  [2,] "8"  "VVV"
+#  [3,] "8"  "VVI"
+#  [4,] "8"  "VII"
+#  [5,] "8"  "VVV"
+#  [6,] "8"  "VVI"
+#  [7,] "8"  "VII"
+#  [8,] "8"  "VII"
+#  [9,] "8"  "VEI"
+# [10,] "8"  "VEI"
+
+## added massbest
+dimnames(valm) <- list(clusters=1:8, models=models, dataset=1:10)
+massbest(-valm)
+#       [,1] [,2] 
+#  [1,] "6"  "VII"
+#  [2,] "6"  "VII"
+#  [3,] "6"  "VII"
+#  [4,] "6"  "VII"
+#  [5,] "7"  "VII"
+#  [6,] "6"  "VII"
+#  [7,] "6"  "VII"
+#  [8,] "6"  "VII"
+#  [9,] "6"  "VII"
+# [10,] "7"  "VII"
+
+r  <- apply(val$best, 1, function(j) paste(j[1], j[2]))
+ss <- rle(sort(r))
+ix <- sort(ss$lengths, decreasing=TRUE, index.return=TRUE)$ix
+ss$values[ix]
+ss$lengths[ix]
+
+## wrote sort best
+massbest(valm)
+
+## decided to add *all* mins to best list
+af <- sortbest(massbest(valm))
+# $values
+#  [1] "1 EEI" "1 EVI" "1 VEI" "1 VVI" "3 EEE" "4 EEE" "5 EEE"
+#  [8] "5 EVI" "6 EEE" "6 EEI" "7 EEI"
+# 
+# $reps
+#  [1] 3 3 3 3 1 1 1 1 1 1 1
+# 
+
+cbind(af$values, af$reps)
+#       [,1]    [,2]
+#  [1,] "1 EEI" "3" 
+#  [2,] "1 EVI" "3" 
+#  [3,] "1 VEI" "3" 
+#  [4,] "1 VVI" "3" 
+#  [5,] "3 EEE" "1" 
+#  [6,] "4 EEE" "1" 
+#  [7,] "5 EEE" "1" 
+#  [8,] "5 EVI" "1" 
+#  [9,] "6 EEE" "1" 
+# [10,] "6 EEI" "1" 
+# [11,] "7 EEI" "1" 
+
+## this is still negative values, so worst instead of best
+
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+
+ev <- massbic(st, ds)
+be <- sortbest(massbest(ev$v))
+cbind(be$values, be$reps)
+#       [,1]    [,2]
+#  [1,] "8 VII" "30"
+#  [2,] "8 VEI" "13"
+#  [3,] "7 VVV" "11"
+#  [4,] "7 VEI" "9" 
+#  [5,] "8 VVI" "8" 
+#  [6,] "8 VVV" "8" 
+#  [7,] "2 VVV" "6" 
+#  [8,] "8 VEE" "6" 
+#  [9,] "7 VII" "5" 
+# [10,] "5 VVV" "3" 
+# [11,] "6 VII" "3" 
+# [12,] "7 VVI" "3" 
+# [13,] "4 VVV" "2" 
+# [14,] "5 VII" "1" 
+# [15,] "6 VVV" "1" 
+# [16,] "7 VEE" "1" 
+
+## added massbicm
+
+valm <- massbicm(st,ds)
+massbest(valm)
+
+
+## ada-jobs are taking longer than hoped for
+
+## try tools on nm2
+
+dd <- "~/ethz/BA/Rscripts/nm2"
+ss <- list.files(dd, pattern="*.rds")
+ss <- ss[grep("*clr1*", ss)]
+ss <- ss[grep("*MW210_*", ss)]
+
+nmv <- massbic(ss,dd)$v
+nmm <- massbicm(ss,dd)
+
+vv <- sortbest(massbest(nmv))
+vm <- sortbest(massbest(nmm))
+
+## n=* clr1 ini=* seed=*
+cbind(vv$values, vv$reps)
+#       [,1]    [,2] 
+#  [1,] "2 EEE" "169"
+#  [2,] "2 VEE" "9"  
+#  [3,] "3 VEE" "9"  
+#  [4,] "2 EVV" "3"  
+#  [5,] "4 VVV" "3"  
+#  [6,] "5 VEE" "3"  
+#  [7,] "3 VVV" "2"  
+#  [8,] "3 EEE" "1"  
+#  [9,] "4 VEE" "1"  
+cbind(vm$values, vm$reps)
+#      [,1]    [,2] 
+# [1,] "2 EEE" "186"
+# [2,] "2 VEE" "4"  
+# [3,] "3 EEE" "2"  
+
+
+## n=400 clr1 ini=* seed=*
+vv <- sortbest(massbest(nmv[,,1:100]))
+vm <- sortbest(massbest(nmm[,,1:100]))
+cbind(vv$values, vv$reps)
+#      [,1]    [,2]
+# [1,] "2 EEE" "90"
+# [2,] "3 VEE" "5" 
+# [3,] "4 VVV" "2" 
+# [4,] "5 VEE" "2" 
+# [5,] "3 VVV" "1" 
+cbind(vm$values, vm$reps)
+#      [,1]    [,2]
+# [1,] "2 EEE" "92"
+
+## n=500 clr1 ini=* seed=*
+vv <- sortbest(massbest(nmv[,,101:200]))
+vm <- sortbest(massbest(nmm[,,101:200]))
+cbind(vv$values, vv$reps)
+#       [,1]    [,2]
+#  [1,] "2 EEE" "79"
+#  [2,] "2 VEE" "9" 
+#  [3,] "3 VEE" "4" 
+#  [4,] "2 EVV" "3" 
+#  [5,] "3 EEE" "1" 
+#  [6,] "3 VVV" "1" 
+#  [7,] "4 VEE" "1" 
+#  [8,] "4 VVV" "1" 
+#  [9,] "5 VEE" "1" 
+cbind(vm$values, vm$reps)
+#      [,1]    [,2]
+# [1,] "2 EEE" "94"
+# [2,] "2 VEE" "4" 
+# [3,] "3 EEE" "2" 
+
+
+massplot(nmv[,,1:100])
+
+
+## how many iterations??
+
+
+optrcount(nm)
+
+counts <- masscount(ss, dd)
+
+massplot(counts$fn)
+
+
+## make massplots
+
+savdir <- "~/ethz/BA/Rscripts/smallpresentation"
+dir.exists(savdir)
+
+## complete simulations
+dir_ssi <- "~/ethz/BA/Rscripts/smallsize"
+dir_sse <- "~/ethz/BA/Rscripts/smallseed"
+dir_nm2 <- "~/ethz/BA/Rscripts/nm2" 
+#dir_smi <- "~/ethz/BA/Rscripts/fit-smi2" not proper format
+
+## partial simulations
+dir_ssmi <- "~/ethz/BA/Rscripts/smallsmi" 
+dir_sini <- "~/ethz/BA/Rscripts/smallinit" 
+
+## rds files per simulation
+sssi <- list.files(dir_ssi, pattern="*.rds")
+    ## along rep(c(10,11,12,13,14,15,5,6,7,8,9)*100, each=10)
+ssse <- list.files(dir_sse, pattern="*.rds")
+    ## mle 1:100, seed 1:10
+snm2 <- list.files(dir_nm2, pattern="*.rds")
+    snm2 <- snm2[grep("*clr1*", snm2)]
+        snm2_MW210 <- snm2[grep("*MW210_*", snm2)]
+            snm2_MW210_clara <- snm2[grep("*clara*", snm2_MW210)]
+            snm2_MW210_mclVVV <- snm2[grep("*mclVVV*", snm2_MW210)]
+        snm2_MW21 <- snm2[grep("*MW21_n*", snm2)]
+            snm2_MW21_clara <- snm2[grep("*clara*", snm2_MW21)]
+            snm2_MW21_mclVVV <- snm2[grep("*mclVVV*", snm2_MW21)]
+sssmi <- list.files(dir_ssmi, pattern="*.rds")
+    ## just seeds
+ssini <- list.files(dir_sini, pattern="*.rds")
+    ssini_MW24 <- ssini[grep("*MW24*", ssini)]
+        ssini_MW24_clara <- ssini_MW24[grep("*clara*", ssini_MW24)]
+        ssini_MW24_mclVVV <- ssini_MW24[grep("*mclVVV*", ssini_MW24)]
+    ssini_MW28 <- ssini[grep("*MW28*", ssini)]
+        ssini_MW28_clara <- ssini_MW28[grep("*clara*", ssini_MW28)]
+        ssini_MW28_mclVVV <- ssini_MW28[grep("*mclVVV*", ssini_MW28)]
+    ssini_MW29 <- ssini[grep("*MW29*", ssini)]
+        ssini_MW29_clara <- ssini_MW29[grep("*clara*", ssini_MW29)]
+        ssini_MW29_mclVVV <- ssini_MW29[grep("*mclVVV*", ssini_MW29)]
+
+## bics
+
+# small size
+bssi <- massbic(sssi, dir_ssi)
+# small seed
+bsse <- massbic(ssse, dir_sse)
+## nm2
+    bnm2_MW210 <- massbic(snm2_MW210, dir_nm2)
+        bnm2_MW210_clara <- massbic(snm2_MW210_clara, dir_nm2)
+        bnm2_MW210_mclVVV <- massbic(snm2_MW210_mclVVV, dir_nm2)
+    bnm2_MW21 <- massbic(snm2_MW21, dir_nm2)
+        bnm2_MW21_clara <- massbic(snm2_MW21_clara, dir_nm2)
+        bnm2_MW21_mclVVV <- massbic(snm2_MW21_mclVVV, dir_nm2)
+# small smi
+bssmi <- massbic(sssmi, dir_ssmi)
+# small init
+bsini <- massbic(ssini, dir_sini)
+    bsini_MW24 <- massbic(ssini_MW24, dir_sini)
+        bsini_MW24_clara <- massbic(ssini_MW24_clara, dir_sini)
+        bsini_MW24_mclVVV <- massbic(ssini_MW24_mclVVV, dir_sini)
+    bsini_MW28 <- massbic(ssini_MW28, dir_sini)
+        bsini_MW28_clara <- massbic(ssini_MW28_clara, dir_sini)
+        bsini_MW28_mclVVV <- massbic(ssini_MW28_mclVVV, dir_sini)
+    bsini_MW29 <- massbic(ssini_MW29, dir_sini)
+        bsini_MW29_clara <- massbic(ssini_MW29_clara, dir_sini)
+        bsini_MW29_mclVVV <- massbic(ssini_MW29_mclVVV, dir_sini)
+    
+# small size
+mbssi <- massbicm(sssi, dir_ssi)
+# small seed
+mbsse <- massbicm(ssse, dir_sse)
+## nm2
+    mbnm2_MW210 <- massbicm(snm2_MW210, dir_nm2)
+        mbnm2_MW210_clara <- massbicm(snm2_MW210_clara, dir_nm2)
+        mbnm2_MW210_mclVVV <- massbicm(snm2_MW210_mclVVV, dir_nm2)
+    mbnm2_MW21 <- massbicm(snm2_MW21, dir_nm2)
+        mbnm2_MW21_clara <- massbicm(snm2_MW21_clara, dir_nm2)
+        mbnm2_MW21_mclVVV <- massbicm(snm2_MW21_mclVVV, dir_nm2)
+# small smi
+mbssmi <- massbicm(sssmi, dir_ssmi)
+# small init
+mbsini <- massbicm(ssini, dir_sini)
+    mbsini_MW24 <- massbicm(ssini_MW24, dir_sini)
+        mbsini_MW24_clara <- massbicm(ssini_MW24_clara, dir_sini)
+        mbsini_MW24_mclVVV <- massbicm(ssini_MW24_mclVVV, dir_sini)
+    mbsini_MW28 <- massbicm(ssini_MW28, dir_sini)
+        mbsini_MW28_clara <- massbicm(ssini_MW28_clara, dir_sini)
+        mbsini_MW28_mclVVV <- massbicm(ssini_MW28_mclVVV, dir_sini)
+    mbsini_MW29 <- massbicm(ssini_MW29, dir_sini)
+        mbsini_MW29_clara <- massbicm(ssini_MW29_clara, dir_sini)
+        mbsini_MW29_mclVVV <- massbicm(ssini_MW29_mclVVV, dir_sini)
+
+
+mclusts <- list(mbssi=mbssi, mbsse=mbsse, mbnm2_MW210=mbnm2_MW210,
+                mbnm2_MW210_clara=mbnm2_MW210_clara,
+                mbnm2_MW210_mclVVV=mbnm2_MW210_mclVVV,
+                mbnm2_MW21=mbnm2_MW21,
+                mbnm2_MW21_clara=mbnm2_MW21_clara,
+                mbnm2_MW21_mclVVV=mbnm2_MW21_mclVVV,
+                mbssmi=mbssmi,
+                mbsini=mbsini,
+                mbsini_MW24=mbsini_MW24,
+                mbsini_MW24_clara=mbsini_MW24_clara,
+                mbsini_MW24_mclVVV=mbsini_MW24_mclVVV,
+                mbsini_MW28=mbsini_MW28,
+                mbsini_MW28_clara=mbsini_MW28_clara,
+                mbsini_MW28_mclVVV=mbsini_MW28_mclVVV,
+                mbsini_MW29=mbsini_MW29,
+                mbsini_MW29_clara=mbsini_MW29_clara,
+                mbsini_MW29_mclVVV=mbsini_MW29_mclVVV
+)
+
+saveRDS(mclusts, file=file.path(savdir,"mclust_simulations.rds"))
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-26
+
+
+
+## compplot
+
+compplot(bsini_MW24, mbsini_MW24)
+compplot(mbssi, bssi)
+compplot(mbnm2_MW21, bnm2_MW21)
+compplot(mbnm2_MW210, bnm2_MW210)
+compplot(mbsse, bsse)
+compplot(bsse, mbsse)
+
+## make plots
+
+pdf(file=file.path(savdir, "smallsize.pdf"),50,20)
+massplot(bssi)
+dev.off()
+pdf(file=file.path(savdir, "smallseed.pdf"),50,20)
+massplot(bsse)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW210.pdf"),50,20)
+massplot(bnm2_MW210)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW210_clara.pdf"),50,20)
+massplot(bnm2_MW210_clara)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW210_mclVVV.pdf"),50,20)
+massplot(bnm2_MW210_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW21.pdf"),50,20)
+massplot(bnm2_MW21)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW21_clara.pdf"),50,20)
+massplot(bnm2_MW21_clara)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW21_mclVVV.pdf"),50,20)
+massplot(bnm2_MW21_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "smallsmi.pdf"),50,20)
+massplot(bssmi)
+dev.off()
+pdf(file=file.path(savdir, "smallinit.pdf"),50,20)
+massplot(bsini)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW24.pdf"),50,20)
+massplot(bsini_MW24)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW24_clara.pdf"),50,20)
+massplot(bsini_MW24_clara)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW24_mclVVV.pdf"),50,20)
+massplot(bsini_MW24_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW28.pdf"),50,20)
+massplot(bsini_MW28)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW28_clara.pdf"),50,20)
+massplot(bsini_MW28_clara)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW28_mclVVV.pdf"),50,20)
+massplot(bsini_MW28_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW29.pdf"),50,20)
+massplot(bsini_MW29)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW29_clara.pdf"),50,20)
+massplot(bsini_MW29_clara)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW29_mclVVV.pdf"),50,20)
+massplot(bsini_MW29_mclVVV)
+dev.off()
+
+
+pdf(file=file.path(savdir, "comp_smallseed.pdf"),50,20)
+compplot(bsse, mbsse)
+dev.off()
+pdf(file=file.path(savdir, "comp_smallsize.pdf"),50,20)
+compplot(bssi, mbssi)
+dev.off()
+pdf(file=file.path(savdir, "comp_smallinit.pdf"),50,20)
+compplot(bsini, mbsini)
+dev.off()
+
+aa <- sortbest(massbest(bsse))
+cbind(aa$values, aa$reps)
+#       [,1]    [,2] 
+#  [1,] "2 VVV" "318"
+#  [2,] "7 VVV" "106"
+#  [3,] "7 VII" "94" 
+#  [4,] "7 VEI" "84" 
+#  [5,] "6 VII" "64" 
+#  [6,] "5 VII" "62" 
+#  [7,] "3 VVV" "60" 
+#  [8,] "7 VVI" "52" 
+#  [9,] "4 VVV" "48" 
+# [10,] "5 VVV" "30" 
+# [11,] "6 VEI" "28" 
+# [12,] "6 VVI" "19" 
+# [13,] "7 VEE" "14" 
+# [14,] "6 VVV" "12" 
+# [15,] "5 VEI" "7"  
+# [16,] "5 VVI" "2"  
+ma <- sortbest(massbest(mbsse))
+cbind(ma$values, ma$reps)
+#      [,1]    [,2] 
+# [1,] "7 VII" "800"
+# [2,] "6 VII" "200"
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-30
+
+## try mult.fig
+
+#testplot(bsse, main="small seed test case")
+
+## massplot <- testplot, testplot no longer here
+
+## finish plot_simulations_...
