@@ -45,7 +45,8 @@ adall <- function(string, model) {
 
 
 massbic <- function(string, DIR) {
-
+    string <- string[!is.na(string)]
+    if (length(string)==0) return(matrix(0,1,1))
     nm1 <- readRDS(file=file.path(DIR,string[1]))
     cl <- nm1$fit$k
     mo <- nm1$fit$models
@@ -63,14 +64,14 @@ massbic <- function(string, DIR) {
 
 
 massbicm <- function(string, DIR) {
-    nm <- readRDS(file.path(DIR, string[i]))
+    nm <- readRDS(file.path(DIR, string[1]))
     cl <- nm$fit$k
     mo <- nm$fit$models
     valm <- array(0, lengths(list(cl,mo,string)))
     for (i in 1:length(string)) {
         nm <- readRDS(file.path(DIR, string[i]))
         x <- nm$fit$x
-        valm[,,i] <- Mclust(x, G=cl, modelNames=models)$BIC
+        valm[,,i] <- mclust::Mclust(x, G=cl, modelNames=mo)$BIC
     }
     dimnames(valm) <- list(clusters=cl, models=mo, files=string)
     -valm

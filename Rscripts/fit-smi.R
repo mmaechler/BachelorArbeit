@@ -1,5 +1,5 @@
-GH_BA_dir <- normalizePath("~/ethz/BA/")
-save_dir  <- normalizePath("~/")
+GH_BA_dir <- normalizePath("~/BachelorArbeit")
+save_dir  <- normalizePath("~/BScThesis/4MM/fit-smi/")
 ##--------------------------------------------------
 stopifnot(dir.exists(GH_BA_dir),
           dir.exists(save_dir))
@@ -34,7 +34,7 @@ for (ll in lls) {
     )
     cat("result of fit: "); str(r, max.level=1)
     sFile <- sprintf("fit_%s_%s_%s_%s.rds",
-                     dd, trafo, ini, ll)
+                     dd, trafo, init, ll)
     cat("--saving to file:", sFile, "\n")
     saveRDS(list(fit=r, st=st),
             file=file.path(save_dir, sFile))
