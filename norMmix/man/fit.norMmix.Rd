@@ -7,8 +7,8 @@
   (\code{norMmix}) to the data set \code{x}, and returns (among other info)
   a \code{\link{list}} of fitted \code{\link{norMmix}} objects.
 }
-\usage{%% MM: FIXME: 'k' should not have a default
-fit.norMmix(x, k = 1:10, models = 1:10,
+\usage{
+fit.norMmix(x, k, models = 1:10,
             trafo = c("clr1", "logit"),
             ll = c("nmm", "mvt"), \dots)
 }
@@ -43,4 +43,6 @@ fit.norMmix(x, k = 1:10, models = 1:10,
 }
 \examples{
 ## TODO
+x <- rnorMmix(500, MW21)
+fit.norMmix(x, 1:3) ## will fit all models with 1:3 clusters
 }

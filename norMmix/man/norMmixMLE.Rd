@@ -58,7 +58,8 @@ ssClaraL(n, k, p)
   \item{optr}{the [r]eturn value of \code{\link{optim}()}.}
   \item{parlen}{the number of free parameter, a function of \eqn{(p, k, model)}.}
   \item{n}{the sample size, i.e., the number of observations or rows of \code{x}.}
-  \item{cond}{the result of \code{parcond(..)} which is to be explained.}% FIXME
+  \item{cond}{the result of \code{parcond(..)}, that is the ratio of sample size 
+      over parameter count.}% fixme
 }
 \details{
   Uses clara() and one M-step from EM-algorithm to initialize parameters

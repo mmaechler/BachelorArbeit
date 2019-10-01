@@ -3126,3 +3126,19 @@ aa()
 
 
 ##
+## built package.
+
+
+## try Trimodal??
+
+mu <- matrix(c(-1,-1,0,0,1,1), 2, 3)
+sig <- array(c(2, -2, -2, 4, 1, -1, -1, 1, 2, -2, -2, 2), c(2,2,3))
+w <- c(1,1,1)/3
+
+Tri <- norMmix(mu, Sigma=sig, weight=w, model="VEE")
+
+x <- rnorMmix(500, Tri)
+
+ret <- fit.norMmix(x, k=1:2, models=1:3)
+
+## fixed fit.norMmix
