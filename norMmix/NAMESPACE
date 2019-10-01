@@ -2,8 +2,14 @@
 
 ## from 'standard' packages (but not 'base')
 
-importFrom("grDevices",
-           chull, col2rgb, rgb, rainbow)
+importFrom("grDevices"
+         , adjustcolor
+         , chull
+         , col2rgb
+         , extendrange
+         , rgb
+         , rainbow
+           )
 
 importFrom("graphics", legend, matplot, mtext
          , pairs
@@ -34,7 +40,9 @@ importFrom("mixtools", ellipse)
 
 ## Functions
 export(
-       llmvtnorm
+    ldl
+     , fit.norMmix # MM: change name (no ".")
+     , llmvtnorm
      , llnorMmix
      , nMm2par, nc2p
      , norMmix
@@ -45,16 +53,25 @@ export(
      , sllnorMmix
        )
 
-## all the "norMmix"  example objects
+## all the "norMmix"  example objects <--> ./R/zmarrwandnMm.R
 export(MW21, MW22
      , MW23, MW24, MW25
      , MW26, MW27, MW28, MW29
-     , MW210, MW211, MW212, MW213
+     , MW210, MW211, MW212, MW213, MW214
+      ## 3-d :
      , MW31, MW32, MW33, MW34
+      ## 5-d :
      , MW51
        )
 
 
 S3method(plot, norMmix)
+## TODO:
+## S3method(AIC, norMmix)
+## S3method(BIC, norMmix)
+## S3method(logLik, norMmix)
+
 S3method(plot, fittednorMmix)
+S3method(AIC, fittednorMmix)
 S3method(BIC, fittednorMmix)
+## TODO: logLik

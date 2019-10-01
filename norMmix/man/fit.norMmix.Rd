@@ -1,23 +1,46 @@
 % Code in ../R/fit.R
 \name{fit.norMmix}
-\title{fit normal mixture models to data}
-\usage{
-fit.norMmix <- function(x, k=1:10, models=1:10, ll = c("nmm", "mvt"),...) 
+\alias{fit.norMmix}
+\title{Fit Several Normal Mixture Models to a Dataset}
+\description{
+  \code{fit.norMmix()} fits several multivariate normal mixture models
+  (\code{norMmix}) to the data set \code{x}, and returns (among other info)
+  a \code{\link{list}} of fitted \code{\link{norMmix}} objects.
+}
+\usage{%% MM: FIXME: 'k' should not have a default
+fit.norMmix(x, k = 1:10, models = 1:10,
+            trafo = c("clr1", "logit"),
+            ll = c("nmm", "mvt"), \dots)
 }
 \arguments{
-    \item{x}{data matrix, rows are observations and columns are variables}
-    \item{k}{ vector containing a subset of 1:10,  indicating number of clusters to fit}
-    \item{models}{ vector as k, indicating models from list: c("EII","VII","EEI","VEI","EVI","VVI","EEE","VEE","EVV","VVV")}
-}
-\description{
-    \code{fit.norMmix} returns list of fitted norMmix objects
+  \item{x}{data matrix, rows are observations and columns are variables}
+  \item{k}{vector of positive integers, indicating the \emph{number} of
+    mixture components to fit.}
+  \item{models}{vector of integers from \code{1:10}, indexing models from\preformatted{
+      c("EII", "VII", "EEI", "VEI", "EVI",
+        "VVI", "EEE", "VEE", "EVV", "VVV")}
+    which are to be fit.}
+  \item{trafo}{a \code{\link{character}} string specifying the transform to
+    use for the weights \code{w} (\eqn{= \pi_j}{= pi[j]}), currently either
+    \code{"clr1"} or \code{"logit"}.}
+  \item{ll, \dots}{further arguments passed to function \code{\link{norMmixMLE}()}.}
 }
 \value{
-    \code{fit.norMmix} returns list of 5:
-    \item{nMm}{list containing all fitted models}
-    \item{models}{vector containing fitted model names}
-    \item{n}{number of observations of x}
-    \item{p}{number of variables of x}
+  \code{fit.norMmix()} returns a \code{\link{list}} with components
+  \item{nMm}{a \code{\link{list}} containing all fitted models}
+  \item{models}{\code{\link{character}} vector of model (names) that were
+    fitted.}
+  \item{n}{number of observations of x}
+  \item{p}{number of variables of x}
 }
-\details{Wrapper function for norMmixMLE, applying norMmixMLE to all k and models specified}
-\examples{}
+%% \details{
+%%   Wrapper function for \code{\link{norMmixMLE}}, applying norMmixMLE to all
+%%   k and models specified
+%% }
+\seealso{
+  \code{\link{norMmixMLE}()} which is called \code{length(k) *
+    length(models)} times.
+}
+\examples{
+## TODO
+}

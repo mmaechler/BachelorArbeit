@@ -2,21 +2,36 @@
 % Please edit documentation in R/llnorMmix.R
 \name{llmvtnorm}
 \alias{llmvtnorm}
-\title{log-likelihood function relying on mvtnorm function}
+\title{Log-Likelihood of Multivariate Normal Mixture Relying on \code{mvtnorm::dmvnorm}}
+\description{
+  Compute the log-likelihood of a multivariate normal mixture, by calling
+  \code{\link[mvtnorm]{dmvnorm}()} (from package \CRANpkg{mvtnorm}).
+}
 \usage{
-llmvtnorm(par., x, k,
-          model = c("EII", "VII", "EEI", "VEI", "EEE",
-                    "VEE", "EVI", "VVI", "EVV", "VVV"))
+llmvtnorm(par, x, k,
+          trafo = c("clr1", "logit"),
+          model = c("EII", "VII", "EEI", "VEI", "EVI",
+                    "VVI", "EEE", "VEE", "EVV", "VVV"))
 }
 \arguments{
-\item{par.}{parameter vector as calculated by nMm2par}
-
-\item{x}{matrix of samples}
-
-\item{k}{number of cluster}
-
-\item{model}{assumed model of the distribution}
+  \item{par}{parameter vector as calculated by nMm2par}
+  \item{x}{numeric data \code{\link{matrix}} (of dimension \eqn{n \times p}{n x p}).}
+  \item{k}{number of mixture components.}
+  \item{trafo}{a \code{\link{character}} string specifying the transform to
+    use for the weights \code{w} (\eqn{= \pi_j}{= pi[j]}), currently either
+    \code{"clr1"} or \code{"logit"}.}
+  \item{model}{assumed model of the distribution}
 }
-\description{
-\code{llmvtnorm} returns scalar value of log-likelihood
+\value{
+  returns the log-likelihood (a number) of the specified model for the data
+  (\eqn{n} observations) \code{x}.
 }
+%% \references{
+%% }
+\seealso{
+  \code{\link[mvtnorm]{dmvnorm}()} from package \CRANpkg{mvtnorm}.  Our own
+  function, returning the same: \code{\link{llnorMmix}()}.
+}
+%% \examples{
+%%  __ TODO __
+%% }

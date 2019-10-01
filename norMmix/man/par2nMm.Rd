@@ -2,24 +2,41 @@
 % Please edit documentation in R/param.R
 \name{par2nMm}
 \alias{par2nMm}
-\title{transform of parameter vector to normal mixture}
+\title{Transform Parameter Vector to Multivariate Normal Mixture}
+\description{
+  Transforms the (numeric) parameter vector of our MLE parametrization of a multivariate
+  normal mixture model into the corresponding \code{\link{list}} of
+  components determining the model.  Additionally (partly redundantly), the
+  dimension \code{p} and number of components \code{k} need to be specified
+  as well.
+}
 \usage{
-    par2nMm(par., p, k, model = c("EII", "VII", "EEI", "VEI", "EEE",
-                                  "VEE", "EVI", "VVI", "EVV", "VVV"))
+par2nMm(par, p, k, model = c("EII","VII","EEI","VEI","EVI",
+                             "VVI","EEE","VEE","EVV","VVV"),
+        trafo = c("clr1", "logit"))
 }
 \arguments{
-    \item{par.}{numeric vector of parameters}
-    \item{p}{dimension of space}
-    \item{model}{See description}
+  \item{par}{the model parameter numeric vector.}
+  \item{p}{dimension of data space, i.e., number of variables (aka \dQuote{features}).}
+  \item{k}{the number of mixture components, a positive integer.}
+  \item{model}{a \code{\link{character}} string, one of those listed; see
+    \code{\link{nMm2par}()}'s documentation.}
+  \item{trafo}{a \code{\link{character}} string specifying the transform to
+    use for the weights \code{w} (\eqn{= \pi_j}{= pi[j]}), currently either
+    \code{"clr1"} or \code{"logit"}.}
 }
 \value{
-    returns this list: list(weight=w, mu=mu, Sigma=Sigma, k=k, dim=p)
+    returns a \code{\link{list}} with components
+    \item{weight}{..}
+    \item{mu}{..}
+    \item{Sigma}{..}
+    \item{k}{..}
+    \item{dim}{..}
 }
-\description{
-    \code{par2nMm} returns list containing weight, mu, Sigma, k, dim
+\seealso{
+  This is the inverse function of \code{\link{nMm2par}()}.
 }
-\details{
-    this is the inverse function to nMm2par. Given a numeric vector
-    dimension and cluster number this function reconstructs a normal mixture
-    object.
+\examples{
+## TODO: Show to get the list, and then how to get a  norMmix() object from the list
 }
+%% \keyword{}
