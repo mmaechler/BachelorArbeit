@@ -3108,3 +3108,21 @@ cbind(ma$values, ma$reps)
 ## massplot <- testplot, testplot no longer here
 
 ## finish plot_simulations_...
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-01
+
+## match.arg??
+
+aa <- function(j=c("a", "b")) {
+    j <- match.arg(j)
+    j
+}
+
+aa()
+
+
+##
