@@ -63,7 +63,7 @@ massbic <- function(string, DIR) {
 
 
 massbicm <- function(string, DIR) {
-    nm <- readRDS(file.path(DIR, string[i]))
+    nm <- readRDS(file.path(DIR, string[1]))
     cl <- nm$fit$k
     mo <- nm$fit$models
     valm <- array(0, lengths(list(cl,mo,string)))
