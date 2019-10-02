@@ -70,7 +70,7 @@ massbicm <- function(string, DIR) {
     for (i in 1:length(string)) {
         nm <- readRDS(file.path(DIR, string[i]))
         x <- nm$fit$x
-        valm[,,i] <- Mclust(x, G=cl, modelNames=models)$BIC
+        valm[,,i] <- Mclust(x, G=cl, modelNames=mo)$BIC
     }
     dimnames(valm) <- list(clusters=cl, models=mo, files=string)
     -valm
