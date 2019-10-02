@@ -1,53 +1,87 @@
 \chapter{Introduction to normal mixture models}
 
 
-%% it 1
+%% it 2
 \section{Definitions}
 
-A good and thorough introductory book is the work of McLachlan and Peel 2000 and
-the reader is encouraged to study that to learn in depth about normal mixtures. 
+A good and thorough introductory book is the work of \cite{McL00} and
+the reader is encouraged to study it to learn in depth about normal mixtures
+and their clustering. 
 We will here give a short overwiev of normal mixtures to fix notation and 
 nomenclature.
+The motivating idea behind mixture models is, that in real world examples
+a sample might be suspected to arise from more than one population.
+The original example of this, by Karl Pearson, who fitted two normal 
+distributions with different means and variances.
+In his paper Pearson analyzed measurements of forehead to bodylength of crabs
+sampled from the bay of Naples. His mixture model-based approach suggested, 
+that a the crabs were evolving into two new subspecies.
 
-Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ and 
-$ \phi(- ; \mu, \Sigma) $ be the normal distribution with mean $ \mu $ and 
-covariance matrix $ \Sigma $.
+here make clear we restrict to multivariate normal case.
 
-Normal mixture model are designed for situations where we assume that a given 
-dataset originates from more than one population of explaining variables.
+Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ 
+symmetric positive definite and $ \phi(- ; \mu, \Sigma) $ be the normal 
+distribution with mean $ \mu $ and covariance matrix $ \Sigma $.
+
 
 $ \pmb{Y}_1, \dots , \pmb{Y}_n $
 
 \begin{definition}
-    Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $ with probability density function $ \pmb{Y}_j \sim f(y_j) $ on $\mathbb{R}^p$ We assume that the density $ f(y_j) $ of $ \pmb{Y}_j $ can be written in the form 
-
-    \[ f(y_j) = \sum_{i=1}^{K} \pi_i \phi_i (y_i; \mu, \Sigma) \]
-
-    The $ \pi_i $ are called the component densities of the mixture.
+    Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $ with 
+    probability density function $ \pmb{Y}_j \sim f(y_j) $ on 
+    $\mathbb{R}^p$ We assume that the density $ f(y_j) $ of $ \pmb{Y}_j $ can 
+    be written in the form 
+    \[ f(y_j) = \sum_{k=1}^{K} \pi_k \phi_k (y_k; \mu, \Sigma) \]
+    The $ \pi_k $ are called the component densities of the mixture and the 
+    $\phi_k$ mixture components.
 \end{definition}
 
-explain in scetch EM algo
+here small note about restricted cases. give ref to 1.4??
 
-EM has desirable qualities like proven convergence, (give reference to dempster 1977 paper)
+\section{The EM-algorithm in scetch}
 
-explain idea to use parameter optimizer instead, EM has pathological 
-insufficiencies, like 'getting stuck' for many iterations. We hope we need less 
-iterations, and as concequence less time. 'special' idea: using cholesky decomp.
+%% it 1
+With this definition we immediately face the problem of how to fit these
+mixture components to given data. A popular algorithm to solve this problem 
+is the {\bf E}xpectation-{\bf M}aximization algorithm, abbreviated as 
+EM-algorithm.
+
+We give here a scetch of the EM-algorithm in the case of all normal mixture 
+components, since it is the scope of this thesis and simplifies it 
+considerably.
+
+Suppose we have a $p-$dimensional dataset of $n$ samples $x_1, \dots ,x_n$,
+onto which we would like to fit $K$ normal distributions 
+$\phi_k,\ k \in {1,\dots , n}$. 
+We introduce a further explaining variable $\pmb{Z}$ in 
+$\textrm{Mat}^{n\times k}$, with entries in $[0,1]$ which represent the 
+expectation that observation $i$ belongs to component $k$.
+
+The EM-algorithm is a two step, iterative process consisting of an 'e'-step
+and an 'm'-step.
+% FIXME: inconsistent notation in Z and \tau
+% FIXME: add remark about
+In the e-step the expectation of component membership is updated.
+\[ \tau_i(y_j;\Psi) = \phi_i(y_j;\mu_i, \Sigma_i)/ \sum_{k=1}^K \phi_k(y_j;
+    \mu_k, \Sigma_k)\]
+and in the m-step given the component membership information we update the 
+component means and covariances by weighted versions of the usual estimators.
+\[\mu_i = \sum_{j=1}^n \tau_{ij}y_j / \sum_{j=1}^n \tau_{ij}\]
+\[\Sigma_i = \sum_{j=1}^n \tau_{ij} (y_j- \mu_i)(y_j-\mu_i)^\top / 
+    \sum_{j=1}^n \tau_{ij}\]
+
+here note about initialization methods.
+
 
 
 \section{choice of notation}
 
 % it 1
-describe difference in notation between ceuleux \& govaert and our covariance 
-matrix decomposition.
-
 The classification of models in this paper relies heavily on the work of Celeux
 and Grovaert, however, out of necessity for clarity, we break with their 
 notation. 
 So as to not confuse the reader we describe here in depth the differences in 
 notation between Celeux and Govaert and ours.
-
-explanation for the volume, shape and orientation descriptors
 
 The basis of classification in Celeux \& Grovaert is the decomposition of a
 symmetric matrix into an orthogonal and a diagonal component.
@@ -73,8 +107,8 @@ cng, will use the following modification of notation:
     \pmb{D} \longmapsto \pmb{Q} \\
     \pmb{A} \longmapsto \pmb{\Lambda} \\
     \lambda \longmapsto \alpha  \\
-    \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} =
-        \alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^{\top}
+    \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^\top =
+        \alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^\top
 \end{gather*}
 
 These were chosen according to general conventions of linear algebra. $ \pmb{Q} $
@@ -83,6 +117,7 @@ for diagonal matrices eigen vectors and $ \alpha $ was somewhat arbitrarily
 chosen.
 
 
+\section{Models of Covariance Matrices}
 
 make clear that the models can not be translated one to one to ldlt model
 % it 1
@@ -111,6 +146,11 @@ $\pmb{L} = \mathrm{Id}_{n\times n}$.
 Therefore we can only decompose matrices where either both or neither shape and
 orientation vary. See table \ref{table:param}.
 
+While we could in theory construct the cases $\pmb{L}\pmb{D}_k\pmb{L}^\top$ and
+$\pmb{L}_k \pmb{D} \pmb{L}^\top$, however they do not correspond to the desired
+geometric intent behind the differentiation of models and are therefore not 
+included.
+
 make nice table(maybe sideways to account for parameter list)
 
 
@@ -137,7 +177,7 @@ make nice table(maybe sideways to account for parameter list)
         VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ K+p+p^2 $ & $ \alpha_k \pmb{LDL}^\top $ & & \\
         \hline
         VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable & variable & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & $ K+pK+p^2 $ & & & \\
-        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ 1+p+Kp^2 $ &    & & \\
+        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ 1+p+Kp^2 $ &  don't exist  & & \\
         VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable & equal & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ K+p+Kp^2 $ & & & \\
         \hline
         EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & variable & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ 1+pK+Kp^2 $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $ \\
