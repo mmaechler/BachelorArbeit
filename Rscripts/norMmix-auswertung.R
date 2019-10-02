@@ -3131,14 +3131,34 @@ aa()
 
 ## try Trimodal??
 
-mu <- matrix(c(-1,-1,0,0,1,1), 2, 3)
-sig <- array(c(2, -2, -2, 4, 1, -1, -1, 1, 2, -2, -2, 2), c(2,2,3))
+mu <- matrix(c(-2,-2,0,0,2,2), 2, 3)
+sig <- array(c(2, -2, -2, 4, 1, -1, -1, 2, 2, -2, -2, 4), c(2,2,3))
 w <- c(1,1,1)/3
 
 Tri <- norMmix(mu, Sigma=sig, weight=w, model="VEE")
+plot(Tri)
 
 x <- rnorMmix(500, Tri)
 
-ret <- fit.norMmix(x, k=1:2, models=1:3)
+ret <- fit.norMmix(x, k=c(1:3,8), models=1:3)
+BIC(ret)[[1]]
 
 ## fixed fit.norMmix
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-02
+
+## clara function.. ssClaraL(n,k,p)
+ssClaraL(500, 3, 2)
+val <- matrix(0, 20, 20)
+for (i in 1:20) {
+    for (j in 1:20) {
+        val[i,j] <- ssClaraL(500, i, j)
+    }
+}
+
+## not sure how it works, or what we should expect when changing inputs
+## improved input stability for .fittednorMmix methods
