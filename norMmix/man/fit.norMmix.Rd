@@ -42,7 +42,6 @@ fit.norMmix(x, k, models = 1:10,
     length(models)} times.
 }
 \examples{
-## TODO
 x <- rnorMmix(500, MW21)
 fit.norMmix(x, 1:3) ## will fit all models with 1:3 clusters
 }
