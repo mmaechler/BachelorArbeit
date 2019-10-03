@@ -120,15 +120,21 @@ sortbest <- function(m) {
 #    par(op)
 #}
 
-massplot <- function(f, main="unnamed") {
+massplot <- function(f, main="unnamed", p) {
     ran <- extendrange(f)
     size <- dim(f)[3]
+    cl <- as.numeric(dimnames(f)$clusters)
     adj <- exp(-0.002*size) # set so at n=1000 alpha value is ~0.1
     models <- mods()
+    ## FIXME: should not assume all models present.
     op <- sfsmisc::mult.fig(mfrow=c(4,5), main=main)
     for (i in 1:10) {
         matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],adj), 
                 main=models[i], type="l", ylim=ran)
+        if (!missing(p)) {
+            axis(3, at=seq_along(cl), 
+                 label=parlen(cl,p,models[i]))
+        }
     }
     for (i in 1:10) {
         boxplot(t(f[,i,]), lty=1, col=adjustcolor(rainbow(10)[i],0.4), 
