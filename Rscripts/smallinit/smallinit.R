@@ -45,7 +45,7 @@ for (size in sizes) {
             for (seed in seeds) {
                 set.seed(2019+seed); x <- rnorMmix(size, nm)
                 st <- system.time(
-                    r <- tryCatch(fit.norMmix(x, k=1:7, models=1:10,
+                    r <- tryCatch(fitnMm(x, k=1:7, models=1:10,
                                               ini=ini, maxit=1e4),
                                   error = identity)
                     )

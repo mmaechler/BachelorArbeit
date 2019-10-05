@@ -35,8 +35,8 @@ colnames(aik) <- models
 for (i in models) {
 	for (k in 1:5) {
 		ans <- norMmixMLE(x,2,k,trafo="clr1",model=i,maxiter=200)
-		bic[k,i] <- ans$parlen*log(n) +2*ans$optr$value
-		aik[k,i] <- ans$parlen*2 +2*ans$optr$value
+		bic[k,i] <- ans$npar*log(n) +2*ans$optr$value
+		aik[k,i] <- ans$npar*2 +2*ans$optr$value
 	}
 }
 
@@ -48,8 +48,8 @@ overmod <- function(x,k) {
 	p <- ncol(x)
 	for (i in models) {
 		ans <- norMmixMLE(x,p,k,trafo="clr1",model=i)
-		bic[i] <- ans$parlen*log(n)+2*ans$optr$value
-		aic[i] <- ans$parlen*2+2*ans$optr$value
+		bic[i] <- ans$npar*log(n)+2*ans$optr$value
+		aic[i] <- ans$npar*2+2*ans$optr$value
 	}
 	list(bic=bic, aic=aic)
 }

@@ -56,7 +56,7 @@ ssClaraL(n, k, p)
   \item{norMmix}{the \code{"\link{norMmix}"} object corresponding to the
     specified model and the fitted (MLE) parameter vector.}
   \item{optr}{the [r]eturn value of \code{\link{optim}()}.}
-  \item{parlen}{the number of free parameter, a function of \eqn{(p, k, model)}.}
+  \item{npar}{the number of free parameter, a function of \eqn{(p, k, model)}.}
   \item{n}{the sample size, i.e., the number of observations or rows of \code{x}.}
   \item{cond}{the result of \code{parcond(..)}, that is the ratio of sample size 
       over parameter count.}% fixme

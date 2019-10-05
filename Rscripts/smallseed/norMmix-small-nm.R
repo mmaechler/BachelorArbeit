@@ -23,7 +23,7 @@ if (testsize) {
             nm <- MW214
             set.seed(2019+seed); x <- rnorMmix(s,nm)
             st <- system.time(
-                r <- tryCatch(fit.norMmix(x, k=1:8, models=1:10,
+                r <- tryCatch(fitnMm(x, k=1:8, models=1:10,
                                           trafo="clr1", maxit=1e4),
                               error = identity)
                 )
@@ -54,7 +54,7 @@ if (testseed) {
             nm <- MW214
             set.seed(2019+seed); x <- rnorMmix(500,nm) # set size fixed to 500
             st <- system.time(
-                r <- tryCatch({set.seed(2019+s); fit.norMmix(x, k=1:7, models=1:10,
+                r <- tryCatch({set.seed(2019+s); fitnMm(x, k=1:7, models=1:10,
                                                  trafo="clr1", maxit=1e4)},
                               error = identity)
                 )

@@ -1,8 +1,8 @@
-\name{parlen}
-\alias{parlen}
+\name{npar}
+\alias{npar}
 \title{Number of Free Parameters of Multivariate Normal Mixture Models}
 \usage{
-parlen(k, p, model = c("EII","VII","EEI","VEI","EVI",
+npar(k, p, model = c("EII","VII","EEI","VEI","EVI",
 	               "VVI","EEE","VEE","EVV","VVV"))
 }
 \arguments{
@@ -12,13 +12,13 @@ parlen(k, p, model = c("EII","VII","EEI","VEI","EVI",
     above, see also \sQuote{Description}.}
 }
 \description{
-  \code{parlen()} returns an integer (vector, if \code{p} or \code{k} is)
+  \code{npar()} returns an integer (vector, if \code{p} or \code{k} is)
   with the number of free parameters of the corresponding model, which is
   also the \code{\link{length}(.)} of the parameter vector in our
   parametrization, see \code{\link{nMm2par}()}.
 }
 \examples{
-(m <- eval(formals(parlen)$model)) # list of 10 models w/ differing Sigma
+(m <- eval(formals(npar)$model)) # list of 10 models w/ differing Sigma
 # A nice table for a given 'p'  and all models, all k in 1:8
-sapply(m, parlen, k=setNames(,1:8), p = 20)
+sapply(m, npar, k=setNames(,1:8), p = 20)
 }

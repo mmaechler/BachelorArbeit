@@ -41,14 +41,14 @@ importFrom("mixtools", ellipse)
 ## Functions
 export(
     ldl
-     , fit.norMmix # MM: change name (no ".")
+     , fitnMm # MM: change name (no ".")
      , llmvtnorm
      , llnorMmix
      , nMm2par, nc2p
      , norMmix
      , norMmixMLE
      , par2nMm
-     , parlen # better name?
+     , npar # better name?
      , rnorMmix
      , sllnorMmix
        )

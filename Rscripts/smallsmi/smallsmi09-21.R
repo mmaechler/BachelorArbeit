@@ -34,7 +34,7 @@ for (ini in inits) {
     for (s in seeds) {
         set.seed(2019+s)
         st <- system.time(
-            r <- tryCatch(fit.norMmix(smi, k=1:8, models=1:10, ini=ini,
+            r <- tryCatch(fitnMm(smi, k=1:8, models=1:10, ini=ini,
                                       optREPORT=20, maxit=1e4),
                           error = identity)
             )

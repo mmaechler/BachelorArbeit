@@ -1,14 +1,14 @@
 % Code in ../R/fit.R
-\name{fit.norMmix}
-\alias{fit.norMmix}
+\name{fitnMm}
+\alias{fitnMm}
 \title{Fit Several Normal Mixture Models to a Dataset}
 \description{
-  \code{fit.norMmix()} fits several multivariate normal mixture models
+  \code{fitnMm()} fits several multivariate normal mixture models
   (\code{norMmix}) to the data set \code{x}, and returns (among other info)
   a \code{\link{list}} of fitted \code{\link{norMmix}} objects.
 }
 \usage{
-fit.norMmix(x, k, models = 1:10,
+fitnMm(x, k, models = 1:10,
             trafo = c("clr1", "logit"),
             ll = c("nmm", "mvt"), \dots)
 }
@@ -26,7 +26,7 @@ fit.norMmix(x, k, models = 1:10,
   \item{ll, \dots}{further arguments passed to function \code{\link{norMmixMLE}()}.}
 }
 \value{
-  \code{fit.norMmix()} returns a \code{\link{list}} with components
+  \code{fitnMm()} returns a \code{\link{list}} with components
   \item{nMm}{a \code{\link{list}} containing all fitted models}
   \item{models}{\code{\link{character}} vector of model (names) that were
     fitted.}
@@ -43,5 +43,5 @@ fit.norMmix(x, k, models = 1:10,
 }
 \examples{
 x <- rnorMmix(500, MW21)
-fit.norMmix(x, 1:3) ## will fit all models with 1:3 clusters
+fitnMm(x, 1:3) ## will fit all models with 1:3 clusters
 }

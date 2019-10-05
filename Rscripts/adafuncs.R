@@ -58,6 +58,7 @@ massbic <- function(string, DIR) {
     }
     dimnames(val) <- list(clusters=cl, models=mo, simulation=string)
 
+    ## TODO: add more info to result, give it a class maybe
     val
 }
 
@@ -133,7 +134,7 @@ massplot <- function(f, main="unnamed", p) {
                 main=models[i], type="l", ylim=ran)
         if (!missing(p)) {
             axis(3, at=seq_along(cl), 
-                 label=parlen(cl,p,models[i]))
+                 label=npar(cl,p,models[i]))
         }
     }
     for (i in 1:10) {
@@ -195,3 +196,5 @@ masscount <- function(string, DIR) {
 
     list(fn=valfn, gr=valgr)
 }
+
+

@@ -33,7 +33,7 @@ for (nm in MWdat) {
             for(ini in inits) {
                 set.seed(seed.n) # for reproducibility
                 st <- system.time(
-                    r <- tryCatch(fit.norMmix(x, k=1:7, models=1:10,
+                    r <- tryCatch(fitnMm(x, k=1:7, models=1:10,
                                               trafo=trafo, ini=ini, maxiter=300),
                                   error = identity)
                 )

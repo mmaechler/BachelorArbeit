@@ -41,8 +41,8 @@ p <- ncol(x)
 for (i in models) {
 	for (k in 1:5) {
 		ans <- norMmixMLE(x,p,k,trafo="clr1",model=i,maxiter=200)
-		bic[k,i] <- ans$parlen*log(n) +2*ans$optr$value
-		aic[k,i] <- ans$parlen*2 +2*ans$optr$value
+		bic[k,i] <- ans$npar*log(n) +2*ans$optr$value
+		aic[k,i] <- ans$npar*2 +2*ans$optr$value
 	}
 }
 
@@ -54,8 +54,8 @@ overmod <- function(x,k) {
 	p <- ncol(x)
 	for (i in models) {
 		ans <- norMmixMLE(x,p,k,trafo="clr1",model=i)
-		bic[i] <- ans$parlen*log(n)-2*ans$optr$value
-		aic[i] <- ans$parlen*2-2*ans$optr$value
+		bic[i] <- ans$npar*log(n)-2*ans$optr$value
+		aic[i] <- ans$npar*2-2*ans$optr$value
 	}
 	list(bic=bic, aic=aic)
 }
@@ -90,7 +90,7 @@ det(ans$norMmix$Sigma[,,2])
 # [1] 2.552217
 ## finally produces equal alpha!
 
-ans <- fit.norMmix(x,k=1:10,models=1:10, trafo="clr1")
+ans <- fitnMm(x,k=1:10,models=1:10, trafo="clr1")
 
 ans$BIC
 #          EII       VII       EEI       VEI       EVI       VVI
@@ -157,7 +157,7 @@ plot(val$norMmix)
 
 ## try again the bic over models:
 
-ans <- fit.norMmix(x26,k=1:10, models=1:10,trafo="clr1")
+ans <- fitnMm(x26,k=1:10, models=1:10,trafo="clr1")
 ans$topbic
 #      row col                     
 # [1,] "2" "EII" "9458.05706553518"
@@ -259,7 +259,7 @@ points(x213[indexmcl==3,], col="red")
 models <- c("EII","VII","EEI","VEI","EVI",
 	    "VVI","EEE","VEE","EVV","VVV")
 
-ansnMm <- fit.norMmix(x, k=1:10, models=1:10, ini="cla", trafo="clr1")
+ansnMm <- fitnMm(x, k=1:10, models=1:10, ini="cla", trafo="clr1")
 
 library(mclust)
 ansmcl <- Mclust(x, G=1:10, modelNames=models)
@@ -314,7 +314,7 @@ mean(diffbic)
 hist(c(diffbic))
 
 
-ansnMmmcl <- fit.norMmix(x, k=1:10, models=1:10, ini="mcl", trafo="clr1")
+ansnMmmcl <- fitnMm(x, k=1:10, models=1:10, ini="mcl", trafo="clr1")
 
 #Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model) :
 #  4 diffbic <- ansnMm$BIC + ansmcl$BIC                                              |  isTRUE(all(apply(sig, 3, function(j) (ldl(j)$Diag >= 0)))) is not TR
@@ -328,7 +328,7 @@ ansnMmmcl <- fit.norMmix(x, k=1:10, models=1:10, ini="mcl", trafo="clr1")
 
 x26 <- rnorMmix(500, MW26)
 
-ansnMm2 <- fit.norMmix(x26, k=1:10, models=1:10, ini="cla", trafo="clr1")
+ansnMm2 <- fitnMm(x26, k=1:10, models=1:10, ini="cla", trafo="clr1")
 
 ansmcl2 <- Mclust(x26, G=1:10, modelNames=models)
 
@@ -369,7 +369,7 @@ mean(asdf)
 ## what parameter counts does mclust use?
 ## 
 
-ansnMmmcl <- fit.norMmix(x26, k=1:5, models=1:10, ini="mcl", trafo="clr1")
+ansnMmmcl <- fitnMm(x26, k=1:5, models=1:10, ini="mcl", trafo="clr1")
 
 ## lower cluster number for time reasons
 
@@ -797,7 +797,7 @@ summaryRprof("profile.out", lines= "show")
 
 ## random test as sanity check
 
-ansnmm <- fit.norMmix(x, k= 1:5, models=1:10,trafo="clr1", ini="cla")
+ansnmm <- fitnMm(x, k= 1:5, models=1:10,trafo="clr1", ini="cla")
 
 ansmcl <- mclust::Mclust(x, G=1:5, modelNames=models)
 
@@ -892,7 +892,7 @@ points(sort(-ansmcl$BIC),col="blue")
 ## wrote some cases with p=3,5 and plot function works now for p>2
 
 x3 <- rnorMmix(2000, MW33)
-rnmm <- fit.norMmix(x3, k=1:5, models=1:10, ini="cla", trafo="clr1")
+rnmm <- fitnMm(x3, k=1:5, models=1:10, ini="cla", trafo="clr1")
 
 rmcl <- mclust::Mclust(x3, G=1:5, modelNames=models)
 
@@ -918,7 +918,7 @@ diffbic <- rnmm$BIC --rmcl$BIC
 # 5 -4.285166e+01
 
 
-tmp <- fit.norMmix(x3, k=1:10, model=1:10, ini="mcl", trafo="clr1", maxiter=6)
+tmp <- fitnMm(x3, k=1:10, model=1:10, ini="mcl", trafo="clr1", maxiter=6)
 tmp
 
 ## "mcl" issue could not be reproduced here, possibly other mixture is ill 
@@ -968,7 +968,7 @@ lapply(mods, asdf)
 
 xx <- rnorMmix(10000, MW34)
 
-ans <- fit.norMmix(xx, k=1:10, models=1:10, trafo="clr1", ini="cla")
+ans <- fitnMm(xx, k=1:10, models=1:10, trafo="clr1", ini="cla")
 
 ####
 #-------------------------------------------------------------------------------
@@ -1006,7 +1006,7 @@ for (i in aa) {
 
 x <- rnorMmix(100, MW26)
 
-ans <- fit.norMmix(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
+ans <- fitnMm(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
 
 ## important things work
 
@@ -1044,7 +1044,7 @@ llnorMmix(pp, x, 2, trafo="clr1", model="VVV")
 
 x <- rnorMmix(100, MW26)
 
-ans <- fit.norMmix(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
+ans <- fitnMm(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
 
 aa <- BIC(ans)
 bb <- logLik(ans)
@@ -1053,7 +1053,7 @@ mle <- norMmixMLE(x,k=1, model="EII", trafo="clr1", ini="clara")
 
 ## testing tests
 
-asdf <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",ll="nmm")
+asdf <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",ll="nmm")
 
 
 ## larger numbers:
@@ -1069,10 +1069,10 @@ for (i in MWdat) {
 
     set.seed(2019); x <- rnorMmix(100, nm)
 
-    aa <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+    aa <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
                       ll="nmm")
 
-    bb <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+    bb <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
                       ll="mvt")
 
     a <- BIC(aa)[[1]]
@@ -1120,7 +1120,7 @@ for (i in MWdat) {
 
     set.seed(2019); x <- rnorMmix(100, nm)
 
-    aa <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+    aa <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
                       ll="nmm")
 
     retnmm[[i]] <- BIC(aa)
@@ -1136,7 +1136,7 @@ for (i in MWdat) {
 ## change in logLik
 
 
-uio <- fit.norMmix(x, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
+uio <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
 
 BIC(uio)
 
@@ -1261,7 +1261,7 @@ ans <- norMmixMLE(loss,k=4, model="EVI", trafo="clr1", ini="clara", ll="mvt")
 
 ## issues with non-finite finite-difference value, with both nmm and mvt
 
-ret <- fit.norMmix(iri, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
+ret <- fitnMm(iri, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
 
 
 ####
@@ -1804,7 +1804,7 @@ ans <- norMmixMLE(smi, k=2, model="VII", trafo="clr1", ini="mclVVV", ll="nmm")
 ## no
 
 
-ans <- fit.norMmix(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
 BIC(ans)
 # [[1]]
 #   EII VII
@@ -1821,7 +1821,7 @@ BIC(ans)
 ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
 
 
-ans <- fit.norMmix(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
 BIC(ans)
 # [[1]]
 #   EII VII
@@ -1839,12 +1839,12 @@ ans <- norMmixMLE(smi, k=7, model="VVI", trafo="clr1", ini="mclVVV", ll="nmm")
 
 
 ## error handling
-## fit.norMmix now saves proper error
+## fitnMm now saves proper error
 
 ## list with dim
 
 x9 <- rnorMmix(100, MW29)
-ans <- fit.norMmix(x9, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(x9, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
 rr <- ans$nMm
 dim(rr) <- c(3,2)
 
@@ -1862,7 +1862,7 @@ dim(rr) <- c(3,2)
 ans <- norMmixMLE(smi, k=1, model="VII", trafo="clr1", ini="mclVVV", ll="nmm", epsilon=1e-1)
 ## first converges with epsilon at 1e-1
 
-ans <- fit.norMmix(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+ans <- fitnMm(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
 BIC(ans)
 # [[1]]
 #        EII      VII
@@ -1896,7 +1896,7 @@ BIC(ans)
 data(SMI.12, package="copula")
 smi <- SMI.12
 
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
 ans
 # $nMm
 # $nMm$EII1
@@ -1919,10 +1919,10 @@ ans
 
 ## no... try larger epsilon
 
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-6)
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-6)
 
 ## no
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
 BIC(ans)
 # [[1]]
 #        EII      VII
@@ -1936,7 +1936,7 @@ BIC(ans)
 
 ## all converged
 
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=4e-2)
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=4e-2)
 str(ans$nMm,max=1)
 # List of 6
 #  $ EII1:List of 2
@@ -1956,7 +1956,7 @@ str(ans$nMm,max=1)
 ## somewhere between 0.01 and 0.1 fitting fails
 ll <- ans$nMm$EII3$optr$value
 # [1] 10820.24
-parl <- ans$nMm$EII3$parlen
+parl <- ans$nMm$EII3$npar
 n <- ans$nMm$EII3$n
 
 log(n)*parl + 2*ll
@@ -1967,7 +1967,7 @@ log(n)*parl + 2*ll
 
 ## removed one operation from llnorMmix
 
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
 BIC(ans)
 # [[1]]
 #        EII      VII
@@ -1981,12 +1981,12 @@ BIC(ans)
 
 
 ## how about large k
-ans <- fit.norMmix(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-10)
+ans <- fitnMm(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-10)
 ans
 # $nMm
 # $nMm$VVI1
 # <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
-ans <- fit.norMmix(smi, k=7, models=7, trafo="clr1", ini="clara", ll="nmm", epsilon=1e3)
+ans <- fitnMm(smi, k=7, models=7, trafo="clr1", ini="clara", ll="nmm", epsilon=1e3)
 ans$nMm$EEE1$optr$value
 # [1] 6028.542
 ## not fixed
@@ -1995,7 +1995,7 @@ ans$nMm$EEE1$optr$value
 ## there is still an issue with VVI model
 
 ## loaded norMmix again
-ans <- fit.norMmix(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+ans <- fitnMm(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
 ## yay converged
 
 
@@ -2010,7 +2010,7 @@ xobj <- rnorMmix(1000, obj)
 
 plot(xobj)
 
-ans <- fit.norMmix(xobj, k=1:7, models=1:10, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(xobj, k=1:7, models=1:10, trafo="clr1", ini="clara", ll="nmm")
 BIC(ans)
 # [[1]]
 #        EII      VII      EEI      VEI      EVI      VVI      EEE
@@ -2088,7 +2088,7 @@ ret <- norMmixMLE(x, k=3)
 data(SMI.12, package="copula")
 smi <- SMI.12
 
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
 BIC(ans)
 # [[1]]
 #        EII      VII
@@ -2104,7 +2104,7 @@ BIC(ans)
 ## of earlier results
 
 ## try  <- VVI, since it also had problems
-ans <- fit.norMmix(smi, k=1:3, models=6)
+ans <- fitnMm(smi, k=1:3, models=6)
 BIC(ans)
 # [[1]]
 #        VVI
@@ -2206,7 +2206,7 @@ rownames(e) <- smifit$fit$k
 
 data(SMI.12, package="copula")
 smi <- SMI.12
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
 ## ok now change analysis tools to fit this
 logLik(ans)
 ## ok
@@ -2240,7 +2240,7 @@ sllnorMmix(x, MW27)
 ## played around in NAMESPACE
 data(SMI.12, package="copula")
 smi <- SMI.12
-ans <- fit.norMmix(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
 
 ## test mle against true model
 ret <- norMmixMLE(x, k=2, model="VEI", maxit=1e4)
@@ -2448,8 +2448,8 @@ set.seed(20192); ret2 <- norMmixMLE(x,2, model="VII")
 ## do 2 ada jobs to analyse this.
 
 
-set.seed(20191); ret1 <- fit.norMmix(x,k=5, models=1)
-set.seed(20192); ret2 <- fit.norMmix(x,k=5, models=1)
+set.seed(20191); ret1 <- fitnMm(x,k=5, models=1)
+set.seed(20192); ret2 <- fitnMm(x,k=5, models=1)
 
 
 ####
@@ -3140,10 +3140,10 @@ plot(Tri)
 
 x <- rnorMmix(500, Tri)
 
-ret <- fit.norMmix(x, k=c(1:3,8), models=1:3)
+ret <- fitnMm(x, k=c(1:3,8), models=1:3)
 BIC(ret)[[1]]
 
-## fixed fit.norMmix
+## fixed fitnMm
 
 
 ####
@@ -3162,3 +3162,43 @@ for (i in 1:20) {
 
 ## not sure how it works, or what we should expect when changing inputs
 ## improved input stability for .fittednorMmix methods
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-04
+
+## wrote logLik for norMmixfit
+
+x <- rnorMmix(500, MW213)
+ret <- norMmixMLE(x, 3, "VEE")
+rer <- norMmixMLE(x, 4, "VEE")
+logLik(ret)
+AIC(ret)
+BIC(ret)
+
+a <- logLik(ret)
+b <- logLik(rer)
+AIC(a,b)
+
+aa <- fitnMm(x, k=1:2, models=1:3)
+logLik(aa)
+BIC(aa)[[1]]
+## ?? why does logLik lose matrix structure?
+bb <- logLik(aa)
+class(bb)
+# [1] "matrix"
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-05
+
+## testing print methods
+aa <- fitnMm(x, k=1:2, models=1:3)
+extracttimes(aa)
+print(aa)
+
+## ok for now. improve later

@@ -16,7 +16,7 @@ files_mclVVV <- vector()
 
 for (ini in inits) {
     for (seed in seeds) {
-        r <- fit.norMmix(x, k=1:7, ini=ini, maxit=1e4)
+        r <- fitnMm(x, k=1:7, ini=ini, maxit=1e4)
         cat("result of fit: "); str(r, max=1)
         sFile <- sprintf("fit_MW215_n=1000_%s_seed=%d.rds",
                          ini, seed)

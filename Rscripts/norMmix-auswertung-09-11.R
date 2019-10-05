@@ -12,7 +12,7 @@ devtools::load_all(file.path(GH_BA_dir, "norMmix"))
 
 ##set.seed(2019); x <- rnorMmix(300, MW27)
 ##
-##ans <- fit.norMmix(x)
+##ans <- fitnMm(x)
 ##
 ##pdf(file=file.path(save_dir, "temp.pdf"))
 ##plot(ans, name="test")
@@ -43,7 +43,7 @@ for (dat in MWdat) {
                         nm <- get(dat ,"package:norMmix")
                         set.seed(2019+seed); x <- rnorMmix(s,nm)
                         st <- system.time(
-                            r <- tryCatch(fit.norMmix(x, k=1:7, models=1:10,
+                            r <- tryCatch(fitnMm(x, k=1:7, models=1:10,
                                                       trafo=trafo, ini=ini, maxit=1e4),
                                           error = identity)
                             )

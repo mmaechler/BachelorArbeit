@@ -27,7 +27,7 @@ for (ll in lls) {
     set.seed(seed.n)
     st <- system.time(
         r <- tryCatch(
-            fit.norMmix(smi, k=1:9, models=1:10,
+            fitnMm(smi, k=1:9, models=1:10,
                         trafo=trafo, ini=init, ll=ll,
                         maxit=300, epsilon=0.1),
             error = identity)

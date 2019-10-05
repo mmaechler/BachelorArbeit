@@ -44,7 +44,7 @@ for (dd in dat) {
                 set.seed(seed.n)
                 st <- system.time(
                     r <- tryCatch(
-                        fit.norMmix(x, k=1:9, models=1:10,
+                        fitnMm(x, k=1:9, models=1:10,
                                     trafo=trafo, ini=ini, ll=ll,
                                     maxit=300),
                         error = identity)
