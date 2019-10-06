@@ -130,11 +130,16 @@ massplot <- function(f, main="unnamed", p) {
     ## FIXME: should not assume all models present.
     op <- sfsmisc::mult.fig(mfrow=c(4,5), main=main)
     for (i in 1:10) {
-        matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],adj), 
-                main=models[i], type="l", ylim=ran)
+
         if (!missing(p)) {
+            matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],adj), 
+                    type="l", ylim=ran)
+            title(models[i], line=2)
             axis(3, at=seq_along(cl), 
                  label=npar(cl,p,models[i]))
+        } else {
+            matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],adj), 
+                    main=models[i], type="l", ylim=ran)
         }
     }
     for (i in 1:10) {

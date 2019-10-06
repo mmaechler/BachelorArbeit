@@ -7,15 +7,15 @@
 A good and thorough introductory book is the work of \cite{McL00} and
 the reader is encouraged to study it to learn in depth about normal mixtures
 and their clustering. 
-We will here give a short overwiev of normal mixtures to fix notation and 
+We will here give a short overview of normal mixtures to fix notation and 
 nomenclature.
 The motivating idea behind mixture models is, that in real world examples
 a sample might be suspected to arise from more than one population.
 The original example of this, by Karl Pearson, who fitted two normal 
 distributions with different means and variances.
-In his paper Pearson analyzed measurements of forehead to bodylength of crabs
+In his paper Pearson analyzed measurements of forehead to body length of crabs
 sampled from the bay of Naples. His mixture model-based approach suggested, 
-that a the crabs were evolving into two new subspecies.
+that the crabs were evolving into two new subspecies.
 
 here make clear we restrict to multivariate normal case.
 
@@ -38,7 +38,7 @@ $ \pmb{Y}_1, \dots , \pmb{Y}_n $
 
 here small note about restricted cases. give ref to 1.4??
 
-\section{The EM-algorithm in scetch}
+\section{The EM-algorithm in sketch}
 
 %% it 1
 With this definition we immediately face the problem of how to fit these
@@ -46,7 +46,7 @@ mixture components to given data. A popular algorithm to solve this problem
 is the {\bf E}xpectation-{\bf M}aximization algorithm, abbreviated as 
 EM-algorithm.
 
-We give here a scetch of the EM-algorithm in the case of all normal mixture 
+We give here a sketch of the EM-algorithm in the case of all normal mixture 
 components, since it is the scope of this thesis and simplifies it 
 considerably.
 
@@ -77,13 +77,13 @@ here note about initialization methods.
 \section{choice of notation}
 
 % it 1
-The classification of models in this paper relies heavily on the work of Celeux
-and Grovaert, however, out of necessity for clarity, we break with their 
+The classification of models in this paper relies heavily on the work of 
+\cite{Cel95}, however, out of necessity for clarity, we break with their 
 notation. 
 So as to not confuse the reader we describe here in depth the differences in 
-notation between Celeux and Govaert and ours.
+notation between \cite{Cel95} and ours.
 
-The basis of classification in Celeux \& Grovaert is the decomposition of a
+The basis of classification in \cite{Cel95} is the decomposition of a
 symmetric matrix into an orthogonal and a diagonal component.
 A symmetric positive definite matrix $ \Sigma $ can be decomposed as follows
     \[ \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} \]
@@ -95,13 +95,13 @@ This decomposition has an appealing geometric interpretation, with $ \pmb{D} $
 as the \textit{orientation} of the distribution, $ \pmb{A} $ the \textit{shape},
 and $ \lambda $ the \textit{volume}. The problem of notation comes from standard 
 conventions in linear algebra, where the letters $A$ and $D$ are usually 
-occupied by arbytrary and diagonal matrices respectively. Furthermore, we intend
+occupied by arbitrary and diagonal matrices respectively. Furthermore, we intend
 to apply a variant of the Cholesky decomposition to $ \Sigma $, the 
 $ \alpha\pmb{L}\pmb{D}\pmb{L}^{\top} $ decomposition. This obviously raises some
 conflicts in notation.
 
-Therefore we, from here on, when reffering to the decomposition as described by 
-cng, will use the following modification of notation:
+Therefore we, from here on, when referring to the decomposition as described by 
+\cite{Cel95}, will use the following modification of notation:
 
 \begin{gather*} 
     \pmb{D} \longmapsto \pmb{Q} \\
@@ -113,7 +113,7 @@ cng, will use the following modification of notation:
 
 These were chosen according to general conventions of linear algebra. $ \pmb{Q} $
 is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice 
-for diagonal matrices eigen vectors and $ \alpha $ was somewhat arbitrarily 
+for diagonal matrices eigenvectors and $ \alpha $ was somewhat arbitrarily 
 chosen.
 
 
@@ -121,10 +121,10 @@ chosen.
 
 make clear that the models can not be translated one to one to ldlt model
 % it 1
-There is howerver an issue with the Cholesky decomposition. For 10 out of 14
-cases as defined by Celeux \& Grovaert, there exists a canonical translation of
+There is however an issue with the Cholesky decomposition. For 10 out of 14
+cases as defined by \cite{Cel95}, there exists a canonical translation of
 decompositions.
-The 6 diagonal cases need no translation; the Eigen and Cholesky decomposition
+The 6 diagonal cases need no translation; the eigen and Cholesky decomposition
 are equal to identity.
 For the non-diagonal cases note that for a given sym. pos. def. matrix
 $ \Sigma $ we have decompositions:
@@ -132,7 +132,7 @@ $ \Sigma $ we have decompositions:
 Since in both cases the bracketing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
 determinant $ 1 $ the determinant of $ \Sigma $ falls entirely on $ \alpha $.
 Therefore $ \alpha $, in these particular decompositions, is equal for both.
-Celeux \& Grovaert vary $\Sigma$ by eihter varying or holding fixed the volume 
+Celeux \& Grovaert vary $\Sigma$ by either varying or holding fixed the volume 
 $(\alpha / \alpha_k)$, shape $(\pmb{\Lambda} / \pmb{\Lambda_k})$ and orientation
 $(\pmb{Q} / \pmb{Q}_k)$.
 These 3 times 2 cases would yield the 8 out of 14 cases of non-diagonal cases.
@@ -140,7 +140,7 @@ However there is no canonical transform for either variable orientation and
 fixed shape or fixed orientation and variable shape.
 The reason for this is that in the $\pmb{LDL}^\top$ decomposition the lower
 diagonal matrix $\pmb{L}$ holds some of the shape of the matrix, which in 
-the Eigen decomposition is in the $\pmb{\Lambda}$ matrix.
+the eigendecomposition is in the $\pmb{\Lambda}$ matrix.
 In fact, $\pmb{L}$ is orthogonal if and only if 
 $\pmb{L} = \mathrm{Id}_{n\times n}$.
 Therefore we can only decompose matrices where either both or neither shape and
@@ -197,7 +197,7 @@ make nice table(maybe sideways to account for parameter list)
 \section{problems of EM}
 
 
-the EM-algorithm has stalling problems especially close to a local optimum.
+The EM-algorithm has stalling problems especially close to a local optimum.
 % it 1
 In their seminal work, \cite{Dem77}, have proven that the EM-algorithm 
 converges under mild regularity conditions. 
@@ -292,7 +292,7 @@ p.EMsteps(20, x9, nm1, plotIni=TRUE, sec.sleep=0)# 20 steps: final logLik ("ll")
 @
 
 
-yay, got figure to print. solution was use of fig=TRUE, instead of various mutations like figure=true.
+%yay, got figure to print. solution was use of fig=TRUE, instead of various mutations like figure=true.
 
 here we see how change in loglik seems to stagnate. However, this does not stay that way, if we let EM run a bit further.
 
@@ -377,7 +377,7 @@ where EM fails.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Comparing Algotithms}
+\chapter{Comparing Algorithms}
 
 \section{General Setup}
 display abilities of norMmix on its own. can find correct models

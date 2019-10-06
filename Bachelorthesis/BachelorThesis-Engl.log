@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.4.7)  3 OCT 2019 01:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  5 OCT 2019 22:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1119,20 +1119,20 @@ File: ts1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `TS1/aett/m/n' in size <10.95> not available
 (Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 223.
 
-<chapter1-003.pdf, id=151, 433.62pt x 433.62pt>
+<chapter1-003.pdf, id=167, 433.62pt x 433.62pt>
 File: chapter1-003.pdf Graphic file (type pdf)
  <use chapter1-003.pdf>
 Package pdftex.def Info: chapter1-003.pdf used on input line 236.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
  [5
 
- <./chapter1-003.pdf>] <chapter1-nor1mixEx.pdf, id=167, 433.62pt x 433.62pt>
+ <./chapter1-003.pdf>] <chapter1-nor1mixEx.pdf, id=182, 433.62pt x 433.62pt>
 File: chapter1-nor1mixEx.pdf Graphic file (type pdf)
 
 <use chapter1-nor1mixEx.pdf>
 Package pdftex.def Info: chapter1-nor1mixEx.pdf used on input line 243.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
- <chapter1-006.pdf, id=168, 433.62pt x 433.62pt>
+ <chapter1-006.pdf, id=183, 433.62pt x 433.62pt>
 File: chapter1-006.pdf Graphic file (type pdf)
 
 <use chapter1-006.pdf>
@@ -1157,7 +1157,7 @@ Chapter 4.
 ]) [15] [16
 
 ]
-<confirmation-originality-scan.pdf, id=237, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=250, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
@@ -1171,7 +1171,7 @@ Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
 17.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 
-<confirmation-originality-scan.pdf, id=240, page=1, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=253, page=1, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
@@ -1209,15 +1209,22 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
 (./chapter1.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 218.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 218.
-Package rerunfilecheck Info: File `BachelorThesis-Engl.out' has not changed.
-(rerunfilecheck)             Checksum: 268E5407ACBDB1B09957F9BB6AA39D0B;862.
+
+
+Package rerunfilecheck Warning: File `BachelorThesis-Engl.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `BachelorThesis-Engl.out':
+(rerunfilecheck)             Before: FF0F4F49ABBB3FE2AEA78B1F4959BA4B;862
+(rerunfilecheck)             After:  EB5A5D8E8F5D89DC102A7BF4EE3740E2;862.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
  ) 
 Here is how much of TeX's memory you used:
- 11591 strings out of 494953
- 160204 string characters out of 6180978
+ 11588 strings out of 494953
+ 160163 string characters out of 6180977
  314178 words of memory out of 5000000
- 14502 multiletter control sequences out of 15000+600000
+ 14500 multiletter control sequences out of 15000+600000
  53931 words of font info for 110 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  43i,20n,51p,326b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1240,10 +1247,10 @@ st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/latxfont/linew10.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on BachelorThesis-Engl.pdf (23 pages, 1068860 bytes).
+Output written on BachelorThesis-Engl.pdf (23 pages, 1068074 bytes).
 PDF statistics:
- 327 PDF objects out of 1000 (max. 8388607)
- 267 compressed objects within 3 object streams
- 50 named destinations out of 1000 (max. 500000)
+ 340 PDF objects out of 1000 (max. 8388607)
+ 280 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
  148 words of extra memory for PDF output out of 10000 (max. 10000000)
 
