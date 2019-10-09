@@ -3204,3 +3204,25 @@ print(aa)
 ## ok for now. improve later
 
 ## adjust titles in massplot
+
+dir_sse <- "~/ethz/BA/Rscripts/smallseed"
+ssse <- list.files(dir_sse, pattern="*.rds")
+ret <- massbic(ssse, dir_sse)
+massplot(ret, p=2)
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-05
+
+massplot(ret[,,1:5], p=2)
+plot(aa, plotbest=TRUE)
+points(x)
+
+bb <- norMmixMLE(x, 3, "VVV")
+plot(bb)
+plot(bb, points=FALSE)
+plot(MW213, x)
+plot(aa, x, plotbest=TRUE)
+
+## ok
