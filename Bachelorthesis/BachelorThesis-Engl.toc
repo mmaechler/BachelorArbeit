@@ -6,12 +6,12 @@
 \contentsline {section}{\numberline {1.4}Models of Covariance Matrices}{3}{section.1.4}
 \contentsline {section}{\numberline {1.5}problems of EM}{5}{section.1.5}
 \contentsline {chapter}{\numberline {2}The {\tt norMmix} Package}{9}{chapter.2}
-\contentsline {section}{\numberline {2.1}concept of package}{9}{section.2.1}
-\contentsline {section}{\numberline {2.2}finer details of {\tt norMmix} package}{10}{section.2.2}
+\contentsline {section}{\numberline {2.1}finer details of {\tt norMmix} package}{10}{section.2.1}
 \contentsline {chapter}{\numberline {3}Comparing Algorithms}{11}{chapter.3}
-\contentsline {section}{\numberline {3.1}General Setup}{11}{section.3.1}
-\contentsline {section}{\numberline {3.2}Findings}{11}{section.3.2}
-\contentsline {chapter}{\numberline {4}Discussion}{13}{chapter.4}
+\contentsline {section}{\numberline {3.1}On The Development of {\tt norMmix}}{11}{section.3.1}
+\contentsline {section}{\numberline {3.2}General Setup}{12}{section.3.2}
+\contentsline {section}{\numberline {3.3}Findings}{13}{section.3.3}
+\contentsline {chapter}{\numberline {4}Discussion}{15}{chapter.4}
 \@LN@changevadjust \vspace {.5\baselineskip }
-\contentsline {chapter}{\numberline {}{Bibliography}}{14}{section*.4}
+\contentsline {chapter}{\numberline {}{Bibliography}}{16}{section*.4}
 \@LN@changevadjust \vspace {.5\baselineskip }

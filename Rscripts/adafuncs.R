@@ -128,13 +128,11 @@ massplot <- function(f, main="unnamed", p) {
     adj <- exp(-0.002*size) # set so at n=1000 alpha value is ~0.1
     models <- mods()
     ## FIXME: should not assume all models present.
-    op <- sfsmisc::mult.fig(mfrow=c(4,5), main=main)
+    op <- sfsmisc::mult.fig(mfrow=c(4,5), main=main, mar= 0.1 +c(2,4,4,1))
     for (i in 1:10) {
-
         if (!missing(p)) {
             matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],adj), 
-                    type="l", ylim=ran)
-            title(models[i], line=2)
+                    type="l", ylim=ran,main=models[i])
             axis(3, at=seq_along(cl), 
                  label=npar(cl,p,models[i]))
         } else {

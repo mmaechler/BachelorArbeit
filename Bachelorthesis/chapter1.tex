@@ -158,30 +158,30 @@ make nice table(maybe sideways to account for parameter list)
     \centering
 \rotatebox{90}
 {
-    \begin{tabular}{| c | c c c c c c | c c c |}
+    \begin{tabular}{| c | c c c c c | c c c |}
         \hline
-        Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation & parameters & count & $ \pmb{LDL}^\top $ & parameters & count \\
+        Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation & parameters & $ \pmb{LDL}^\top $ & parameters & count \\
         \hline
 
-        EII    & $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ & 1 & same as C\&G & & \\
-        VII    & $ \alpha_k \pmb{I} $         & variable & equal & - & $ \alpha_k $ & $ K $ & & & \\
-        EEI    & $ \alpha \pmb{\Lambda} $     & equal & equal & coordinate axes & $ \alpha, \lambda_i $ & $ 1+p $ & & & \\
-        VEI    & $ \alpha_k \pmb{\Lambda} $ & variable & equal & coordinate axes & $ \alpha_k, \lambda_{i}$ & $ K+p $ & & & \\
-        EVI    & $ \alpha \pmb{\Lambda}_k $ &equal & variable & coordinate axes & $ \alpha, \lambda_{i,k} $ & $ 1+pK $ & & & \\
-        VVI    & $ \alpha_k \pmb{\Lambda}_k $ & variable & variable & coordinate axes & $ \alpha_k, \lambda_{i,k} $ & $ K+pK $ & & & \\
+        EII    & $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ & same as C\&G & & 1 \\
+        VII    & $ \alpha_k \pmb{I} $         & variable & equal & - & $ \alpha_k $ & & & $K$  \\
+        EEI    & $ \alpha \pmb{\Lambda} $     & equal & equal & coordinate axes & $ \alpha, \lambda_i $ & & & $ 1+(p-1) $\\
+        VEI    & $ \alpha_k \pmb{\Lambda} $ & variable & equal & coordinate axes & $ \alpha_k, \lambda_{i}$ & & & $ K+(p-1) $ \\
+        EVI    & $ \alpha \pmb{\Lambda}_k $ &equal & variable & coordinate axes & $ \alpha, \lambda_{i,k} $ & & & $ 1+K(p-1) $ \\
+        VVI    & $ \alpha_k \pmb{\Lambda}_k $ & variable & variable & coordinate axes & $ \alpha_k, \lambda_{i,k} $ & & & $ K+K(p-1) $ \\
         \hline
-        EEE    & $ \alpha \pmb{Q \Lambda Q}^\top $ &equal & equal & equal & $ \alpha, \lambda_{i}, q_{i,j} $ & $ 1+p+p^2 $ & $ \alpha \pmb{LDL}^{\top} $ & & \\
+        EEE    & $ \alpha \pmb{Q \Lambda Q}^\top $ &equal & equal & equal & $ \alpha, \lambda_{i}, q_{i,j} $ & $ \alpha \pmb{LDL}^{\top} $ & $ \lambda , d_i, l_{i,j} $ & $ 1+(p-1)+\frac{p(p-1)}{2} $ \\
         \hline
-        EVE    & $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & variable & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $ & $ 1+pK+p^2 $ & doesn't exist & & \\
+        EVE    & $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & variable & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $  & doesn't exist & & $ 1+K(p-1)+\frac{p(p-1)}{2} $ \\
         \hline
-        VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ K+p+p^2 $ & $ \alpha_k \pmb{LDL}^\top $ & & \\
+        VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ \alpha_k \pmb{LDL}^\top $ & $ \lambda_k , d_i, l_{i,j} $ & $ K+p+p^2\frac{p(p-1)}{2} $ \\
         \hline
-        VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable & variable & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & $ K+pK+p^2 $ & & & \\
-        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ 1+p+Kp^2 $ &  don't exist  & & \\
-        VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable & equal & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ K+p+Kp^2 $ & & & \\
+        VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable & variable & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & & & $ K+K(p-1)+\frac{p(p-1)}{2} $ \\
+        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ &  don't exist  & & $ 1+(p-1)+K\frac{p(p-1)}{2} $ \\
+        VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable & equal & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & & & $ K+(p-1)+K\frac{p(p-1)}{2} $ \\
         \hline
-        EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & variable & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ 1+pK+Kp^2 $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $ \\
-        VVV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & variable & variable & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ K+pK+Kp^2 $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+pK+K\frac{p(p-1)}{2} $ \\
+        EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & variable & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $  \\
+        VVV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & variable & variable & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+pK+K\frac{p(p-1)}{2} $ \\
         \hline
     \end{tabular}
 
@@ -260,7 +260,7 @@ to conclude example show part of mixest that shows it takes 1200 iterations to c
 
 In fact, it seems that the previous solution is a saddle point in the likelihood function, where EM has chronic problems continuing improvements.
 
-should include animations?? like mix\_est\_1d.R line 249+24 lines
+give 2D demonstration.
 
 maybe show Marr Wand's examples of 'difficult' mixtures
 
@@ -273,13 +273,39 @@ give conclusion recapping the just demonstrated, and lead in for next chapter
 
 \chapter{The {\tt norMmix} Package}
 
-explain, that this package was written purposefully for this paper.
-
+% it 1
+For this thesis, an R package was developed that implements the algorithm
+that fits multivariate normal mixtures to given data.
+There is a lot of unused code still in the package. These were at one point
+implemented used and discarded. They are still included for demonstration.
 The norMmix package is constructed around the {\tt norMmix} object, that 
 codifies a {\tt nor}mal {\tt M}ultivariate {\tt mix}ture model,  and the {\tt 
-llnorMmix()} function.
+llnorMmix()} function, that calculates the log-likelihood given a model and 
+data.
 
-quickly list contents of norMmix object
+
+% it 1
+The package contains the following functionality:
+\begin{description}
+    \item [{\tt norMmix}] {\tt norMmix()} is the 'init-method' for 
+        {\tt norMmix} objects. There exist {\tt is.norMmix} {\tt rnorMmix} and
+        {\tt dnorMmix} functions.
+    \item [parametrization] The main functions that handle reparametrization
+        of models from and to $\pmb{LDL}^\top$ decomposition are {\tt nMm2par}
+        and {\tt par2nMm}, which are inverse to each other.
+    \item [MLE] The function {\tt norMmixMLE} marries the main components of 
+        this package. It initializes a model and parametrizes it for use with 
+        {\tt optim}
+    \item [fitting] Using {\tt norMmixMLE}, the function fitnMm allows fitting 
+        of multiple models and components. Functions analyzing the output of 
+        this are also provided, e.g. {\tt BIC} and {\tt pring} methods.
+    \item [misc] There are also various methods of generics, like {\tt logLik,
+        print, BIC, AIC} and {\tt nobs} as well as various {\tt print} methods.
+    \item [example objects] Following the paper of \cite{Mar92} various example
+        objects are provided and used for study. They follow the naming 
+        convention: MW + dimension + number. for example {\tt MW213} for the 
+        13th model of dimension 2.
+\end{description}
 
 relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model 
 parameters.
@@ -299,10 +325,12 @@ to optimize.
 also relies on {\tt mixtools} package for random generating function 
 {\tt rnorMmix} using {\tt rmvnorm}.
 
-\section{concept of package} (this Section maybe one chapter earlier)
+\section{finer details of {\tt norMmix} package}
 
 about Cholesky decomp as ldlt. has advantages: fast, parametrically 
 parsimonious, can easily compute loglikelihood
+
+%it 1
 
 maybe reread section in McLachlan about accelerating EM algo
 
@@ -311,18 +339,112 @@ algorithm using mahalanobis distance or Kullback-Leibler distance or similar
 (Hellinger), but not numerically sensible to integrate over potentially 
 high-dimensional spaces.
 
-So caomparison of algos done through throwing difficult mixtures and 
+So comparison of algos done through throwing difficult mixtures and 
 non-mixtures at it and hoping that norMmix finds better solutions than EM. So
 the criteria for "better fit" are 1. better log-likelihood 2. correct model, 
 where EM fails.
 
-\section{finer details of {\tt norMmix} package}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Comparing Algorithms}
+
+\section{On The Development of {\tt norMmix}}
+
+general list of (not necessarily mathematical) dead-ends in the development 
+life of the norMmix package.
+argue why this is in this section?? because, as a BScT, the learning is as much
+part of the research as the results.
+
+here on why logit doesnt work
+
+% it 1
+One dead-end was the parametrization of the weights of a mixture using the 
+{\tt logit} function.
+
+\begin{Schunk}
+\begin{Sinput}
+> logit <- function(e) {
++     stopifnot(is.numeric(e) ,all(e >= 0), all.equal(sum(e),1))
++     qlogis(e[-1L])
++ }
+> logitinv <- function(e) {
++     if (length(e)==0) {return(c(1))}
++     stopifnot(is.numeric(e))
++     e<- plogis(e)
++     sp. <- sum(e)
++     w <- c((1-sp.), e)
++ }
+\end{Sinput}
+\end{Schunk}
+
+This uses the logistical function {\tt logis} to transform to reduce the number
+of weights from $K$ to $K-1$. Much like {\tt clr1}, given a list of weights 
+{\tt logit} will transform them and {\tt logitinv} will correctly reverse the 
+transformation. However, unlike {\tt clr1}, it will not transform an arbitrary 
+list of length $K-1$ into a valid weight parameter. For example:
+
+\begin{Schunk}
+\begin{Sinput}
+> w <- runif(7); ret <- logitinv(w)
+> ret
+\end{Sinput}
+\begin{Soutput}
+[1] -3.3177307  0.6364078  0.6511485  0.6018082  0.6783043  0.5517875  0.6631182
+[8]  0.5351562
+\end{Soutput}
+\end{Schunk}
+
+The issue here is that the last line of {\tt logitinv}, which is necessary to 
+sum to one, but results in a negative value in {\tt ret[1]} which is not a 
+valid weight. The underlying issue is that not every tuple in $\R^{K-1}$ is 
+a result of {\tt logit}.
+
+The option to use {\tt logit} is still an argument to {\tt norMmixMLE} by 
+specifying {\tt trafo="logit"}, but it shouldn't be used.
+
+on forcePositive and previous m-step, lead to decision to use mclust msteps.
+
+% it 1
+Another issue during development cropped up during fitting of high dimensional
+data. We studied the dataset {\tt SMI.12} from the package {\tt copula}:
+
+\begin{Schunk}
+\begin{Sinput}
+> data(SMI.12, package="copula")
+> str(SMI.12)
+\end{Sinput}
+\begin{Soutput}
+ num [1:141, 1:20] 16.1 15.7 15.7 16.1 16.6 ...
+ - attr(*, "dimnames")=List of 2
+  ..$ : chr [1:141] "2011-09-09" "2011-09-12" "2011-09-13" "2011-09-14" ...
+  ..$ : chr [1:20] "ABBN" "ATLN" "ADEN" "CSGN" ...
+\end{Soutput}
+\end{Schunk}
+
+A consequence of high dimensions is that matrix multiplication is no longer
+very stable. As a result, the covariance matrices produced by our own 
+implementation of the EM-algorithms m-step ({\tt mstep.nMm}) were not positive
+definite.
+In the case of {\tt SMI.12}, several covariance matrices are degenerate, which
+results in cancellation error with near-zero entries.
+We attempted to correct this with the function {\tt forcePositive}, which 
+simply tries to set $\pmb{D}$ in $\pmb{LDL}^\top$ greater than zero.
+This didn't resolve the issue, since a non-negligible part of the numerical
+error was in the $\pmb{L}$ matrix and the resultant covariance matrix was still
+not positive definite.
+
+We eventually resolved this issue by abandoning our own implementation and 
+using the functions from the {\tt Mclust} package. Not only were these 
+numerically stable they were also able to differentiate between models, whereas
+ours would assume VVV for every fit.
+
+testing of mvtnorm as proof that ldlt is in fact faster parametrization
+
+mention, that there may be faster ways to apply backsolve. 
+quote knuth about premature optimization.
 
 \section{General Setup}
 display abilities of norMmix on its own. can find correct models
@@ -343,7 +465,6 @@ also wanted is accuracy of model selection. generate from model and then compare
 fitted to original. either by acc-model==fit-model and acc-k==fit-k or acc-ll - fit-ll.
 
 \section{Findings}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
