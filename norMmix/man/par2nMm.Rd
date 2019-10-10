@@ -12,8 +12,10 @@
 }
 \usage{
 par2nMm(par, p, k, model = c("EII","VII","EEI","VEI","EVI",
-                             "VVI","EEE","VEE","EVV","VVV"),
-        trafo = c("clr1", "logit"))
+                             "VVI","EEE","VEE","EVV","VVV")
+      , trafo = c("clr1", "logit")
+      , name = sprintf("model = \%s , clusters = \%s", model, k)
+       )
 }
 \arguments{
   \item{par}{the model parameter numeric vector.}
@@ -24,6 +26,8 @@ par2nMm(par, p, k, model = c("EII","VII","EEI","VEI","EVI",
   \item{trafo}{a \code{\link{character}} string specifying the transform to
     use for the weights \code{w} (\eqn{= \pi_j}{= pi[j]}), currently either
     \code{"clr1"} or \code{"logit"}.}
+  \item{name}{a \code{\link{character}} string naming the
+    \code{\link{norMmix}} return value.}
 }
 \value{
     returns a \code{\link{list}} with components
