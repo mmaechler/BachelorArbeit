@@ -16,10 +16,15 @@ distributions with different means and variances.
 In his paper Pearson analyzed measurements of forehead to body length of crabs
 sampled from the bay of Naples. His mixture model-based approach suggested, 
 that the crabs were evolving into two new subspecies.
+%TODO: less confused desc of pearsons research
 
 here make clear we restrict to multivariate normal case.
+% it 1
+In this thesis we restrict ourselves to multivariate normal mixtures.
+normal gives easy param ov cov mats
+multivariate builds on work done in the nor1mix package.
 
-Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ 
+Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ be
 symmetric positive definite and $ \phi(- ; \mu, \Sigma) $ be the normal 
 distribution with mean $ \mu $ and covariance matrix $ \Sigma $.
 
@@ -37,6 +42,12 @@ $ \pmb{Y}_1, \dots , \pmb{Y}_n $
 \end{definition}
 
 here small note about restricted cases. give ref to 1.4??
+For 'large' datasets there are more parsimonious parametrizations, that reduce
+computation time. These, for example, assume that all components have the same
+covariance, or have certain restrictions placed on them. We will give a 
+detailed description of the models assumed in this thesis in section 
+\ref{sec:models}.
+
 
 \section{The EM-algorithm in sketch}
 
@@ -48,7 +59,7 @@ EM-algorithm.
 
 We give here a sketch of the EM-algorithm in the case of all normal mixture 
 components, since it is the scope of this thesis and simplifies it 
-considerably.
+considerably. %TODO: rewrite this sentence
 
 Suppose we have a $p-$dimensional dataset of $n$ samples $x_1, \dots ,x_n$,
 onto which we would like to fit $K$ normal distributions 
@@ -71,6 +82,12 @@ component means and covariances by weighted versions of the usual estimators.
     \sum_{j=1}^n \tau_{ij}\]
 
 here note about initialization methods.
+
+% it 1
+While it is possible to use a purely EM-based approach, most popular 
+implementations use some form of preclustering and use the EM-algorithm as
+final pass to fit the data. The R-package {\tt Mclust} for example uses 
+hierarchical agglomerative clustering \cite{Scr16}.
 
 
 
@@ -118,6 +135,7 @@ chosen.
 
 
 \section{Models of Covariance Matrices}
+\label{sec:models}
 
 make clear that the models can not be translated one to one to ldlt model
 % it 1
@@ -296,7 +314,7 @@ The package contains the following functionality:
     \item [MLE] The function {\tt norMmixMLE} marries the main components of 
         this package. It initializes a model and parametrizes it for use with 
         {\tt optim}
-    \item [fitting] Using {\tt norMmixMLE}, the function fitnMm allows fitting 
+    \item [model choice] Using {\tt norMmixMLE}, the function fitnMm allows fitting 
         of multiple models and components. Functions analyzing the output of 
         this are also provided, e.g. {\tt BIC} and {\tt pring} methods.
     \item [misc] There are also various methods of generics, like {\tt logLik,

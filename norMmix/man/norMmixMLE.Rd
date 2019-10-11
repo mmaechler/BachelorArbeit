@@ -52,7 +52,7 @@ ssClaraL(n, k, p)
 }
 \value{
   \code{norMmixMLE} returns an object of \code{\link{class}}
-  \code{"norMmixfit"} which is a \code{\link{list}} with components
+  \code{"norMmixMLE"} which is a \code{\link{list}} with components
   \item{norMmix}{the \code{"\link{norMmix}"} object corresponding to the
     specified model and the fitted (MLE) parameter vector.}
   \item{optr}{the [r]eturn value of \code{\link{optim}()}.}

@@ -71,9 +71,9 @@ S3method(plot, norMmix)
 ## S3method(BIC, norMmix)
 ## S3method(logLik, norMmix)
 
-S3method(plot, norMmixfit)
-S3method(logLik, norMmixfit)
-S3method(nobs, norMmixfit)
+S3method(plot, norMmixMLE)
+S3method(logLik, norMmixMLE)
+S3method(nobs, norMmixMLE)
 
 S3method(plot, fittednorMmix)
 S3method(print, fittednorMmix)

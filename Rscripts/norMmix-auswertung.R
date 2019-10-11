@@ -1,6 +1,7 @@
 ## 
 
 devtools::load_all("~/ethz/BA/norMmix")
+library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
 options(error=recover)
 options(error=NULL)
 source(file="~/ethz/BA/Rscripts/adafuncs.R")
@@ -3226,3 +3227,12 @@ plot(MW213, x)
 plot(aa, x, plotbest=TRUE)
 
 ## ok
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-11
+
+
+## added some adafuncs to package
