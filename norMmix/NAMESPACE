@@ -9,12 +9,15 @@ importFrom("grDevices"
          , extendrange
          , rgb
          , rainbow
+         , pdf
+         , dev.off
            )
 
 importFrom("graphics", legend, matplot, mtext
          , pairs
          , plot, points
          , polygon, text, title
+         , axis, boxplot, par
            )
 
 importFrom("stats", median, quantile
@@ -34,6 +37,7 @@ importFrom("MASS", mvrnorm)
 importFrom("mvtnorm", dmvnorm)
 importFrom("mclust", hclass, hcVVV)
 importFrom("mixtools", ellipse)
+importFrom("sfsmisc", mult.fig)
 
 
 ### This package exports ---------------------------------
@@ -41,16 +45,21 @@ importFrom("mixtools", ellipse)
 ## Functions
 export(
     ldl
-     , fitnMm # MM: change name (no ".")
+     , fitnMm
      , llmvtnorm
      , llnorMmix
      , nMm2par, nc2p
      , norMmix
      , norMmixMLE
      , par2nMm
-     , npar # better name?
+     , npar
      , rnorMmix
      , sllnorMmix
+     , massbic
+     , massbicm
+     , massplot
+     , compplot
+     , epfl
        )
 
 ## all the "norMmix"  example objects <--> ./R/zmarrwandnMm.R
@@ -71,8 +80,8 @@ S3method(plot,  norMmix)
 ## TODO (?)
 ## S3method(AIC, norMmixfit)
 ## S3method(BIC, norMmixfit)
-S3method(logLik, norMmixfit)
-S3method(nobs,   norMmixfit)
+S3method(logLik, norMmixMLE)
+S3method(nobs,   norMmixMLE)
 
 S3method(print, fittednorMmix)
 S3method(plot, fittednorMmix)

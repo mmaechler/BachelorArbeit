@@ -26,6 +26,85 @@ plot(MW214)
 
 
 cleanEx()
+nameEx("compplot")
+### * compplot
+
+flush(stderr()); flush(stdout())
+
+### Name: compplot
+### Title: composition plot
+### Aliases: compplot
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (f, g, main = "unnamed") 
+{
+    ylim <- extendrange(c(f, g))
+    adj <- 0.4
+    op <- sfsmisc::mult.fig(mfrow = c(2, 5), main = main, mar = 0.1 + 
+        c(2, 4, 4, 1))
+    models <- dimnames(f)$models
+    for (i in 1:10) {
+        matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i], 
+            adj), main = models[i], type = "l", ylim = ylim)
+        matplot(g[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i + 
+            10], adj), main = models[i], type = "l", ylim = ylim, 
+            add = TRUE)
+    }
+    par(op$old.par)
+  }
+
+
+
+graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+cleanEx()
+nameEx("epfl")
+### * epfl
+
+flush(stderr()); flush(stdout())
+
+### Name: epfl
+### Title: evaluate and plot from file list
+### Aliases: epfl
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (files, savdir, subt = 11) 
+{
+    stopifnot(is.list(files), dir.exists(savdir))
+    setwd(savdir)
+    for (fi in files) {
+        if (length(fi) == 0) {
+            next
+        }
+        main <- substring(fi[1], 1, nchar(fi[1]) - subt)
+        f <- massbic(fi, savdir)
+        g <- massbicm(fi, savdir)
+        pdf(file = paste0(main, ".pdf"))
+        massplot(f, main = main)
+        dev.off()
+        pdf(file = paste0(main, "_mcl.pdf"))
+        massplot(g, main = paste0(main, "_mcl"))
+        dev.off()
+        pdf(file = paste0(main, "_comp.pdf"))
+        compplot(f, g, main = paste0(main, "_comp"))
+        dev.off()
+    }
+  }
+
+
+
+cleanEx()
 nameEx("fitnMm")
 ### * fitnMm
 
@@ -159,6 +238,128 @@ if(FALSE) # ~ 4-5 sec
 
 
 cleanEx()
+nameEx("massbic")
+### * massbic
+
+flush(stderr()); flush(stdout())
+
+### Name: massbic
+### Title: extract BIC from .rds files
+### Aliases: massbic
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (string, DIR) 
+{
+    nm1 <- readRDS(file = file.path(DIR, string[1]))
+    cl <- nm1$fit$k
+    mo <- nm1$fit$models
+    val <- array(0, lengths(list(cl, mo, string)))
+    dims <- vector(mode = "integer", length = length(string))
+    for (i in 1:length(string)) {
+        nm <- readRDS(file = file.path(DIR, string[i]))
+        val[, , i] <- BIC(nm$fit)[[1]]
+        dims[i] <- nm$fit$p
+    }
+    dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
+    attr(val, "dims") <- dims
+    val
+  }
+
+
+
+cleanEx()
+nameEx("massbicm")
+### * massbicm
+
+flush(stderr()); flush(stdout())
+
+### Name: massbicm
+### Title: do mclust along .rds files from fitnMm
+### Aliases: massbicm
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (string, DIR) 
+{
+    nm <- readRDS(file.path(DIR, string[1]))
+    cl <- nm$fit$k
+    mo <- nm$fit$models
+    valm <- array(0, lengths(list(cl, mo, string)))
+    dims <- vector(mode = "integer", length = length(string))
+    for (i in 1:length(string)) {
+        nm <- readRDS(file.path(DIR, string[i]))
+        x <- nm$fit$x
+        valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
+        dims[i] <- nm$fit$p
+    }
+    dimnames(valm) <- list(clusters = cl, models = mo, files = string)
+    attr(valm, "dims") <- dims
+    -valm
+  }
+
+
+
+cleanEx()
+nameEx("massplot")
+### * massplot
+
+flush(stderr()); flush(stdout())
+
+### Name: massplot
+### Title: plot from massbic
+### Aliases: massplot
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (f, main = "unnamed") 
+{
+    ran <- extendrange(f)
+    size <- dim(f)[3]
+    cl <- as.numeric(dimnames(f)$clusters)
+    p <- attr(f, "dims")
+    adj <- exp(-0.002 * size)
+    models <- mods()
+    op <- sfsmisc::mult.fig(mfrow = c(4, 5), main = main, mar = 0.1 + 
+        c(2, 4, 4, 1))
+    for (i in 1:10) {
+        if (!is.null(p)) {
+            matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(10)[i], 
+                adj), type = "l", ylim = ran, main = models[i])
+            axis(3, at = seq_along(cl), labels = npar(cl, p[1], 
+                models[i]))
+        }
+        else {
+            matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(10)[i], 
+                adj), main = models[i], type = "l", ylim = ran)
+        }
+    }
+    for (i in 1:10) {
+        boxplot(t(f[, i, ]), lty = 1, col = adjustcolor(rainbow(10)[i], 
+            0.4), main = models[i], type = "l", ylim = ran)
+    }
+    par(op$old.par)
+  }
+
+
+
+graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+cleanEx()
 nameEx("n2p")
 ### * n2p
 
@@ -191,6 +392,23 @@ flush(stderr()); flush(stdout())
 A <- MW24
 if(FALSE) # currently fails  __FIXME__
 nMm2par(A, trafo = "clr1", model = A$model)
+
+
+
+cleanEx()
+nameEx("norMmix")
+### * norMmix
+
+flush(stderr()); flush(stdout())
+
+### Name: norMmix
+### Title: Constructor for Multivariate Normal Mixture Objects
+### Aliases: norMmix
+### Keywords: distributions
+
+### ** Examples
+
+# TODO
 
 
 

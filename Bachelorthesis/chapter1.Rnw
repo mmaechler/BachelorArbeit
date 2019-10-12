@@ -378,6 +378,9 @@ The package contains the following functionality:
         objects are provided and used for study. They follow the naming 
         convention: MW + dimension + number. for example {\tt MW213} for the 
         13th model of dimension 2.
+    \item [simulations] The purpose of this package is to study simulations. 
+        there are functions provided to study large collections of evaluated 
+        data. e.g {\tt epfl} %TODO: describe and give ref.
 \end{description}
 
 relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model 
@@ -504,7 +507,7 @@ testing of mvtnorm as proof that ldlt is in fact faster parametrization
 mention, that there may be faster ways to apply backsolve. 
 quote knuth about premature optimization.
 
-\section{General Setup}
+\section{General Setup/ Demonstration}
 display abilities of norMmix on its own. can find correct models
 
 Mention, that mclust doesn't depend on seed(double check) and therefore norMmix has 
@@ -522,9 +525,26 @@ algorithm.
 also wanted is accuracy of model selection. generate from model and then compare
 fitted to original. either by acc-model==fit-model and acc-k==fit-k or acc-ll - fit-ll.
 
+\section{Time Analysis}
+
+here how much time they take, in p,k and n give approximate O(x) value
+
 \section{Findings}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Discussion}
+
+one shortcoming is time inefficiency. 
+mclust has 16'000 lines of Fortran code, impossible in the scope of this thesis.
+
+proof of concept??
+definitely possible to do model selection using a general optimizer.
+
+strong points:
+'randomness' of clara/optim allows 'confidence intervalls' for selected model
+flexibility of approach: given an logLik fctn can do mixture fitting w/ arbitrary
+models
+
+further study might include: other presumed component distributions, 'high' dimensions
 

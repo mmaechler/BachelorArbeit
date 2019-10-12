@@ -2,12 +2,12 @@
 
 devtools::load_all("~/ethz/BA/norMmix")
 library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+library(mclust)
 options(error=recover)
 options(error=NULL)
 source(file="~/ethz/BA/Rscripts/adafuncs.R")
 set.seed(2019)
 library(MASS)
-library(mclust)
 
 
 models <- c("EII","VII","EEI","VEI","EVI",
@@ -3236,3 +3236,51 @@ plot(aa, x, plotbest=TRUE)
 
 
 ## added some adafuncs to package
+
+# maximum time values:
+x1 <- matrix(rnorm(1000), 500, 2)
+time1 <- system.time(fitnMm(x1, 1:10))
+time1
+#    user  system elapsed 
+# 301.436   1.244 303.835 
+x2 <- matrix(rnorm(2000), 500, 4)
+time2 <- system.time(nm2 <- fitnMm(x2, 1:10))
+time2
+#    user  system elapsed 
+# 519.040   2.316 522.313 
+x3 <- matrix(rnorm(2000), 1000, 2)
+time3 <- system.time(nm3 <- fitnMm(x3, 1:10))
+time3
+#    user  system elapsed 
+# 406.444   1.220 408.051 
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-12
+
+## need to figure out more sensible way to do plots on large scale
+## suppose we have filelist:
+files <- list(list.files("~/ethz/BA/Rscripts/smallinit", pattern="fit*")[1:10])
+savdir <- "~/ethz/BA/Rscripts/smallinit"
+
+epfl <- function(files, savdir) {
+    stopifnot(is.list(files), dir.exists(savdir))
+    for (fi in files) {
+        ## plot
+        f <- massbic(fi, savdir)
+        g <- massbicm(fi, savdir)
+        pdf(file=paste0(fi[1],".pdf"))
+        massplot(f)
+        dev.off()
+        pdf(file=paste0(fi[1],"_mcl.pdf"))
+        massplot(g)
+        dev.off()
+        pdf(file=paste0(fi[1],"_comp.pdf"))
+        compplot(f,g)
+        dev.off()
+    }
+}
+
+epfl(files, "~/ethz/BA/Rscripts/smallinit")
