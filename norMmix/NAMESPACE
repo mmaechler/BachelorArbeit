@@ -60,6 +60,7 @@ export(
      , massplot
      , compplot
      , epfl
+     , extracttimes
        )
 
 ## all the "norMmix"  example objects <--> ./R/zmarrwandnMm.R

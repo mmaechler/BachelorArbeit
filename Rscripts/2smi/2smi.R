@@ -1,7 +1,7 @@
 ## Intent: analyse SMI.12 dataset
 
 nmmdir <- normalizePath("~/ethz/BA/norMmix.Rcheck/")
-savdir <-  normalizePath("~/ethz/BA/Rscripts/2time")
+savdir <-  normalizePath("~/ethz/BA/Rscripts/2smi")
 stopifnot(dir.exists(nmmdir), dir.exists(savdir))
 library(norMmix, lib.loc=nmmdir)
 library(mclust)
@@ -20,7 +20,7 @@ files <- vector(mode="character")
 for (ini in inits) {
     for (seed in seeds) {
         set.seed(2019+seed)
-        r <- tryCatch(fitnMm(smi, k=1:8, ini=ini
+        r <- tryCatch(fitnMm(smi, k=1:8, ini=ini,
                              optREPORT=1e4, maxit=1e4),
                       error = identity)
         filename <- sprintf("smi_ini=%s_seed=%0.2d.rds",
