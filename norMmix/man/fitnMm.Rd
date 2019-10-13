@@ -37,6 +37,12 @@ fitnMm(x, k, models = 1:10,
 %%   Wrapper function for \code{\link{norMmixMLE}}, applying norMmixMLE to all
 %%   k and models specified
 %% }
+\note{
+    Given an object \code{r} of class \code{fittednorMmix},
+    for use with \code{\link{massbic}}, do:
+
+    saveRDS(list(fit=r))
+}
 \seealso{
   \code{\link{norMmixMLE}()} which is called \code{length(k) *
     length(models)} times.

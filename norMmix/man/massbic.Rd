@@ -6,6 +6,8 @@
 %%  ~~function to do ... ~~
 }
 \description{
+    Given a filelist of RDS files, extracts BIC values from each file and 
+    returns them in an array.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -24,6 +26,9 @@ massbic(string, DIR)
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
+    array of dimensions: components * models * files.
+    Has attribute \code{dims} integer vector of same length as \code{files}.
+    Correspond to dimension of dataset.
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
@@ -34,7 +39,7 @@ massbic(string, DIR)
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+    Nicolas Trutmann
 }
 \note{
 %%  ~~further notes~~
@@ -43,7 +48,9 @@ massbic(string, DIR)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{massbicm}}
+    \code{\link{fitnMm}}
+    \code{\link{massplot}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----

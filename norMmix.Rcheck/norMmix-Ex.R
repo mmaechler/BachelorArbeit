@@ -15,7 +15,7 @@ flush(stderr()); flush(stdout())
 ### Title: Marron-Wand-like Specific Multivariate Normal Mixture 'norMmix'
 ###   Objects
 ### Aliases: MarronWand MW21 MW22 MW23 MW24 MW25 MW26 MW27 MW28 MW29 MW210
-###   MW211 MW212 MW213 MW214 MW31 MW32 MW33 MW34 MW51
+###   MW211 MW212 MW213 MW214 MW215 MW31 MW32 MW33 MW34 MW51
 ### Keywords: datasets distribution
 
 ### ** Examples
@@ -280,7 +280,7 @@ nameEx("massbicm")
 flush(stderr()); flush(stdout())
 
 ### Name: massbicm
-### Title: do mclust along .rds files from fitnMm
+### Title: Do mclust along .rds files from fitnMm
 ### Aliases: massbicm
 
 ### ** Examples

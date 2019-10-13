@@ -7,42 +7,61 @@
 \description{
     From a list of character vectors, will apply \code{\link{massbic}}, 
     \code{\link{massbicm}} followed by \code{\link{massplot}} and 
-    \code{\link{compplot}}
+    \code{\link{compplot}}.
+    Saves result of \code{\link{massbicm}}
 
 }
 \usage{
 epfl(files, savdir, subt = 11)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{files}{ 
       Expected to be of type \code{\link{list}}, containing character vectors. 
       These are assumed to be RDS filenames produced from \code{\link{saveRDS}}.
+      They are assumed to work with \code{\link{massbic}}, meaning they contain
+      a list with named element \code{nMm}, which is the return value of 
+      \code{\link{fitnMm}}. Furthermore, all are assumed to have the same 
+      dimensions.
 }
   \item{savdir}{
       String specifying directory in which \code{\link{files}} are located.
 }
   \item{subt}{
-      Number of characters to be subtracted from string in \code{\link{files}}.
+      Number of characters to be subtracted from string in \code{files}.
       The default is intended for format ending in "seed=%0.2d.rds".
 }
 }
 \details{
+    Suppose you have a directory \code{dir} containing RDS files.
+    To create a list of sorted filenames, use for example the code provided 
+    here: 
+
+        filelist <- list()
+        for (i in seq_along(init)) {
+            for (j in seq_along(nmnames)) {
+                # for lack of AND matching, OR match everything else and invert
+                ret <- grep(paste(init[-i], nmnames[-j], sep="|"), 
+                            files, value=TRUE, invert=TRUE)
+                fillis[[paste0(init[i], nmnames[j])]] <- ret
+            }
+        }
+
+
+    This will create a list of character vectors, matching filenames by init
+    and nmnames, which are character vectors to be matched.
+    % TODO: improve clarity here.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    No return value. Side effects:
+    Produces \code{3*length(files)} PDFs named as follows:
+    From each entry in \code{files} takes first string, subtracts \code{subt}
+    characters and appends \code{".pdf", "_mcl.pdf"} and \code{"_comp.pdf"}
 }
 \references{
-%% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
-Nicolas Trutmann
+    Nicolas Trutmann
 }
 \note{
 %%  ~~further notes~~
@@ -51,6 +70,9 @@ Nicolas Trutmann
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
+    \code{\link{massplot}},
+    \code{\link{compplot}},
+    \code{\link{fitnMm}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

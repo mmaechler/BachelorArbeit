@@ -18,6 +18,7 @@
 \alias{MW212}
 \alias{MW213}
 \alias{MW214}
+\alias{MW215}
 %% 3 d:
 \alias{MW31}
 \alias{MW32}
@@ -47,6 +48,7 @@ MW211  # Double Claw
 MW212  # Asymmetric Claw
 MW213  # Asymm. Double Claw
 MW214  # Smooth   Comb
+MW215  # Trimodal
 
 ## 3-dim :
 MW31
@@ -55,7 +57,7 @@ MW33
 MW34
 
 ## 5 - dim:
-MW51
+MW51    # Gaussian
 }
 %% \source{
 %% }

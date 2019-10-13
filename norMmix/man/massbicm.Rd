@@ -2,10 +2,13 @@
 \alias{massbicm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-    do mclust along .rds files from fitnMm
+    Do mclust along .rds files from fitnMm
 %%  ~~function to do ... ~~
 }
 \description{
+    \code{massbicm} applies \code{\link{Mclust}} along an existing
+    \code{fittednorMmix} object, assumed to be in an RDS file in a list,
+    named 'fit'.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{

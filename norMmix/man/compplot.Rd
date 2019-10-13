@@ -6,6 +6,8 @@
 %%  ~~function to do ... ~~
 }
 \description{
+    Creates a \code{\link{massplot}} like plot. Takes two \code{\link{massbic}}
+    arrays and overlays their plots.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -14,39 +16,42 @@ compplot(f, g, main = "unnamed")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{f}{
-%%     ~~Describe \code{f} here~~
+      Array as from \code{\link{massbic}} or \code{\link{massbicm}}
 }
   \item{g}{
-%%     ~~Describe \code{g} here~~
+      Array as from \code{\link{massbic}} or \code{\link{massbicm}}
 }
   \item{main}{
-%%     ~~Describe \code{main} here~~
+      Character string to be used as title of the plot.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+    The intended use for this function is to run \code{\link{massbic}} and 
+    \code{\link{massbicm}} with the same arguments, \code{string} and \code{DIR}
+    and feeding the results into \code{compplot}
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    No return value. Side effect is the generation of a plot.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+    Nicolas Trutmann
 }
 \note{
-%%  ~~further notes~~
+    While possible to be used as standalone, the function \code{\link{epfl}} 
+    allows for more complex generation of PDFs and is the intended use for 
+    simulations.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{massplot}},
+    \code{\link{epfl}},
+    \code{\link{massbic}},
+    \code{\link{massbicm}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----
