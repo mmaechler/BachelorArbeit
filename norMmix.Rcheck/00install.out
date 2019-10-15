@@ -1,0 +1,23 @@
+Warning message:
+In libPIns(nlib = Rloc_library, MSG = MSG, msgTxt = sprintf("'Rloc_library' for %s (%s-bit) 'R%s'",  :
+  /sfs/s/linux/rhel3_amd64/app/R/R_local/library_F30-3.6 is not an existing directory
+* installing *source* package ‘norMmix’ ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+Warning message:
+In libPIns(nlib = Rloc_library, MSG = MSG, msgTxt = sprintf("'Rloc_library' for %s (%s-bit) 'R%s'",  :
+  /sfs/s/linux/rhel3_amd64/app/R/R_local/library_F30-3.6 is not an existing directory
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+Warning message:
+In libPIns(nlib = Rloc_library, MSG = MSG, msgTxt = sprintf("'Rloc_library' for %s (%s-bit) 'R%s'",  :
+  /sfs/s/linux/rhel3_amd64/app/R/R_local/library_F30-3.6 is not an existing directory
+** testing if installed package can be loaded from final location
+Warning message:
+In libPIns(nlib = Rloc_library, MSG = MSG, msgTxt = sprintf("'Rloc_library' for %s (%s-bit) 'R%s'",  :
+  /sfs/s/linux/rhel3_amd64/app/R/R_local/library_F30-3.6 is not an existing directory
+** testing if installed package keeps a record of temporary installation path
+* DONE (norMmix)

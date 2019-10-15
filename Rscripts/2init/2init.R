@@ -1,7 +1,7 @@
 ## Intent: compare init methods
 
-nmmdir <- normalizePath("~/ethz/BA/norMmix.Rcheck/")
-savdir <-  normalizePath("~/ethz/BA/Rscripts/2init")
+nmmdir <- normalizePath("~/BachelorArbeit/norMmix.Rcheck/")
+savdir <- normalizePath("~/BachelorArbeit/Rscripts/2init")
 stopifnot(dir.exists(nmmdir), dir.exists(savdir))
 library(norMmix, lib.loc=nmmdir)
 library(mclust)

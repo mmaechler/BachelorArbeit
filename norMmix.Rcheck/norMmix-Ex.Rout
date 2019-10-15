@@ -1,0 +1,1179 @@
+
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "norMmix"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('norMmix')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("MarronWand")
+> ### * MarronWand
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: MarronWand
+> ### Title: Marron-Wand-like Specific Multivariate Normal Mixture 'norMmix'
+> ###   Objects
+> ### Aliases: MarronWand MW21 MW22 MW23 MW24 MW25 MW26 MW27 MW28 MW29 MW210
+> ###   MW211 MW212 MW213 MW214 MW215 MW31 MW32 MW33 MW34 MW51
+> ### Keywords: datasets distribution
+> 
+> ### ** Examples
+> 
+> MW210
+norMmix object: 
+
+multivariate normal mixture model with the following attributes:
+name: 		 #10 test EEE 
+ dimension:	 2 
+ components:	 2 
+weight of components 0.5 0.5 
+> plot(MW214)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compplot")
+> ### * compplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compplot
+> ### Title: composition plot
+> ### Aliases: compplot
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (f, g, main = "unnamed") 
++ {
++     ylim <- extendrange(c(f, g))
++     adj <- 0.4
++     op <- sfsmisc::mult.fig(mfrow = c(2, 5), main = main, mar = 0.1 + 
++         c(2, 4, 4, 1))
++     models <- dimnames(f)$models
++     for (i in 1:10) {
++         matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i], 
++             adj), main = models[i], type = "l", ylim = ylim)
++         matplot(g[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i + 
++             10], adj), main = models[i], type = "l", ylim = ylim, 
++             add = TRUE)
++     }
++     par(op$old.par)
++   }
+function (f, g, main = "unnamed") 
+{
+    ylim <- extendrange(c(f, g))
+    adj <- 0.4
+    op <- sfsmisc::mult.fig(mfrow = c(2, 5), main = main, mar = 0.1 + 
+        c(2, 4, 4, 1))
+    models <- dimnames(f)$models
+    for (i in 1:10) {
+        matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i], 
+            adj), main = models[i], type = "l", ylim = ylim)
+        matplot(g[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i + 
+            10], adj), main = models[i], type = "l", ylim = ylim, 
+            add = TRUE)
+    }
+    par(op$old.par)
+}
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("epfl")
+> ### * epfl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: epfl
+> ### Title: evaluate and plot from file list
+> ### Aliases: epfl
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (files, savdir, subt = 11) 
++ {
++     stopifnot(is.list(files), dir.exists(savdir))
++     setwd(savdir)
++     for (fi in files) {
++         if (length(fi) == 0) {
++             next
++         }
++         main <- substring(fi[1], 1, nchar(fi[1]) - subt)
++         f <- massbic(fi, savdir)
++         g <- massbicm(fi, savdir)
++         pdf(file = paste0(main, ".pdf"))
++         massplot(f, main = main)
++         dev.off()
++         pdf(file = paste0(main, "_mcl.pdf"))
++         massplot(g, main = paste0(main, "_mcl"))
++         dev.off()
++         pdf(file = paste0(main, "_comp.pdf"))
++         compplot(f, g, main = paste0(main, "_comp"))
++         dev.off()
++     }
++   }
+function (files, savdir, subt = 11) 
+{
+    stopifnot(is.list(files), dir.exists(savdir))
+    setwd(savdir)
+    for (fi in files) {
+        if (length(fi) == 0) {
+            next
+        }
+        main <- substring(fi[1], 1, nchar(fi[1]) - subt)
+        f <- massbic(fi, savdir)
+        g <- massbicm(fi, savdir)
+        pdf(file = paste0(main, ".pdf"))
+        massplot(f, main = main)
+        dev.off()
+        pdf(file = paste0(main, "_mcl.pdf"))
+        massplot(g, main = paste0(main, "_mcl"))
+        dev.off()
+        pdf(file = paste0(main, "_comp.pdf"))
+        compplot(f, g, main = paste0(main, "_comp"))
+        dev.off()
+    }
+}
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extracttimes")
+> ### * extracttimes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extracttimes
+> ### Title: Extract system time from 'fittednorMmix'
+> ### Aliases: extracttimes
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (object, ...) 
++ {
++     stopifnot(inherits(object, "fittednorMmix"))
++     ti <- unlist(object$nMmtime)
++     na <- names(ti)[1:5]
++     co <- object$k
++     mo <- object$models
++     ti <- c(matrix(ti, ncol = 5, byrow = TRUE))
++     r <- array(ti, lengths(list(co, mo, na)))
++     dimnames(r) <- list(k = co, models = mo, proc_time = na)
++     class(r) <- "fittednorMmix_time"
++     r
++   }
+function (object, ...) 
+{
+    stopifnot(inherits(object, "fittednorMmix"))
+    ti <- unlist(object$nMmtime)
+    na <- names(ti)[1:5]
+    co <- object$k
+    mo <- object$models
+    ti <- c(matrix(ti, ncol = 5, byrow = TRUE))
+    r <- array(ti, lengths(list(co, mo, na)))
+    dimnames(r) <- list(k = co, models = mo, proc_time = na)
+    class(r) <- "fittednorMmix_time"
+    r
+}
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitnMm")
+> ### * fitnMm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitnMm
+> ### Title: Fit Several Normal Mixture Models to a Dataset
+> ### Aliases: fitnMm
+> 
+> ### ** Examples
+> 
+> x <- rnorMmix(500, MW21)
+> fitnMm(x, 1:3) ## will fit all models with 1:3 clusters
+initial  value 1452.208567 
+final  value 1452.208567 
+converged
+initial  value 1452.208567 
+final  value 1452.208567 
+converged
+initial  value 1451.727690 
+final  value 1451.727690 
+converged
+initial  value 1451.727690 
+final  value 1451.727690 
+converged
+initial  value 1451.727690 
+final  value 1451.727690 
+converged
+initial  value 1451.727690 
+final  value 1451.727690 
+converged
+initial  value 1451.302362 
+final  value 1451.302362 
+converged
+initial  value 1451.302362 
+final  value 1451.302362 
+converged
+initial  value 1451.302362 
+final  value 1451.302362 
+converged
+initial  value 1451.302362 
+final  value 1451.302362 
+converged
+initial  value 1479.986120 
+iter  10 value 1452.112397
+iter  20 value 1450.986650
+final  value 1450.947766 
+converged
+initial  value 1479.530651 
+iter  10 value 1450.981270
+iter  20 value 1450.762500
+final  value 1450.700953 
+converged
+initial  value 1469.570805 
+iter  10 value 1451.912513
+iter  20 value 1451.595758
+iter  30 value 1451.064333
+iter  40 value 1450.808716
+final  value 1450.716336 
+converged
+initial  value 1469.727434 
+iter  10 value 1450.618317
+final  value 1450.460865 
+converged
+initial  value 1469.827489 
+iter  10 value 1451.092779
+iter  20 value 1450.495837
+iter  30 value 1450.353842
+final  value 1450.353731 
+converged
+initial  value 1469.642804 
+iter  10 value 1450.887909
+iter  20 value 1450.455796
+final  value 1450.453950 
+converged
+initial  value 1470.014713 
+iter  10 value 1451.025565
+iter  20 value 1450.564308
+iter  30 value 1450.559725
+final  value 1450.559277 
+converged
+initial  value 1469.334759 
+iter  10 value 1450.723589
+final  value 1450.559259 
+converged
+initial  value 1469.480572 
+iter  10 value 1450.667731
+iter  20 value 1450.288390
+iter  30 value 1450.122944
+iter  40 value 1449.881680
+final  value 1449.881473 
+converged
+initial  value 1470.311980 
+iter  10 value 1450.953232
+iter  20 value 1450.460249
+final  value 1450.456300 
+converged
+initial  value 1486.590521 
+iter  10 value 1453.489331
+iter  20 value 1450.794601
+iter  30 value 1450.615452
+final  value 1450.610538 
+converged
+initial  value 1489.029314 
+iter  10 value 1451.774646
+iter  20 value 1449.581627
+iter  30 value 1449.538053
+iter  40 value 1449.529906
+iter  50 value 1449.499961
+iter  60 value 1449.160503
+iter  70 value 1448.194836
+iter  80 value 1445.850057
+iter  90 value 1444.950308
+iter 100 value 1443.994515
+final  value 1443.994515 
+stopped after 100 iterations
+initial  value 1487.651240 
+iter  10 value 1451.232017
+iter  20 value 1450.406036
+iter  30 value 1450.400044
+iter  40 value 1450.396871
+iter  40 value 1450.396868
+iter  40 value 1450.396864
+final  value 1450.396864 
+converged
+initial  value 1487.051373 
+iter  10 value 1452.046857
+iter  20 value 1449.554914
+iter  30 value 1449.523800
+iter  40 value 1449.514052
+iter  50 value 1449.373800
+iter  60 value 1448.589009
+iter  70 value 1445.424476
+iter  80 value 1444.624717
+iter  90 value 1443.844692
+iter 100 value 1441.064709
+final  value 1441.064709 
+stopped after 100 iterations
+initial  value 1484.964311 
+iter  10 value 1452.636765
+iter  20 value 1450.506800
+iter  30 value 1450.417246
+iter  40 value 1449.936604
+iter  50 value 1449.666337
+iter  60 value 1449.653765
+iter  70 value 1449.575073
+iter  80 value 1449.530477
+iter  90 value 1449.526000
+iter  90 value 1449.525993
+iter  90 value 1449.525992
+final  value 1449.525992 
+converged
+initial  value 1485.827380 
+iter  10 value 1453.047615
+iter  20 value 1449.922796
+iter  30 value 1449.436012
+iter  40 value 1449.247082
+iter  50 value 1443.980662
+iter  60 value 1443.422947
+iter  70 value 1443.283371
+iter  80 value 1442.768615
+iter  90 value 1441.632915
+final  value 1441.618331 
+converged
+initial  value 1487.253867 
+iter  10 value 1450.977312
+iter  20 value 1449.859172
+iter  30 value 1449.805108
+iter  40 value 1449.532593
+final  value 1449.504562 
+converged
+initial  value 1487.873818 
+iter  10 value 1453.714122
+iter  20 value 1449.561777
+iter  30 value 1449.526882
+iter  40 value 1449.517386
+iter  50 value 1449.504441
+iter  60 value 1449.051878
+iter  70 value 1446.170688
+iter  80 value 1445.589186
+iter  90 value 1444.634745
+iter 100 value 1444.365409
+final  value 1444.365409 
+stopped after 100 iterations
+initial  value 1480.271206 
+iter  10 value 1449.841883
+iter  20 value 1447.502214
+iter  30 value 1446.290440
+iter  40 value 1446.266953
+final  value 1446.265267 
+converged
+initial  value 1480.038630 
+iter  10 value 1450.018526
+iter  20 value 1448.879725
+iter  30 value 1447.255036
+iter  40 value 1446.503637
+iter  50 value 1446.290269
+iter  60 value 1444.906578
+iter  70 value 1444.103235
+iter  80 value 1442.462647
+iter  90 value 1441.602878
+iter 100 value 1441.555975
+final  value 1441.555975 
+stopped after 100 iterations
+
+fitted normal mixture:
+ dimension of dataset: 	variables 2 	observations: 500 
+ fitted components and models: 
+ 1 2 3 
+ EII VII EEI VEI EVI VVI EEE VEE EVV VVV 
+total time: 	 16.106 0.195 16.412 0 0 
+
+best fit:	 1 EII 
+ logLik: 	 1452.209> 
+> 
+> 
+> cleanEx()
+> nameEx("ldl")
+> ### * ldl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ldl
+> ### Title: LDL' Cholesky Decomposition
+> ### Aliases: ldl
+> 
+> ### ** Examples
+> 
+> (L <- rbind(c(1,0,0), c(3,1,0), c(-4,5,1)))
+     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    3    1    0
+[3,]   -4    5    1
+> D <- c(4,1,9)
+> FF <- L %*% diag(D) %*% t(L)
+> FF
+     [,1] [,2] [,3]
+[1,]    4   12  -16
+[2,]   12   37  -43
+[3,]  -16  -43   98
+> LL <- ldl(FF)
+> stopifnot(all.equal(L, LL$L),
++           all.equal(D, LL$D))
+> 
+> ## rank deficient :
+> FF0 <- L %*% diag(c(4,0,9)) %*% t(L)
+> ((L0 <- ldl(FF0))) #  !! now fixed with the  if(Di == 0) test
+$L
+     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    3    0    0
+[3,]   -4    0    1
+
+$D
+[1] 4 0 9
+
+> ## With the "trick", it works:
+> stopifnot(all.equal(FF0,
++                     L0$L %*% diag(L0$D) %*% t(L0$L)))
+> ## [hint: the LDL' is no longer unique when the matrix is singular]
+> 
+> system.time(for(i in 1:10000) ldl(FF) ) # ~ 0.2 sec
+   user  system elapsed 
+  0.401   0.000   0.403 
+> 
+> (L <- rbind(c( 1, 0, 0, 0),
++             c( 3, 1, 0, 0),
++             c(-4, 5, 1, 0),
++             c(-2,20,-7, 1)))
+     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    3    1    0    0
+[3,]   -4    5    1    0
+[4,]   -2   20   -7    1
+> D <- c(4,1, 9, 0.5)
+> F4 <- L %*% diag(D) %*% t(L)
+> F4
+     [,1] [,2] [,3]  [,4]
+[1,]    4   12  -16  -8.0
+[2,]   12   37  -43  -4.0
+[3,]  -16  -43   98  69.0
+[4,]   -8   -4   69 857.5
+> L4 <- ldl(F4)
+> stopifnot(all.equal(L, L4$L),
++           all.equal(D, L4$D))
+> 
+> system.time(for(i in 1:10000) ldl(F4) )
+   user  system elapsed 
+  0.467   0.001   0.473 
+> 
+> 
+> ## rank deficient :
+> F4.0 <- L %*% diag(c(4,1,9,0)) %*% t(L)
+> ((L0 <- ldl(F4.0)))
+$L
+     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    3    1    0    0
+[3,]   -4    5    1    0
+[4,]   -2   20   -7    0
+
+$D
+[1] 4 1 9 0
+
+> stopifnot(all.equal(F4.0,
++                     L0$L %*% diag(L0$D) %*% t(L0$L)))
+> 
+> F4_0 <- L %*% diag(c(4,1,0,9)) %*% t(L)
+> ((L0 <- ldl(F4_0)))
+$L
+     [,1] [,2] [,3] [,4]
+[1,]    1    0    0    0
+[2,]    3    1    0    0
+[3,]   -4    5    0    0
+[4,]   -2   20    0    1
+
+$D
+[1] 4 1 0 9
+
+> stopifnot(all.equal(F4_0,
++                     L0$L %*% diag(L0$D) %*% t(L0$L)))
+> 
+> 
+> ## Large
+> mkLDL <- function(n, rF = function(n) sample.int(n), rFD = function(n) 1+ abs(rF(n))) {
++     L <- diag(nrow=n)
++     L[lower.tri(L)] <- rF(n*(n-1)/2)
++     list(L = L, D = rFD(n))
++ }
+> 
+> (LD <- mkLDL(17))
+$L
+      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
+ [1,]    1    0    0    0    0    0    0    0    0     0     0     0     0
+ [2,]   68    1    0    0    0    0    0    0    0     0     0     0     0
+ [3,]  129  105    1    0    0    0    0    0    0     0     0     0     0
+ [4,]   43   89   42    1    0    0    0    0    0     0     0     0     0
+ [5,]   14  127   38  120    1    0    0    0    0     0     0     0     0
+ [6,]   51  101   20    6   75    1    0    0    0     0     0     0     0
+ [7,]   85  121   28   24   13  130    1    0    0     0     0     0     0
+ [8,]   21   34  103   32   97   31   69    1    0     0     0     0     0
+ [9,]  106  135  112  133   48  104  134   58    1     0     0     0     0
+[10,]   54  119   87    2   23   17   30   56   71     1     0     0     0
+[11,]  110   44  107   45   29    9   91   15  136    99     1     0     0
+[12,]   74  123   40   18   77   93   88   49   59    36    63     1     0
+[13,]    7   33  100   22   83  114   61  113   96    90    92    16     1
+[14,]   73   84   25   78  102   19  124   12    3   117    95    76     8
+[15,]   79   35   98   65   82  128  115   57   11    62   125    53   108
+[16,]  131   70   39   94  118   50   10   41   46     5    27    64    72
+[17,]   37  126  132   80  122   26    1  111   52   116    55    86    81
+      [,14] [,15] [,16] [,17]
+ [1,]     0     0     0     0
+ [2,]     0     0     0     0
+ [3,]     0     0     0     0
+ [4,]     0     0     0     0
+ [5,]     0     0     0     0
+ [6,]     0     0     0     0
+ [7,]     0     0     0     0
+ [8,]     0     0     0     0
+ [9,]     0     0     0     0
+[10,]     0     0     0     0
+[11,]     0     0     0     0
+[12,]     0     0     0     0
+[13,]     0     0     0     0
+[14,]     1     0     0     0
+[15,]    67     1     0     0
+[16,]     4    66     1     0
+[17,]    47    60   109     1
+
+$D
+ [1]  5  3  2 13  8 10 11 12 17 15  4 16  9 14 18  7  6
+
+> 
+> chkLDL <- function(n, ..., verbose=FALSE, tol = 1e-14) {
++     LD <- mkLDL(n, ...)
++     if(verbose) cat(sprintf("n=%3d ", n))
++     n <- length(D <- LD$D)
++     L <- LD$L
++     M <- L %*% diag(D) %*% t(L)
++     r <- ldl(M)
++     stopifnot(exprs = {
++         all.equal(M,
++                   r$L %*% diag(r$D) %*% t(r$L), tol=tol)
++         all.equal(L, r$L, tol=tol)
++         all.equal(D, r$D, tol=tol)
++     })
++     if(verbose) cat("[ok]\n")
++     invisible(list(LD = LD, M = M, ldl = r))
++ }
+> 
+> (chkLDL(7))
+$LD
+$LD$L
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+[1,]    1    0    0    0    0    0    0
+[2,]   14    1    0    0    0    0    0
+[3,]   19    9    1    0    0    0    0
+[4,]   13    2   20    1    0    0    0
+[5,]   11   12    4   18    1    0    0
+[6,]   16   10    5    6   21    1    0
+[7,]    8   17    1    7    3   15    1
+
+$LD$D
+[1] 7 5 3 2 4 6 8
+
+
+$M
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+[1,]    7   98  133   91   77  112   56
+[2,]   98 1377 1907 1284 1138 1618  869
+[3,]  133 1907 2935 1879 2015 2593 1832
+[4,]   91 1284 1879 2405 1397 1868  972
+[5,]   77 1138 2015 1397 2267 2192 1912
+[6,]  112 1618 2593 1868 2192 4209 2187
+[7,]   56  869 1832  972 1912 2187 3388
+
+$ldl
+$ldl$L
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+[1,]    1    0    0    0    0    0    0
+[2,]   14    1    0    0    0    0    0
+[3,]   19    9    1    0    0    0    0
+[4,]   13    2   20    1    0    0    0
+[5,]   11   12    4   18    1    0    0
+[6,]   16   10    5    6   21    1    0
+[7,]    8   17    1    7    3   15    1
+
+$ldl$D
+[1] 7 5 3 2 4 6 8
+
+
+> 
+> N <- 99 ## test  N  random cases
+> set.seed(101)
+> for(i in 1:N) {
++     cat(sprintf("i=%3d, ",i))
++     chkLDL(rpois(1, lambda = 20), verbose=TRUE)
++ }
+i=  1, n= 18 [ok]
+i=  2, n= 21 [ok]
+i=  3, n= 20 [ok]
+i=  4, n= 16 [ok]
+i=  5, n= 26 [ok]
+i=  6, n= 18 [ok]
+i=  7, n= 26 [ok]
+i=  8, n= 20 [ok]
+i=  9, n= 22 [ok]
+i= 10, n= 20 [ok]
+i= 11, n= 27 [ok]
+i= 12, n= 24 [ok]
+i= 13, n= 19 [ok]
+i= 14, n= 22 [ok]
+i= 15, n= 16 [ok]
+i= 16, n= 25 [ok]
+i= 17, n= 14 [ok]
+i= 18, n= 17 [ok]
+i= 19, n= 17 [ok]
+i= 20, n= 25 [ok]
+i= 21, n= 23 [ok]
+i= 22, n= 23 [ok]
+i= 23, n= 19 [ok]
+i= 24, n= 15 [ok]
+i= 25, n= 17 [ok]
+i= 26, n= 22 [ok]
+i= 27, n= 19 [ok]
+i= 28, n= 24 [ok]
+i= 29, n= 21 [ok]
+i= 30, n= 25 [ok]
+i= 31, n= 16 [ok]
+i= 32, n= 22 [ok]
+i= 33, n= 13 [ok]
+i= 34, n= 14 [ok]
+i= 35, n= 24 [ok]
+i= 36, n= 17 [ok]
+i= 37, n= 24 [ok]
+i= 38, n= 26 [ok]
+i= 39, n= 27 [ok]
+i= 40, n= 16 [ok]
+i= 41, n= 18 [ok]
+i= 42, n= 25 [ok]
+i= 43, n= 19 [ok]
+i= 44, n= 22 [ok]
+i= 45, n= 21 [ok]
+i= 46, n= 19 [ok]
+i= 47, n= 16 [ok]
+i= 48, n= 19 [ok]
+i= 49, n= 21 [ok]
+i= 50, n= 19 [ok]
+i= 51, n= 26 [ok]
+i= 52, n= 16 [ok]
+i= 53, n= 26 [ok]
+i= 54, n= 13 [ok]
+i= 55, n= 27 [ok]
+i= 56, n= 24 [ok]
+i= 57, n= 24 [ok]
+i= 58, n= 13 [ok]
+i= 59, n= 23 [ok]
+i= 60, n= 22 [ok]
+i= 61, n= 22 [ok]
+i= 62, n= 17 [ok]
+i= 63, n= 16 [ok]
+i= 64, n= 16 [ok]
+i= 65, n= 28 [ok]
+i= 66, n= 18 [ok]
+i= 67, n= 17 [ok]
+i= 68, n= 27 [ok]
+i= 69, n= 26 [ok]
+i= 70, n= 17 [ok]
+i= 71, n= 25 [ok]
+i= 72, n= 21 [ok]
+i= 73, n= 19 [ok]
+i= 74, n= 16 [ok]
+i= 75, n= 22 [ok]
+i= 76, n= 26 [ok]
+i= 77, n= 16 [ok]
+i= 78, n= 23 [ok]
+i= 79, n= 17 [ok]
+i= 80, n= 22 [ok]
+i= 81, n= 14 [ok]
+i= 82, n= 21 [ok]
+i= 83, n= 18 [ok]
+i= 84, n= 19 [ok]
+i= 85, n= 13 [ok]
+i= 86, n= 14 [ok]
+i= 87, n= 22 [ok]
+i= 88, n= 25 [ok]
+i= 89, n= 26 [ok]
+i= 90, n= 33 [ok]
+i= 91, n= 21 [ok]
+i= 92, n= 16 [ok]
+i= 93, n= 16 [ok]
+i= 94, n= 32 [ok]
+i= 95, n= 25 [ok]
+i= 96, n= 17 [ok]
+i= 97, n= 16 [ok]
+i= 98, n= 23 [ok]
+i= 99, n= 26 [ok]
+> 
+> system.time(chkLDL( 500)) # 0.62
+   user  system elapsed 
+  2.075   0.079   2.167 
+> 
+> try( ## this almost never "works":
++ system.time(chkLDL( 500, rF = rnorm, rFD = function(n) 10 + runif(n))) # 0.64
++ )
+Timing stopped at: 1.922 0.037 1.977
+Error in chkLDL(500, rF = rnorm, rFD = function(n) 10 + runif(n)) : 
+  L and r$L are not equal:
+  Mean relative difference: 0.7167574
+> 
+> if(interactive())
++    system.time(chkLDL( 600)) # 1.09
+> ## .. then it grows quickly for (on nb-mm4)
+> ## for n = 1000  it typically *fails*: The matrix M  is typically very ill conditioned
+> ## does not depend much on the RNG ?
+> 
+> "==> much better conditioned L and hence M : "
+[1] "==> much better conditioned L and hence M : "
+> set.seed(120)
+> L <- as(Matrix::tril(toeplitz(exp(-(0:999)/50))), "matrix")
+> dimnames(L) <- NULL
+> D <- 10 + runif(nrow(L))
+> M <- L %*% diag(D) %*% t(L)
+> rcond(L) # 0.010006 !
+[1] 0.01000627
+> rcond(M) # 9.4956e-5
+[1] 9.495626e-05
+> if(FALSE) # ~ 4-5 sec
++    system.time(r <- ldl(M))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("massbic")
+> ### * massbic
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: massbic
+> ### Title: extract BIC from .rds files
+> ### Aliases: massbic
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (string, DIR) 
++ {
++     nm1 <- readRDS(file = file.path(DIR, string[1]))
++     cl <- nm1$fit$k
++     mo <- nm1$fit$models
++     val <- array(0, lengths(list(cl, mo, string)))
++     dims <- vector(mode = "integer", length = length(string))
++     for (i in 1:length(string)) {
++         nm <- readRDS(file = file.path(DIR, string[i]))
++         val[, , i] <- BIC(nm$fit)[[1]]
++         dims[i] <- nm$fit$p
++     }
++     dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
++     attr(val, "dims") <- dims
++     val
++   }
+function (string, DIR) 
+{
+    nm1 <- readRDS(file = file.path(DIR, string[1]))
+    cl <- nm1$fit$k
+    mo <- nm1$fit$models
+    val <- array(0, lengths(list(cl, mo, string)))
+    dims <- vector(mode = "integer", length = length(string))
+    for (i in 1:length(string)) {
+        nm <- readRDS(file = file.path(DIR, string[i]))
+        val[, , i] <- BIC(nm$fit)[[1]]
+        dims[i] <- nm$fit$p
+    }
+    dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
+    attr(val, "dims") <- dims
+    val
+}
+> 
+> 
+> 
+> cleanEx()
+> nameEx("massbicm")
+> ### * massbicm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: massbicm
+> ### Title: Do mclust along .rds files from fitnMm
+> ### Aliases: massbicm
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (string, DIR) 
++ {
++     nm <- readRDS(file.path(DIR, string[1]))
++     cl <- nm$fit$k
++     mo <- nm$fit$models
++     valm <- array(0, lengths(list(cl, mo, string)))
++     dims <- vector(mode = "integer", length = length(string))
++     for (i in 1:length(string)) {
++         nm <- readRDS(file.path(DIR, string[i]))
++         x <- nm$fit$x
++         valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
++         dims[i] <- nm$fit$p
++     }
++     dimnames(valm) <- list(clusters = cl, models = mo, files = string)
++     attr(valm, "dims") <- dims
++     -valm
++   }
+function (string, DIR) 
+{
+    nm <- readRDS(file.path(DIR, string[1]))
+    cl <- nm$fit$k
+    mo <- nm$fit$models
+    valm <- array(0, lengths(list(cl, mo, string)))
+    dims <- vector(mode = "integer", length = length(string))
+    for (i in 1:length(string)) {
+        nm <- readRDS(file.path(DIR, string[i]))
+        x <- nm$fit$x
+        valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
+        dims[i] <- nm$fit$p
+    }
+    dimnames(valm) <- list(clusters = cl, models = mo, files = string)
+    attr(valm, "dims") <- dims
+    -valm
+}
+> 
+> 
+> 
+> cleanEx()
+> nameEx("massplot")
+> ### * massplot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: massplot
+> ### Title: plot from massbic
+> ### Aliases: massplot
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (f, main = "unnamed") 
++ {
++     ran <- extendrange(f)
++     size <- dim(f)[3]
++     cl <- as.numeric(dimnames(f)$clusters)
++     p <- attr(f, "dims")
++     adj <- exp(-0.002 * size)
++     models <- mods()
++     op <- sfsmisc::mult.fig(mfrow = c(4, 5), main = main, mar = 0.1 + 
++         c(2, 4, 4, 1))
++     for (i in 1:10) {
++         if (!is.null(p)) {
++             matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(10)[i], 
++                 adj), type = "l", ylim = ran, main = models[i])
++             axis(3, at = seq_along(cl), labels = npar(cl, p[1], 
++                 models[i]))
++         }
++         else {
++             matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(10)[i], 
++                 adj), main = models[i], type = "l", ylim = ran)
++         }
++     }
++     for (i in 1:10) {
++         boxplot(t(f[, i, ]), lty = 1, col = adjustcolor(rainbow(10)[i], 
++             0.4), main = models[i], type = "l", ylim = ran)
++     }
++     par(op$old.par)
++   }
+function (f, main = "unnamed") 
+{
+    ran <- extendrange(f)
+    size <- dim(f)[3]
+    cl <- as.numeric(dimnames(f)$clusters)
+    p <- attr(f, "dims")
+    adj <- exp(-0.002 * size)
+    models <- mods()
+    op <- sfsmisc::mult.fig(mfrow = c(4, 5), main = main, mar = 0.1 + 
+        c(2, 4, 4, 1))
+    for (i in 1:10) {
+        if (!is.null(p)) {
+            matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(10)[i], 
+                adj), type = "l", ylim = ran, main = models[i])
+            axis(3, at = seq_along(cl), labels = npar(cl, p[1], 
+                models[i]))
+        }
+        else {
+            matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(10)[i], 
+                adj), main = models[i], type = "l", ylim = ran)
+        }
+    }
+    for (i in 1:10) {
+        boxplot(t(f[, i, ]), lty = 1, col = adjustcolor(rainbow(10)[i], 
+            0.4), main = models[i], type = "l", ylim = ran)
+    }
+    par(op$old.par)
+}
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+> nameEx("n2p")
+> ### * n2p
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nv2p
+> ### Title: Wrapper function for nMm objs
+> ### Aliases: nc2p
+> ### Keywords: misc
+> 
+> ### ** Examples
+> 
+> str(MW213)
+List of 6
+ $ model : chr "VVV"
+ $ mu    : num [1:2, 1:2] 0 0 30 30
+ $ Sigma : num [1:2, 1:2, 1:2] 1 3 3 11 3 6 6 13
+ $ weight: num [1:2] 0.5 0.5
+ $ k     : int 2
+ $ dim   : int 2
+ - attr(*, "name")= chr "#13 test VVV"
+ - attr(*, "class")= chr "norMmix"
+> nc2p(MW213)
+ [1]  0.0000000  0.0000000  0.0000000 30.0000000 30.0000000  0.3465736
+ [7]  0.5493061  0.3465736 -0.5493061  3.0000000  2.0000000
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nMm2par")
+> ### * nMm2par
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nMm2par
+> ### Title: Multivariate Normal Mixture Model to parameter for MLE
+> ### Aliases: nMm2par
+> 
+> ### ** Examples
+> 
+> A <- MW24
+> if(FALSE) # currently fails  __FIXME__
++ nMm2par(A, trafo = "clr1", model = A$model)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("norMmix")
+> ### * norMmix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norMmix
+> ### Title: Constructor for Multivariate Normal Mixture Objects
+> ### Aliases: norMmix
+> ### Keywords: distributions
+> 
+> ### ** Examples
+> 
+> # TODO
+> 
+> 
+> 
+> cleanEx()
+> nameEx("norMmixMLE")
+> ### * norMmixMLE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norMmixMLE
+> ### Title: Maximum Likelihood Estimation for Multivariate Normal Mixture
+> ###   Models
+> ### Aliases: norMmixMLE ssClaraL
+> 
+> ### ** Examples
+> 
+> str(MW214)
+List of 6
+ $ model : chr "VII"
+ $ mu    : num [1:2, 1:6] 0 0 -0.707 -0.707 -0.354 ...
+ $ Sigma : num [1:2, 1:2, 1:6] 1 0 0 1 0.01 0 0 0.01 0.01 0 ...
+ $ weight: num [1:6] 0.5 0.1 0.1 0.1 0.1 0.1
+ $ k     : int 6
+ $ dim   : int 2
+ - attr(*, "name")= chr "#14 Smooth Comb"
+ - attr(*, "class")= chr "norMmix"
+> set.seed(105)
+> x <- rnorMmix(1000, MW214)
+> ## Fitting assuming we know the true parametric model
+> fm1 <- norMmixMLE(x, k = 6, model = "VII")
+initial  value 2049.264578 
+iter  10 value 1974.178451
+iter  20 value 1924.029534
+iter  30 value 1845.458351
+iter  40 value 1761.502622
+iter  50 value 1758.042665
+iter  60 value 1756.664351
+iter  70 value 1755.668526
+final  value 1755.610971 
+converged
+> if(interactive()) ## Fitting "wrong" overparametrized model: typically need more iterations:
++   fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# default maxit=100 is often too small
+> 
+> 
+> 
+> cleanEx()
+> nameEx("par2nMm")
+> ### * par2nMm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: par2nMm
+> ### Title: Transform Parameter Vector to Multivariate Normal Mixture
+> ### Aliases: par2nMm
+> 
+> ### ** Examples
+> 
+> ## TODO: Show to get the list, and then how to get a  norMmix() object from the list
+> 
+> 
+> 
+> cleanEx()
+> nameEx("parlen")
+> ### * parlen
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: npar
+> ### Title: Number of Free Parameters of Multivariate Normal Mixture Models
+> ### Aliases: npar
+> 
+> ### ** Examples
+> 
+> (m <- eval(formals(npar)$model)) # list of 10 models w/ differing Sigma
+ [1] "EII" "VII" "EEI" "VEI" "EVI" "VVI" "EEE" "VEE" "EVV" "VVV"
+> # A nice table for a given 'p'  and all models, all k in 1:8
+> sapply(m, npar, k=setNames(,1:8), p = 20)
+  EII VII EEI VEI EVI VVI EEE VEE  EVV  VVV
+1  21  21  40  40  40  40 230 230  230  230
+2  42  43  61  62  80  81 251 252  460  461
+3  63  65  82  84 120 122 272 274  690  692
+4  84  87 103 106 160 163 293 296  920  923
+5 105 109 124 128 200 204 314 318 1150 1154
+6 126 131 145 150 240 245 335 340 1380 1385
+7 147 153 166 172 280 286 356 362 1610 1616
+8 168 175 187 194 320 327 377 384 1840 1847
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.norMmix")
+> ### * plot.norMmix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.norMmix
+> ### Title: Plot Method for "norMmix" Objects
+> ### Aliases: plot.norMmix
+> ### Keywords: hplot
+> 
+> ### ** Examples
+> 
+> plot(MW212) ## and add a finite sample realization:
+> points(rnorMmix(n=500, MW212))
+> 
+> ## or:
+> x <- points(rnorMmix(n=500, MW212))
+> plot(MW212, x)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sllnorMmix")
+> ### * sllnorMmix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sllnorMmix
+> ### Title: Simple wrapper for Log-Likelihood Function or Multivariate
+> ###   Normal Mixture
+> ### Aliases: sllnorMmix
+> 
+> ### ** Examples
+> 
+> set.seed(2019)
+> x <- rnorMmix(400, MW27)
+> sllnorMmix(x, MW27) # -1986.315
+[1] -1986.315
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  39.612 0.69 40.624 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

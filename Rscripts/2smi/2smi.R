@@ -1,7 +1,7 @@
 ## Intent: analyse SMI.12 dataset
 
-nmmdir <- normalizePath("~/ethz/BA/norMmix.Rcheck/")
-savdir <-  normalizePath("~/ethz/BA/Rscripts/2smi")
+nmmdir <- normalizePath("~/BachelorArbeit/norMmix.Rcheck/")
+savdir <- normalizePath("~/BachelorArbeit/Rscripts/2smi")
 stopifnot(dir.exists(nmmdir), dir.exists(savdir))
 library(norMmix, lib.loc=nmmdir)
 library(mclust)

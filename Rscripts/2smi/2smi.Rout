@@ -1,0 +1,2628 @@
+
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## Intent: analyse SMI.12 dataset
+> 
+> nmmdir <- normalizePath("~/BachelorArbeit/norMmix.Rcheck/")
+> savdir <- normalizePath("~/BachelorArbeit/Rscripts/2smi")
+> stopifnot(dir.exists(nmmdir), dir.exists(savdir))
+> library(norMmix, lib.loc=nmmdir)
+> library(mclust)
+Package 'mclust' version 5.4.5
+Type 'citation("mclust")' for citing this R package in publications.
+> 
+> ## at n=500,p=2 can do about 250xfitnMm(x,1:10) in 24h
+> seeds <- 1:30
+> inits <- c("clara", "mclVVV")
+> data(SMI.12, package="copula")
+> smi <- SMI.12
+> ## => about 100 cases
+> 
+> # for naming purposes
+> files <- vector(mode="character")
+> 
+> 
+> for (ini in inits) {
++     for (seed in seeds) {
++         set.seed(2019+seed)
++         r <- tryCatch(fitnMm(smi, k=1:8, ini=ini,
++                              optREPORT=1e4, maxit=1e4),
++                       error = identity)
++         filename <- sprintf("smi_ini=%s_seed=%0.2d.rds",
++                             ini, seed)
++         files <- append(files, filename)
++         cat("===> saving to file:", filename, "\n")
++         saveRDS(list(fit=r), file=file.path(savdir, filename))
++     }
++ }
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=01.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=02.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=03.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=04.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=05.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=06.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=07.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=08.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=09.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=10.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=11.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 
+final  value 3807.537409 
+converged
+initial  value 3838.598448 
+final  value 3788.974591 
+converged
+initial  value 9970.362029 
+final  value 9966.161354 
+converged
+initial  value 9831.085001 
+final  value 9786.957886 
+converged
+initial  value 6875.573826 
+final  value 6772.696595 
+converged
+initial  value 6821.840767 
+final  value 6717.122291 
+converged
+initial  value 6706.453717 
+final  value 6592.032257 
+converged
+initial  value 6632.105575 
+final  value 6527.874542 
+converged
+initial  value 5217.411502 
+final  value 5146.386374 
+converged
+initial  value 9736.572357 
+final  value 9728.684924 
+converged
+initial  value 9665.983617 
+final  value 9620.196496 
+converged
+initial  value 6803.307735 
+final  value 6634.100870 
+converged
+initial  value 6759.618883 
+final  value 6661.146740 
+converged
+initial  value 6601.447531 
+final  value 6449.135631 
+converged
+initial  value 6542.783415 
+final  value 6445.407123 
+converged
+initial  value 5193.099166 
+final  value 5062.764266 
+converged
+initial  value 9533.065671 
+final  value 9526.783312 
+converged
+initial  value 9450.606533 
+final  value 9447.828678 
+converged
+initial  value 6682.356355 
+final  value 6386.684625 
+converged
+initial  value 6602.042184 
+final  value 6315.180902 
+converged
+initial  value 6501.272490 
+final  value 6186.159455 
+converged
+initial  value 6396.794714 
+final  value 6217.117955 
+converged
+initial  value 5119.551727 
+final  value 4980.245545 
+converged
+initial  value 9427.760658 
+final  value 9420.113500 
+converged
+initial  value 9264.670823 
+final  value 9244.534252 
+converged
+initial  value 6542.255381 
+final  value 6321.186008 
+converged
+initial  value 6391.581404 
+final  value 6222.637418 
+converged
+initial  value 6351.761974 
+final  value 6106.547257 
+converged
+initial  value 6170.123127 
+final  value 5990.021675 
+converged
+initial  value 5053.095536 
+final  value 4876.389594 
+converged
+===> saving to file: smi_ini=clara_seed=12.rds 
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 13468.240488 
+final  value 13468.240488 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 9011.770411 
+final  value 9011.770411 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 5554.210339 
+final  value 5554.210339 
+converged
+initial  value 11706.262750 
+final  value 11704.427605 
+converged
+initial  value 11538.768920 
+final  value 11498.805306 
+converged
+initial  value 7836.867528 
+final  value 7830.608677 
+converged
+initial  value 7795.159583 
+final  value 7793.165908 
+converged
+initial  value 7710.386440 
+final  value 7704.150799 
+converged
+initial  value 7647.946237 
+final  value 7647.307921 
+converged
+initial  value 5461.261695 
+final  value 5450.275555 
+converged
+initial  value 5454.958174 
+final  value 5442.521296 
+converged
+initial  value 4798.992734 
+final  value 4784.075647 
+converged
+initial  value 4735.448895 
+final  value 4708.738952 
+converged
+initial  value 10820.319120 
+final  value 10820.242455 
+converged
+initial  value 10786.947670 
+final  value 10728.774947 
+converged
+initial  value 7438.942973 
+final  value 7370.329757 
+converged
+initial  value 7413.983815 
+final  value 7334.651711 
+converged
+initial  value 7244.948478 
+final  value 7159.513045 
+converged
+initial  value 7213.830527 
+final  value 7140.977912 
+converged
+initial  value 5394.949374 
+final  value 5383.078098 
+converged
+initial  value 5369.659926 
+final  value 5323.243907 
+converged
+initial  value 4296.579665 
+final  value 4233.253691 
+converged
+initial  value 4270.958724 
+final  value 4223.402533 
+converged
+initial  value 10368.986017 
+final  value 10364.921790 
+converged
+initial  value 10345.203458 
+final  value 10282.059418 
+converged
+initial  value 7094.384347 
+final  value 6970.076601 
+converged
+initial  value 7076.329039 
+final  value 6948.271243 
+converged
+initial  value 6922.434692 
+final  value 6780.675222 
+converged
+initial  value 6898.375987 
+final  value 6748.663468 
+converged
+initial  value 5280.969490 
+final  value 5223.818232 
+converged
+initial  value 5250.472504 
+final  value 5191.911976 
+converged
+initial  value 3909.769283 

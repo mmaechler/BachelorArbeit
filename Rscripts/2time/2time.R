@@ -1,7 +1,7 @@
 ## Intent: analyse time as function of p,k,n
 
-nmmdir <- normalizePath("~/ethz/BA/norMmix.Rcheck/")
-savdir <-  normalizePath("~/ethz/BA/Rscripts/2time")
+nmmdir <- normalizePath("~/BachelorArbeit/norMmix.Rcheck/")
+savdir <- normalizePath("~/BachelorArbeit/Rscripts/2time")
 stopifnot(dir.exists(nmmdir), dir.exists(savdir))
 library(norMmix, lib.loc=nmmdir)
 library(mclust)

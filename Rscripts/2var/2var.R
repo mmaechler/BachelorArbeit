@@ -1,7 +1,7 @@
 ## Intent: analyse various datasets, not normal mixtures
 
-nmmdir <- normalizePath("~/ethz/BA/norMmix.Rcheck/")
-savdir <-  normalizePath("~/ethz/BA/Rscripts/2var")
+nmmdir <- normalizePath("~/BachelorArbeit/norMmix.Rcheck/")
+savdir <- normalizePath("~/BachelorArbeit/Rscripts/2var")
 stopifnot(dir.exists(nmmdir), dir.exists(savdir))
 library(norMmix, lib.loc=nmmdir)
 library(mclust)
