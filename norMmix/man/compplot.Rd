@@ -3,12 +3,10 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
     composition plot
-%%  ~~function to do ... ~~
 }
 \description{
     Creates a \code{\link{massplot}} like plot. Takes two \code{\link{massbic}}
     arrays and overlays their plots.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 compplot(f, g, main = "unnamed")
@@ -28,10 +26,13 @@ compplot(f, g, main = "unnamed")
 \details{
     The intended use for this function is to run \code{\link{massbic}} and 
     \code{\link{massbicm}} with the same arguments, \code{string} and \code{DIR}
-    and feeding the results into \code{compplot}
+    and feeding the results into \code{compplot}, producing line plots, that 
+    can be compared against each other. Currently uses \code{rainbow(20)} to 
+    generate plot colors. Red, orange and green correspond to \code{f} and 
+    cyan, blue and purple to \code{g}.
 }
 \value{
-    No return value. Side effect is the generation of a plot.
+    No return value. Intended side effect is the generation of a plot.
 }
 \references{
 %% ~put references to the literature/web site here ~

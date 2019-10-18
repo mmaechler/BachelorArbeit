@@ -70,7 +70,7 @@ function (string, DIR)
         val[, , i] <- BIC(nm$fit)[[1]]
         dims[i] <- nm$fit$p
     }
-    dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
+    dimnames(val) <- list(components = cl, models = mo, simulation = string)
     attr(val, "dims") <- dims
     val
   }

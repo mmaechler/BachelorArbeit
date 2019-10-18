@@ -2,41 +2,36 @@
 \alias{extracttimes}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-    Extract system time from \code{fittednorMmix}
-%%  ~~function to do ... ~~
+    Extract system time from \code{fittednorMmix} object
 }
 \description{
     extracts array of \code{\link{system.time}} values from a 
     \code{fittednorMmix} object.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 extracttimes(object, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{
-%%     ~~Describe \code{object} here~~
+      a \code{fittednorMmix} object.
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+      currently unused %% TODO: need this??
 }
 }
 \details{
+    a
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+    Array of size components x models x 5(return values of system.time)
+    with dimnames: \code{k}, \code{models} and \code{proc_time}.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+    Nicolas Trutmann
 }
 \note{
 %%  ~~further notes~~
@@ -45,7 +40,7 @@ extracttimes(object, ...)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+    \code{\link{system.time}}
 }
 \examples{
 ##---- Should be DIRECTLY executable !! ----

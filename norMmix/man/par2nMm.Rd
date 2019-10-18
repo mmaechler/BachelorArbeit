@@ -14,7 +14,7 @@
 par2nMm(par, p, k, model = c("EII","VII","EEI","VEI","EVI",
                              "VVI","EEE","VEE","EVV","VVV")
       , trafo = c("clr1", "logit")
-      , name = sprintf("model = \%s , clusters = \%s", model, k)
+      , name = sprintf("model = \%s , components = \%s", model, k)
        )
 }
 \arguments{

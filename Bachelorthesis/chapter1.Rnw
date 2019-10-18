@@ -1,7 +1,7 @@
 \chapter{Introduction to normal mixture models}
 
 
-%% it 2
+%% it 3
 \section{Definitions}
 
 A good and thorough introductory book is the work of \cite{McL00} and
@@ -11,18 +11,25 @@ We will here give a short overview of normal mixtures to fix notation and
 nomenclature.
 The motivating idea behind mixture models is, that in real world examples
 a sample might be suspected to arise from more than one population.
-The original example of this, by Karl Pearson, who fitted two normal 
-distributions with different means and variances.
-In his paper Pearson analyzed measurements of forehead to body length of crabs
-sampled from the bay of Naples. His mixture model-based approach suggested, 
-that the crabs were evolving into two new subspecies.
+The example of this, that is generally considered to be the first of this kind,
+is the one by Karl Pearson, who fitted two normal distributions with different 
+means and variances.
+In his book, \cite{Pea96}[Section 4.d.; page 266], Pearson analyzed measurements
+of forehead to body length of crabs sampled from the bay of Naples. His mixture 
+model-based approach suggested, that the crabs were evolving into two new 
+subspecies.
 %TODO: less confused desc of pearsons research
 
-here make clear we restrict to multivariate normal case.
+% it 2
+While the theory of mixture models holds for a much broader class of 
+distributions, we restrict ourselves here to the case of normal distributions,
+because this restriction fits more comfortably into the scope of this work and 
+because normal distributions allow for a convenient, parsimonious 
+parametrization, that is of interest to study.
+
 % it 1
-In this thesis we restrict ourselves to multivariate normal mixtures.
 normal gives easy param ov cov mats
-multivariate builds on work done in the nor1mix package.
+multivariate builds on work done in the nor1mix package. 'filedrawer research'
 
 Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ be
 symmetric positive definite and $ \phi(- ; \mu, \Sigma) $ be the normal 
@@ -41,7 +48,7 @@ $ \pmb{Y}_1, \dots , \pmb{Y}_n $
     $\phi_k$ mixture components.
 \end{definition}
 
-here small note about restricted cases. give ref to 1.4??
+% it 1
 For 'large' datasets there are more parsimonious parametrizations, that reduce
 computation time. These, for example, assume that all components have the same
 covariance, or have certain restrictions placed on them. We will give a 
@@ -49,7 +56,7 @@ detailed description of the models assumed in this thesis in section
 \ref{sec:models}.
 
 
-\section{The EM-algorithm in sketch}
+\section{The EM-Algorithm in Sketch}
 
 %% it 1
 With this definition we immediately face the problem of how to fit these
@@ -85,13 +92,13 @@ here note about initialization methods.
 
 % it 1
 While it is possible to use a purely EM-based approach, most popular 
-implementations use some form of preclustering and use the EM-algorithm as
+implementations use some form of pre clustering and use the EM-algorithm as
 final pass to fit the data. The R-package {\tt Mclust} for example uses 
 hierarchical agglomerative clustering \cite{Scr16}.
 
 
 
-\section{choice of notation}
+\section{Choice of Notation}
 
 % it 1
 The classification of models in this paper relies heavily on the work of 
@@ -169,8 +176,6 @@ $\pmb{L}_k \pmb{D} \pmb{L}^\top$, however they do not correspond to the desired
 geometric intent behind the differentiation of models and are therefore not 
 included.
 
-make nice table(maybe sideways to account for parameter list)
-
 
 \begin{table}[!htb]
     \centering
@@ -181,25 +186,25 @@ make nice table(maybe sideways to account for parameter list)
         Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation & parameters & $ \pmb{LDL}^\top $ & parameters & count \\
         \hline
 
-        EII    & $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ & same as C\&G & & 1 \\
-        VII    & $ \alpha_k \pmb{I} $         & variable & equal & - & $ \alpha_k $ & & & $K$  \\
-        EEI    & $ \alpha \pmb{\Lambda} $     & equal & equal & coordinate axes & $ \alpha, \lambda_i $ & & & $ 1+(p-1) $\\
-        VEI    & $ \alpha_k \pmb{\Lambda} $ & variable & equal & coordinate axes & $ \alpha_k, \lambda_{i}$ & & & $ K+(p-1) $ \\
-        EVI    & $ \alpha \pmb{\Lambda}_k $ &equal & variable & coordinate axes & $ \alpha, \lambda_{i,k} $ & & & $ 1+K(p-1) $ \\
-        VVI    & $ \alpha_k \pmb{\Lambda}_k $ & variable & variable & coordinate axes & $ \alpha_k, \lambda_{i,k} $ & & & $ K+K(p-1) $ \\
+        EII    & $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ & as in C\&G & & 1 \\
+        VII    & $ \alpha_k \pmb{I} $         & var. & equal & - & $ \alpha_k $ & & & $K$  \\
+        EEI    & $ \alpha \pmb{\Lambda} $     & equal & equal & coord. axes & $ \alpha, \lambda_i $ & & & $ 1+(p-1) $\\
+        VEI    & $ \alpha_k \pmb{\Lambda} $ & var. & equal & coord. axes & $ \alpha_k, \lambda_{i}$ & & & $ K+(p-1) $ \\
+        EVI    & $ \alpha \pmb{\Lambda}_k $ &equal & var. & coord. axes & $ \alpha, \lambda_{i,k} $ & & & $ 1+K(p-1) $ \\
+        VVI    & $ \alpha_k \pmb{\Lambda}_k $ & var. & var. & coord. axes & $ \alpha_k, \lambda_{i,k} $ & & & $ K+K(p-1) $ \\
         \hline
         EEE    & $ \alpha \pmb{Q \Lambda Q}^\top $ &equal & equal & equal & $ \alpha, \lambda_{i}, q_{i,j} $ & $ \alpha \pmb{LDL}^{\top} $ & $ \lambda , d_i, l_{i,j} $ & $ 1+(p-1)+\frac{p(p-1)}{2} $ \\
         \hline
-        EVE    & $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & variable & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $  & doesn't exist & & $ 1+K(p-1)+\frac{p(p-1)}{2} $ \\
+        EVE    & $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & var. & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $  & doesn't exist & & $ 1+K(p-1)+\frac{p(p-1)}{2} $ \\
         \hline
-        VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & variable & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ \alpha_k \pmb{LDL}^\top $ & $ \lambda_k , d_i, l_{i,j} $ & $ K+p+p^2\frac{p(p-1)}{2} $ \\
+        VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & var. & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ \alpha_k \pmb{LDL}^\top $ & $ \lambda_k , d_i, l_{i,j} $ & $ K+p+\frac{p(p-1)}{2} $ \\
         \hline
-        VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &variable & variable & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & & & $ K+K(p-1)+\frac{p(p-1)}{2} $ \\
-        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ &  don't exist  & & $ 1+(p-1)+K\frac{p(p-1)}{2} $ \\
-        VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &variable & equal & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & & & $ K+(p-1)+K\frac{p(p-1)}{2} $ \\
+        VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &var. & var. & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & & & $ K+K(p-1)+\frac{p(p-1)}{2} $ \\
+        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & var. & $ \alpha, \lambda_{i}, q_{i,j,k} $ &  don't exist  & & $ 1+(p-1)+K\frac{p(p-1)}{2} $ \\
+        VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &var. & equal & var. & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & & & $ K+(p-1)+K\frac{p(p-1)}{2} $ \\
         \hline
-        EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & variable & variable & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $  \\
-        VVV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & variable & variable & variable & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+pK+K\frac{p(p-1)}{2} $ \\
+        EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & var. & var. & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $  \\
+        VVV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & var. & var. & var. & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+pK+K\frac{p(p-1)}{2} $ \\
         \hline
     \end{tabular}
 
@@ -212,7 +217,7 @@ make nice table(maybe sideways to account for parameter list)
 \clearpage
 
 
-\section{problems of EM}
+\section{Problems of EM}
 
 
 The EM-algorithm has stalling problems especially close to a local optimum.
@@ -232,81 +237,85 @@ This phenomenon is not infrequent and in difficult mixtures quite visible.
 To illustrate let us look at a particular mixture taken from \cite{Mar92} and
 the {\tt nor1mix} package from CRAN.
 
+
+<<Trimodal, echo=FALSE, include=FALSE>>=
+    library("nor1mix")
+    plot(MW.nm9, lty=2, col = "blue", p.norm=FALSE, p.comp=TRUE)
+    set.seed(2019)
+    x9 <- rnorMix(5000, MW.nm9)
+    lines(density(x9), lwd=1.8)# "clearly" 3 components
+@
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
 <<marrx9>>=
-library("nor1mix")
-MW.nm9 ## Trimodal mixture
+    library("nor1mix")
+    MW.nm9 ## Trimodal mixture
 @
-
-
-show an example using nor1mix
-
-
-<<Trimodal, echo=FALSE>>=
-library("nor1mix")
-plot(MW.nm9, lty=2, col = "blue", p.norm=FALSE, p.comp=TRUE)
-set.seed(2019)
-x9 <- rnorMix(5000, MW.nm9)
-lines(density(x9), lwd=1.8)# "clearly" 3 components
-@
-
+        \caption{Parameters of {\tt MW.nm9}}
+        \label{tab:MW.nm9}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
 <<fig=TRUE, echo=FALSE>>=
 <<Trimodal>>
 @
-
-
+        \caption{True and Estimated density}
+        \label{fig:MW.nm9}
+    \end{minipage}
+\end{figure}
+% TODO: fix placement issue and caption location
 
 then an illustration of MW examples of pathological cases
 
-
-<<nor1mixEx, fig=TRUE,echo=FALSE,results=hide>>=
-p.EMsteps <- function(nSteps, x, nmObj,
-                      main = "EM for 1-dim normal mixtures",
-                      sleep = nSteps <= 40, sec.sleep = 0.2, col2 = "tomato",
-                      showLik = nSteps <= 80,
-                      plotIni = FALSE, # plot the initial param. ?
-                      doNote = TRUE)
-{
-    ## Purpose: show progress of EM - steps -- only few steps
-    ## ----------------------------------------------------------------------
-    ## Author: Martin Maechler, Date: 26 Nov 2009
-    stopifnot(is.norMix(nmObj), is.numeric(x), nSteps >= 1)
-    nm. <- nmObj
-    ll.em <- numeric(nSteps)
-    for(k in 1:nSteps) {
-        z. <- estep.nm(x9, obj = nm.)
-        nm. <- do.call(norMix, c(mstep.nm(x=x9, z=z.), name=""))
-        if(k == 1) { ## only after the first E+M - step
-            op <- par(mar = c(0,0,0, 2.) + par("mar")); on.exit(par(op))
-            plot(nm., p.norm=FALSE, main = main)
-            if(plotIni) lines(nmObj, p.norm=FALSE)
-            rug(x) ; mtext(paste("n = ", length(x)),
-                           line = -1., adj=.99)
-            nm2 <<- nm. ## save the 2nd
-            if(showLik) {
-                yVal <- approxfun(x=c(nSteps,1), y=par("usr")[3:4])
-                xV <- { u <- par("usr")[1:2]; u[2] + .01*(u[2]-u[1]) }
-            }
-        } else lines(nm., p.norm=FALSE, col = rgb(0,0,0, 0.2))
-        print(ll <- llnorMix(nM2par(nm.), x=x9))
-        ll.em[k] <- ll
-        if(showLik)
-            text(xV, yVal(k), sprintf("%3d: %5.1f", k, ll),
-                 cex = 0.8, adj = 0, xpd = NA)
-        if(sleep) Sys.sleep(sec.sleep)
+<<nor1mixEx, include=FALSE, fig=TRUE,echo=FALSE,results=hide>>=
+    p.EMsteps <- function(nSteps, x, nmObj,
+                          main = "EM for 1-dim normal mixtures",
+                          sleep = nSteps <= 40, sec.sleep = 0.2, col2 = "tomato",
+                          showLik = nSteps <= 80,
+                          plotIni = FALSE, # plot the initial param. ?
+                          doNote = TRUE)
+    {
+        ## Purpose: show progress of EM - steps -- only few steps
+        ## ----------------------------------------------------------------------
+        ## Author: Martin Maechler, Date: 26 Nov 2009
+        stopifnot(is.norMix(nmObj), is.numeric(x), nSteps >= 1)
+        nm. <- nmObj
+        ll.em <- numeric(nSteps)
+        for(k in 1:nSteps) {
+            z. <- estep.nm(x9, obj = nm.)
+            nm. <- do.call(norMix, c(mstep.nm(x=x9, z=z.), name=""))
+            if(k == 1) { ## only after the first E+M - step
+                op <- par(mar = c(0,0,0, 2.) + par("mar")); on.exit(par(op))
+                plot(nm., p.norm=FALSE, main = main)
+                if(plotIni) lines(nmObj, p.norm=FALSE)
+                rug(x) ; mtext(paste("n = ", length(x)),
+                               line = -1., adj=.99)
+                nm2 <<- nm. ## save the 2nd
+                if(showLik) {
+                    yVal <- approxfun(x=c(nSteps,1), y=par("usr")[3:4])
+                    xV <- { u <- par("usr")[1:2]; u[2] + .01*(u[2]-u[1]) }
+                }
+            } else lines(nm., p.norm=FALSE, col = rgb(0,0,0, 0.2))
+            print(ll <- llnorMix(nM2par(nm.), x=x9))
+            ll.em[k] <- ll
+            if(showLik)
+                text(xV, yVal(k), sprintf("%3d: %5.1f", k, ll),
+                     cex = 0.8, adj = 0, xpd = NA)
+            if(sleep) Sys.sleep(sec.sleep)
+        }
+        ## plot the last one more visibly
+        lines(nm., p.norm=FALSE, col = col2, lwd = 2)
+        if(doNote)
+            mtext(paste(nSteps," E-, M-steps seem to have converged nicely .."),
+                  col=col2)
+        ## return final normal mixture {but invisibly}:
+        invisible(list(nm = nm., logLik = ll.em))
     }
-    ## plot the last one more visibly
-    lines(nm., p.norm=FALSE, col = col2, lwd = 2)
-    if(doNote)
-        mtext(paste(nSteps," E-, M-steps seem to have converged nicely .."),
-              col=col2)
-    ## return final normal mixture {but invisibly}:
-    invisible(list(nm = nm., logLik = ll.em))
-}
 
-clp0 <- cluster::clara(x9, k=3, samples=1000, medoids.x = FALSE, rngR=TRUE)
-nm1 <- clus2norMix(clp0$clustering, x9) ## <-- M-step from cluster:
-p.EMsteps(20, x9, nm1, plotIni=TRUE, sec.sleep=0)# 20 steps: final logLik ("ll"): -7779.5
-
+    clp0 <- cluster::clara(x9, k=3, samples=1000, medoids.x = FALSE, rngR=TRUE)
+    nm1 <- clus2norMix(clp0$clustering, x9) ## <-- M-step from cluster:
+    p.EMsteps(20, x9, nm1, plotIni=TRUE, sec.sleep=0)# 20 steps: final logLik ("ll"): -7779.5
 @
 
 
@@ -316,17 +325,25 @@ here we see how change in loglik seems to stagnate. However, this does not stay 
 
 <<label=plotemsteps,echo=FALSE,include=FALSE,results=hide>>=
 r <- p.EMsteps(200, x9, nm1)
-
 @
 
-\begin{figure}
-\begin{center}
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+    \centering
+<<fig=TRUE,results=hide,echo=FALSE>>=
+<<nor1mixEx>>
+@
+    \caption{20 EM steps}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+    \centering
 <<fig=TRUE,results=hide,echo=FALSE>>=
 <<plotemsteps>>
 @
-\end{center}
-\caption{200 EM steps}
-\label{adfafdafds}
+    \caption{200 EM steps}
+    \end{minipage}
+    \label{adfafdafds}
 \end{figure}
 
 to conclude example show part of mixest that shows it takes 1200 iterations to converge
@@ -347,20 +364,42 @@ give conclusion recapping the just demonstrated, and lead in for next chapter
 \chapter{The {\tt norMmix} Package}
 
 % it 1
-For this thesis, an R package was developed that implements the algorithm
+For this thesis, an \Rp package was developed that implements the algorithm
 that fits multivariate normal mixtures to given data.
 There is a lot of unused code still in the package. These were at one point
 implemented used and discarded. They are still included for demonstration.
-The norMmix package is constructed around the {\tt norMmix} object, that 
+The {\tt norMmix} package is constructed around the {\tt norMmix} object, that 
 codifies a {\tt nor}mal {\tt M}ultivariate {\tt mix}ture model,  and the {\tt 
 llnorMmix()} function, that calculates the log-likelihood given a model and 
 data.
 
 
+%% table of params
+%% TODO: description of table
+\begin{table}
+    \centering
+    \begin{tabular}{l l}
+        \hline
+        In Notation & In Code \\
+        \hline
+        $\pi_i$     & {\tt w, weights} \\
+        $\Sigma$    & {\tt Sigma} \\
+        $\mu$       & {\tt mu} \\
+        $K$         & {\tt k} \\
+        dimension   & {\tt p, dim, dims} \\
+        components  & {\tt cl, components} \\
+        \hline
+    \end{tabular}
+    \caption{Translation Table: Mathematical Notation to \Rp Code}
+    \label{tab:code-notation}
+\end{table}
+
+
 % it 1
 The package contains the following functionality:
+\begin{table}
 \begin{description}
-    \item [{\tt norMmix}] {\tt norMmix()} is the 'init-method' for 
+    \item [norMmix] {\tt norMmix()} is the 'init-method' for 
         {\tt norMmix} objects. There exist {\tt is.norMmix} {\tt rnorMmix} and
         {\tt dnorMmix} functions.
     \item [parametrization] The main functions that handle reparametrization
@@ -371,17 +410,18 @@ The package contains the following functionality:
         {\tt optim}
     \item [model choice] Using {\tt norMmixMLE}, the function fitnMm allows fitting 
         of multiple models and components. Functions analyzing the output of 
-        this are also provided, e.g. {\tt BIC} and {\tt pring} methods.
+        this are also provided, e.g. {\tt BIC} and {\tt print} methods.
     \item [misc] There are also various methods of generics, like {\tt logLik,
         print, BIC, AIC} and {\tt nobs} as well as various {\tt print} methods.
     \item [example objects] Following the paper of \cite{Mar92} various example
         objects are provided and used for study. They follow the naming 
         convention: MW + dimension + number. for example {\tt MW213} for the 
-        13th model of dimension 2.
+        13-th model of dimension 2.
     \item [simulations] The purpose of this package is to study simulations. 
         there are functions provided to study large collections of evaluated 
         data. e.g {\tt epfl} %TODO: describe and give ref.
 \end{description}
+\end{table}
 
 relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model 
 parameters.
@@ -401,7 +441,7 @@ to optimize.
 also relies on {\tt mixtools} package for random generating function 
 {\tt rnorMmix} using {\tt rmvnorm}.
 
-\section{finer details of {\tt norMmix} package}
+\section{Details of the {\tt norMmix} Package}
 
 about Cholesky decomp as ldlt. has advantages: fast, parametrically 
 parsimonious, can easily compute loglikelihood
@@ -411,15 +451,11 @@ parsimonious, can easily compute loglikelihood
 maybe reread section in McLachlan about accelerating EM algo
 
 not possible to sensibly compare normal mixtures except maybe a strange sorting 
-algorithm using mahalanobis distance or Kullback-Leibler distance or similar
+algorithm using Mahalanobis distance or Kullback-Leibler distance or similar
 (Hellinger), but not numerically sensible to integrate over potentially 
 high-dimensional spaces.
 
-So comparison of algos done through throwing difficult mixtures and 
-non-mixtures at it and hoping that norMmix finds better solutions than EM. So
-the criteria for "better fit" are 1. better log-likelihood 2. correct model, 
-where EM fails.
-
+%% TODO: explain comparison
 
 
 
@@ -434,7 +470,6 @@ life of the norMmix package.
 argue why this is in this section?? because, as a BScT, the learning is as much
 part of the research as the results.
 
-here on why logit doesnt work
 
 % it 1
 One dead-end was the parametrization of the weights of a mixture using the 
@@ -474,7 +509,6 @@ a result of {\tt logit}.
 The option to use {\tt logit} is still an argument to {\tt norMmixMLE} by 
 specifying {\tt trafo="logit"}, but it shouldn't be used.
 
-on forcePositive and previous m-step, lead to decision to use mclust msteps.
 
 % it 1
 Another issue during development cropped up during fitting of high dimensional
@@ -505,7 +539,7 @@ ours would assume VVV for every fit.
 testing of mvtnorm as proof that ldlt is in fact faster parametrization
 
 mention, that there may be faster ways to apply backsolve. 
-quote knuth about premature optimization.
+quote knuth about premature optimization?
 
 \section{General Setup/ Demonstration}
 display abilities of norMmix on its own. can find correct models
@@ -528,6 +562,36 @@ fitted to original. either by acc-model==fit-model and acc-k==fit-k or acc-ll - 
 \section{Time Analysis}
 
 here how much time they take, in p,k and n give approximate O(x) value
+
+<<time, echo=TRUE>>=
+library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+files <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
+filetimes <- lapply(files, extracttimes)
+
+times <- unlist(lapply(filetimes, function(j) j[,,1]))
+
+aa <- norMmix:::npar.fittednorMmix
+pars <- unlist(lapply(files, aa))
+
+
+r <- lm(times ~ pars)
+summary(r)
+@
+
+\begin{figure}[h]
+    \centering
+<<figtime, echo=TRUE, fig=TRUE>>=
+plot(log(pars), log(times))
+@
+    \caption{Log-log Plot of System Time against Parameter Length}
+    \label{fig:time}
+\end{figure}
+
+can see that time is almost one to one proportional to parameter length.
 
 \section{Findings}
 

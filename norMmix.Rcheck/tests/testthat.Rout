@@ -20,8 +20,8 @@ Type 'q()' to quit R.
 > 
 > test_check("norMmix")
 ══ testthat results  ═══════════════════════════════════════════════════════════
-[ OK: 356 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 0 ]
+OK: 356 SKIPPED: 0 WARNINGS: 0 FAILED: 0
 > 
 > proc.time()
    user  system elapsed 
-  3.036   0.216   3.506 
+  1.572   0.248   1.570 

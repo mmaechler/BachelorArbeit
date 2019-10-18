@@ -18,4 +18,6 @@ Suggests: Matrix, testthat (>= 2.1.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Built: R 3.6.1; ; 2019-10-13 22:23:41 UTC; unix
+NeedsCompilation: no
+Packaged: 2019-10-18 12:32:28 UTC; n
+Built: R 3.6.1; ; 2019-10-18 12:32:31 UTC; unix

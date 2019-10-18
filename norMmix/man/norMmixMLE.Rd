@@ -26,7 +26,7 @@ ssClaraL(n, k, p)
 }
 \arguments{
   \item{x}{numeric [n x p] matrix}
-  \item{k}{positive number of clusters}
+  \item{k}{positive number of components}
   \item{model}{a \code{\link{character}} string, specifying the model (for
     the \code{k} covariance matrices) to be assumed.}
   \item{ini}{a \code{\link{character}} string specifying the initialization step.}

@@ -34,6 +34,7 @@ nMm2par	nMm2par
 norMmix	norMmix
 norMmixMLE	norMmixMLE
 npar	parlen
+npar.fittednorMmix	npar.fittednorMmix
 par2nMm	par2nMm
 plot.fittednorMmix	plot.fittednorMmix
 plot.norMmix	plot.norMmix

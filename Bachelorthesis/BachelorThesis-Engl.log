@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  11 OCT 2019 06:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  18 OCT 2019 06:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -963,7 +963,7 @@ File: lstlang3.sty 2015/06/04 1.6 listings language file
 )
 \c@definition=\count136
 
-(./BachelorThesis-Engl.aux (./chapter1.aux))
+(./BachelorThesis-Engl.aux (./chapter1.aux) (./App_llnorMmix.aux))
 \openout1 = `BachelorThesis-Engl.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
@@ -1100,50 +1100,49 @@ Chapter 1.
 [1
 
 
-]
+] [2] [3] [4]
 
-Package natbib Warning: Citation `Scr16' on page 2 undefined on input line 90.
+LaTeX Warning: Text page 5 contains only floats.
 
-[2]
 
-LaTeX Warning: Float too large for page by 14.77026pt on input line 210.
+Overfull \vbox (3.06197pt too high) has occurred while \output is active []
 
-[3] [4]
-LaTeX Font Info:    Try loading font information for TS1+aett on input line 241
+
+[5]
+LaTeX Font Info:    Try loading font information for TS1+aett on input line 251
 .
  (/usr/share/texmf/tex/latex/R/tex/latex/ts1aett.fd
 File: ts1aett.fd 
 )
-LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 241
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 251
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `TS1/aett/m/n' in size <10.95> not available
-(Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 241.
+(Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 251.
 
-<chapter1-003.pdf, id=168, 433.62pt x 433.62pt>
+<chapter1-003.pdf, id=213, 433.62pt x 433.62pt>
 File: chapter1-003.pdf Graphic file (type pdf)
  <use chapter1-003.pdf>
-Package pdftex.def Info: chapter1-003.pdf used on input line 254.
-(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
- [5
+Package pdftex.def Info: chapter1-003.pdf used on input line 262.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
- <./chapter1-003.pdf>] <chapter1-nor1mixEx.pdf, id=183, 433.62pt x 433.62pt>
-File: chapter1-nor1mixEx.pdf Graphic file (type pdf)
-
-<use chapter1-nor1mixEx.pdf>
-Package pdftex.def Info: chapter1-nor1mixEx.pdf used on input line 261.
-(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
- <chapter1-006.pdf, id=184, 433.62pt x 433.62pt>
+<chapter1-006.pdf, id=214, 433.62pt x 433.62pt>
 File: chapter1-006.pdf Graphic file (type pdf)
+ <use chapter1-006.pdf>
+Package pdftex.def Info: chapter1-006.pdf used on input line 282.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
-<use chapter1-006.pdf>
-Package pdftex.def Info: chapter1-006.pdf used on input line 271.
-(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
- [6 <./chapter1-nor1mixEx.pdf>] [7 <./chapter1-006.pdf>]
-[8
+<chapter1-007.pdf, id=215, 433.62pt x 433.62pt>
+File: chapter1-007.pdf Graphic file (type pdf)
+ <use chapter1-007.pdf>
+Package pdftex.def Info: chapter1-007.pdf used on input line 287.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
+ [6
+
+ <./chapter1-003.pdf> <./chapter1-006.pdf> <./chapter1-007.pdf>] [7] [8
 
 ]
 Chapter 2.
@@ -1151,82 +1150,121 @@ Chapter 2.
 Chapter 3.
 [11
 
-] [12] [13] [14
+] [12] <chapter1-figtime.pdf, id=276, 433.62pt x 433.62pt>
+File: chapter1-figtime.pdf Graphic file (type pdf)
 
-]
+<use chapter1-figtime.pdf>
+Package pdftex.def Info: chapter1-figtime.pdf used on input line 567.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13] [14 <./chapter1-figtime.pdf>]
 Chapter 4.
-) [15] (./BachelorThesis-Engl.bbl [16
+) [15
+
+] (./BachelorThesis-Engl.bbl [16
 
 
-]) [17] [18
+]) [17]
+\openout2 = `App_llnorMmix.aux'.
+
+ (./App_llnorMmix.tex [18
+
 
 ]
-<confirmation-originality-scan.pdf, id=261, 597.432pt x 845.07718pt>
+Appendix A.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                \kern 3.04074pt
+(hyperref)                removed on input line 1.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 1.
+
+[19]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [20]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [22])
+[23] [24
+
+
+] <confirmation-originality-scan.pdf, id=335, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
 Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
-17.
+18.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
 Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
-17.
+18.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 
-<confirmation-originality-scan.pdf, id=264, page=1, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=338, page=1, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 217.
+ line 218.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 217.
+ line 218.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 217.
+ line 218.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 217.
+ line 218.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 217.
+ line 218.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
- [19 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
-
-Package natbib Warning: There were undefined citations.
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 218.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
-(./BachelorThesis-Engl.aux (./chapter1.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 218.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 218.
+ [25 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
+ (./BachelorThesis-Engl.aux
+(./chapter1.aux) (./App_llnorMmix.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 219.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 219.
 Package rerunfilecheck Info: File `BachelorThesis-Engl.out' has not changed.
-(rerunfilecheck)             Checksum: 03955ADC488D8BF63834610B87F6D03D;873.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
+(rerunfilecheck)             Checksum: B9D6ECAF9394BCEA8B34C431A3CEA485;1118.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
  ) 
 Here is how much of TeX's memory you used:
- 11592 strings out of 494953
- 160196 string characters out of 6180977
- 316178 words of memory out of 5000000
- 14502 multiletter control sequences out of 15000+600000
- 53931 words of font info for 110 fonts, out of 8000000 for 9000
+ 11660 strings out of 494953
+ 161114 string characters out of 6180977
+ 307178 words of memory out of 5000000
+ 14541 multiletter control sequences out of 15000+600000
+ 60885 words of font info for 132 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 43i,20n,51p,310b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,20n,51p,298b,487s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/n/.texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1095.600pk></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf
@@ -1237,19 +1275,20 @@ ublic/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsltt10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/latxfont/linew10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on BachelorThesis-Engl.pdf (25 pages, 1083294 bytes).
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/latxfont/linew10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/symbols/msbm10.pfb>
+Output written on BachelorThesis-Engl.pdf (31 pages, 1144847 bytes).
 PDF statistics:
- 352 PDF objects out of 1000 (max. 8388607)
- 290 compressed objects within 3 object streams
- 51 named destinations out of 1000 (max. 500000)
- 148 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 432 PDF objects out of 1000 (max. 8388607)
+ 360 compressed objects within 4 object streams
+ 68 named destinations out of 1000 (max. 500000)
+ 185 words of extra memory for PDF output out of 10000 (max. 10000000)
 

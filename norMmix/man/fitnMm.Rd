@@ -10,7 +10,9 @@
 \usage{
 fitnMm(x, k, models = 1:10,
             trafo = c("clr1", "logit"),
-            ll = c("nmm", "mvt"), \dots)
+            ll = c("nmm", "mvt"), 
+            savdir = NULL, name = NULL,
+         \dots)
 }
 \arguments{
   \item{x}{data matrix, rows are observations and columns are variables}
@@ -24,6 +26,8 @@ fitnMm(x, k, models = 1:10,
     use for the weights \code{w} (\eqn{= \pi_j}{= pi[j]}), currently either
     \code{"clr1"} or \code{"logit"}.}
   \item{ll, \dots}{further arguments passed to function \code{\link{norMmixMLE}()}.}
+  \item{savdir}{valid file path to save directory}
+  \item{name}{name to be used when saving return value as RDS file}
 }
 \value{
   \code{fitnMm()} returns a \code{\link{list}} with components
@@ -49,5 +53,5 @@ fitnMm(x, k, models = 1:10,
 }
 \examples{
 x <- rnorMmix(500, MW21)
-fitnMm(x, 1:3) ## will fit all models with 1:3 clusters
+fitnMm(x, 1:3) ## will fit all models with 1:3 components
 }

@@ -67,7 +67,7 @@ function (string, DIR)
         valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
         dims[i] <- nm$fit$p
     }
-    dimnames(valm) <- list(clusters = cl, models = mo, files = string)
+    dimnames(valm) <- list(components = cl, models = mo, files = string)
     attr(valm, "dims") <- dims
     -valm
   }

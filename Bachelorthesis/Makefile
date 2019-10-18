@@ -1,8 +1,11 @@
-BachelorThesis-Engl.pdf : BachelorThesis-Engl.tex chapter1.tex References.bib
+BachelorThesis-Engl.pdf: BachelorThesis-Engl.tex chapter1.tex References.bib App_llnorMmix.tex
 	pdflatex BachelorThesis-Engl.tex
 
-chapter1.tex : chapter1.Rnw
+chapter1.tex: chapter1.Rnw
 	R CMD Sweave chapter1.Rnw
+
+App_llnorMmix.tex: App_llnorMmix.Rnw
+	R CMD Sweave $^
 
 .PHONY: bib
 bib:

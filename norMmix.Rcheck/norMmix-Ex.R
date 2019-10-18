@@ -111,7 +111,7 @@ nameEx("extracttimes")
 flush(stderr()); flush(stdout())
 
 ### Name: extracttimes
-### Title: Extract system time from 'fittednorMmix'
+### Title: Extract system time from 'fittednorMmix' object
 ### Aliases: extracttimes
 
 ### ** Examples
@@ -150,7 +150,7 @@ flush(stderr()); flush(stdout())
 ### ** Examples
 
 x <- rnorMmix(500, MW21)
-fitnMm(x, 1:3) ## will fit all models with 1:3 clusters
+fitnMm(x, 1:3) ## will fit all models with 1:3 components
 
 
 
@@ -299,7 +299,7 @@ function (string, DIR)
         val[, , i] <- BIC(nm$fit)[[1]]
         dims[i] <- nm$fit$p
     }
-    dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
+    dimnames(val) <- list(components = cl, models = mo, simulation = string)
     attr(val, "dims") <- dims
     val
   }
@@ -336,7 +336,7 @@ function (string, DIR)
         valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
         dims[i] <- nm$fit$p
     }
-    dimnames(valm) <- list(clusters = cl, models = mo, files = string)
+    dimnames(valm) <- list(components = cl, models = mo, files = string)
     attr(valm, "dims") <- dims
     -valm
   }
@@ -364,7 +364,7 @@ function (f, main = "unnamed")
 {
     ran <- extendrange(f)
     size <- dim(f)[3]
-    cl <- as.numeric(dimnames(f)$clusters)
+    cl <- as.numeric(dimnames(f)$components)
     p <- attr(f, "dims")
     adj <- exp(-0.002 * size)
     models <- mods()
@@ -465,6 +465,42 @@ x <- rnorMmix(1000, MW214)
 fm1 <- norMmixMLE(x, k = 6, model = "VII")
 if(interactive()) ## Fitting "wrong" overparametrized model: typically need more iterations:
   fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# default maxit=100 is often too small
+
+
+
+cleanEx()
+nameEx("npar.fittednorMmix")
+### * npar.fittednorMmix
+
+flush(stderr()); flush(stdout())
+
+### Name: npar.fittednorMmix
+### Title: Extract degrees of freedom from 'fittednorMmix'
+### Aliases: npar.fittednorMmix
+
+### ** Examples
+
+##---- Should be DIRECTLY executable !! ----
+##-- ==>  Define data, use random,
+##--	or do  help(data=index)  for the standard data sets.
+
+## The function is currently defined as
+function (obj) 
+{
+    stopifnot(inherits(obj, "fittednorMmix"))
+    k <- obj$k
+    p <- obj$p
+    models <- obj$models
+    val <- matrix(0, length(k), length(models))
+    rownames(val) <- k
+    colnames(val) <- models
+    for (i in seq_along(k)) {
+        for (j in seq_along(models)) {
+            val[i, j] <- npar(k[i], p, models[j])
+        }
+    }
+    val
+  }
 
 
 

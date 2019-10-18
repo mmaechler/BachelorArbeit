@@ -19,7 +19,7 @@ epfl(files, savdir, subt = 11)
       Expected to be of type \code{\link{list}}, containing character vectors. 
       These are assumed to be RDS filenames produced from \code{\link{saveRDS}}.
       They are assumed to work with \code{\link{massbic}}, meaning they contain
-      a list with named element \code{nMm}, which is the return value of 
+      a list with named element \code{fit}, which is the return value of 
       \code{\link{fitnMm}}. Furthermore, all are assumed to have the same 
       dimensions.
 }
@@ -36,24 +36,28 @@ epfl(files, savdir, subt = 11)
     To create a list of sorted filenames, use for example the code provided 
     here: 
 
-        filelist <- list()
-        for (i in seq_along(init)) {
-            for (j in seq_along(nmnames)) {
-                # for lack of AND matching, OR match everything else and invert
-                ret <- grep(paste(init[-i], nmnames[-j], sep="|"), 
-                            files, value=TRUE, invert=TRUE)
-                fillis[[paste0(init[i], nmnames[j])]] <- ret
-            }
-        }
+    #files <- list.files(dir, pattern=".rds")
+    #    p1 <- c("pattern1a", "pattern1b") ## search patterns
+    #    p2 <- c("pattern2a", "pattern2b")
+
+    #    filelist <- list()
+    #    for (i in seq_along(p1)) {
+    #        for (j in seq_along(p2)) {
+    #            # for lack of AND matching, OR match everything else and invert
+    #            r <- grep(paste(p1[-i], p2[-j], sep="|", collapse="|"), 
+    #                      files, value=TRUE, invert=TRUE)
+    #            filelist[[paste0(p1[i], p2[j])]] <- r
+    #        }
+    #    }
 
 
-    This will create a list of character vectors, matching filenames by init
-    and nmnames, which are character vectors to be matched.
+    This will create a list of character vectors, matching filenames by p1 and 
+    p2.
     % TODO: improve clarity here.
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-    No return value. Side effects:
+    No return value. Intended side effects:
     Produces \code{3*length(files)} PDFs named as follows:
     From each entry in \code{files} takes first string, subtracts \code{subt}
     characters and appends \code{".pdf", "_mcl.pdf"} and \code{"_comp.pdf"}

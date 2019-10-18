@@ -13,6 +13,12 @@ Dempster, A.~P., N.~M. Laird, and D.~B. Rubin (1977).
 \newblock {\em Journal of the Royal Statistical Society\/}~{\em 39\/}(1),
   1--38.
 
+\bibitem[\protect\citeauthoryear{L, M, TB, and AE.}{L et~al.}{2016}]{Scr16}
+L, S., F.~M, M.~TB, and R.~AE. (2016).
+\newblock mclust 5: Clustering, classification and density estimation using
+  gaussian finite mixture models.
+\newblock {\em R Journal\/}~{\em 8(1)}, 289–317.
+
 \bibitem[\protect\citeauthoryear{Marron and Wand}{Marron and
   Wand}{1992}]{Mar92}
 Marron, J.~S. and M.~P. Wand (1992).
@@ -24,5 +30,14 @@ Marron, J.~S. and M.~P. Wand (1992).
 McLachlan, G. and D.~Peel (2000).
 \newblock {\em Finite Mixture Models\/} (1 ed.).
 \newblock Wiley Series in Probability and Statistics. Wiley-Interscience.
+
+\bibitem[\protect\citeauthoryear{Pearson and Henrici}{Pearson and
+  Henrici}{1896}]{Pea96}
+Pearson, K. and O.~M. F.~E. Henrici (1896).
+\newblock Vii. mathematical contributions to the theory of
+  evolution.\&\#x2014;iii. regression, heredity, and panmixia.
+\newblock {\em Philosophical Transactions of the Royal Society of London.
+  Series A, Containing Papers of a Mathematical or Physical Character\/}~{\em
+  187}, 253--318.
 
 \end{thebibliography}

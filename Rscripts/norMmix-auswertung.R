@@ -1,7 +1,8 @@
 ## 
 
-devtools::load_all("~/ethz/BA/norMmix")
 library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+detach("package:norMmix", unload=TRUE)
+devtools::load_all("~/ethz/BA/norMmix")
 library(mclust)
 options(error=recover)
 options(error=NULL)
@@ -3284,3 +3285,113 @@ epfl <- function(files, savdir) {
 }
 
 epfl(files, "~/ethz/BA/Rscripts/smallinit")
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-15
+
+## did some tidying up in .tex files,
+## still can't get whole code to print into appendix
+## fixed, used scan(what="raw", sep="\n") | cat(sep="\n")
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-17
+
+## gave fitnMm save options: savdir and name
+## improved .Rd files
+## fixed plots in /2time
+
+## analyze /2time
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+files <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
+filetimes <- lapply(files, extracttimes)
+
+timetest <- extracttimes(files[[1]])
+at <- attributes(timetest)
+timetest[,,1] # loses attributes
+attributes(timetest[,,1])
+
+tmptime <- function(filetime) {
+    at <- attributes(filetime)
+    ft <- filetime[,,1]
+    attr(ft, "n") <- at$n
+    attr(ft, "p") <- at$p
+    ft
+}
+
+tryy <- lapply(filetimes, tmptime)
+
+dims <- unlist(lapply(filetimes, function(j) attr(j, "p")))
+size <- unlist(lapply(filetimes, function(j) attr(j, "n")))
+
+times <- unlist(tryy)
+ddims <- rep(dims, each=80)
+ssize <- rep(size, each=80)
+plot(log(ddims), log(times)-log(ssize))
+plot(log(ssize), log(times))
+
+## no idea how to analyze this
+tryyVVV <- lapply(tryy, function(j) j[,10])
+tVVV <- unlist(tryyVVV)
+plot(rep(dims, each=8), tVVV)
+tryy8 <- lapply(tryy, function(j) j[8,])
+t8 <- unlist(tryy8)
+plot(rep(dims, each=10), t8)
+
+tryymax <- unlist(lapply(tryy, function(j) j[8,10]))
+plot(dims, tryymax/size)
+
+
+f <- times ~ ddims + ssize
+r <- lm(f)
+
+aa <- norMmix:::npar.fittednorMmix
+aa(files[[1]])
+
+pars <- lapply(files, aa)
+ppars <- unlist(pars)
+
+g <- times ~ ppars
+r <- lm(g)
+plot(ppars, times)
+plot(log(ppars), log(times))
+
+## same same w/ 2init and 2ll
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2ll")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("*mcl.rds", filelist, value=TRUE, invert=TRUE)
+
+lis <- list()
+nmnames <- c("MW214", "MW34")
+
+for (i in nmnames) {
+    r <- grep(i, filelist, value=TRUE)
+    lis[[i]] <- r
+}
+
+epfl(lis, savdir, subt=18)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-18
+
+## fix plot colors
+
+nMmcols <- c("#4363d8", "#f58231", "#800000", "#ffe119", "#000075", 
+             "#fabebe", "#e6beff", "#a9a9a9", "#ffffff", "#000000")
+x <- rnorm(100)
+hist(x, col=nMmcols)
+
+## good colors
+
+## fixed massplot, compplot colors

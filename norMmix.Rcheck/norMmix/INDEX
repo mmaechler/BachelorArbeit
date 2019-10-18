@@ -2,7 +2,7 @@ MarronWand              Marron-Wand-like Specific Multivariate Normal
                         Mixture 'norMmix' Objects
 compplot                composition plot
 epfl                    evaluate and plot from file list
-extracttimes            Extract system time from 'fittednorMmix'
+extracttimes            Extract system time from 'fittednorMmix' object
 fitnMm                  Fit Several Normal Mixture Models to a Dataset
 ldl                     LDL' Cholesky Decomposition
 llmvtnorm               Log-Likelihood of Multivariate Normal Mixture
@@ -20,6 +20,7 @@ norMmixMLE              Maximum Likelihood Estimation for Multivariate
                         Normal Mixture Models
 npar                    Number of Free Parameters of Multivariate
                         Normal Mixture Models
+npar.fittednorMmix      Extract degrees of freedom from 'fittednorMmix'
 par2nMm                 Transform Parameter Vector to Multivariate
                         Normal Mixture
 plot.fittednorMmix      Plot method for the class 'fittednorMmix'

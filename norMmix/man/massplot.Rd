@@ -56,7 +56,7 @@ function (f, main = "unnamed")
 {
     ran <- extendrange(f)
     size <- dim(f)[3]
-    cl <- as.numeric(dimnames(f)$clusters)
+    cl <- as.numeric(dimnames(f)$components)
     p <- attr(f, "dims")
     adj <- exp(-0.002 * size)
     models <- mods()

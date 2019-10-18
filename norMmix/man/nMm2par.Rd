@@ -16,7 +16,7 @@ nMm2par(obj, trafo = c("clr1", "logit"),
       \item{\code{sig}:}{covariance matrix array,}
       \item{\code{mu}:}{mean vector matrix,}
       \item{\code{w}:}{= weights,}
-      \item{\code{k}:}{= number of clusters,}
+      \item{\code{k}:}{= number of components,}
       \item{\code{p}:}{= dimension}
     }
   }

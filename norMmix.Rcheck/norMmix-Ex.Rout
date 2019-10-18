@@ -175,7 +175,7 @@ function (files, savdir, subt = 11)
 > flush(stderr()); flush(stdout())
 > 
 > ### Name: extracttimes
-> ### Title: Extract system time from 'fittednorMmix'
+> ### Title: Extract system time from 'fittednorMmix' object
 > ### Aliases: extracttimes
 > 
 > ### ** Examples
@@ -227,7 +227,7 @@ function (object, ...)
 > ### ** Examples
 > 
 > x <- rnorMmix(500, MW21)
-> fitnMm(x, 1:3) ## will fit all models with 1:3 clusters
+> fitnMm(x, 1:3) ## will fit all models with 1:3 components
 initial  value 1452.208567 
 final  value 1452.208567 
 converged
@@ -346,12 +346,12 @@ iter  20 value 1449.554914
 iter  30 value 1449.523800
 iter  40 value 1449.514052
 iter  50 value 1449.373800
-iter  60 value 1448.589009
-iter  70 value 1445.424476
-iter  80 value 1444.624717
-iter  90 value 1443.844692
-iter 100 value 1441.064709
-final  value 1441.064709 
+iter  60 value 1448.588999
+iter  70 value 1445.424996
+iter  80 value 1444.627573
+iter  90 value 1443.832034
+iter 100 value 1440.749346
+final  value 1440.749346 
 stopped after 100 iterations
 initial  value 1484.964311 
 iter  10 value 1452.636765
@@ -372,13 +372,14 @@ iter  10 value 1453.047615
 iter  20 value 1449.922796
 iter  30 value 1449.436012
 iter  40 value 1449.247082
-iter  50 value 1443.980662
-iter  60 value 1443.422947
-iter  70 value 1443.283371
-iter  80 value 1442.768615
-iter  90 value 1441.632915
-final  value 1441.618331 
-converged
+iter  50 value 1443.980736
+iter  60 value 1443.423020
+iter  70 value 1443.283811
+iter  80 value 1442.670652
+iter  90 value 1441.725234
+iter 100 value 1441.620724
+final  value 1441.620724 
+stopped after 100 iterations
 initial  value 1487.253867 
 iter  10 value 1450.977312
 iter  20 value 1449.859172
@@ -392,13 +393,12 @@ iter  20 value 1449.561777
 iter  30 value 1449.526882
 iter  40 value 1449.517386
 iter  50 value 1449.504441
-iter  60 value 1449.051878
-iter  70 value 1446.170688
-iter  80 value 1445.589186
-iter  90 value 1444.634745
-iter 100 value 1444.365409
-final  value 1444.365409 
-stopped after 100 iterations
+iter  60 value 1449.051805
+iter  70 value 1446.207641
+iter  80 value 1445.706814
+iter  90 value 1444.651106
+final  value 1444.649591 
+converged
 initial  value 1480.271206 
 iter  10 value 1449.841883
 iter  20 value 1447.502214
@@ -409,15 +409,15 @@ converged
 initial  value 1480.038630 
 iter  10 value 1450.018526
 iter  20 value 1448.879725
-iter  30 value 1447.255036
-iter  40 value 1446.503637
-iter  50 value 1446.290269
-iter  60 value 1444.906578
-iter  70 value 1444.103235
-iter  80 value 1442.462647
-iter  90 value 1441.602878
-iter 100 value 1441.555975
-final  value 1441.555975 
+iter  30 value 1447.255024
+iter  40 value 1446.503648
+iter  50 value 1446.290412
+iter  60 value 1444.888903
+iter  70 value 1444.201507
+iter  80 value 1444.013497
+iter  90 value 1442.169783
+iter 100 value 1441.649647
+final  value 1441.649647 
 stopped after 100 iterations
 
 fitted normal mixture:
@@ -425,10 +425,11 @@ fitted normal mixture:
  fitted components and models: 
  1 2 3 
  EII VII EEI VEI EVI VVI EEE VEE EVV VVV 
-total time: 	 16.106 0.195 16.412 0 0 
+total time: 	 7.76 0.032 7.805 0 0 
 
 best fit:	 1 EII 
- logLik: 	 1452.209> 
+ logLik: 	 1452.209 
+> 
 > 
 > 
 > cleanEx()
@@ -478,7 +479,7 @@ $D
 > 
 > system.time(for(i in 1:10000) ldl(FF) ) # ~ 0.2 sec
    user  system elapsed 
-  0.401   0.000   0.403 
+  0.216   0.000   0.215 
 > 
 > (L <- rbind(c( 1, 0, 0, 0),
 +             c( 3, 1, 0, 0),
@@ -503,7 +504,7 @@ $D
 > 
 > system.time(for(i in 1:10000) ldl(F4) )
    user  system elapsed 
-  0.467   0.001   0.473 
+  0.212   0.000   0.211 
 > 
 > 
 > ## rank deficient :
@@ -755,15 +756,15 @@ i= 99, n= 26 [ok]
 > 
 > system.time(chkLDL( 500)) # 0.62
    user  system elapsed 
-  2.075   0.079   2.167 
+  1.504   1.616   0.799 
 > 
 > try( ## this almost never "works":
 + system.time(chkLDL( 500, rF = rnorm, rFD = function(n) 10 + runif(n))) # 0.64
 + )
-Timing stopped at: 1.922 0.037 1.977
+Timing stopped at: 1.356 1.296 0.68
 Error in chkLDL(500, rF = rnorm, rFD = function(n) 10 + runif(n)) : 
   L and r$L are not equal:
-  Mean relative difference: 0.7167574
+  Mean relative difference: 0.8071884
 > 
 > if(interactive())
 +    system.time(chkLDL( 600)) # 1.09
@@ -816,7 +817,7 @@ Error in chkLDL(500, rF = rnorm, rFD = function(n) 10 + runif(n)) :
 +         val[, , i] <- BIC(nm$fit)[[1]]
 +         dims[i] <- nm$fit$p
 +     }
-+     dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
++     dimnames(val) <- list(components = cl, models = mo, simulation = string)
 +     attr(val, "dims") <- dims
 +     val
 +   }
@@ -832,7 +833,7 @@ function (string, DIR)
         val[, , i] <- BIC(nm$fit)[[1]]
         dims[i] <- nm$fit$p
     }
-    dimnames(val) <- list(clusters = cl, models = mo, simulation = string)
+    dimnames(val) <- list(components = cl, models = mo, simulation = string)
     attr(val, "dims") <- dims
     val
 }
@@ -869,7 +870,7 @@ function (string, DIR)
 +         valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
 +         dims[i] <- nm$fit$p
 +     }
-+     dimnames(valm) <- list(clusters = cl, models = mo, files = string)
++     dimnames(valm) <- list(components = cl, models = mo, files = string)
 +     attr(valm, "dims") <- dims
 +     -valm
 +   }
@@ -886,7 +887,7 @@ function (string, DIR)
         valm[, , i] <- mclust::Mclust(x, G = cl, modelNames = mo)$BIC
         dims[i] <- nm$fit$p
     }
-    dimnames(valm) <- list(clusters = cl, models = mo, files = string)
+    dimnames(valm) <- list(components = cl, models = mo, files = string)
     attr(valm, "dims") <- dims
     -valm
 }
@@ -914,7 +915,7 @@ function (string, DIR)
 + {
 +     ran <- extendrange(f)
 +     size <- dim(f)[3]
-+     cl <- as.numeric(dimnames(f)$clusters)
++     cl <- as.numeric(dimnames(f)$components)
 +     p <- attr(f, "dims")
 +     adj <- exp(-0.002 * size)
 +     models <- mods()
@@ -942,7 +943,7 @@ function (f, main = "unnamed")
 {
     ran <- extendrange(f)
     size <- dim(f)[3]
-    cl <- as.numeric(dimnames(f)$clusters)
+    cl <- as.numeric(dimnames(f)$components)
     p <- attr(f, "dims")
     adj <- exp(-0.002 * size)
     models <- mods()
@@ -1077,6 +1078,58 @@ converged
 > 
 > 
 > cleanEx()
+> nameEx("npar.fittednorMmix")
+> ### * npar.fittednorMmix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: npar.fittednorMmix
+> ### Title: Extract degrees of freedom from 'fittednorMmix'
+> ### Aliases: npar.fittednorMmix
+> 
+> ### ** Examples
+> 
+> ##---- Should be DIRECTLY executable !! ----
+> ##-- ==>  Define data, use random,
+> ##--	or do  help(data=index)  for the standard data sets.
+> 
+> ## The function is currently defined as
+> function (obj) 
++ {
++     stopifnot(inherits(obj, "fittednorMmix"))
++     k <- obj$k
++     p <- obj$p
++     models <- obj$models
++     val <- matrix(0, length(k), length(models))
++     rownames(val) <- k
++     colnames(val) <- models
++     for (i in seq_along(k)) {
++         for (j in seq_along(models)) {
++             val[i, j] <- npar(k[i], p, models[j])
++         }
++     }
++     val
++   }
+function (obj) 
+{
+    stopifnot(inherits(obj, "fittednorMmix"))
+    k <- obj$k
+    p <- obj$p
+    models <- obj$models
+    val <- matrix(0, length(k), length(models))
+    rownames(val) <- k
+    colnames(val) <- models
+    for (i in seq_along(k)) {
+        for (j in seq_along(models)) {
+            val[i, j] <- npar(k[i], p, models[j])
+        }
+    }
+    val
+}
+> 
+> 
+> 
+> cleanEx()
 > nameEx("par2nMm")
 > ### * par2nMm
 > 
@@ -1105,18 +1158,10 @@ converged
 > ### ** Examples
 > 
 > (m <- eval(formals(npar)$model)) # list of 10 models w/ differing Sigma
- [1] "EII" "VII" "EEI" "VEI" "EVI" "VVI" "EEE" "VEE" "EVV" "VVV"
+NULL
 > # A nice table for a given 'p'  and all models, all k in 1:8
 > sapply(m, npar, k=setNames(,1:8), p = 20)
-  EII VII EEI VEI EVI VVI EEE VEE  EVV  VVV
-1  21  21  40  40  40  40 230 230  230  230
-2  42  43  61  62  80  81 251 252  460  461
-3  63  65  82  84 120 122 272 274  690  692
-4  84  87 103 106 160 163 293 296  920  923
-5 105 109 124 128 200 204 314 318 1150 1154
-6 126 131 145 150 240 245 335 340 1380 1385
-7 147 153 166 172 280 286 356 362 1610 1616
-8 168 175 187 194 320 327 377 384 1840 1847
+list()
 > 
 > 
 > 
@@ -1167,7 +1212,7 @@ converged
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  39.612 0.69 40.624 0 0 
+Time elapsed:  18.048 4.064 16.318 0 0 
 > grDevices::dev.off()
 null device 
           1 
