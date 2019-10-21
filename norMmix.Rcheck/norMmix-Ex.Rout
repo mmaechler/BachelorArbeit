@@ -180,7 +180,7 @@ fitted normal mixture:
  fitted components and models: 
  1 2 
  EII VII EEI VEI 
-total time: 	 0.604 0 0.609 0 0 
+total time: 	 0.596 0 0.594 0 0 
 
 best fit:	 1 EII 
  logLik: 	 1452.209 
@@ -234,7 +234,7 @@ $D
 > 
 > system.time(for(i in 1:10000) ldl(FF) ) # ~ 0.2 sec
    user  system elapsed 
-   0.18    0.00    0.18 
+  0.180   0.000   0.179 
 > 
 > (L <- rbind(c( 1, 0, 0, 0),
 +             c( 3, 1, 0, 0),
@@ -259,7 +259,7 @@ $D
 > 
 > system.time(for(i in 1:10000) ldl(F4) )
    user  system elapsed 
-  0.212   0.000   0.210 
+  0.204   0.000   0.205 
 > 
 > 
 > ## rank deficient :
@@ -511,12 +511,12 @@ i= 99, n= 26 [ok]
 > 
 > system.time(chkLDL( 500)) # 0.62
    user  system elapsed 
-  1.336   1.564   0.753 
+  1.380   1.552   0.808 
 > 
 > try( ## this almost never "works":
 + system.time(chkLDL( 500, rF = rnorm, rFD = function(n) 10 + runif(n))) # 0.64
 + )
-Timing stopped at: 1.768 2.012 1.08
+Timing stopped at: 1.384 1.816 0.828
 Error in chkLDL(500, rF = rnorm, rFD = function(n) 10 + runif(n)) : 
   L and r$L are not equal:
   Mean relative difference: 0.8071884
@@ -1051,7 +1051,7 @@ weight of components 0.5 0.5
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.564 4.612 7.743 0 0 
+Time elapsed:  9.188 4.408 7.55 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  20 OCT 2019 16:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  21 OCT 2019 14:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -964,7 +964,7 @@ File: lstlang3.sty 2015/06/04 1.6 listings language file
 \c@definition=\count136
 
 (./BachelorThesis-Engl.aux (./chapter1.aux) (./chapter2.aux) (./chapter3.aux)
-(./chapter4.aux) (./App_llnorMmix.aux))
+(./chapter4.aux) (./App_llnorMmix.aux) (./App_plots.aux))
 \openout1 = `BachelorThesis-Engl.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
@@ -1124,21 +1124,21 @@ File: ts1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `TS1/aett/m/n' in size <10.95> not available
 (Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 250.
 
-<chapter1-figTrimodal.pdf, id=223, 433.62pt x 433.62pt>
+<chapter1-figTrimodal.pdf, id=238, 433.62pt x 433.62pt>
 File: chapter1-figTrimodal.pdf Graphic file (type pdf)
 
 <use chapter1-figTrimodal.pdf>
 Package pdftex.def Info: chapter1-figTrimodal.pdf used on input line 261.
 (pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
-<chapter1-fignor1mixEx.pdf, id=224, 433.62pt x 433.62pt>
+<chapter1-fignor1mixEx.pdf, id=239, 433.62pt x 433.62pt>
 File: chapter1-fignor1mixEx.pdf Graphic file (type pdf)
 
 <use chapter1-fignor1mixEx.pdf>
 Package pdftex.def Info: chapter1-fignor1mixEx.pdf used on input line 281.
 (pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
-<chapter1-figplotemsteps.pdf, id=225, 433.62pt x 433.62pt>
+<chapter1-figplotemsteps.pdf, id=240, 433.62pt x 433.62pt>
 File: chapter1-figplotemsteps.pdf Graphic file (type pdf)
 
 <use chapter1-figplotemsteps.pdf>
@@ -1169,31 +1169,87 @@ Underfull \vbox (badness 2529) has occurred while \output is active []
 
 ]
 Chapter 3.
-[13] <chapter3-figtime.pdf, id=293, 433.62pt x 433.62pt>
+[13] <chapter3-figtime.pdf, id=307, 433.62pt x 433.62pt>
 File: chapter3-figtime.pdf Graphic file (type pdf)
 
 <use chapter3-figtime.pdf>
-Package pdftex.def Info: chapter3-figtime.pdf used on input line 56.
+Package pdftex.def Info: chapter3-figtime.pdf used on input line 57.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <chapter3-fig5fit.pdf, id=308, 433.62pt x 433.62pt>
+File: chapter3-fig5fit.pdf Graphic file (type pdf)
+
+<use chapter3-fig5fit.pdf>
+Package pdftex.def Info: chapter3-fig5fit.pdf used on input line 77.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
-Underfull \vbox (badness 1502) has occurred while \output is active []
 
- [14 <./chapter3-figtime.pdf>]) [15]
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<chapter3-fig10fit.pdf, id=309, 433.62pt x 433.62pt>
+File: chapter3-fig10fit.pdf Graphic file (type pdf)
+
+<use chapter3-fig10fit.pdf>
+Package pdftex.def Info: chapter3-fig10fit.pdf used on input line 85.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+<chapter3-figMW34.pdf, id=310, 433.62pt x 433.62pt>
+File: chapter3-figMW34.pdf Graphic file (type pdf)
+ <use chapter3-figMW34.pdf>
+Package pdftex.def Info: chapter3-figMW34.pdf used on input line 100.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<chapter3-figMW34bic.pdf, id=311, 433.62pt x 433.62pt>
+File: chapter3-figMW34bic.pdf Graphic file (type pdf)
+
+<use chapter3-figMW34bic.pdf>
+Package pdftex.def Info: chapter3-figMW34bic.pdf used on input line 111.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14 <./chapter3-figtime.pdf>]
+<chapter3-figMW214.pdf, id=323, 433.62pt x 433.62pt>
+File: chapter3-figMW214.pdf Graphic file (type pdf)
+
+<use chapter3-figMW214.pdf>
+Package pdftex.def Info: chapter3-figMW214.pdf used on input line 125.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<chapter3-figMW214bic.pdf, id=324, 433.62pt x 433.62pt>
+File: chapter3-figMW214bic.pdf Graphic file (type pdf)
+
+<use chapter3-figMW214bic.pdf>
+Package pdftex.def Info: chapter3-figMW214bic.pdf used on input line 150.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) [15 <./chapter3-fig5fit.pdf>] [16 <./chapter3-fig10fit.pdf>] [17 <./chapter3-
+figMW34.pdf>] [18 <./chapter3-figMW34bic.pdf>] [19 <./chapter3-figMW214.pdf>]
+[20 <./chapter3-figMW214bic.pdf>]
 \openout2 = `chapter4.aux'.
 
- (./chapter4.tex [16
-
-
-
-]
+ (./chapter4.tex
 Chapter 4.
-) [17] (./BachelorThesis-Engl.bbl [18
+) [21
 
 
-]) [19]
+
+] (./BachelorThesis-Engl.bbl [22
+
+
+]) [23]
 \openout2 = `App_llnorMmix.aux'.
 
- (./App_llnorMmix.tex [20
+ (./App_llnorMmix.tex [24
 
 
 ]
@@ -1211,91 +1267,93 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 1.
 
-[21]
+[25]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [22]
+ [26]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [23]
+ [27]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [24]
-[25]) [26
+ [28]
+[29]) [30
 
 ]
-<confirmation-originality-scan.pdf, id=356, 597.432pt x 845.07718pt>
+\openout2 = `App_plots.aux'.
+
+ (./App_plots.tex
+Appendix B.
+) [31
+
+
+
+] [32
+
+
+]
+<confirmation-originality-scan.pdf, id=454, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
 Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
-21.
+22.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
 Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
-21.
+22.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 
-<confirmation-originality-scan.pdf, id=359, page=1, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=457, page=1, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 221.
+ line 222.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 221.
+ line 222.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 221.
+ line 222.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 221.
+ line 222.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
- line 221.
+ line 222.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
- [27
-
-
- <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 222.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 222.
+ [33 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 223.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 223.
  (./BachelorThesis-Engl.aux
 (./chapter1.aux) (./chapter2.aux) (./chapter3.aux) (./chapter4.aux)
-(./App_llnorMmix.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 222.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 222.
-
-
-Package rerunfilecheck Warning: File `BachelorThesis-Engl.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `BachelorThesis-Engl.out':
-(rerunfilecheck)             Before: 18BD54D14EF9E62098E58C3C16DC7FC6;1238
-(rerunfilecheck)             After:  1AFA9C5EB734F1BD68C320737DC52BE6;1297.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 222.
+(./App_llnorMmix.aux) (./App_plots.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 223.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 223.
+Package rerunfilecheck Info: File `BachelorThesis-Engl.out' has not changed.
+(rerunfilecheck)             Checksum: FACE876B7BC21FA556B92FCCE1D69C82;1398.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 223.
  ) 
 Here is how much of TeX's memory you used:
- 11691 strings out of 494953
- 161618 string characters out of 6180977
- 307178 words of memory out of 5000000
- 14546 multiletter control sequences out of 15000+600000
+ 11740 strings out of 494953
+ 162583 string characters out of 6180977
+ 308178 words of memory out of 5000000
+ 14574 multiletter control sequences out of 15000+600000
  60885 words of font info for 132 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  43i,20n,51p,298b,498s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1319,10 +1377,10 @@ ts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/typ
 e1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
 lic/amsfonts/latxfont/linew10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/symbols/msbm10.pfb>
-Output written on BachelorThesis-Engl.pdf (33 pages, 1149936 bytes).
+Output written on BachelorThesis-Engl.pdf (39 pages, 1220803 bytes).
 PDF statistics:
- 454 PDF objects out of 1000 (max. 8388607)
- 380 compressed objects within 4 object streams
- 73 named destinations out of 1000 (max. 500000)
- 201 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 555 PDF objects out of 1000 (max. 8388607)
+ 462 compressed objects within 5 object streams
+ 81 named destinations out of 1000 (max. 500000)
+ 255 words of extra memory for PDF output out of 10000 (max. 10000000)
 

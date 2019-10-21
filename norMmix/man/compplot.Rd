@@ -9,8 +9,9 @@
     arrays and overlays their plots.
 }
 \usage{
-compplot(f, g, main = "unnamed", adj = 1/dim(f)[3], col = nMmcols[1:2], 
-         mar = 0.1 + c(1.4, 2, 3, 1), ...)
+compplot(f, g, h=NULL, main = "unnamed", adj = 1/dim(f)[3],
+         col = nMmcols[1:3], mar = 0.1 + c(1.4, 2, 3, 1), 
+         compnames = c("clara", "mclVVV", "Mclust"), ...)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -20,6 +21,9 @@ compplot(f, g, main = "unnamed", adj = 1/dim(f)[3], col = nMmcols[1:2],
     }
     \item{g}{
         Array as from \code{\link{massbic}} or \code{\link{massbicm}}
+    }
+    \item{h}{
+        Optional third array.
     }
     \item{main}{
         Character string to be used as title of the plot.
@@ -32,6 +36,9 @@ compplot(f, g, main = "unnamed", adj = 1/dim(f)[3], col = nMmcols[1:2],
     }
     \item{mar}{
         Margin space adjustment
+    }
+    \item{compnames}{
+        placeholder %% TODO: writeup
     }
     \item{...}{
         further arguments passed on to \code{\link{matplot}}

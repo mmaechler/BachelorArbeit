@@ -8,7 +8,8 @@ here how much time they take, in p,k and n give approximate O(x) value
 \begin{Schunk}
 \begin{Sinput}
 >     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
->     savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+>     mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+>     savdir <- file.path(mainsav, "2time")
 >     filelist <- list.files(savdir, pattern=".rds")
 >     filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
 >     f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
@@ -65,15 +66,89 @@ can see that time is almost one to one proportional to parameter length.
 % it 1
 here show as expected narrower scattering as n increases
 
+
+\begin{figure}[h]
+    \centering
+\begin{Schunk}
+\begin{Sinput}
+>     compplot(s05mw34bic, m0534)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-fig5fit}
+\end{figure}[h]
+\begin{figure}
+\begin{Schunk}
+\begin{Sinput}
+>     compplot(s10mw34bic, m1034)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-fig10fit}
+\end{figure}
+
+
 \section{Behaviour in {\tt p}}
 
 % it 1
 here show how norMmix is consistently competitive with mclust
+
+\begin{figure}[h]
+\begin{Schunk}
+\begin{Sinput}
+>     plot(MW34)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-figMW34}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\begin{Schunk}
+\begin{Sinput}
+>     compplot(clarabic, mclbic, mclustbic, main="Fit of MW34")
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-figMW34bic}
+\end{figure}
 
 \section{Diffixult Mixtures}
 
 % it 1
 here show behaviour in difficult cases
 
-\section{Nonnormal mixtures}
+\begin{figure}[h]
+\begin{Schunk}
+\begin{Sinput}
+>     plot(MW214)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-figMW214}
+\end{figure}
+
+
+\begin{Schunk}
+\begin{Sinput}
+>     savdir <- file.path(mainsav, "2init")
+>     filenames <- list.files(savdir, pattern=".rds")
+>     MW214fn <- grep("MW214", filenames, value="TRUE")
+>     mclustfiles <- grep("mcl.rds", MW214fn, value=TRUE)
+>     MW214fn <- grep("mcl.rds", MW214fn, value="TRUE", invert=TRUE)
+>     claraMW <- grep("clara", MW214fn, value=TRUE)
+>     mclMW <- grep("mclVVV", MW214fn, value=TRUE)
+>     clarabic <- massbic(claraMW, savdir)
+>     mclbic <- massbic(mclMW, savdir)
+>     mclustbic <- readRDS(file.path(savdir,mclustfiles[1]))
+\end{Sinput}
+\end{Schunk}
+
+\begin{figure}[h]
+\begin{Schunk}
+\begin{Sinput}
+>     compplot(clarabic, mclbic, mclustbic, main="Fit of MW214")
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-figMW214bic}
+\end{figure}
+
+\section{Nonnormal Mixtures}
 

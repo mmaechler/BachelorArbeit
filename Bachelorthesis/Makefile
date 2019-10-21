@@ -1,4 +1,5 @@
-BachelorThesis-Engl.pdf: BachelorThesis-Engl.tex chapter1.tex chapter2.tex chapter3.tex chapter4.tex References.bib App_llnorMmix.tex
+BachelorThesis-Engl.pdf: BachelorThesis-Engl.tex chapter1.tex chapter2.tex \
+	chapter3.tex chapter4.tex References.bib App_llnorMmix.tex App_plots.tex
 	pdflatex BachelorThesis-Engl.tex
 
 chapter1.tex: chapter1.Rnw
@@ -11,6 +12,8 @@ chapter4.tex: chapter4.Rnw
 	R CMD Sweave $^
 
 App_llnorMmix.tex: App_llnorMmix.Rnw
+	R CMD Sweave $^
+App_plots.tex: App_plots.Rnw
 	R CMD Sweave $^
 
 .PHONY: bib

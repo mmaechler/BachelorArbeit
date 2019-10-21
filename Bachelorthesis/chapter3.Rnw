@@ -7,8 +7,9 @@ here how much time they take, in p,k and n give approximate O(x) value
 
 <<time, echo=TRUE>>=
     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+    mainsav <- normalizePath("~/ethz/BA/Rscripts/")
 
-    savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+    savdir <- file.path(mainsav, "2time")
     filelist <- list.files(savdir, pattern=".rds")
     filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
     f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
@@ -44,15 +45,118 @@ can see that time is almost one to one proportional to parameter length.
 % it 1
 here show as expected narrower scattering as n increases
 
+<<nfit, echo=FALSE>>=
+    savdir <- file.path(mainsav, "2time")
+    filenames <- list.files(savdir, pattern="seed=")
+    size05 <- grep("size=0500", filenames, value=TRUE)
+    size10 <- grep("size=1000", filenames, value=TRUE)
+    size20 <- grep("size=2000", filenames, value=TRUE)
+
+    size05mw34 <- grep("MW34", size05, value=TRUE)
+    size05mw51 <- grep("MW51", size05, value=TRUE)
+    size05mw214 <- grep("MW214", size05, value=TRUE)
+
+    size10mw34 <- grep("MW34", size10, value=TRUE)
+    size10mw51 <- grep("MW51", size10, value=TRUE)
+    size10mw214 <- grep("MW214", size10, value=TRUE)
+
+    size20mw34 <- grep("MW34", size20, value=TRUE)
+    size20mw51 <- grep("MW51", size20, value=TRUE)
+    size20mw214 <- grep("MW214", size20, value=TRUE)
+
+    s05mw34bic <- massbic(size05mw34, savdir)
+    s10mw34bic <- massbic(size10mw34, savdir)
+
+    mfn <- list.files(savdir, pattern="mcl.rds")
+    ## mclust bic values
+    # MW214
+    m05214 <- readRDS(file.path(savdir,mfn[1]))
+    m10214 <- readRDS(file.path(savdir,mfn[2]))
+    m20214 <- readRDS(file.path(savdir,mfn[3]))
+    # MW34
+    m0534 <- readRDS(file.path(savdir,mfn[4]))
+    m1034 <- readRDS(file.path(savdir,mfn[5]))
+    m2034 <- readRDS(file.path(savdir,mfn[6]))
+    # MW51
+    m0551 <- readRDS(file.path(savdir,mfn[7]))
+    m1051 <- readRDS(file.path(savdir,mfn[8]))
+    m2051 <- readRDS(file.path(savdir,mfn[9]))
+@
+
+\begin{figure}[h]
+    \centering
+<<fig5fit, fig=TRUE>>=
+    compplot(s05mw34bic, m0534)
+@
+\end{figure}[h]
+\begin{figure}
+<<fig10fit, fig=TRUE>>=
+    compplot(s10mw34bic, m1034)
+@
+\end{figure}
+
+
 \section{Behaviour in {\tt p}}
 
 % it 1
 here show how norMmix is consistently competitive with mclust
+
+\begin{figure}[h]
+<<figMW34, fig=TRUE>>=
+    plot(MW34)
+@
+\end{figure}
+
+
+<<MW34fit, echo=FALSE>>=
+    savdir <- file.path(mainsav, "2init")
+    filenames <- list.files(savdir, pattern=".rds")
+    MW34fn <- grep("MW34", filenames, value="TRUE")
+    mclustfiles <- grep("mcl.rds", MW34fn, value=TRUE)
+    MW34fn <- grep("mcl.rds", MW34fn, value="TRUE", invert=TRUE)
+    claraMW <- grep("clara", MW34fn, value=TRUE)
+    mclMW <- grep("mclVVV", MW34fn, value=TRUE)
+    clarabic <- massbic(claraMW, savdir)
+    mclbic <- massbic(mclMW, savdir)
+    mclustbic <- readRDS(file.path(savdir,mclustfiles[1]))
+@
+
+\begin{figure}[h]
+<<figMW34bic, fig=TRUE>>=
+    compplot(clarabic, mclbic, mclustbic, main="Fit of MW34")
+@
+\end{figure}
 
 \section{Diffixult Mixtures}
 
 % it 1
 here show behaviour in difficult cases
 
-\section{Nonnormal mixtures}
+\begin{figure}[h]
+<<figMW214, fig=TRUE>>=
+    plot(MW214)
+@
+\end{figure}
+
+
+<<MW214fit>>=
+    savdir <- file.path(mainsav, "2init")
+    filenames <- list.files(savdir, pattern=".rds")
+    MW214fn <- grep("MW214", filenames, value="TRUE")
+    mclustfiles <- grep("mcl.rds", MW214fn, value=TRUE)
+    MW214fn <- grep("mcl.rds", MW214fn, value="TRUE", invert=TRUE)
+    claraMW <- grep("clara", MW214fn, value=TRUE)
+    mclMW <- grep("mclVVV", MW214fn, value=TRUE)
+    clarabic <- massbic(claraMW, savdir)
+    mclbic <- massbic(mclMW, savdir)
+    mclustbic <- readRDS(file.path(savdir,mclustfiles[1]))
+@
+
+\begin{figure}[h]
+<<figMW214bic, fig=TRUE>>=
+    compplot(clarabic, mclbic, mclustbic, main="Fit of MW214")
+@
+\end{figure}
+
+\section{Nonnormal Mixtures}
 

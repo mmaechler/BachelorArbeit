@@ -14,11 +14,13 @@
 \contentsline {section}{\numberline {3.2}Behaviour in {\tt n}}{14}{section.3.2}
 \contentsline {section}{\numberline {3.3}Behaviour in {\tt p}}{14}{section.3.3}
 \contentsline {section}{\numberline {3.4}Diffixult Mixtures}{15}{section.3.4}
-\contentsline {section}{\numberline {3.5}Nonnormal mixtures}{15}{section.3.5}
-\contentsline {chapter}{\numberline {4}Discussion}{17}{chapter.4}
+\contentsline {section}{\numberline {3.5}Nonnormal Mixtures}{15}{section.3.5}
+\contentsline {chapter}{\numberline {4}Discussion}{21}{chapter.4}
 \@LN@changevadjust \vspace {.5\baselineskip }
-\contentsline {chapter}{\numberline {}{Bibliography}}{18}{section*.4}
+\contentsline {chapter}{\numberline {}{Bibliography}}{22}{section*.4}
 \@LN@changevadjust \vspace {.5\baselineskip }
-\contentsline {chapter}{\numberline {A}\textsf {R}$\tmspace +\thickmuskip {.2777em}$Code}{21}{appendix.A}
-\contentsline {section}{\numberline {A.1}{\tt llnorMmix}}{21}{section.A.1}
-\contentsline {section}{\numberline {A.2}Example Simulation Script}{26}{section.A.2}
+\contentsline {chapter}{\numberline {A}\textsf {R}$\tmspace +\thickmuskip {.2777em}$Code}{25}{appendix.A}
+\contentsline {section}{\numberline {A.1}{\tt llnorMmix}}{25}{section.A.1}
+\contentsline {section}{\numberline {A.2}Example Simulation Script}{30}{section.A.2}
+\contentsline {chapter}{\numberline {B}Further Plots}{31}{appendix.B}
+\contentsline {section}{\numberline {B.1}Ch3}{31}{section.B.1}
