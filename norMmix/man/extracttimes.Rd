@@ -43,26 +43,8 @@ extracttimes(object, ...)
     \code{\link{system.time}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (object, ...) 
-{
-    stopifnot(inherits(object, "fittednorMmix"))
-    ti <- unlist(object$nMmtime)
-    na <- names(ti)[1:5]
-    co <- object$k
-    mo <- object$models
-    ti <- c(matrix(ti, ncol = 5, byrow = TRUE))
-    r <- array(ti, lengths(list(co, mo, na)))
-    dimnames(r) <- list(k = co, models = mo, proc_time = na)
-    class(r) <- "fittednorMmix_time"
-    r
-  }
+data(fSMI.12, package="norMmix")
+extracttimes(fSMI.12)[,,1] ## user.self entry of system.time
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

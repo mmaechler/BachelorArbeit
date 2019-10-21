@@ -36,12 +36,14 @@ nMm2par(obj, trafo = c("clr1", "logit"),
     Cov mats are given as D and L from the LDLt decomposition
 }
 \seealso{
-  %% \code{\link{n2p}}; %% <<-- new name ???
-  the \emph{inverse} function of \code{nMm2par()} is \code{\link{par2nMm}()}.
+    \code{\link{nc2p}} simplified wrapper function.
+    
+    the \emph{inverse} function of \code{nMm2par()} is \code{\link{par2nMm}()}.
 }
 
 \examples{
 A <- MW24
-if(FALSE) # currently fails  __FIXME__
 nMm2par(A, trafo = "clr1", model = A$model)
+# [1] -0.3465736  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000
+# [7] -2.3025851
 }

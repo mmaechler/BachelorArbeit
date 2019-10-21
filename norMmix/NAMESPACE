@@ -79,10 +79,8 @@ export(MW21, MW22
 
 S3method(print, norMmix)
 S3method(plot,  norMmix)
+S3method(npar,  norMmix)
 
-## TODO (?)
-## S3method(AIC, norMmixfit)
-## S3method(BIC, norMmixfit)
 S3method(logLik, norMmixMLE)
 S3method(nobs,   norMmixMLE)
 S3method(npar,   norMmixMLE)

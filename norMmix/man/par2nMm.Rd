@@ -42,5 +42,18 @@ par2nMm(par, p, k, model = c("EII","VII","EEI","VEI","EVI",
 }
 \examples{
 ## TODO: Show to get the list, and then how to get a  norMmix() object from the list
+str(MW213)
+# List of 6
+#  $ model : chr "VVV"
+#  $ mu    : num [1:2, 1:2] 0 0 30 30
+#  $ Sigma : num [1:2, 1:2, 1:2] 1 3 3 11 3 6 6 13
+#  $ weight: num [1:2] 0.5 0.5
+#  $ k     : int 2
+#  $ dim   : int 2
+#  - attr(*, "name")= chr "#13 test VVV"
+#  - attr(*, "class")= chr "norMmix"
+# NULL
+para <- nMm2par(MW213, model="EEE")
+par2nMm(para, 2, 2, model="EEE")
 }
 %% \keyword{}

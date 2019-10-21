@@ -1,12 +1,23 @@
 \chapter{\Rp Code}
 \section{{\tt llnorMmix}}
 
+% it 1
+Here {\tt llnorMmix}, since it is the central piece of the package,
+and 2time.R as an example of a simulation script.
+
+
 <<appllnorMmix, echo=FALSE, results=verbatim>>=
 #source("~/ethz/BA/norMmix/R/llnorMmix.R", echo=TRUE)
 cat(scan("~/ethz/BA/norMmix/R/llnorMmix.R", what="character", sep="\n"), sep="\n")
 @
 
+\clearpage
 \section{Example Simulation Script}
 
 % TODO:
 here e.g. 2init.R and write some remarks on it.
+
+<<app2time, echo=FALSE, results=verbatim>>=
+cat(scan("~/ethz/BA/Rscripts/2time/2time.R", what="raw", sep="\n"), sep="\n")
+@
+

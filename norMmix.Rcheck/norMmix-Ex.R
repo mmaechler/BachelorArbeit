@@ -37,31 +37,10 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (f, g, main = "unnamed") 
-{
-    ylim <- extendrange(c(f, g))
-    adj <- 0.4
-    op <- sfsmisc::mult.fig(mfrow = c(2, 5), main = main, mar = 0.1 + 
-        c(2, 4, 4, 1))
-    models <- dimnames(f)$models
-    for (i in 1:10) {
-        matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i], 
-            adj), main = models[i], type = "l", ylim = ylim)
-        matplot(g[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i + 
-            10], adj), main = models[i], type = "l", ylim = ylim, 
-            add = TRUE)
-    }
-    par(op$old.par)
-  }
+## TODO: add example
 
 
 
-graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 cleanEx()
 nameEx("epfl")
 ### * epfl
@@ -74,33 +53,7 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (files, savdir, subt = 11) 
-{
-    stopifnot(is.list(files), dir.exists(savdir))
-    setwd(savdir)
-    for (fi in files) {
-        if (length(fi) == 0) {
-            next
-        }
-        main <- substring(fi[1], 1, nchar(fi[1]) - subt)
-        f <- massbic(fi, savdir)
-        g <- massbicm(fi, savdir)
-        pdf(file = paste0(main, ".pdf"))
-        massplot(f, main = main)
-        dev.off()
-        pdf(file = paste0(main, "_mcl.pdf"))
-        massplot(g, main = paste0(main, "_mcl"))
-        dev.off()
-        pdf(file = paste0(main, "_comp.pdf"))
-        compplot(f, g, main = paste0(main, "_comp"))
-        dev.off()
-    }
-  }
+# TODO: add example
 
 
 
@@ -116,24 +69,26 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(fSMI.12, package="norMmix")
+extracttimes(fSMI.12)[,,1] ## user.self entry of system.time
 
-## The function is currently defined as
-function (object, ...) 
-{
-    stopifnot(inherits(object, "fittednorMmix"))
-    ti <- unlist(object$nMmtime)
-    na <- names(ti)[1:5]
-    co <- object$k
-    mo <- object$models
-    ti <- c(matrix(ti, ncol = 5, byrow = TRUE))
-    r <- array(ti, lengths(list(co, mo, na)))
-    dimnames(r) <- list(k = co, models = mo, proc_time = na)
-    class(r) <- "fittednorMmix_time"
-    r
-  }
+
+
+cleanEx()
+nameEx("fSMI.12")
+### * fSMI.12
+
+flush(stderr()); flush(stdout())
+
+### Name: fSMI.12
+### Title: Model selection of the SMI.12 dataset from the 'SMI.12' package.
+### Aliases: fSMI.12
+### Keywords: datasets
+
+### ** Examples
+
+data(fSMI.12)
+## maybe str(fSMI.12) ; plot(fSMI.12) ...
 
 
 
@@ -150,7 +105,7 @@ flush(stderr()); flush(stdout())
 ### ** Examples
 
 x <- rnorMmix(500, MW21)
-fitnMm(x, 1:3) ## will fit all models with 1:3 components
+fitnMm(x, 1:2, models=1:4) ## will fit models 1:4 with 1:3 components
 
 
 
@@ -267,6 +222,47 @@ rcond(L) # 0.010006 !
 rcond(M) # 9.4956e-5
 if(FALSE) # ~ 4-5 sec
    system.time(r <- ldl(M))
+
+
+
+cleanEx()
+nameEx("llmvtnorm")
+### * llmvtnorm
+
+flush(stderr()); flush(stdout())
+
+### Name: llmvtnorm
+### Title: Log-Likelihood of Multivariate Normal Mixture Relying on
+###   'mvtnorm::dmvnorm'
+### Aliases: llmvtnorm
+
+### ** Examples
+
+set.seed(1); x <- rnorMmix(50, MW29)
+para <- nMm2par(MW29, model=MW29$model)
+
+llmvtnorm(para, x, 2, model=MW29$model)
+# [1] -236.2295
+
+
+
+cleanEx()
+nameEx("llnorMmix")
+### * llnorMmix
+
+flush(stderr()); flush(stdout())
+
+### Name: llnorMmix
+### Title: Log-likelihood of parameter vector given data
+### Aliases: llnorMmix
+
+### ** Examples
+
+set.seed(1); tx <- t(rnorMmix(50, MW29))
+para <- nMm2par(MW29, model=MW29$model)
+
+llnorMmix(para, tx, 2, model=MW29$model)
+# [1] -236.2295
 
 
 
@@ -393,24 +389,6 @@ function (f, main = "unnamed")
 
 graphics::par(get("par.postscript", pos = 'CheckExEnv'))
 cleanEx()
-nameEx("n2p")
-### * n2p
-
-flush(stderr()); flush(stdout())
-
-### Name: nv2p
-### Title: Wrapper function for nMm objs
-### Aliases: nc2p
-### Keywords: misc
-
-### ** Examples
-
-str(MW213)
-nc2p(MW213)
-
-
-
-cleanEx()
 nameEx("nMm2par")
 ### * nMm2par
 
@@ -423,8 +401,32 @@ flush(stderr()); flush(stdout())
 ### ** Examples
 
 A <- MW24
-if(FALSE) # currently fails  __FIXME__
 nMm2par(A, trafo = "clr1", model = A$model)
+# [1] -0.3465736  0.0000000  0.0000000  0.0000000  0.0000000  0.0000000
+# [7] -2.3025851
+
+
+
+cleanEx()
+nameEx("nc2p")
+### * nc2p
+
+flush(stderr()); flush(stdout())
+
+### Name: nc2p
+### Title: Wrapper function for 'nMm2par'
+### Aliases: nc2p
+### Keywords: misc
+
+### ** Examples
+
+    str(MW213)
+    nc2p(MW213)
+    #  [1]  0.0000000  0.0000000  0.0000000 30.0000000 30.0000000  0.3465736
+    #  [7]  0.5493061  0.3465736 -0.5493061  3.0000000  2.0000000
+    nMm2par(MW213, trafo="clr1", model=MW213$model)
+    #  [1]  0.0000000  0.0000000  0.0000000 30.0000000 30.0000000  0.3465736
+    #  [7]  0.5493061  0.3465736 -0.5493061  3.0000000  2.0000000
 
 
 
@@ -458,49 +460,32 @@ flush(stderr()); flush(stdout())
 
 ### ** Examples
 
-str(MW214)
-set.seed(105)
-x <- rnorMmix(1000, MW214)
-## Fitting assuming we know the true parametric model
-fm1 <- norMmixMLE(x, k = 6, model = "VII")
-if(interactive()) ## Fitting "wrong" overparametrized model: typically need more iterations:
-  fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# default maxit=100 is often too small
+    str(MW214)
+    set.seed(105)
+    x <- rnorMmix(1000, MW214)
+    ## Fitting assuming we know the true parametric model
+    fm1 <- norMmixMLE(x, k = 6, model = "VII")
+    if(interactive()) ## Fitting "wrong" overparametrized model: typically need more iterations:
+    fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# default maxit=100 is often too small
 
 
 
 cleanEx()
-nameEx("npar.fittednorMmix")
-### * npar.fittednorMmix
+nameEx("npar")
+### * npar
 
 flush(stderr()); flush(stdout())
 
-### Name: npar.fittednorMmix
-### Title: Extract degrees of freedom from 'fittednorMmix'
-### Aliases: npar.fittednorMmix
+### Name: npar
+### Title: Extract degrees of freedom from objects of the 'norMmix' package
+### Aliases: npar
 
 ### ** Examples
 
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(fSMI.12)
+npar(fSMI.12)
 
-## The function is currently defined as
-function (obj) 
-{
-    stopifnot(inherits(obj, "fittednorMmix"))
-    k <- obj$k
-    p <- obj$p
-    models <- obj$models
-    val <- matrix(0, length(k), length(models))
-    rownames(val) <- k
-    colnames(val) <- models
-    for (i in seq_along(k)) {
-        for (j in seq_along(models)) {
-            val[i, j] <- npar(k[i], p, models[j])
-        }
-    }
-    val
-  }
+npar(MW213)
 
 
 
@@ -517,6 +502,19 @@ flush(stderr()); flush(stdout())
 ### ** Examples
 
 ## TODO: Show to get the list, and then how to get a  norMmix() object from the list
+str(MW213)
+# List of 6
+#  $ model : chr "VVV"
+#  $ mu    : num [1:2, 1:2] 0 0 30 30
+#  $ Sigma : num [1:2, 1:2, 1:2] 1 3 3 11 3 6 6 13
+#  $ weight: num [1:2] 0.5 0.5
+#  $ k     : int 2
+#  $ dim   : int 2
+#  - attr(*, "name")= chr "#13 test VVV"
+#  - attr(*, "class")= chr "norMmix"
+# NULL
+para <- nMm2par(MW213, model="EEE")
+par2nMm(para, 2, 2, model="EEE")
 
 
 
@@ -526,15 +524,15 @@ nameEx("parlen")
 
 flush(stderr()); flush(stdout())
 
-### Name: npar
+### Name: dfnMm
 ### Title: Number of Free Parameters of Multivariate Normal Mixture Models
-### Aliases: npar
+### Aliases: dfnMm
 
 ### ** Examples
 
-(m <- eval(formals(npar)$model)) # list of 10 models w/ differing Sigma
+(m <- eval(formals(dfnMm)$model)) # list of 10 models w/ differing Sigma
 # A nice table for a given 'p'  and all models, all k in 1:8
-sapply(m, npar, k=setNames(,1:8), p = 20)
+sapply(m, dfnMm, k=setNames(,1:8), p = 20)
 
 
 
@@ -557,6 +555,25 @@ points(rnorMmix(n=500, MW212))
 ## or:
 x <- points(rnorMmix(n=500, MW212))
 plot(MW212, x)
+
+
+
+cleanEx()
+nameEx("rnorMmix")
+### * rnorMmix
+
+flush(stderr()); flush(stdout())
+
+### Name: rnorMmix
+### Title: Random Sample from Multivariate Normal Mixture Distribution
+### Aliases: rnorMmix
+
+### ** Examples
+
+x <- rnorMmix(500, MW213)
+plot(x)
+x <- rnorMmix(500, MW213, index=TRUE)
+plot(x[,-1], col=x[,1]) ## using index column to color components
 
 
 

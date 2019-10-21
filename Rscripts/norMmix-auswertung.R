@@ -3395,3 +3395,40 @@ hist(x, col=nMmcols)
 ## good colors
 
 ## fixed massplot, compplot colors
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
+times <- unlist(lapply(f, function(j) extracttimes(j)[,,1]))
+dims <- unlist(lapply(f, function(j) attr(extracttimes(j), "p")))
+size <- unlist(lapply(f, function(j) attr(extracttimes(j), "n")))
+
+ddims <- rep(dims, each=80)
+ssize <- rep(size, each=80)
+
+pars <- unlist(lapply(f, npar))
+
+AA <- lm(log(times) ~ log(pars) + log(ddims) + log(ssize))
+summary(AA)
+plot(AA)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-19
+
+
+## to do today:
+#X  figure out how lm() works
+#   get chapters written
+#   start sims?? (figure out which)
+#   replot: clara/mclVVV/mclust (rewrite epfl)
+#X  fix .Rd files
+#   translation functions
+#X  write examples
+#X  put in example data                # fSMI.12
+#X  print method for MLE
+#X  put chapters in separate .Rnw files
+#   example of 2d em algo???

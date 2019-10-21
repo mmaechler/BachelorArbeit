@@ -9,19 +9,33 @@
     arrays and overlays their plots.
 }
 \usage{
-compplot(f, g, main = "unnamed")
+compplot(f, g, main = "unnamed", adj = 1/dim(f)[3], col = nMmcols[1:2], 
+         mar = 0.1 + c(1.4, 2, 3, 1), ...)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{f}{
-      Array as from \code{\link{massbic}} or \code{\link{massbicm}}
-}
-  \item{g}{
-      Array as from \code{\link{massbic}} or \code{\link{massbicm}}
-}
-  \item{main}{
-      Character string to be used as title of the plot.
-}
+    \item{f}{
+        Array as from \code{\link{massbic}} or \code{\link{massbicm}}
+    }
+    \item{g}{
+        Array as from \code{\link{massbic}} or \code{\link{massbicm}}
+    }
+    \item{main}{
+        Character string to be used as title of the plot.
+    }
+    \item{adj}{
+        Adjustment for alpha value of the plot color.
+    }
+    \item{col}{
+        Color of plot.
+    }
+    \item{mar}{
+        Margin space adjustment
+    }
+    \item{...}{
+        further arguments passed on to \code{\link{matplot}}
+    }
 }
 \details{
     The intended use for this function is to run \code{\link{massbic}} and 
@@ -55,27 +69,7 @@ compplot(f, g, main = "unnamed")
     \code{\link{massbicm}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (f, g, main = "unnamed") 
-{
-    ylim <- extendrange(c(f, g))
-    adj <- 0.4
-    op <- sfsmisc::mult.fig(mfrow = c(2, 5), main = main, mar = 0.1 + 
-        c(2, 4, 4, 1))
-    models <- dimnames(f)$models
-    for (i in 1:10) {
-        matplot(f[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i], 
-            adj), main = models[i], type = "l", ylim = ylim)
-        matplot(g[, i, ], lty = 1, col = adjustcolor(rainbow(20)[i + 
-            10], adj), main = models[i], type = "l", ylim = ylim, 
-            add = TRUE)
-    }
-    par(op$old.par)
-  }
+## TODO: add example
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

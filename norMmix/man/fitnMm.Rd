@@ -38,8 +38,6 @@ fitnMm(x, k, models = 1:10,
   \item{p}{number of variables of x}
 }
 %% \details{
-%%   Wrapper function for \code{\link{norMmixMLE}}, applying norMmixMLE to all
-%%   k and models specified
 %% }
 \note{
     Given an object \code{r} of class \code{fittednorMmix},
@@ -53,5 +51,5 @@ fitnMm(x, k, models = 1:10,
 }
 \examples{
 x <- rnorMmix(500, MW21)
-fitnMm(x, 1:3) ## will fit all models with 1:3 components
+fitnMm(x, 1:2, models=1:4) ## will fit models 1:4 with 1:3 components
 }

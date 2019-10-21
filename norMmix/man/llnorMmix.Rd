@@ -33,7 +33,11 @@ llnorMmix(par, tx, k,
   Our alternative function \code{\link{llmvtnorm}()} (which is based on
   \code{dmvnorm()} from package \CRANpkg{mvtnorm}).
 }
-%% \examples{
-%% __ TODO __
-%% }
+\examples{
+set.seed(1); tx <- t(rnorMmix(50, MW29))
+para <- nMm2par(MW29, model=MW29$model)
+
+llnorMmix(para, tx, 2, model=MW29$model)
+# [1] -236.2295
+}
 

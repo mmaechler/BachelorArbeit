@@ -1,0 +1,58 @@
+\chapter{Comparing Algorithms}
+
+
+\section{Time Analysis}
+
+here how much time they take, in p,k and n give approximate O(x) value
+
+<<time, echo=TRUE>>=
+    library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+
+    savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+    filelist <- list.files(savdir, pattern=".rds")
+    filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+    f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
+    times <- unlist(lapply(f, function(j) extracttimes(j)[,,1]))
+    dims <- unlist(lapply(f, function(j) attr(extracttimes(j), "p")))
+    size <- unlist(lapply(f, function(j) attr(extracttimes(j), "n")))
+
+    ddims <- rep(dims, each=80)
+    ssize <- rep(size, each=80)
+
+    pars <- unlist(lapply(f, npar))
+
+
+    r <- lm(log(times) ~ log(pars) + log(ddims) + log(ssize))
+    summary(r)
+@
+
+\begin{figure}[h]
+    \centering
+<<figtime, echo=TRUE, fig=TRUE>>=
+    plot(times~pars, log="xy", yaxt="n", xaxt="n")
+    sfsmisc::eaxis(1)
+    sfsmisc::eaxis(2)
+@
+    \caption{Log-log Plot of System Time against Parameter Length}
+    \label{fig:time}
+\end{figure}
+
+can see that time is almost one to one proportional to parameter length.
+
+\section{Behaviour in {\tt n}}
+
+% it 1
+here show as expected narrower scattering as n increases
+
+\section{Behaviour in {\tt p}}
+
+% it 1
+here show how norMmix is consistently competitive with mclust
+
+\section{Diffixult Mixtures}
+
+% it 1
+here show behaviour in difficult cases
+
+\section{Nonnormal mixtures}
+

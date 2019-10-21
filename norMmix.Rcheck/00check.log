@@ -35,11 +35,14 @@
 * checking foreign function calls ... OK
 * checking R code for possible problems ... OK
 * checking Rd files ... NOTE
-prepare_Rd: compplot.Rd:37-39: Dropping empty section \references
-prepare_Rd: epfl.Rd:70-72: Dropping empty section \note
-prepare_Rd: epfl.Rd:65-66: Dropping empty section \references
+prepare_Rd: compplot.Rd:51-53: Dropping empty section \references
+prepare_Rd: epfl.Rd:73-75: Dropping empty section \note
+prepare_Rd: epfl.Rd:68-69: Dropping empty section \references
 prepare_Rd: extracttimes.Rd:36-38: Dropping empty section \note
 prepare_Rd: extracttimes.Rd:30-32: Dropping empty section \references
+prepare_Rd: fSMI.12.Rd:30-32: Dropping empty section \details
+prepare_Rd: fSMI.12.Rd:33-35: Dropping empty section \source
+prepare_Rd: fSMI.12.Rd:36-38: Dropping empty section \references
 prepare_Rd: massbic.Rd:25-27: Dropping empty section \details
 prepare_Rd: massbic.Rd:44-46: Dropping empty section \note
 prepare_Rd: massbic.Rd:38-40: Dropping empty section \references
@@ -49,77 +52,29 @@ prepare_Rd: massbicm.Rd:42-44: Dropping empty section \note
 prepare_Rd: massbicm.Rd:39-41: Dropping empty section \author
 prepare_Rd: massbicm.Rd:36-38: Dropping empty section \references
 prepare_Rd: massbicm.Rd:48-50: Dropping empty section \seealso
-prepare_Rd: massplot.Rd:24-26: Dropping empty section \details
-prepare_Rd: massplot.Rd:27-33: Dropping empty section \value
-prepare_Rd: massplot.Rd:40-42: Dropping empty section \note
-prepare_Rd: massplot.Rd:37-39: Dropping empty section \author
-prepare_Rd: massplot.Rd:34-36: Dropping empty section \references
-prepare_Rd: massplot.Rd:46-48: Dropping empty section \seealso
-prepare_Rd: npar.fittednorMmix.Rd:23-25: Dropping empty section \details
-prepare_Rd: npar.fittednorMmix.Rd:26-32: Dropping empty section \value
-prepare_Rd: npar.fittednorMmix.Rd:40-42: Dropping empty section \note
-prepare_Rd: npar.fittednorMmix.Rd:33-35: Dropping empty section \references
-prepare_Rd: npar.fittednorMmix.Rd:46-48: Dropping empty section \seealso
-prepare_Rd: rnorMmix.Rd:29-30: Dropping empty section \examples
+prepare_Rd: massplot.Rd:37-39: Dropping empty section \details
+prepare_Rd: massplot.Rd:40-46: Dropping empty section \value
+prepare_Rd: massplot.Rd:54-56: Dropping empty section \note
+prepare_Rd: massplot.Rd:47-49: Dropping empty section \references
+prepare_Rd: massplot.Rd:60-62: Dropping empty section \seealso
+prepare_Rd: npar.Rd:32-35: Dropping empty section \details
+prepare_Rd: npar.Rd:48-50: Dropping empty section \note
+prepare_Rd: npar.Rd:41-43: Dropping empty section \references
+prepare_Rd: npar.Rd:54-56: Dropping empty section \seealso
 * checking Rd metadata ... OK
 * checking Rd cross-references ... OK
-* checking for missing documentation entries ... WARNING
-Undocumented code objects:
-  ‘dfnMm’
-All user-level objects in a package should have documentation entries.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
-* checking for code/documentation mismatches ... WARNING
-Codoc mismatches from documentation object 'compplot':
-compplot
-  Code: function(f, g, main = "unnamed", adj = 1/dim(f)[3], col =
-                 nMmcols[1:2], mar = 0.1 + c(1.4, 2, 3, 1), ...)
-  Docs: function(f, g, main = "unnamed")
-  Argument names in code not in docs:
-    adj col mar ...
-
-Codoc mismatches from documentation object 'epfl':
-epfl
-  Code: function(files, savdir, subt = 11, ...)
-  Docs: function(files, savdir, subt = 11)
-  Argument names in code not in docs:
-    ...
-
-Codoc mismatches from documentation object 'massplot':
-massplot
-  Code: function(f, main = "unnamed", adj = exp(-0.002 * size), col =
-                 nMmcols[1], mar = 0.1 + c(1.4, 2, 3, 1), ...)
-  Docs: function(f, main = "unnamed")
-  Argument names in code not in docs:
-    adj col mar ...
-
-Codoc mismatches from documentation object 'npar':
-npar
-  Code: function(object, ...)
-  Docs: function(k, p, model = c("EII", "VII", "EEI", "VEI", "EVI",
-                 "VVI", "EEE", "VEE", "EVV", "VVV"))
-  Argument names in code not in docs:
-    object ...
-  Argument names in docs not in code:
-    k p model
-  Mismatches in argument names:
-    Position: 1 Code: object Docs: k
-    Position: 2 Code: ... Docs: p
-
-* checking Rd \usage sections ... NOTE
-S3 methods shown with full name in documentation object 'npar.fittednorMmix':
-  ‘npar.fittednorMmix’
-
-The \usage entries for S3 methods should use the \method markup and not
-their full name.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
 * checking examples ... OK
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ... OK
   Running ‘testthat.R’
 * checking PDF version of manual ... OK
 * DONE
-Status: 2 WARNINGs, 2 NOTEs
+Status: 1 NOTE

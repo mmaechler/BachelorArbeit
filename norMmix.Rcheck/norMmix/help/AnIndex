@@ -1,7 +1,9 @@
 compplot	compplot
+dfnMm	parlen
 epfl	epfl
 extracttimes	extracttimes
 fitnMm	fitnMm
+fSMI.12	fSMI.12
 ldl	ldl
 llmvtnorm	llmvtnorm
 llnorMmix	llnorMmix
@@ -29,12 +31,11 @@ MW32	MarronWand
 MW33	MarronWand
 MW34	MarronWand
 MW51	MarronWand
-nc2p	n2p
+nc2p	nc2p
 nMm2par	nMm2par
 norMmix	norMmix
 norMmixMLE	norMmixMLE
-npar	parlen
-npar.fittednorMmix	npar.fittednorMmix
+npar	npar
 par2nMm	par2nMm
 plot.fittednorMmix	plot.fittednorMmix
 plot.norMmix	plot.norMmix

@@ -12,24 +12,27 @@
 
 }
 \usage{
-epfl(files, savdir, subt = 11)
+    epfl(files, savdir, subt = 11, ...)
 }
 \arguments{
-  \item{files}{ 
-      Expected to be of type \code{\link{list}}, containing character vectors. 
-      These are assumed to be RDS filenames produced from \code{\link{saveRDS}}.
-      They are assumed to work with \code{\link{massbic}}, meaning they contain
-      a list with named element \code{fit}, which is the return value of 
-      \code{\link{fitnMm}}. Furthermore, all are assumed to have the same 
-      dimensions.
-}
-  \item{savdir}{
-      String specifying directory in which \code{\link{files}} are located.
-}
-  \item{subt}{
-      Number of characters to be subtracted from string in \code{files}.
-      The default is intended for format ending in "seed=%0.2d.rds".
-}
+    \item{files}{ 
+        Expected to be of type \code{\link{list}}, containing character vectors. 
+        These are assumed to be RDS filenames produced from \code{\link{saveRDS}}.
+        They are assumed to work with \code{\link{massbic}}, meaning they contain
+        a list with named element \code{fit}, which is the return value of 
+        \code{\link{fitnMm}}. Furthermore, all are assumed to have the same 
+        dimensions.
+    }
+    \item{savdir}{
+        String specifying directory in which \code{\link{files}} are located.
+    }
+    \item{subt}{
+        Number of characters to be subtracted from string in \code{files}.
+        The default is intended for format ending in "seed=%0.2d.rds".
+    }
+    \item{...}{
+        Arguments to be passed to \code{\link{massplot}} and \code{\link{compplot}}
+    }
 }
 \details{
     Suppose you have a directory \code{dir} containing RDS files.
@@ -80,35 +83,7 @@ epfl(files, savdir, subt = 11)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function (files, savdir, subt = 11) 
-{
-    stopifnot(is.list(files), dir.exists(savdir))
-    setwd(savdir)
-    for (fi in files) {
-        if (length(fi) == 0) {
-            next
-        }
-        main <- substring(fi[1], 1, nchar(fi[1]) - subt)
-        f <- massbic(fi, savdir)
-        g <- massbicm(fi, savdir)
-        pdf(file = paste0(main, ".pdf"))
-        massplot(f, main = main)
-        dev.off()
-        pdf(file = paste0(main, "_mcl.pdf"))
-        massplot(g, main = paste0(main, "_mcl"))
-        dev.off()
-        pdf(file = paste0(main, "_comp.pdf"))
-        compplot(f, g, main = paste0(main, "_comp"))
-        dev.off()
-    }
-  }
+# TODO: add example
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

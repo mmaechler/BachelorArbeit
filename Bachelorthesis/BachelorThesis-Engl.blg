@@ -3,24 +3,28 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: BachelorThesis-Engl.aux
 The style file: chicago.bst
 A level-1 auxiliary file: chapter1.aux
+A level-1 auxiliary file: chapter2.aux
+A level-1 auxiliary file: chapter3.aux
+A level-1 auxiliary file: chapter4.aux
 A level-1 auxiliary file: App_llnorMmix.aux
 Database file #1: References.bib
+Warning--no volume for Scr16
 You've used 6 entries,
             2861 wiz_defined-function locations,
-            664 strings with 5967 characters,
-and the built_in function-call counts, 4441 in all, are:
+            666 strings with 6028 characters,
+and the built_in function-call counts, 4444 in all, are:
 = -- 373
 > -- 347
 < -- 0
 + -- 106
 - -- 122
-* -- 416
+* -- 417
 := -- 812
 add.period$ -- 19
 call.type$ -- 6
 change.case$ -- 44
 chr.to.int$ -- 6
-cite$ -- 6
+cite$ -- 7
 duplicate$ -- 105
 empty$ -- 257
 format.name$ -- 146
@@ -42,7 +46,8 @@ text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 110
-warning$ -- 0
+warning$ -- 1
 while$ -- 58
 width$ -- 0
 write$ -- 81
+(There was 1 warning)

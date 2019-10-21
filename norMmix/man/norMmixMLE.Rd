@@ -66,11 +66,11 @@ ssClaraL(n, k, p)
   after that uses general optimizer optim() to calculate ML.
 }
 \examples{
-str(MW214)
-set.seed(105)
-x <- rnorMmix(1000, MW214)
-## Fitting assuming we know the true parametric model
-fm1 <- norMmixMLE(x, k = 6, model = "VII")
-if(interactive()) ## Fitting "wrong" overparametrized model: typically need more iterations:
-  fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# default maxit=100 is often too small
+    str(MW214)
+    set.seed(105)
+    x <- rnorMmix(1000, MW214)
+    ## Fitting assuming we know the true parametric model
+    fm1 <- norMmixMLE(x, k = 6, model = "VII")
+    if(interactive()) ## Fitting "wrong" overparametrized model: typically need more iterations:
+    fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# default maxit=100 is often too small
 }

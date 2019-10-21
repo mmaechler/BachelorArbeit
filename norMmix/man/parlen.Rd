@@ -1,8 +1,8 @@
-\name{npar}
-\alias{npar}
+\name{dfnMm}
+\alias{dfnMm}
 \title{Number of Free Parameters of Multivariate Normal Mixture Models}
 \usage{
-npar(k, p, model = c("EII","VII","EEI","VEI","EVI",
+dfnMm(k, p, model = c("EII","VII","EEI","VEI","EVI",
 	               "VVI","EEE","VEE","EVV","VVV"))
 }
 \arguments{
@@ -18,7 +18,7 @@ npar(k, p, model = c("EII","VII","EEI","VEI","EVI",
   parametrization, see \code{\link{nMm2par}()}.
 }
 \examples{
-(m <- eval(formals(npar)$model)) # list of 10 models w/ differing Sigma
+(m <- eval(formals(dfnMm)$model)) # list of 10 models w/ differing Sigma
 # A nice table for a given 'p'  and all models, all k in 1:8
-sapply(m, npar, k=setNames(,1:8), p = 20)
+sapply(m, dfnMm, k=setNames(,1:8), p = 20)
 }

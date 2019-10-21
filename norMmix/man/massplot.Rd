@@ -10,16 +10,29 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-massplot(f, main = "unnamed")
+massplot(f, main = "unnamed", adj = exp(-0.002 * size), 
+         col = nMmcols[1], mar = 0.1 + c(1.4, 2, 3, 1), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{f}{
-%%     ~~Describe \code{f} here~~
-}
-  \item{main}{
-%%     ~~Describe \code{main} here~~
-}
+    \item{f}{
+        Result of \code{\link{massbic}}
+    }
+    \item{main}{
+        Character string, title of plot.
+    }
+    \item{adj}{
+        Alpha adjustment for plot color.
+    }
+    \item{col}{
+        Plot color.
+    }
+    \item{mar}{
+        A numerical vector of the form ‘c(bottom, left, top, right)’.
+    }
+    \item{...}{
+        Further parameters, passed to \code{\link{matplot}}
+    }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -35,6 +48,7 @@ massplot(f, main = "unnamed")
 %% ~put references to the literature/web site here ~
 }
 \author{
+    Nicolas Trutmann
 %%  ~~who you are~~
 }
 \note{
