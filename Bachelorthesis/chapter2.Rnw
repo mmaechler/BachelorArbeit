@@ -1,11 +1,20 @@
 \chapter{The {\tt norMmix} Package}
 
 
+<<loadnorMmix, echo=FALSE, results=hide>>=
+    ## load norMmix
+    library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+@
+
+
+
 \section{Introduction to the Package}
 
 % it 1
 For this thesis, an \Rp package was developed that implements the algorithm
 that fits multivariate normal mixtures to given data.
+\footnote{The package was written with \Rp version 3.6.1 (2019-07-05) last 
+updated on 2019-10-22.}
 There is a lot of unused code still in the package. These were at one point
 implemented used and discarded. They are still included for demonstration.
 The {\tt norMmix} package is constructed around the {\tt norMmix} object, that 

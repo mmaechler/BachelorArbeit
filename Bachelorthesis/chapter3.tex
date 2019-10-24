@@ -1,6 +1,73 @@
 \chapter{Comparing Algorithms}
 
 
+% it 1
+With the {\tt norMmix} package explained, we can turn to comparing it to 
+existing methods. As previously stated, the implementation representing the 
+EM-algorithm is the {\tt mclust} package. It will be used with very little 
+deviation from out-of-the-box, safe for restriction to the covariance models.
+This is done, so we can compare like with like.
+The specific command that performs the EM-algorithm is:
+\begin{Schunk}
+\begin{Sinput}
+>     #mclust::Mclust(x, G=cl, modelNames=mo)$BIC
+\end{Sinput}
+\end{Schunk}
+Where {\tt cl} is a vector of integers of however many components we are trying to fit and {\tt mo} are the model names:
+\begin{Schunk}
+\begin{Soutput}
+ [1] "EII" "VII" "EEI" "VEI" "EVI" "VVI" "EEE" "VEE" "EVV" "VVV"
+\end{Soutput}
+\end{Schunk}
+The {\tt \$BIC} element of the results is taken as the main tool for model 
+selection, as it is advertised in the package authors paper \cite{Scr16}.
+
+There is however a small but crucial change applied to these results.
+The {\tt mclust} package authors have flipped the definition of the BIC to mean:
+\[ 2 ln(\hat{L}) - ln(n) \theta\]
+instead of the more common
+\[ ln(n) \theta - 2 ln(\hat{L}) \]
+Where $n$ is the number of observations, $\theta$ is the cardinality of the 
+parameter vector and $\hat{L}$ is the estimated log-likelihood.
+
+So even if not explicitly mentioned, we use the negative of the values returned
+by {\tt mclust}.
+
+
+% it 1
+here show bic type plots, how to read them, and what we're trying to compare
+i.e. clara, mclVVV, mclust.
+
+First, we illustrate the structure of the graphical results we will be 
+presenting hereafter. The basic shape of the plots will be the BIC value 
+plotted against the number of components. This is in line with {\tt mclust}'s
+manner of visualizing data, however since our method is to some extent RNG 
+dependent, we are forced to display multiple runs of the algorithm on the same
+graph. Therefore we split the plot according to covariance model, putting 10
+models in 10 graphs in a plot. Here an example:
+
+
+\begin{figure}
+    \centering
+\includegraphics{chapter3-bicplotdemoplot}
+    \caption{Example of Comparison Plot}
+    \label{fig:ExPlot}
+\end{figure}
+
+As can be seen from the formula of the BIC value, lower is better. When 
+selecting a model based on BIC, we take the model and component with the 
+lowest value to be the best fitting model. Although this may not necessarily
+the 'correct' model, that is, the model from which the data arises.
+
+There are many ways in which this type of model selection might miss the 
+correct model, for example by 'gluing together' multiple components into one,
+or covering the dataset in a 'patchwork' of smaller components, to name a few.
+
+We will discuss them as they arise in the following analysis of simulations
+
+here explain simulations conducted, \ref{App:sims}
+here explain the various sections: time, n, p, difficult , nonnormal 
+
 \section{Time Analysis}
 
 here how much time they take, in p,k and n give approximate O(x) value
@@ -8,10 +75,12 @@ here how much time they take, in p,k and n give approximate O(x) value
 \begin{Schunk}
 \begin{Sinput}
 >     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+>     # change this dir to whereever the simulations are saved
 >     mainsav <- normalizePath("~/ethz/BA/Rscripts/")
 >     savdir <- file.path(mainsav, "2time")
 >     filelist <- list.files(savdir, pattern=".rds")
 >     filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+>     ## need to split these better
 >     f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
 >     times <- unlist(lapply(f, function(j) extracttimes(j)[,,1]))
 >     dims <- unlist(lapply(f, function(j) attr(extracttimes(j), "p")))
@@ -150,5 +219,66 @@ here show behaviour in difficult cases
 \includegraphics{chapter3-figMW214bic}
 \end{figure}
 
+here some examples of fitted mixtures
+
+\begin{figure}
+    \centering
+\begin{Schunk}
+\begin{Sinput}
+>     f <- readRDS(file.path(savdir, claraMW[28]))
+>     ff <- f$fit$nMm[8,8][[1]]
+>     plot(ff$norMmix)
+>     #points(ff$x)
+\end{Sinput}
+\end{Schunk}
+\includegraphics{chapter3-fig214fit}
+\end{figure}
+
+We can see, that, subtracting the obvious hiccups of the small erroneous
+components, {\tt norMmix} has correctly found the 'intended' 
+distribution. This is remarkable, given the small sample size and difficulty of distribution
+
 \section{Nonnormal Mixtures}
+
+here 2smi and 2var, maybe others as well.
+
+
+here 2smi:
+
+\begin{Schunk}
+\begin{Sinput}
+>     savdir <- file.path(mainsav, "2smi")
+>     filenames <- list.files(savdir, pattern=".rds")
+>     fnclara <- grep("clara_seed", filenames, value=TRUE)
+>     fnmclVV <- grep("mclVVV_see", filenames, value=TRUE)
+>     fnmclus <- grep("__mcl.rds",  filenames, value=TRUE)
+\end{Sinput}
+\end{Schunk}
+
+\begin{figure}[h]
+    \centering
+\includegraphics{chapter3-2smiplot}
+\end{figure}
+
+While not very spectacular, the graphs show that even at large parameter
+counts our algorithm closes in on the same values as {\tt mclust}.
+At these dimensions it is difficult to compare if these are actually 
+equal, or even similar fits, but going by BIC values, it is at the very 
+least equally viable as a working model.
+
+To illustrate, here are the parameter sizes for this simulation:
+\begin{Schunk}
+\begin{Soutput}
+  EII VII EEI VEI EVI VVI EEE VEE  EVV  VVV
+1  21  21  40  40  40  40 230 230  230  230
+2  42  43  61  62  80  81 251 252  460  461
+3  63  65  82  84 120 122 272 274  690  692
+4  84  87 103 106 160 163 293 296  920  923
+5 105 109 124 128 200 204 314 318 1150 1154
+6 126 131 145 150 240 245 335 340 1380 1385
+7 147 153 166 172 280 286 356 362 1610 1616
+8 168 175 187 194 320 327 377 384 1840 1847
+\end{Soutput}
+\end{Schunk}
+
 

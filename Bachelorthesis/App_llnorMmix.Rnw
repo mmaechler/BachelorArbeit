@@ -1,4 +1,6 @@
 \chapter{\Rp Code}
+
+
 \section{{\tt llnorMmix}}
 
 % it 1
@@ -14,6 +16,7 @@ cat(scan("~/ethz/BA/norMmix/R/llnorMmix.R", what="character", sep="\n"), sep="\n
 \clearpage
 \section{Example Simulation Script}
 
+\label{App:sims}
 % TODO:
 here e.g. 2init.R and write some remarks on it.
 

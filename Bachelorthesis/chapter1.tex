@@ -1,16 +1,20 @@
 \chapter{Introduction to normal mixture models}
 
 
+
+
+
 %% it 3
 \section{Definitions}
 
 A good and thorough introductory book is the work of \cite{McL00} and
 the reader is encouraged to study it to learn in depth about normal mixtures
-and their clustering. 
+and clustering. 
 We will here give a short overview of normal mixtures to fix notation and 
 nomenclature.
 The motivating idea behind mixture models is, that in real world examples
-a sample might be suspected to arise from more than one population.
+a sample might be suspected to arise from more than one population or be 
+more simply modelled by several overlayed distributions.
 The example of this, that is generally considered to be the first of this kind,
 is the one by Karl Pearson, who fitted two normal distributions with different 
 means and variances.
@@ -18,18 +22,22 @@ In his book, \cite{Pea96}[Section 4.d.; page 266], Pearson analyzed measurements
 of forehead to body length of crabs sampled from the bay of Naples. His mixture 
 model-based approach suggested, that the crabs were evolving into two new 
 subspecies.
+%% this is historically important because it is mathematically displayed evidence of evolution.
+%% the approach to decompose distributions has gained tremendous popularity after the availabity of computing power made parametrized MLE possible.
 %TODO: less confused desc of pearsons research
 
 % it 2
 While the theory of mixture models holds for a much broader class of 
 distributions, we restrict ourselves here to the case of normal distributions,
 because this restriction fits more comfortably into the scope of this work and 
-because normal distributions allow for a convenient, parsimonious 
-parametrization, that is of interest to study.
+because normal distributions allow for a parsimonious parametrization, that is 
+of interest to study.
 
-% it 1
-normal gives easy param ov cov mats
-multivariate builds on work done in the nor1mix package. 'filedrawer research'
+% it 2
+This parametrization is the $\pmb{LDL}\top$ decomposition, which allows a very 
+simple parametrization and a straightforward connection between degrees of 
+freedom and necessarily generated numerical values. This will be explained 
+further in section \ref{sec:models}.
 
 Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ be
 symmetric positive definite and $ \phi(- ; \mu, \Sigma) $ be the normal 
@@ -59,14 +67,13 @@ detailed description of the models assumed in this thesis in section
 \section{The EM-Algorithm in Sketch}
 
 %% it 1
-With this definition we immediately face the problem of how to fit these
+With this definition, we immediately face the problem of how to fit these
 mixture components to given data. A popular algorithm to solve this problem 
 is the {\bf E}xpectation-{\bf M}aximization algorithm, abbreviated as 
 EM-algorithm.
 
 We give here a sketch of the EM-algorithm in the case of all normal mixture 
-components, since it is the scope of this thesis and simplifies it 
-considerably. %TODO: rewrite this sentence
+components.
 
 Suppose we have a $p-$dimensional dataset of $n$ samples $x_1, \dots ,x_n$,
 onto which we would like to fit $K$ normal distributions 
@@ -88,13 +95,14 @@ component means and covariances by weighted versions of the usual estimators.
 \[\Sigma_i = \sum_{j=1}^n \tau_{ij} (y_j- \mu_i)(y_j-\mu_i)^\top / 
     \sum_{j=1}^n \tau_{ij}\]
 
-here note about initialization methods.
 
-% it 1
-While it is possible to use a purely EM-based approach, most popular 
-implementations use some form of pre clustering and use the EM-algorithm as
-final pass to fit the data. The R-package {\tt Mclust} for example uses 
-hierarchical agglomerative clustering \cite{Scr16}.
+% it 2
+There remains to be stated how to start the algorithm. Since both steps of the
+algorithm depend on data from the other, the EM-algorithm needs some form of 
+initialization step.
+Most popular implementations use some form of pre clustering and use the 
+EM-algorithm as subsequent tools to fit the data. The R-package {\tt Mclust} 
+for example uses hierarchical agglomerative clustering \cite{Scr16}.
 
 
 
@@ -137,27 +145,50 @@ Therefore we, from here on, when referring to the decomposition as described by
 
 These were chosen according to general conventions of linear algebra. $ \pmb{Q} $
 is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice 
-for diagonal matrices eigenvectors and $ \alpha $ was somewhat arbitrarily 
+for diagonal matrices of eigenvectors and $ \alpha $ was somewhat arbitrarily 
 chosen.
 
 
 \section{Models of Covariance Matrices}
 \label{sec:models}
 
-make clear that the models can not be translated one to one to ldlt model
+
 % it 1
-There is however an issue with the Cholesky decomposition. For 10 out of 14
+As mentioned above, there are ways to constrain the covariance matrices for 
+computational reasons. There are istances where the resulting loss of 
+information is seen as acceptable, for example if, through consideration of the
+data, that a simplified model is acceptable. Another is if the sheer size of 
+the data makes application of full generality impossible.
+\begin{itemize}
+    \item We restrict the complexity of the decomposition components
+    \item We restrict the variability of the mixture components
+\end{itemize}
+Let us look at the first case. We take the decomposition of a covariance matrix
+as $\Sigma = \alpha \pmb{Q\Lambda Q}^\top$. Of these, we can simplify the 
+structure of $\pmb{Q}$ and $\pmb{\Lambda}$, by replacing them with the identity.
+If we set $\pmb{Q}=\mathrm{Id}$, we lose the freedom of orientation and if we 
+set $\pmb{\Lambda}=\mathrm{Id}$ we restrict ourselves to spherical 
+distributions.
+
+of course, we cannot restrict $\pmb{\lambda}$ while letting $\pmb{q}$ free, 
+since
+\[ \pmb{Q\Lambda Q}^\top = \pmb{Q}\mathrm{Id}\pmb{Q}^\top = \mathrm{Id}\].
+
+The second restriction simply means we hold the decomposition fixed throughout 
+all covariance matrices.
+% it 1
+There is however an issue with the cholesky decomposition. For 10 out of 14
 cases as defined by \cite{Cel95}, there exists a canonical translation of
 decompositions.
-The 6 diagonal cases need no translation; the eigen and Cholesky decomposition
+The 6 diagonal cases need no translation; the eigen and cholesky decomposition
 are equal to identity.
 For the non-diagonal cases note that for a given sym. pos. def. matrix
 $ \Sigma $ we have decompositions:
 \[\Sigma = \alpha \pmb{Q \Lambda Q}^\top \quad \Sigma =\alpha \pmb{L D L}^\top\]
 Since in both cases the bracketing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
 determinant $ 1 $ the determinant of $ \Sigma $ falls entirely on $ \alpha $.
-Therefore $ \alpha $, in these particular decompositions, is equal for both.
-Celeux \& Grovaert vary $\Sigma$ by either varying or holding fixed the volume 
+therefore $ \alpha $, in these particular decompositions, is equal for both.
+\cite{Cel95} vary $\sigma$ by either varying or holding fixed the volume 
 $(\alpha / \alpha_k)$, shape $(\pmb{\Lambda} / \pmb{\Lambda_k})$ and orientation
 $(\pmb{Q} / \pmb{Q}_k)$.
 These 3 times 2 cases would yield the 8 out of 14 cases of non-diagonal cases.
@@ -169,54 +200,76 @@ the eigendecomposition is in the $\pmb{\Lambda}$ matrix.
 In fact, $\pmb{L}$ is orthogonal if and only if 
 $\pmb{L} = \mathrm{Id}_{n\times n}$.
 Therefore we can only decompose matrices where either both or neither shape and
-orientation vary. See table \ref{table:param}.
+orientation vary. See table \ref{table:paramSigma}.
 
 While we could in theory construct the cases $\pmb{L}\pmb{D}_k\pmb{L}^\top$ and
-$\pmb{L}_k \pmb{D} \pmb{L}^\top$, however they do not correspond to the desired
+$\pmb{L}_k \pmb{D} \pmb{L}_k^\top$, however they do not correspond to the desired
 geometric intent behind the differentiation of models and are therefore not 
 included.
 
 
 \begin{table}[!htb]
     \centering
-\rotatebox{90}
-{
-    \begin{tabular}{| c | c c c c c | c c c |}
-        \hline
-        Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation & parameters & $ \pmb{LDL}^\top $ & parameters & count \\
-        \hline
+    \rotatebox{90}
+    {
+        \begin{tabular}{| c | c c c c c | c c c |}
+            \hline
+            Model & $\pmb{\Sigma}_k$ C\&G & volume & shape & orientation & parameters & $ \pmb{LDL}^\top $ & parameters & count \\
+            \hline
 
-        EII    & $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ & as in C\&G & & 1 \\
-        VII    & $ \alpha_k \pmb{I} $         & var. & equal & - & $ \alpha_k $ & & & $K$  \\
-        EEI    & $ \alpha \pmb{\Lambda} $     & equal & equal & coord. axes & $ \alpha, \lambda_i $ & & & $ 1+(p-1) $\\
-        VEI    & $ \alpha_k \pmb{\Lambda} $ & var. & equal & coord. axes & $ \alpha_k, \lambda_{i}$ & & & $ K+(p-1) $ \\
-        EVI    & $ \alpha \pmb{\Lambda}_k $ &equal & var. & coord. axes & $ \alpha, \lambda_{i,k} $ & & & $ 1+K(p-1) $ \\
-        VVI    & $ \alpha_k \pmb{\Lambda}_k $ & var. & var. & coord. axes & $ \alpha_k, \lambda_{i,k} $ & & & $ K+K(p-1) $ \\
-        \hline
-        EEE    & $ \alpha \pmb{Q \Lambda Q}^\top $ &equal & equal & equal & $ \alpha, \lambda_{i}, q_{i,j} $ & $ \alpha \pmb{LDL}^{\top} $ & $ \lambda , d_i, l_{i,j} $ & $ 1+(p-1)+\frac{p(p-1)}{2} $ \\
-        \hline
-        EVE    & $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & var. & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $  & doesn't exist & & $ 1+K(p-1)+\frac{p(p-1)}{2} $ \\
-        \hline
-        VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & var. & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ \alpha_k \pmb{LDL}^\top $ & $ \lambda_k , d_i, l_{i,j} $ & $ K+p+\frac{p(p-1)}{2} $ \\
-        \hline
-        VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &var. & var. & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & & & $ K+K(p-1)+\frac{p(p-1)}{2} $ \\
-        EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & var. & $ \alpha, \lambda_{i}, q_{i,j,k} $ &  don't exist  & & $ 1+(p-1)+K\frac{p(p-1)}{2} $ \\
-        VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &var. & equal & var. & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & & & $ K+(p-1)+K\frac{p(p-1)}{2} $ \\
-        \hline
-        EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & var. & var. & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+pK+K\frac{p(p-1)}{2} $  \\
-        VVV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & var. & var. & var. & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+pK+K\frac{p(p-1)}{2} $ \\
-        \hline
-    \end{tabular}
-}
+            EII    & $ \alpha \pmb{I} $ & equal & equal & - & $ \alpha $ & as in C\&G & & 1 \\
+            VII    & $ \alpha_k \pmb{I} $         & var. & equal & - & $ \alpha_k $ & & & $K$  \\
+            EEI    & $ \alpha \pmb{\Lambda} $     & equal & equal & coord. axes & $ \alpha, \lambda_i $ & & & $ 1+(p-1) $\\
+            VEI    & $ \alpha_k \pmb{\Lambda} $ & var. & equal & coord. axes & $ \alpha_k, \lambda_{i}$ & & & $ K+(p-1) $ \\
+            EVI    & $ \alpha \pmb{\Lambda}_k $ &equal & var. & coord. axes & $ \alpha, \lambda_{i,k} $ & & & $ 1+K(p-1) $ \\
+            VVI    & $ \alpha_k \pmb{\Lambda}_k $ & var. & var. & coord. axes & $ \alpha_k, \lambda_{i,k} $ & & & $ K+K(p-1) $ \\
+            \hline
+            EEE    & $ \alpha \pmb{Q \Lambda Q}^\top $ &equal & equal & equal & $ \alpha, \lambda_{i}, q_{i,j} $ & $ \alpha \pmb{LDL}^{\top} $ & $ \lambda , d_i, l_{i,j} $ & $ 1+(p-1)+\frac{p(p-1)}{2} $ \\
+            \hline
+            EVE    & $ \alpha \pmb{Q \Lambda}_k \pmb{Q}^\top $ &equal & var. & equal & $ \alpha, \lambda_{i,k}, q_{i,j} $  & doesn't exist & & $ 1+K(p-1)+\frac{p(p-1)}{2} $ \\
+            \hline
+            VEE    & $ \alpha_k \pmb{Q \Lambda Q}^\top $ & var. & equal & equal & $ \alpha_k, \lambda_{i}, q_{i,j} $ & $ \alpha_k \pmb{LDL}^\top $ & $ \lambda_k , d_i, l_{i,j} $ & $ K+(p-1)+\frac{p(p-1)}{2} $ \\
+            \hline
+            VVE    & $ \alpha_k \pmb{Q \Lambda}_k \pmb{Q}^\top $ &var. & var. & equal & $ \alpha_k, \lambda_{i,k}, q_{i,j} $ & & & $ K+K(p-1)+\frac{p(p-1)}{2} $ \\
+            EEV    & $ \alpha \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &equal & equal & var. & $ \alpha, \lambda_{i}, q_{i,j,k} $ &  don't exist  & & $ 1+(p-1)+K\frac{p(p-1)}{2} $ \\
+            VEV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda} \pmb{Q}_k^\top $ &var. & equal & var. & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & & & $ K+(p-1)+K\frac{p(p-1)}{2} $ \\
+            \hline
+            EVV    & $ \alpha \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & equal & var. & var. & $ \alpha, \lambda_{i}, q_{i,j,k} $ & $ \alpha \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda, d_{i,k}, l_{i,j,k}\ j>i $ & $ 1+K(p-1)+K\frac{p(p-1)}{2} $  \\
+            VVV    & $ \alpha_k \pmb{Q}_k \pmb{\Lambda}_k \pmb{Q}_k^\top $ & var. & var. & var. & $ \alpha_k, \lambda_{i}, q_{i,j,k} $ & $ \alpha_k \pmb{L}_k \pmb{D}_k \pmb{L}_k^\top $ & $ \lambda_k, d_{i,k}, l_{i,j,k}\ j>i $ & $ K+K(p-1)+K\frac{p(p-1)}{2} $ \\
+            \hline
+        \end{tabular}
+    }
 
-\caption{Table of Parameters}
-\label{table:param}
+    \caption{Table of Parameters of the Covariance Matrices}
+    \label{table:paramSigma}
 \end{table}
 
 \clearpage
 
+%% TODO: complete table of params
+\begin{table}
+    \centering
+    \begin{tabular}{l|l l|l|r}
+        $\Sigma$ model  & $\mu$, $\pi$  & $\Sigma$      & reduced       & $\mathcal{O}()$ \\
+        EII        & $ K -1 + pK$  & $1$                        & $pK+K$                & $pK$ \\
+        VII        & $ K -1 + pK$  & $K$                        & $pK+2K-1$             & $pK$ \\
+        EEI        & $ K -1 + pK$  & $1+(p-1)$                  & $pK+p+K-1$            & $pK$ \\
+        VEI        & $ K -1 + pK$  & $K+(p-1)$                  & $pK+p+2K-2$           & $pK$ \\
+        EVI        & $ K -1 + pK$  & $1+K(p-1)$                 & $2pK$                 & $pK$ \\
+        VVI        & $ K -1 + pK$  & $1+K(p-1)$                 & $2pK+1$               & $pK$ \\
+        EEE        & $ K -1 + pK$  & $1+(p-1)+\frac{p(p-1)}{2}$ & $\frac{p(p-1)}{2}$    & $p^2$ \\
+        VEE        & $ K -1 + pK$  & $K+(p-1)+\frac{p(p-1)}{2}$ & $K+\frac{(p+2)(p-1)}{2}$  & $p^2+K$ \\
+        EVV        & $ K -1 + pK$  & $1+K(p-1)+\frac{p(p-1)}{2}$ & $\frac{(p+K)(p-1)}{2}+1$       & $p^2+Kp+K$ \\
+        VVV        & $ K -1 + pK$  & $K+K(p-1)+\frac{p(p-1)}{2}$ & $Kp+\frac{p(p-1)}{2}$       & $p^2+Kp+K$ \\
+    \end{tabular}
+    \caption{Full Table of Parameters}
+    \label{table:param}
+\end{table}
 
-\section{Problems of EM}
+here explain why ldlt is so nice to parametrize; i.e. Q in QLambdaQt has as many
+degrees of freedom, but needs more complicated boundary conditions to work well.
+
+\section{Problems of the EM-algorithm}
 
 
 The EM-algorithm has stalling problems especially close to a local optimum.

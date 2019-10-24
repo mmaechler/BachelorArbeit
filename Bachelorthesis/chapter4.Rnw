@@ -1,6 +1,12 @@
 \chapter{Discussion}
 
 
+<<loadnorMmix, echo=FALSE, results=hide>>=
+    ## load norMmix
+    library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+@
+
+
 one shortcoming is time inefficiency. largely due to implementation.
 mclust has 16'000 lines of Fortran code, impossible in the scope of this thesis.
 

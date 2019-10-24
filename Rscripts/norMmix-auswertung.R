@@ -3432,3 +3432,11 @@ plot(AA)
 #X  print method for MLE
 #X  put chapters in separate .Rnw files
 #   example of 2d em algo???
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-22
+
+## writing chapters
