@@ -10,6 +10,7 @@
 
 %% it 3
 \section{Definitions}
+\label{sec:def}
 
 A good and thorough introductory book is the work of \cite{McL00} and
 the reader is encouraged to study it to learn in depth about normal mixtures
@@ -26,8 +27,12 @@ In his book, \cite{Pea96}[Section 4.d.; page 266], Pearson analyzed measurements
 of forehead to body length of crabs sampled from the bay of Naples. His mixture 
 model-based approach suggested, that the crabs were evolving into two new 
 subspecies.
-%% this is historically important because it is mathematically displayed evidence of evolution.
+This is a historically important example, because it presents statistical 
+evidence of evolution in process.
 %% the approach to decompose distributions has gained tremendous popularity after the availabity of computing power made parametrized MLE possible.
+% TODO: fix sentence
+Mixture models have been used since, but research took off after the 
+availability of computing power made computational research possible
 %TODO: less confused desc of pearsons research
 
 % it 2
@@ -43,22 +48,55 @@ simple parametrization and a straightforward connection between degrees of
 freedom and necessarily generated numerical values. This will be explained 
 further in section \ref{sec:models}.
 
+But before we delve deeper into the topic of this research, we first define the
+concept of a normal mixture model:
+
 Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ be
 symmetric positive definite and $ \phi(- ; \mu, \Sigma) $ be the normal 
-distribution with mean $ \mu $ and covariance matrix $ \Sigma $.
+distribution with mean $ \mu $ and covariance matrix $ \Sigma $ with density 
+function:
 
+\begin{equation} 
+    \phi(\pmb{x;\mu,\Sigma})=
+    \frac{\exp(-\frac{1}{2}(\pmb{x-\mu})\pmb{\Sigma}^{-\frac{1}{2}}(\pmb{x-\mu})^\top)}
+         {\sqrt{(2\pi)^k \det{\pmb{\Sigma}}}}  
+\end{equation}
 
-$ \pmb{Y}_1, \dots , \pmb{Y}_n $
+for $\pmb{x} \in \mathbb{R}^p$.
+Since we are studying mixture models, we will need several overlapping of 
+normal distributions, of differing means and covariance. Therefore, we choose
+notation allowing us to refer to the components in shorthand. Let us assume we
+have $K \in \mathbb{N}$ normal distributions with means and covariance 
+$\pmb{\mu}_k, \pmb{\Sigma}_k,\quad k \in \{1, \dots , K\}$, then we fix:
+
+\begin{equation} 
+    \phi_k(\pmb{x}) := \phi(\pmb{x;\mu_k, \Sigma_k})
+    \label{eqn:phik}
+\end{equation}
+
+And going forward, we will refer to components by the subscript $k$.
+
 
 \begin{definition}
-    Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $ with 
-    probability density function $ \pmb{Y}_j \sim f(y_j) $ on 
-    $\mathbb{R}^p$ We assume that the density $ f(y_j) $ of $ \pmb{Y}_j $ can 
-    be written in the form 
-    \[ f(y_j) = \sum_{k=1}^{K} \pi_k \phi_k (y_k; \mu, \Sigma) \]
-    The $ \pi_k $ are called the component densities of the mixture and the 
-    $\phi_k$ mixture components.
+    Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $, where
+    $\pmb{Y}_i$ is a $p$-dimensional random vector with probability density 
+    function $ \pmb{Y}_i \sim f(\pmb{y}_i) $ on $\mathbb{R}^p$.
+
+    We assume that the density $ f(\pmb{y}_i) $ of $ \pmb{Y}_i $ can 
+    be written in the form: 
+    \begin{equation} 
+        f(\pmb{y}_i) = \sum_{k=1}^{K} \pi_k \phi_k (\pmb{y}_i)
+        \label{eqn:mixture}
+    \end{equation}
+    The $\phi_k$ are normal distributions and are called the mixture components
+    with parameters $\pmb{\mu}_k$ and $\pmb{\Sigma}_k$ as described above 
+    (\ref{eqn:phik}).
+    The $ \pi_k $ are called the component densities of the mixture and are
+    constrainded by the rules $\pi_k > 0$ and $\sum_k \pi_k = 1$.
+
 \end{definition}
+
+%TODO: need some fill text here?
 
 % it 1
 For 'large' datasets there are more parsimonious parametrizations, that reduce
@@ -69,6 +107,7 @@ detailed description of the models assumed in this thesis in section
 
 
 \section{The EM-Algorithm in Sketch}
+\label{sec:sketch}
 
 %% it 1
 With this definition, we immediately face the problem of how to fit these
@@ -77,27 +116,31 @@ is the {\bf E}xpectation-{\bf M}aximization algorithm, abbreviated as
 EM-algorithm.
 
 We give here a sketch of the EM-algorithm in the case of all normal mixture 
-components.
+components. This roughly follows the content in \cite{McL00}. For a more 
+thorough treatment of the matter see chapter 3.
 
 Suppose we have a $p-$dimensional dataset of $n$ samples $x_1, \dots ,x_n$,
-onto which we would like to fit $K$ normal distributions 
-$\phi_k,\ k \in {1,\dots , n}$. 
-We introduce a further explaining variable $\pmb{Z}$ in 
-$\textrm{Mat}^{n\times k}$, with entries in $[0,1]$ which represent the 
-expectation that observation $i$ belongs to component $k$.
+onto which we would like to fit a $K$ component normal mixture with mixture
+components $\phi_k,\ k \in {1,\dots , n}$. 
+
+For the EM-algorithm further parameters are introduced. These are denoted
+$\tau_j(\pmb{y}_i)$ and they represent the posterior probabilities that 
+observation $i$ is a member of component $j$.
 
 The EM-algorithm is a two step, iterative process consisting of an 'e'-step
 and an 'm'-step.
-% FIXME: inconsistent notation in Z and \tau
-% FIXME: add remark about
 In the e-step the expectation of component membership is updated.
-\[ \tau_i(y_j;\Psi) = \phi_i(y_j;\mu_i, \Sigma_i)/ \sum_{k=1}^K \phi_k(y_j;
-    \mu_k, \Sigma_k)\]
+\begin{equation} 
+    \tau_j(\pmb{y}_i;\Psi) = \phi_j(\pmb{y}_i)/ \sum_{k=1}^K \phi_k(\pmb{y}_i)
+\end{equation}
 and in the m-step given the component membership information we update the 
 component means and covariances by weighted versions of the usual estimators.
-\[\mu_i = \sum_{j=1}^n \tau_{ij}y_j / \sum_{j=1}^n \tau_{ij}\]
-\[\Sigma_i = \sum_{j=1}^n \tau_{ij} (y_j- \mu_i)(y_j-\mu_i)^\top / 
-    \sum_{j=1}^n \tau_{ij}\]
+\begin{equation}
+    \pmb{\mu}_j = \sum_{i=1}^n \tau_j(\pmb{y}_i)\pmb{y}_i / \sum_{j=1}^n \tau_j(\pmb{y}_i)
+\end{equation}
+\begin{equation}
+    \pmb{\Sigma}_j = \sum_{i=1}^n \tau_j(\pmb{y}_i) (\pmb{y}_i- \pmb{\mu}_j)(\pmb{y}_i-\pmb{\mu}_j)^\top /  \sum_{i=1}^n \tau_j(\pmb{y}_i)
+\end{equation}
 
 
 % it 2
@@ -105,12 +148,14 @@ There remains to be stated how to start the algorithm. Since both steps of the
 algorithm depend on data from the other, the EM-algorithm needs some form of 
 initialization step.
 Most popular implementations use some form of pre clustering and use the 
-EM-algorithm as subsequent tools to fit the data. The R-package {\tt Mclust} 
+EM-algorithm as subsequent tools to fit the data. The R-package {\tt mclust} 
 for example uses hierarchical agglomerative clustering \cite{Scr16}.
 
+% TODO: some fluff text here
 
 
 \section{Choice of Notation}
+\label{sec:notation}
 
 % it 1
 The classification of models in this paper relies heavily on the work of 
@@ -122,7 +167,9 @@ notation between \cite{Cel95} and ours.
 The basis of classification in \cite{Cel95} is the decomposition of a
 symmetric matrix into an orthogonal and a diagonal component.
 A symmetric positive definite matrix $ \Sigma $ can be decomposed as follows
-    \[ \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top} \]
+\begin{equation} 
+    \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top}
+\end{equation}
 with $ \pmb{D} $ an orthogonal matrix and $ \pmb{A} $ a diagonal matrix and
 $ \lambda = \sqrt[\uproot{3}p]{det(\Sigma)} $ the $ p-th $ root of the 
 determinant of $ \Sigma $.
@@ -139,13 +186,13 @@ conflicts in notation.
 Therefore we, from here on, when referring to the decomposition as described by 
 \cite{Cel95}, will use the following modification of notation:
 
-\begin{gather*} 
+\begin{gather} 
     \pmb{D} \longmapsto \pmb{Q} \\
     \pmb{A} \longmapsto \pmb{\Lambda} \\
     \lambda \longmapsto \alpha  \\
     \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^\top =
         \alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^\top
-\end{gather*}
+\end{gather}
 
 These were chosen according to general conventions of linear algebra. $ \pmb{Q} $
 is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice 
@@ -176,7 +223,9 @@ distributions.
 
 of course, we cannot restrict $\pmb{\lambda}$ while letting $\pmb{q}$ free, 
 since
-\[ \pmb{Q\Lambda Q}^\top = \pmb{Q}\mathrm{Id}\pmb{Q}^\top = \mathrm{Id}\].
+\begin{equation} 
+    \pmb{Q\Lambda Q}^\top = \pmb{Q}\mathrm{Id}\pmb{Q}^\top = \mathrm{Id}
+\end{equation}
 
 The second restriction simply means we hold the decomposition fixed throughout 
 all covariance matrices.
@@ -188,8 +237,10 @@ The 6 diagonal cases need no translation; the eigen and cholesky decomposition
 are equal to identity.
 For the non-diagonal cases note that for a given sym. pos. def. matrix
 $ \Sigma $ we have decompositions:
-\[\Sigma = \alpha \pmb{Q \Lambda Q}^\top \quad \Sigma =\alpha \pmb{L D L}^\top\]
-Since in both cases the bracketing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
+\begin{equation}
+    \Sigma = \alpha \pmb{Q \Lambda Q}^\top \quad \Sigma =\alpha \pmb{L D L}^\top
+\end{equation}
+Since in both cases the enclosing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
 determinant $ 1 $ the determinant of $ \Sigma $ falls entirely on $ \alpha $.
 therefore $ \alpha $, in these particular decompositions, is equal for both.
 \cite{Cel95} vary $\sigma$ by either varying or holding fixed the volume 
@@ -243,37 +294,55 @@ included.
             \hline
         \end{tabular}
     }
-
     \caption{Table of Parameters of the Covariance Matrices}
     \label{table:paramSigma}
 \end{table}
 
 \clearpage
 
-%% TODO: complete table of params
+%% TODO: fluff text, connecting the two tables
 \begin{table}
     \centering
     \begin{tabular}{l|l l|l|r}
         $\Sigma$ model  & $\mu$, $\pi$  & $\Sigma$      & reduced       & $\mathcal{O}()$ \\
-        EII        & $ K -1 + pK$  & $1$                        & $pK+K$                & $pK$ \\
-        VII        & $ K -1 + pK$  & $K$                        & $pK+2K-1$             & $pK$ \\
-        EEI        & $ K -1 + pK$  & $1+(p-1)$                  & $pK+p+K-1$            & $pK$ \\
-        VEI        & $ K -1 + pK$  & $K+(p-1)$                  & $pK+p+2K-2$           & $pK$ \\
-        EVI        & $ K -1 + pK$  & $1+K(p-1)$                 & $2pK$                 & $pK$ \\
-        VVI        & $ K -1 + pK$  & $1+K(p-1)$                 & $2pK+1$               & $pK$ \\
-        EEE        & $ K -1 + pK$  & $1+(p-1)+\frac{p(p-1)}{2}$ & $\frac{p(p-1)}{2}$    & $p^2$ \\
-        VEE        & $ K -1 + pK$  & $K+(p-1)+\frac{p(p-1)}{2}$ & $K+\frac{(p+2)(p-1)}{2}$  & $p^2+K$ \\
-        EVV        & $ K -1 + pK$  & $1+K(p-1)+\frac{p(p-1)}{2}$ & $\frac{(p+K)(p-1)}{2}+1$       & $p^2+Kp+K$ \\
-        VVV        & $ K -1 + pK$  & $K+K(p-1)+\frac{p(p-1)}{2}$ & $Kp+\frac{p(p-1)}{2}$       & $p^2+Kp+K$ \\
+        \hline
+        EII        & $ K -1 + pK$  & $1$                        & $Kp+K$                & $Kp+K$ \\
+        VII        & $ K -1 + pK$  & $K$                        & $Kp+2K-1$             & $Kp+K$ \\
+        EEI        & $ K -1 + pK$  & $1+(p-1)$                  & $Kp+p+K-1$            & $Kp+p+K$ \\
+        VEI        & $ K -1 + pK$  & $K+(p-1)$                  & $Kp+p+2K-2$           & $Kp+p+K$ \\
+        EVI        & $ K -1 + pK$  & $1+K(p-1)$                 & $2Kp$                 & $Kp$ \\
+        VVI        & $ K -1 + pK$  & $K+K(p-1)$                 & $2Kp+K-1$             & $Kp$ \\
+        EEE        & $ K -1 + pK$  & $1+(p-1)+\frac{p(p-1)}{2}$         & $\frac{(p+2)(p-1)}{2}+Kp+K$    
+            & $p^2+Kp+K$ \\
+        VEE        & $ K -1 + pK$  & $K+(p-1)+\frac{p(p-1)}{2}$         & $\frac{(p+2)(p-1)}{2}+Kp+2K-2$  
+            & $p^2+Kp+K$ \\
+        EVV        & $ K -1 + pK$  & $1+K(p-1)+K\frac{p(p-1)}{2}$       & $K\frac{(p+2)(p-1)}{2}+Kp+K$       
+            & $Kp^2+Kp+K$ \\
+        VVV        & $ K -1 + pK$  & $K+K(p-1)+K\frac{p(p-1)}{2}$       & $K\frac{(p+2)(p-1)}{2}+Kp+2K-1$       
+            & $Kp^2+Kp+K$ \\
     \end{tabular}
     \caption{Full Table of Parameters}
     \label{table:param}
 \end{table}
 
-here explain why ldlt is so nice to parametrize; i.e. Q in QLambdaQt has as many
-degrees of freedom, but needs more complicated boundary conditions to work well.
+%% here explain why ldlt is so nice to parametrize; i.e. Q in QLambdaQt has as many
+%% degrees of freedom, but needs more complicated boundary conditions to work well.
+% it 1
+There is an attractive advantage in using the $\pmb{LDL}^\top$ decomposition.
+Since both the $\pmb{LDL}^\top$ and eigendecomposition derive from the same 
+covariance matrix, the necessary parameters are the same in cardinality.
+In the case of the $\pmb{Q}$ and $\pmb{L}$ matrices, there need to be $\frac{p(p-1)}{2}$
+parameters to be determined to uniquely define these matrices.
+In the case of the $\pmb{L}$ matrix these are straightforward the entries of 
+the lower diagonal matrix, whereas $\pmb{Q}$ needs a nontrivial amount of work
+to determine a minimal generating set of parameters, which makes computation
+of the decomposition as in \cite{Cel95} a lot more difficult.
+Therefore the $\pmb{LDL}^\top$ decomposition was chosen for the purpose of this
+thesis.
+
 
 \section{Problems of the EM-algorithm}
+\label{sec:emproblems}
 
 
 The EM-algorithm has stalling problems especially close to a local optimum.
@@ -284,7 +353,6 @@ converges under mild regularity conditions.
 However, convergence does not guarantee fast convergence. In fact, a lot of 
 the work, that has gone into the research around the EM-algorithm has been 
 concerned with speeding up convergence, see \cite{McL00}[section 2.17].
-In common software implementations, %TODO: mostly initial clustering?? not sure
 The concern here is that a slowing in convergence might be mistaken for actual
 convergence.
 
@@ -292,6 +360,18 @@ convergence.
 This phenomenon is not infrequent and in difficult mixtures quite visible.
 To illustrate let us look at a particular mixture taken from \cite{Mar92} and
 the {\tt nor1mix} package from CRAN.
+{\tt nor1mix} is a package designed and developed for educational purposes to 
+teach about univariate normal mixtures. It is also the spiritual predecessor 
+of this thesis' \Rp code.
+
+The mixture is a trimodal mixture of uneven weight, as shown in figure
+\ref{fig:MW.nm9}.
+While not the most difficult mixture studied by \cite{Mar92}, it is certainly
+not trivial either.
+In the figures below, \ref{fig:20em} and \ref{fig:200em}, we demonstrate, that
+even after 200 iterations of the EM-algorithm the convergence is poor.
+In this instance, the initialization is done using \Rp's CLARA implementation
+from the cluster package. %TODO: citation here.
 
 
 <<Trimodal, echo=FALSE, include=FALSE>>=
@@ -309,6 +389,7 @@ the {\tt nor1mix} package from CRAN.
     library("nor1mix")
     MW.nm9 ## Trimodal mixture
 @
+% TODO: fix position size??
         \caption{Parameters of {\tt MW.nm9}}
         \label{tab:MW.nm9}
     \end{minipage}
@@ -323,6 +404,10 @@ the {\tt nor1mix} package from CRAN.
 % TODO: fix placement issue and caption location
 
 then an illustration of MW examples of pathological cases
+
+We can see, that the EM-algorithm seems to converge to an intermediary
+solution, where the smaller middle solution is weighted lower, until it manages
+to correct back and find the correct components.
 
 <<nor1mixEx, include=FALSE, fig=TRUE,echo=FALSE,results=hide>>=
     p.EMsteps <- function(nSteps, x, nmObj,
@@ -375,9 +460,6 @@ then an illustration of MW examples of pathological cases
 @
 
 
-%yay, got figure to print. solution was use of fig=TRUE, instead of various mutations like figure=true.
-
-here we see how change in loglik seems to stagnate. However, this does not stay that way, if we let EM run a bit further.
 
 <<plotemsteps,echo=FALSE,include=FALSE,results=hide>>=
 r <- p.EMsteps(200, x9, nm1)
@@ -390,6 +472,7 @@ r <- p.EMsteps(200, x9, nm1)
 <<fignor1mixEx, fig=TRUE,results=hide,echo=FALSE>>=
 <<nor1mixEx>>
 @
+    \label{fig:20em}
     \caption{20 EM steps}
     \end{minipage}\hfill
     \begin{minipage}{0.45\textwidth}
@@ -397,18 +480,67 @@ r <- p.EMsteps(200, x9, nm1)
 <<figplotemsteps, fig=TRUE,results=hide,echo=FALSE>>=
 <<plotemsteps>>
 @
+    \label{fig:200em}
     \caption{200 EM steps}
     \end{minipage}
     \label{adfafdafds}
 \end{figure}
 
-to conclude example show part of mixest that shows it takes 1200 iterations to converge
+We see how change in log-likelihood seems to stagnate. However, this does not 
+stay that way. If we let EM run a bit further we see, the log-likelihood hits 
+a flatspot, after which convergence accelerates again.
 
-In fact, it seems that the previous solution is a saddle point in the likelihood function, where EM has chronic problems continuing improvements.
+
+\begin{figure}[h]
+    \centering
+<<figemll, fig=TRUE, echo=FALSE>>=
+plot(r$logLik, type = "l", xlab = "iter", ylab = "log Likelihood",
+          main = "EM - iterations --> Likelihood increases")
+text(1:5, r$logLik[1:5])
+@
+    \label{fig:emll}
+    \caption{Log-likelihood Plotted against Iteration Count for the Example in \ref{fig:200em}}
+\end{figure}
+
+
+
+In fact, it seems that the previous solution is a saddle point in the likelihood
+function, where EM has chronic problems continuing improvements.
 
 give 2D demonstration.
 
-maybe show Marr Wand's examples of 'difficult' mixtures
 
-give conclusion recapping the just demonstrated, and lead in for next chapter
+\section{Alternative Option}
+\label{sec:alt}
 
+
+% it 1
+In conclusion, the EM-algorithm has very appealing advantages. However, as we
+have shown, there are chronic problems in convergence rates. The aim of this 
+thesis is to test if some improvement could be achieved by a different method.
+
+The plan is reasonably straightforward:
+
+\begin{enumerate}
+    \item Initialize using CLARA.
+    \item Perform one m-step, to transform CLARA's results into the form of a 
+        normal mixture.
+    \item Apply a general optimizer, using the mixture's log-likelihood function.
+\end{enumerate}
+
+%% this is going to be a longer part
+
+% TODO: here need fluff text explaining motivation of package
+what do we hope from this?
+better convergence
+proof of concept i.e. not complete failure
+
+raise questions about implementation,
+clara fctn
+optim params
+
+the subsequent chapter is devoted to answering this question by documenting the 
+development of norMmix
+
+
+%% TODO: need somwhere that MLE is abbreviated ...

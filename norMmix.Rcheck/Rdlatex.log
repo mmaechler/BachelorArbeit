@@ -141,7 +141,7 @@ Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
 No file Rd2.ind.
-[25] (/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux)
+[25] (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -292,20 +292,20 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
 Writing index file Rd2.idx
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.out)
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.out)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/u
-pdmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
@@ -377,7 +377,7 @@ Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
 No file Rd2.ind.
-[25] (/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux) )
+[25] (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux) )
 (see the transcript file for additional information)pdfTeX warning (dest): name
 {Rfn.rmultinom} has been referenced but does not exist, replaced by a fixed one
 
@@ -528,20 +528,20 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
 Writing index file Rd2.idx
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.out)
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.out)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/u
-pdmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
@@ -612,12 +612,12 @@ Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
 []\T1/ptm/m/n/10 a [][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 string spe
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.ind [25]
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.ind [25]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 89.
 
-[26] [27]) (/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux)
+[26] [27]) (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -777,20 +777,20 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
 Writing index file Rd2.idx
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.out)
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.out)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/u
-pdmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
@@ -861,12 +861,12 @@ Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
 []\T1/ptm/m/n/10 a [][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 string spe
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
-(/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.ind [25]
+(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.ind [25]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 89.
 
-[26] [27]) (/tmp/RtmpErmxJI/Rd2pdf2336ba9cafa/Rd2.aux)
+[26] [27]) (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -959,4 +959,4 @@ Output written on Rd2.pdf (27 pages, 194778 bytes).
 Transcript written on Rd2.log.
 Saving output to ‘norMmix-manual.pdf’ ...
 Done
-You may want to clean up by 'rm -Rf /tmp/RtmpErmxJI/Rd2pdf2336ba9cafa'
+You may want to clean up by 'rm -Rf /tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee'

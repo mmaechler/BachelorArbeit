@@ -1,27 +1,57 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\citeauthoryear{Benaglia, Chauveau, Hunter, and
+  Young}{Benaglia et~al.}{2009}]{mix09}
+Benaglia, T., D.~Chauveau, D.~R. Hunter, and D.~Young (2009).
+\newblock {mixtools}: An {R} package for analyzing finite mixture models.
+\newblock {\em Journal of Statistical Software\/}~{\em 32\/}(6), 1--29.
+
+\bibitem[\protect\citeauthoryear{Broyden}{Broyden}{1970}]{Bro70}
+Broyden, C.~G. (1970, 03).
+\newblock {The Convergence of a Class of Double-rank Minimization Algorithms 1.
+  General Considerations}.
+\newblock {\em IMA Journal of Applied Mathematics\/}~{\em 6\/}(1), 76--90.
+
 \bibitem[\protect\citeauthoryear{Celeux and Govaert}{Celeux and
   Govaert}{1995}]{Cel95}
 Celeux, G. and G.~Govaert (1995).
 \newblock Gaussian parsimonious clustering models.
-\newblock {\em Pattern Recognition\/}~{\em 28\/}(5), 781 -- 793.
+\newblock {\em Pattern Recognition\/}~{\em 28\/}(5), 781--793.
 
 \bibitem[\protect\citeauthoryear{Dempster, Laird, and Rubin}{Dempster
   et~al.}{1977}]{Dem77}
-Dempster, A.~P., N.~M. Laird, and D.~B. Rubin (1977).
+Dempster, A., N.~Laird, and D.~Rubin (1977).
 \newblock Maximum likelihood from incomplete data via the em algorithm.
 \newblock {\em Journal of the Royal Statistical Society: Series B
   (Methodological)\/}~{\em 39\/}(1), 1--22.
 
-\bibitem[\protect\citeauthoryear{L, M, TB, and AE.}{L et~al.}{2016}]{Scr16}
-L, S., F.~M, M.~TB, and R.~AE. (2016).
-\newblock mclust 5: Clustering, classification and density estimation using
-  gaussian finite mixture models.
-\newblock {\em R J.\/}~(8(1)), 289–317.
+\bibitem[\protect\citeauthoryear{Fraley}{Fraley}{1998}]{Fra98}
+Fraley, C. (1998).
+\newblock Algorithms for model-based gaussian hierarchical clustering.
+\newblock {\em SIAM Journal on Scientific Computing\/}~{\em 20\/}(1), 270--281.
+
+\bibitem[\protect\citeauthoryear{Genz, Bretz, Miwa, Mi, Leisch, Scheipl, and
+  Hothorn}{Genz et~al.}{2019}]{mvt19}
+Genz, A., F.~Bretz, T.~Miwa, X.~Mi, F.~Leisch, F.~Scheipl, and T.~Hothorn
+  (2019).
+\newblock {\em {mvtnorm}: Multivariate Normal and t Distributions}.
+\newblock R package version 1.0-11.
+
+\bibitem[\protect\citeauthoryear{Maechler}{Maechler}{2019}]{sfs19}
+Maechler, M. (2019).
+\newblock {\em sfsmisc: Utilities from 'Seminar fuer Statistik' ETH Zurich}.
+\newblock R package version 1.1-4.
+
+\bibitem[\protect\citeauthoryear{Maechler, Rousseeuw, Struyf, Hubert, and
+  Hornik}{Maechler et~al.}{2019}]{clu19}
+Maechler, M., P.~Rousseeuw, A.~Struyf, M.~Hubert, and K.~Hornik (2019).
+\newblock {\em cluster: Cluster Analysis Basics and Extensions}.
+\newblock R package version 2.1.0 --- For new features, see the 'Changelog'
+  file (in the package source).
 
 \bibitem[\protect\citeauthoryear{Marron and Wand}{Marron and
   Wand}{1992}]{Mar92}
-Marron, J.~S. and M.~P. Wand (1992).
+Marron, S. and M.~Wand (1992).
 \newblock Exact mean integrated squared error.
 \newblock {\em The Annals of Statistics\/}~{\em 20\/}(2), 712--736.
 
@@ -34,10 +64,24 @@ McLachlan, G. and D.~Peel (2000).
 \bibitem[\protect\citeauthoryear{Pearson and Henrici}{Pearson and
   Henrici}{1896}]{Pea96}
 Pearson, K. and O.~M. F.~E. Henrici (1896).
-\newblock Vii. mathematical contributions to the theory of
-  evolution.\&\#x2014;iii. regression, heredity, and panmixia.
+\newblock Vii. mathematical contributions to the theory of evolution. iii.
+  regression, heredity, and panmixia.
 \newblock {\em Philosophical Transactions of the Royal Society of London.
   Series A, Containing Papers of a Mathematical or Physical Character\/}~{\em
   187}, 253--318.
+
+\bibitem[\protect\citeauthoryear{Scrucca, Fop, Murphy, and Raftery}{Scrucca
+  et~al.}{2016}]{Scr16}
+Scrucca, L., M.~Fop, B.~Murphy, and A.~Raftery (2016).
+\newblock mclust 5: Clustering, classification and density estimation using
+  gaussian finite mixture models.
+\newblock {\em R Journal\/}~(8(1)), 289–317.
+
+\bibitem[\protect\citeauthoryear{Venables and Ripley}{Venables and
+  Ripley}{2002}]{mas02}
+Venables, W.~N. and B.~D. Ripley (2002).
+\newblock {\em Modern Applied Statistics with S\/} (Fourth ed.).
+\newblock New York: Springer.
+\newblock ISBN 0-387-95457-0.
 
 \end{thebibliography}

@@ -17,7 +17,7 @@ App_plots.tex: App_plots.Rnw
 	R CMD Sweave $^
 
 .PHONY: bib
-bib:
+bib: References.bib
 	make -B
 	bibtex BachelorThesis-Engl
 	pdflatex BachelorThesis-Engl.tex

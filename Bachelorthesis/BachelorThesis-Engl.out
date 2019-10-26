@@ -4,20 +4,22 @@
 \BOOKMARK [1][-]{section.1.3}{Choice of Notation}{chapter.1}% 4
 \BOOKMARK [1][-]{section.1.4}{Models of Covariance Matrices}{chapter.1}% 5
 \BOOKMARK [1][-]{section.1.5}{Problems of the EM-algorithm}{chapter.1}% 6
-\BOOKMARK [0][-]{chapter.2}{The norMmix Package}{}% 7
-\BOOKMARK [1][-]{section.2.1}{Introduction to the Package}{chapter.2}% 8
-\BOOKMARK [1][-]{section.2.2}{On The Development of norMmix}{chapter.2}% 9
-\BOOKMARK [1][-]{section.2.3}{Demonstration}{chapter.2}% 10
-\BOOKMARK [0][-]{chapter.3}{Comparing Algorithms}{}% 11
-\BOOKMARK [1][-]{section.3.1}{Time Analysis}{chapter.3}% 12
-\BOOKMARK [1][-]{section.3.2}{Behaviour in n}{chapter.3}% 13
-\BOOKMARK [1][-]{section.3.3}{Behaviour in p}{chapter.3}% 14
-\BOOKMARK [1][-]{section.3.4}{Diffixult Mixtures}{chapter.3}% 15
-\BOOKMARK [1][-]{section.3.5}{Nonnormal Mixtures}{chapter.3}% 16
-\BOOKMARK [0][-]{chapter.4}{Discussion}{}% 17
-\BOOKMARK [0][-]{section*.4}{Bibliography}{}% 18
-\BOOKMARK [0][-]{appendix.A}{RCode}{}% 19
-\BOOKMARK [1][-]{section.A.1}{llnorMmix}{appendix.A}% 20
-\BOOKMARK [1][-]{section.A.2}{Example Simulation Script}{appendix.A}% 21
-\BOOKMARK [0][-]{appendix.B}{Further Plots}{}% 22
-\BOOKMARK [1][-]{section.B.1}{Ch3}{appendix.B}% 23
+\BOOKMARK [1][-]{section.1.6}{Alternative Option}{chapter.1}% 7
+\BOOKMARK [0][-]{chapter.2}{The norMmix Package}{}% 8
+\BOOKMARK [1][-]{section.2.1}{Introduction to the Package}{chapter.2}% 9
+\BOOKMARK [2][-]{subsection.2.1.1}{norMmixMLE}{section.2.1}% 10
+\BOOKMARK [1][-]{section.2.2}{On The Development of norMmix}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Demonstration}{chapter.2}% 12
+\BOOKMARK [0][-]{chapter.3}{Comparing Algorithms}{}% 13
+\BOOKMARK [1][-]{section.3.1}{Time Analysis}{chapter.3}% 14
+\BOOKMARK [1][-]{section.3.2}{Behaviour in n}{chapter.3}% 15
+\BOOKMARK [1][-]{section.3.3}{Behaviour in p}{chapter.3}% 16
+\BOOKMARK [1][-]{section.3.4}{Diffixult Mixtures}{chapter.3}% 17
+\BOOKMARK [1][-]{section.3.5}{Nonnormal Mixtures}{chapter.3}% 18
+\BOOKMARK [0][-]{chapter.4}{Discussion}{}% 19
+\BOOKMARK [0][-]{section*.4}{Bibliography}{}% 20
+\BOOKMARK [0][-]{appendix.A}{RCode}{}% 21
+\BOOKMARK [1][-]{section.A.1}{llnorMmix}{appendix.A}% 22
+\BOOKMARK [1][-]{section.A.2}{Example Simulation Script}{appendix.A}% 23
+\BOOKMARK [0][-]{appendix.B}{Further Plots}{}% 24
+\BOOKMARK [1][-]{section.B.1}{Chapter 3}{appendix.B}% 25

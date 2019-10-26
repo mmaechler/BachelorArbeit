@@ -3,6 +3,7 @@
 
 here further plots:
 
-\section{Ch3}
+\section{Chapter 3}
+not nec best way to go about it, section differently.
 
 dsfasdf

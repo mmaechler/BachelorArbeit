@@ -20,3 +20,5 @@ models
 
 further study might include: other presumed component distributions, 'high' dimensions
 
+failures of implementation: no lower boundary for variance, can lead to minuscule components
+not as bad as it used to be.
