@@ -7,8 +7,7 @@
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Log-likelihood Plotted against Iteration Count for the Example in \ref {fig:200em}}}{8}{figure.1.5}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Demonstration of the MW Objects}}{13}{figure.2.1}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces The Correct Mixture}}{14}{figure.2.2}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces The Fitted Mixture}}{14}{figure.2.3}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Correct Mixture (left) and Fitted overlayed in orange (right)}}{14}{figure.2.2}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Example of Comparison Plot}}{16}{figure.3.1}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Log-log Plot of System Time against Parameter Length}}{18}{figure.3.2}

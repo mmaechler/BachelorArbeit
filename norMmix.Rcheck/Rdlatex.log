@@ -73,7 +73,7 @@ No file Rd2.aux.
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [2]
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
+Overfull \hbox (3.67877pt too wide) in paragraph at lines 159--163
 []\T1/ptm/m/n/10 From a list of char-ac-ter vec-tors, will ap-ply [][]\T1/zi4/m
 /n/10 massbic[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 massbicm[][][] \T1/ptm/m
 /n/10 fol-lowed by [][]\T1/zi4/m/n/10 massplot[][][] \T1/ptm/m/n/10 and [][]\T1
@@ -81,23 +81,23 @@ Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
 [3] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [4]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5] [6]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.49646pt too wide) in paragraph at lines 371--386
+Overfull \hbox (0.49646pt too wide) in paragraph at lines 376--391
 \T1/ptm/m/n/10 names")=List of 2 $ nMm-time:List of 80 ..- attr(*, "dim")= int 
 [1:2] 8 10 ..- attr(*, "dim-names")=List
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
-Overfull \hbox (8.21786pt too wide) in paragraph at lines 425--428
+Overfull \hbox (8.21786pt too wide) in paragraph at lines 430--433
 [][][]\T1/zi4/m/n/10 chol[][][]() \T1/ptm/m/n/10 in base \T1/phv/m/n/10 R\T1/pt
 m/m/n/10 , or also a ``gen-er-al-ized LDL'' de-com-po-si-tion, the Bunch-Kaufma
 n, [][]\T1/zi4/m/n/10 BunchKaufman[][][]()
 [8]
 Underfull \vbox (badness 10000) has occurred while \output is active [9]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 541--541
 []\T1/ptm/m/it/10 Log-Likelihood of Mul-ti-vari-ate Nor-mal Mix-ture Re-ly-ing 
 on
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
-Overfull \hbox (9.51633pt too wide) in paragraph at lines 661--665
+Overfull \hbox (9.51633pt too wide) in paragraph at lines 666--670
 []\T1/ptm/m/n/10 Nicolas Trut-mann con-structed mul-ti-vari-ate ver-sions from 
 most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [12] [13]
@@ -106,42 +106,42 @@ most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
-Overfull \hbox (22.09842pt too wide) in paragraph at lines 1049--1051
+Overfull \hbox (22.09842pt too wide) in paragraph at lines 1054--1056
 []\T1/ptm/m/n/10 p-vector of mix-ture prob-a-bil-ity weights; non-negative, sum
 -ming to one: \T1/zi4/m/n/10 sum(weight)
 [18] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.65622pt too wide) in paragraph at lines 1082--1087
+Overfull \hbox (0.65622pt too wide) in paragraph at lines 1087--1092
 []\T1/ptm/m/n/10 Direct Max-i-mum Like-li-hood Es-ti-ma-tion (MLE) for mul-ti-v
 ari-ate nor-mal mix-ture mod-els \T1/zi4/m/n/10 "[][]norMmix[][][]"\T1/ptm/m/n/
 10 .
 
-Overfull \hbox (28.29951pt too wide) in paragraph at lines 1121--1123
+Overfull \hbox (28.29951pt too wide) in paragraph at lines 1126--1128
 []\T1/ptm/m/n/10 arguments for tun-ing the op-ti-mizer [][]\T1/zi4/m/n/10 optim
 [][][](*,method=method,control = list(...))\T1/ptm/m/n/10 . 
 [19]
-Overfull \hbox (25.08096pt too wide) in paragraph at lines 1161--1161
+Overfull \hbox (25.08096pt too wide) in paragraph at lines 1166--1166
  []    \T1/zi4/m/n/9 if(interactive()) ## Fitting "wrong" overparametrized mode
 l: typically need more iterations:[] 
 
-Overfull \hbox (22.38101pt too wide) in paragraph at lines 1162--1162
+Overfull \hbox (22.38101pt too wide) in paragraph at lines 1167--1167
  []    \T1/zi4/m/n/9 fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# d
 efault maxit=100 is often too small[] 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [22]
-Overfull \hbox (2.19864pt too wide) in paragraph at lines 1309--1311
+Overfull \hbox (2.19864pt too wide) in paragraph at lines 1314--1316
 []\T1/ptm/m/n/10 further ar-gu-ments to be passed to [][]\T1/zi4/m/n/10 plot[][
 ][] \T1/ptm/m/n/10 if plotbest=TRUE, and [][]\T1/zi4/m/n/10 matplot[][][] \T1/p
 tm/m/n/10 if FALSE 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [24]
-Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
+Overfull \hbox (8.8184pt too wide) in paragraph at lines 1429--1431
 []\T1/ptm/m/n/10 a [][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 string spe
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
 No file Rd2.ind.
-[25] (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
+[25] (/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -232,7 +232,7 @@ hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on Rd2.pdf (25 pages, 183530 bytes).
+Output written on Rd2.pdf (25 pages, 183572 bytes).
 Transcript written on Rd2.log.
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex)
  restricted \write18 enabled.
@@ -292,24 +292,24 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
 Writing index file Rd2.idx
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.out)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
+Overfull \hbox (3.67877pt too wide) in paragraph at lines 159--163
 []\T1/ptm/m/n/10 From a list of char-ac-ter vec-tors, will ap-ply [][]\T1/zi4/m
 /n/10 massbic[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 massbicm[][][] \T1/ptm/m
 /n/10 fol-lowed by [][]\T1/zi4/m/n/10 massplot[][][] \T1/ptm/m/n/10 and [][]\T1
@@ -317,23 +317,23 @@ Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
 [3] [4] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5] [6]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.49646pt too wide) in paragraph at lines 371--386
+Overfull \hbox (0.49646pt too wide) in paragraph at lines 376--391
 \T1/ptm/m/n/10 names")=List of 2 $ nMm-time:List of 80 ..- attr(*, "dim")= int 
 [1:2] 8 10 ..- attr(*, "dim-names")=List
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
-Overfull \hbox (8.21786pt too wide) in paragraph at lines 425--428
+Overfull \hbox (8.21786pt too wide) in paragraph at lines 430--433
 [][][]\T1/zi4/m/n/10 chol[][][]() \T1/ptm/m/n/10 in base \T1/phv/m/n/10 R\T1/pt
 m/m/n/10 , or also a ``gen-er-al-ized LDL'' de-com-po-si-tion, the Bunch-Kaufma
 n, [][]\T1/zi4/m/n/10 BunchKaufman[][][]()
 [8]
 Underfull \vbox (badness 10000) has occurred while \output is active [9]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 541--541
 []\T1/ptm/m/it/10 Log-Likelihood of Mul-ti-vari-ate Nor-mal Mix-ture Re-ly-ing 
 on
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
-Overfull \hbox (9.51633pt too wide) in paragraph at lines 661--665
+Overfull \hbox (9.51633pt too wide) in paragraph at lines 666--670
 []\T1/ptm/m/n/10 Nicolas Trut-mann con-structed mul-ti-vari-ate ver-sions from 
 most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [12] [13]
@@ -342,42 +342,42 @@ most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
-Overfull \hbox (22.09842pt too wide) in paragraph at lines 1049--1051
+Overfull \hbox (22.09842pt too wide) in paragraph at lines 1054--1056
 []\T1/ptm/m/n/10 p-vector of mix-ture prob-a-bil-ity weights; non-negative, sum
 -ming to one: \T1/zi4/m/n/10 sum(weight)
 [18] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.65622pt too wide) in paragraph at lines 1082--1087
+Overfull \hbox (0.65622pt too wide) in paragraph at lines 1087--1092
 []\T1/ptm/m/n/10 Direct Max-i-mum Like-li-hood Es-ti-ma-tion (MLE) for mul-ti-v
 ari-ate nor-mal mix-ture mod-els \T1/zi4/m/n/10 "[][]norMmix[][][]"\T1/ptm/m/n/
 10 .
 
-Overfull \hbox (28.29951pt too wide) in paragraph at lines 1121--1123
+Overfull \hbox (28.29951pt too wide) in paragraph at lines 1126--1128
 []\T1/ptm/m/n/10 arguments for tun-ing the op-ti-mizer [][]\T1/zi4/m/n/10 optim
 [][][](*,method=method,control = list(...))\T1/ptm/m/n/10 . 
 [19]
-Overfull \hbox (25.08096pt too wide) in paragraph at lines 1161--1161
+Overfull \hbox (25.08096pt too wide) in paragraph at lines 1166--1166
  []    \T1/zi4/m/n/9 if(interactive()) ## Fitting "wrong" overparametrized mode
 l: typically need more iterations:[] 
 
-Overfull \hbox (22.38101pt too wide) in paragraph at lines 1162--1162
+Overfull \hbox (22.38101pt too wide) in paragraph at lines 1167--1167
  []    \T1/zi4/m/n/9 fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# d
 efault maxit=100 is often too small[] 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [22]
-Overfull \hbox (2.19864pt too wide) in paragraph at lines 1309--1311
+Overfull \hbox (2.19864pt too wide) in paragraph at lines 1314--1316
 []\T1/ptm/m/n/10 further ar-gu-ments to be passed to [][]\T1/zi4/m/n/10 plot[][
 ][] \T1/ptm/m/n/10 if plotbest=TRUE, and [][]\T1/zi4/m/n/10 matplot[][][] \T1/p
 tm/m/n/10 if FALSE 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [24]
-Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
+Overfull \hbox (8.8184pt too wide) in paragraph at lines 1429--1431
 []\T1/ptm/m/n/10 a [][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 string spe
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
 No file Rd2.ind.
-[25] (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux) )
+[25] (/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux) )
 (see the transcript file for additional information)pdfTeX warning (dest): name
 {Rfn.rmultinom} has been referenced but does not exist, replaced by a fixed one
 
@@ -462,7 +462,7 @@ hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on Rd2.pdf (25 pages, 186113 bytes).
+Output written on Rd2.pdf (25 pages, 186148 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (176 entries accepted, 0 rejected).
@@ -528,24 +528,24 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
 Writing index file Rd2.idx
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.out)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
+Overfull \hbox (3.67877pt too wide) in paragraph at lines 159--163
 []\T1/ptm/m/n/10 From a list of char-ac-ter vec-tors, will ap-ply [][]\T1/zi4/m
 /n/10 massbic[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 massbicm[][][] \T1/ptm/m
 /n/10 fol-lowed by [][]\T1/zi4/m/n/10 massplot[][][] \T1/ptm/m/n/10 and [][]\T1
@@ -553,23 +553,23 @@ Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
 [3] [4] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5] [6]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.49646pt too wide) in paragraph at lines 371--386
+Overfull \hbox (0.49646pt too wide) in paragraph at lines 376--391
 \T1/ptm/m/n/10 names")=List of 2 $ nMm-time:List of 80 ..- attr(*, "dim")= int 
 [1:2] 8 10 ..- attr(*, "dim-names")=List
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
-Overfull \hbox (8.21786pt too wide) in paragraph at lines 425--428
+Overfull \hbox (8.21786pt too wide) in paragraph at lines 430--433
 [][][]\T1/zi4/m/n/10 chol[][][]() \T1/ptm/m/n/10 in base \T1/phv/m/n/10 R\T1/pt
 m/m/n/10 , or also a ``gen-er-al-ized LDL'' de-com-po-si-tion, the Bunch-Kaufma
 n, [][]\T1/zi4/m/n/10 BunchKaufman[][][]()
 [8]
 Underfull \vbox (badness 10000) has occurred while \output is active [9]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 541--541
 []\T1/ptm/m/it/10 Log-Likelihood of Mul-ti-vari-ate Nor-mal Mix-ture Re-ly-ing 
 on
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
-Overfull \hbox (9.51633pt too wide) in paragraph at lines 661--665
+Overfull \hbox (9.51633pt too wide) in paragraph at lines 666--670
 []\T1/ptm/m/n/10 Nicolas Trut-mann con-structed mul-ti-vari-ate ver-sions from 
 most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [12] [13]
@@ -578,46 +578,46 @@ most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
-Overfull \hbox (22.09842pt too wide) in paragraph at lines 1049--1051
+Overfull \hbox (22.09842pt too wide) in paragraph at lines 1054--1056
 []\T1/ptm/m/n/10 p-vector of mix-ture prob-a-bil-ity weights; non-negative, sum
 -ming to one: \T1/zi4/m/n/10 sum(weight)
 [18] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.65622pt too wide) in paragraph at lines 1082--1087
+Overfull \hbox (0.65622pt too wide) in paragraph at lines 1087--1092
 []\T1/ptm/m/n/10 Direct Max-i-mum Like-li-hood Es-ti-ma-tion (MLE) for mul-ti-v
 ari-ate nor-mal mix-ture mod-els \T1/zi4/m/n/10 "[][]norMmix[][][]"\T1/ptm/m/n/
 10 .
 
-Overfull \hbox (28.29951pt too wide) in paragraph at lines 1121--1123
+Overfull \hbox (28.29951pt too wide) in paragraph at lines 1126--1128
 []\T1/ptm/m/n/10 arguments for tun-ing the op-ti-mizer [][]\T1/zi4/m/n/10 optim
 [][][](*,method=method,control = list(...))\T1/ptm/m/n/10 . 
 [19]
-Overfull \hbox (25.08096pt too wide) in paragraph at lines 1161--1161
+Overfull \hbox (25.08096pt too wide) in paragraph at lines 1166--1166
  []    \T1/zi4/m/n/9 if(interactive()) ## Fitting "wrong" overparametrized mode
 l: typically need more iterations:[] 
 
-Overfull \hbox (22.38101pt too wide) in paragraph at lines 1162--1162
+Overfull \hbox (22.38101pt too wide) in paragraph at lines 1167--1167
  []    \T1/zi4/m/n/9 fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# d
 efault maxit=100 is often too small[] 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [22]
-Overfull \hbox (2.19864pt too wide) in paragraph at lines 1309--1311
+Overfull \hbox (2.19864pt too wide) in paragraph at lines 1314--1316
 []\T1/ptm/m/n/10 further ar-gu-ments to be passed to [][]\T1/zi4/m/n/10 plot[][
 ][] \T1/ptm/m/n/10 if plotbest=TRUE, and [][]\T1/zi4/m/n/10 matplot[][][] \T1/p
 tm/m/n/10 if FALSE 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [24]
-Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
+Overfull \hbox (8.8184pt too wide) in paragraph at lines 1429--1431
 []\T1/ptm/m/n/10 a [][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 string spe
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.ind [25]
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.ind [25]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 89.
 
-[26] [27]) (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
+[26] [27]) (/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -711,7 +711,7 @@ hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on Rd2.pdf (27 pages, 194443 bytes).
+Output written on Rd2.pdf (27 pages, 194472 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
 Scanning input file Rd2.idx....done (176 entries accepted, 0 rejected).
@@ -777,24 +777,24 @@ Package hyperref Warning: Option `pagebackref' has already been used,
 (/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
 Writing index file Rd2.idx
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux)
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd)
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 ) (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.out)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.out)
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.out)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.toc [1{/var/lib/texmf/fonts/map/pdftex/
 updmap/pdftex.map}]) (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 [2] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/inconsolata/ts1zi4.fd)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
+Overfull \hbox (3.67877pt too wide) in paragraph at lines 159--163
 []\T1/ptm/m/n/10 From a list of char-ac-ter vec-tors, will ap-ply [][]\T1/zi4/m
 /n/10 massbic[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 massbicm[][][] \T1/ptm/m
 /n/10 fol-lowed by [][]\T1/zi4/m/n/10 massplot[][][] \T1/ptm/m/n/10 and [][]\T1
@@ -802,23 +802,23 @@ Overfull \hbox (3.67877pt too wide) in paragraph at lines 154--158
 [3] [4] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [5] [6]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.49646pt too wide) in paragraph at lines 371--386
+Overfull \hbox (0.49646pt too wide) in paragraph at lines 376--391
 \T1/ptm/m/n/10 names")=List of 2 $ nMm-time:List of 80 ..- attr(*, "dim")= int 
 [1:2] 8 10 ..- attr(*, "dim-names")=List
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [7]
-Overfull \hbox (8.21786pt too wide) in paragraph at lines 425--428
+Overfull \hbox (8.21786pt too wide) in paragraph at lines 430--433
 [][][]\T1/zi4/m/n/10 chol[][][]() \T1/ptm/m/n/10 in base \T1/phv/m/n/10 R\T1/pt
 m/m/n/10 , or also a ``gen-er-al-ized LDL'' de-com-po-si-tion, the Bunch-Kaufma
 n, [][]\T1/zi4/m/n/10 BunchKaufman[][][]()
 [8]
 Underfull \vbox (badness 10000) has occurred while \output is active [9]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Underfull \hbox (badness 10000) in paragraph at lines 536--536
+Underfull \hbox (badness 10000) in paragraph at lines 541--541
 []\T1/ptm/m/it/10 Log-Likelihood of Mul-ti-vari-ate Nor-mal Mix-ture Re-ly-ing 
 on
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [10]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [11]
-Overfull \hbox (9.51633pt too wide) in paragraph at lines 661--665
+Overfull \hbox (9.51633pt too wide) in paragraph at lines 666--670
 []\T1/ptm/m/n/10 Nicolas Trut-mann con-structed mul-ti-vari-ate ver-sions from 
 most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [12] [13]
@@ -827,46 +827,46 @@ most of the uni-vari-ate (i.e., one-dimensional)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [16]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [17]
-Overfull \hbox (22.09842pt too wide) in paragraph at lines 1049--1051
+Overfull \hbox (22.09842pt too wide) in paragraph at lines 1054--1056
 []\T1/ptm/m/n/10 p-vector of mix-ture prob-a-bil-ity weights; non-negative, sum
 -ming to one: \T1/zi4/m/n/10 sum(weight)
 [18] (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (0.65622pt too wide) in paragraph at lines 1082--1087
+Overfull \hbox (0.65622pt too wide) in paragraph at lines 1087--1092
 []\T1/ptm/m/n/10 Direct Max-i-mum Like-li-hood Es-ti-ma-tion (MLE) for mul-ti-v
 ari-ate nor-mal mix-ture mod-els \T1/zi4/m/n/10 "[][]norMmix[][][]"\T1/ptm/m/n/
 10 .
 
-Overfull \hbox (28.29951pt too wide) in paragraph at lines 1121--1123
+Overfull \hbox (28.29951pt too wide) in paragraph at lines 1126--1128
 []\T1/ptm/m/n/10 arguments for tun-ing the op-ti-mizer [][]\T1/zi4/m/n/10 optim
 [][][](*,method=method,control = list(...))\T1/ptm/m/n/10 . 
 [19]
-Overfull \hbox (25.08096pt too wide) in paragraph at lines 1161--1161
+Overfull \hbox (25.08096pt too wide) in paragraph at lines 1166--1166
  []    \T1/zi4/m/n/9 if(interactive()) ## Fitting "wrong" overparametrized mode
 l: typically need more iterations:[] 
 
-Overfull \hbox (22.38101pt too wide) in paragraph at lines 1162--1162
+Overfull \hbox (22.38101pt too wide) in paragraph at lines 1167--1167
  []    \T1/zi4/m/n/9 fmW <- norMmixMLE(x, k = 7, model = "VVV", maxit = 200)# d
 efault maxit=100 is often too small[] 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [20]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [21]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [22]
-Overfull \hbox (2.19864pt too wide) in paragraph at lines 1309--1311
+Overfull \hbox (2.19864pt too wide) in paragraph at lines 1314--1316
 []\T1/ptm/m/n/10 further ar-gu-ments to be passed to [][]\T1/zi4/m/n/10 plot[][
 ][] \T1/ptm/m/n/10 if plotbest=TRUE, and [][]\T1/zi4/m/n/10 matplot[][][] \T1/p
 tm/m/n/10 if FALSE 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [23]
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def)
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def) [24]
-Overfull \hbox (8.8184pt too wide) in paragraph at lines 1424--1426
+Overfull \hbox (8.8184pt too wide) in paragraph at lines 1429--1431
 []\T1/ptm/m/n/10 a [][]\T1/zi4/m/n/10 character[][][] \T1/ptm/m/n/10 string spe
 c-i-fy-ing the trans-form to use for the weights, see [][]\T1/zi4/m/n/10 llnorM
 mix[][][]\T1/ptm/m/n/10 . 
-(/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.ind [25]
+(/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.ind [25]
 
 LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
 (Font)              using `T1/zi4/m/n' instead on input line 89.
 
-[26] [27]) (/tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee/Rd2.aux)
+[26] [27]) (/tmp/Rtmp37OjgO/Rd2pdf694938fe12b9/Rd2.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -955,8 +955,8 @@ hare/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times
 /utmri8a.pfb>
-Output written on Rd2.pdf (27 pages, 194778 bytes).
+Output written on Rd2.pdf (27 pages, 194819 bytes).
 Transcript written on Rd2.log.
 Saving output to ‘norMmix-manual.pdf’ ...
 Done
-You may want to clean up by 'rm -Rf /tmp/RtmpJ46HTx/Rd2pdf764d71ec2eee'
+You may want to clean up by 'rm -Rf /tmp/Rtmp37OjgO/Rd2pdf694938fe12b9'

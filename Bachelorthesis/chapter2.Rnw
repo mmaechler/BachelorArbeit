@@ -266,13 +266,10 @@ high-dimensional spaces.
 
 \section{Demonstration}
 
-Mention, that mclust doesn't depend on seed(double check) and therefore norMmix has 
-'advantage' of 'confidence intervals'. We can run 50 simulations and see if there
-might be more sensible clusters.
-
+To end this chapter, here a small demonstration of the capabilities of 
+{\tt norMmix}. First a small plot to show an MW mixture.
 
 % it 1
-
 \begin{figure}
     \centering
 <<demoMW>>=
@@ -282,31 +279,32 @@ might be more sensible clusters.
     \label{fig:demoMW}
 \end{figure}
 
+It is a trimodal mixture along the diagonal.
+
 <<demoMLE>>=
     set.seed(2019); x <- rnorMmix(500, MW215)
-    mleResult <- norMmixMLE(x, 3, "VEE")
+    system.time(mleResult <- norMmixMLE(x, 3, "VEE"))
+
     mleResult
 @
 
-\begin{figure}
+Here are the results of a run of {\tt norMmixMLE} and below the graphical 
+display of the results.
+
+
+\begin{figure}[h]
     \centering
-    \begin{minipage}{0.45\textwidth}
-<<democorrect, fig=TRUE, echo=FALSE>>=
-    plot(MW215)
-    points(x)
-@
-    \caption{The Correct Mixture}
-    \label{fig:democorrect}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-    \centering
-<<demofitted, fig=TRUE, echo=FALSE>>=
-    plot(MW215)
-    plot(mleResult, fillcolor=norMmix:::nMmcols[2], newWindow=FALSE)
+<<testtt, fig=TRUE>>=
+    op <- par(mfrow=c(1,2), mar=c(10,4,8,2))
+    plot(MW215, asp=1, ylab='', xlab='')
+    points(x, col=adjustcolor("black", 0.5))
+    plot(MW215, asp=1, ylab='', xlab='')
+    plot(mleResult, fillcolor=norMmix:::nMmcols[2], newWindow=FALSE, points=FALSE)
     legend("bottomright", legend=c("correct", "fitted"),
            fill=norMmix:::nMmcols[1:2])
+    par(op)
 @
-    \caption{The Fitted Mixture}
-    \label{fig:demofitted}
-    \end{minipage}
+    \caption{Correct Mixture (left) and Fitted overlayed in orange (right)}
+    \label{fig:democorfit}
+
 \end{figure}

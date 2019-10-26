@@ -35,7 +35,7 @@
 * checking foreign function calls ... OK
 * checking R code for possible problems ... OK
 * checking Rd files ... NOTE
-prepare_Rd: compplot.Rd:58-60: Dropping empty section \references
+prepare_Rd: compplot.Rd:63-65: Dropping empty section \references
 prepare_Rd: epfl.Rd:73-75: Dropping empty section \note
 prepare_Rd: epfl.Rd:68-69: Dropping empty section \references
 prepare_Rd: extracttimes.Rd:36-38: Dropping empty section \note

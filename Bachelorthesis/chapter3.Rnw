@@ -5,17 +5,22 @@
 With the {\tt norMmix} package explained, we can turn to comparing it to 
 existing methods. As previously stated, the implementation representing the 
 EM-algorithm is the {\tt mclust} package. It will be used with very little 
-deviation from out-of-the-box, safe for restriction to the covariance models.
+deviation from out-of-the-box, safe for restriction of the covariance models.
 This is done, so we can compare like with like.
 The specific command that performs the EM-algorithm is:
+
 <<mclustcall, echo=TRUE, results=hide>>=
     #mclust::Mclust(x, G=cl, modelNames=mo)$BIC
 @
-Where {\tt cl} is a vector of integers of however many components we are trying to fit and {\tt mo} are the model names:
+
+Where {\tt cl} is a vector of integers of however many components we are trying 
+to fit and {\tt mo} are the model names:
+
 <<modelnames, echo=FALSE, results=verbatim>>=
     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
     norMmix:::mods()
 @
+
 The {\tt \$BIC} element of the results is taken as the main tool for model 
 selection, as it is advertised in the package authors paper \cite{Scr16}.
 
@@ -30,11 +35,16 @@ parameter vector and $\hat{L}$ is the estimated log-likelihood.
 So even if not explicitly mentioned, we use the negative of the values returned
 by {\tt mclust}.
 
+Another thing that should be stated before all else is the difference in 
+initialization between {mclust}'s pre-clustering and CLARA. CLARA is dependent
+on random number generators (RNG). As such, unless a fixed seed is chosen, 
+every iteration of CLARA will return a different result. Unlike {\tt mclust}, 
+which will, for given data, always return the same results. The effect on the 
+following findings is that results will spread out for data obtained from 
+CLARA results.
+
 
 % it 1
-here show bic type plots, how to read them, and what we're trying to compare
-i.e. clara, mclVVV, mclust.
-
 First, we illustrate the structure of the graphical results we will be 
 presenting hereafter. The basic shape of the plots will be the BIC value 
 plotted against the number of components. This is in line with {\tt mclust}'s
@@ -55,7 +65,6 @@ models in 10 graphs in a plot. Here an example:
     \centering
 <<bicplotdemoplot, echo=FALSE, fig=TRUE>>=
     compplot(bic, bicmclust, main="Example Plot")
-    legend("right", legend="asdf", fill=c("red", "blue"))
 @
     \caption{Example of Comparison Plot}
     \label{fig:ExPlot}
