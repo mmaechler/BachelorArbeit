@@ -26,9 +26,13 @@ selection, as it is advertised in the package authors paper \cite{Scr16}.
 
 There is however a small but crucial change applied to these results.
 The {\tt mclust} package authors have flipped the definition of the BIC to mean:
-\[ 2 ln(\hat{L}) - ln(n) \theta\]
+\begin{equation} 
+    2 ln(\hat{L}) - ln(n) \theta
+\end{equation}
 instead of the more common
-\[ ln(n) \theta - 2 ln(\hat{L}) \]
+\begin{equation} 
+    ln(n) \theta - 2 ln(\hat{L})
+\end{equation}
 Where $n$ is the number of observations, $\theta$ is the cardinality of the 
 parameter vector and $\hat{L}$ is the estimated log-likelihood.
 
@@ -61,7 +65,7 @@ models in 10 graphs in a plot. Here an example:
     bicmclust <- readRDS(file.path(savdir, finmclust))
 @
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
 <<bicplotdemoplot, echo=FALSE, fig=TRUE>>=
     compplot(bic, bicmclust, main="Example Plot")
@@ -81,12 +85,31 @@ or covering the dataset in a 'patchwork' of smaller components, to name a few.
 
 We will discuss them as they arise in the following analysis of simulations
 
-here explain simulations conducted, \ref{App:sims}
+The simulations were set up very simply. An \Rp script was written and in each
+the {\tt norMmix} package is loaded, the datasets are defined and {\tt fitnMm}
+was applied a number of times. An example script can be found in the appendix
+\ref{App:sims}.
+
 here explain the various sections: time, n, p, difficult , nonnormal 
+A few things of interest are what happens:
+\begin{itemize}
+    \item To time needed for the simulation
+    \item When we vary the sample size of the data sets.
+    \item When we vary the dimension of the data.
+    \item When the generating mixture is 'difficult'.
+    \item When the data does not arise from a normal mixture.
+\end{itemize}
+
+The data used here should have been provided along with this thesis in digital 
+form in a folder called {\tt /simulations}
+
 
 \section{Time Analysis}
 
-here how much time they take, in p,k and n give approximate O(x) value
+
+The data used here is taken from the subfolder {\tt /simulations/2time}.
+From these, the system time was extracted and analyzed as can be gleaned from
+the following code.
 
 <<time, echo=TRUE>>=
     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
@@ -96,7 +119,6 @@ here how much time they take, in p,k and n give approximate O(x) value
     savdir <- file.path(mainsav, "2time")
     filelist <- list.files(savdir, pattern=".rds")
     filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
-    ## need to split these better
     f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
     times <- unlist(lapply(f, function(j) extracttimes(j)[,,1]))
     dims <- unlist(lapply(f, function(j) attr(extracttimes(j), "p")))
@@ -108,14 +130,25 @@ here how much time they take, in p,k and n give approximate O(x) value
     pars <- unlist(lapply(f, npar))
 
 
-    r <- lm(log(times) ~ log(pars) + log(ddims) + log(ssize))
+    r <- lm(times ~ pars + ddims + ssize)
     summary(r)
 @
 
-\begin{figure}[h]
+The necessary time appears to be well explained by the parameter count.
+
+\begin{figure}[h!]
     \centering
 <<figtime, echo=TRUE, fig=TRUE>>=
-    plot(times~pars, log="xy", yaxt="n", xaxt="n")
+    plot(times~pars, log="xy", yaxt="n", xaxt="n", type="n")
+    legend("bottomright", legend=c("MW214", "MW34","MW51"),
+           fill=nMmcols[c(3,4,2)])
+    points(times[1:(80*30)]~pars[1:(80*30)], 
+           log="xy", yaxt="n", xaxt="n", col=nMmcols[3])
+    points(times[(80*30+1):(80*60)]~pars[(80*30+1):(80*60)]
+           , log="xy", yaxt="n", xaxt="n", col=nMmcols[4])
+    points(times[(60*80+1):(80*90)]~pars[(60*80+1):(80*90)], 
+           log="xy", yaxt="n", xaxt="n", col=nMmcols[2])
+    grid()
     sfsmisc::eaxis(1)
     sfsmisc::eaxis(2)
 @
@@ -123,7 +156,11 @@ here how much time they take, in p,k and n give approximate O(x) value
     \label{fig:time}
 \end{figure}
 
-can see that time is almost one to one proportional to parameter length.
+We can see that time is almost one to one proportional to parameter length.
+It should be noted, that {\tt MW51} is a one component, standard normal 
+distribution. It is therefore sensible, that MLE should find an optimum faster,
+as it is a very simple mixture.
+
 
 \section{Behaviour in {\tt n}}
 
@@ -149,10 +186,21 @@ here show as expected narrower scattering as n increases
     size20mw51 <- grep("MW51", size20, value=TRUE)
     size20mw214 <- grep("MW214", size20, value=TRUE)
 
+    s05mw21bic <- massbic(size05mw214, savdir)
+    s10mw21bic <- massbic(size10mw214, savdir)
+    s20mw21bic <- massbic(size20mw214, savdir)
+
     s05mw34bic <- massbic(size05mw34, savdir)
     s10mw34bic <- massbic(size10mw34, savdir)
+    s20mw34bic <- massbic(size20mw34, savdir)
 
+    s05mw51bic <- massbic(size05mw51, savdir)
+    s10mw51bic <- massbic(size10mw51, savdir)
+    s20mw51bic <- massbic(size20mw51, savdir)
+
+    mVVVfn <- list.files(savdir, pattern="mclVVV")
     mfn <- list.files(savdir, pattern="mcl.rds")
+
     ## mclust bic values
     # MW214
     m05214 <- readRDS(file.path(savdir,mfn[1]))
@@ -166,27 +214,56 @@ here show as expected narrower scattering as n increases
     m0551 <- readRDS(file.path(savdir,mfn[7]))
     m1051 <- readRDS(file.path(savdir,mfn[8]))
     m2051 <- readRDS(file.path(savdir,mfn[9]))
+    
+    ## mclVVV vals
+    mVV05214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[1]))$fit)[[1]], 30), c(8,10,30))
+    mVV10214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[2]))$fit)[[1]], 30), c(8,10,30))
+    mVV20214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[3]))$fit)[[1]], 30), c(8,10,30))
+    #VV MW34          rep(                                        
+    mVV0534 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[4]))$fit)[[1]], 30), c(8,10,30))
+    mVV1034 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[5]))$fit)[[1]], 30), c(8,10,30))
+    mVV2034 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[6]))$fit)[[1]], 30), c(8,10,30))
+    #VV MW51          rep(                                        
+    mVV0551 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[7]))$fit)[[1]], 30), c(8,10,30))
+    mVV1051 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[8]))$fit)[[1]], 30), c(8,10,30))
+    mVV2051 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[9]))$fit)[[1]], 30), c(8,10,30))
 @
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-<<fig5fit, fig=TRUE>>=
-    compplot(s05mw34bic, m0534)
+    \begin{minipage}{0.45\textwidth}
+        \centering
+<<fig5fit, fig=TRUE, echo=FALSE>>=
+    compplot(s05mw34bic, mVV0534, m0534, main="")
 @
-\end{figure}[h]
-\begin{figure}
-<<fig10fit, fig=TRUE>>=
-    compplot(s10mw34bic, m1034)
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+<<fig10fit, fig=TRUE, echo=FALSE>>=
+    compplot(s10mw34bic, mVV1034, m1034, main="")
+@
+    \end{minipage}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+<<fig20fit, fig=TRUE, echo=FALSE>>=
+    compplot(s20mw34bic, mVV2034, m2034, main="")
 @
 \end{figure}
+
+further plots in \ref{App:time}
 
 
 \section{Behaviour in {\tt p}}
 
 % it 1
 here show how norMmix is consistently competitive with mclust
+The same data as in the last section was used to analyze the behaviour for 
+varying dimensions, since they have a nice variation in dimensionality.
+We plot the BIC values and see how they differ among dimensions.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 <<figMW34, fig=TRUE>>=
     plot(MW34)
 @
@@ -206,21 +283,65 @@ here show how norMmix is consistently competitive with mclust
     mclustbic <- readRDS(file.path(savdir,mclustfiles[1]))
 @
 
-\begin{figure}[h]
+\begin{figure}[h!]
 <<figMW34bic, fig=TRUE>>=
     compplot(clarabic, mclbic, mclustbic, main="Fit of MW34")
 @
 \end{figure}
 
-\section{Diffixult Mixtures}
+\section{Difficult Mixtures}
 
 % it 1
 here show behaviour in difficult cases
+In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
+These are a trimodal and a claw-like distribution. These types of mixtures were 
+also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
+difficult to fit.
 
-\begin{figure}[h]
-<<figMW214, fig=TRUE>>=
-    plot(MW214)
+First the trimodal mixture shown in figure \ref{fig:trimod}. The difficulty 
+lies in the components of various sizes close together.
+
+<<trimod, echo=FALSE, results=hide>>=
+    savdir <- file.path(mainsav, "small-tri")
+    fl <- list.files(savdir, pattern=".rds")
+    flclara <- grep("clara_", fl, value=TRUE)
+    flmclVV <- grep("mclVVV_", fl, value=TRUE)
+
+    ## these sims were done a while ago
+    ## returned values have changed enough, that massbic doesnt work anymore
+    cbic <- array(unlist(lapply(flclara, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
+    Vbic <- array(unlist(lapply(flmclVV, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
+    mbic <- readRDS(file.path(savdir, fl[1]))
 @
+
+\begin{figure}[h!]
+    \centering
+<<figtrimod, fig=TRUE, echo=FALSE>>=
+    compplot(cbic, Vbic, mbic, pars=FALSE, main="")
+@
+    \caption{BIC Values for the Trimodal mixture}
+    \label{fig:trimod}
+\end{figure}
+
+We can see, that in many cases both initialization methods {\tt clara} and
+{\tt mclVVV} manage to achieve a lower BIC value than {\tt mclust}. Although in
+the case of the correct model and cluster, {\tt k=3, model="VEE"} the three 
+algorithms coincide.
+
+Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
+and a very simple {\tt "VII"} covariance model. A large encompassing component
+and five smaller, lightly wheighted components closely together along the 
+diagonal. The inherent difficulty lies in the fact that the components overlap
+and are close together as well. It is shown in figure \ref{fig:MW214}.
+
+\begin{figure}[h!]
+    \centering
+<<figMW214, fig=TRUE, echo=FALSE>>=
+    plot(MW214, ylab='', xlab='')
+    grid()
+@
+    \caption{Claw-like mixture}
+    \label{fig:MW214}
 \end{figure}
 
 
@@ -237,7 +358,7 @@ here show behaviour in difficult cases
     mclustbic <- readRDS(file.path(savdir,mclustfiles[1]))
 @
 
-\begin{figure}[h]
+\begin{figure}[h!]
 <<figMW214bic, fig=TRUE>>=
     compplot(clarabic, mclbic, mclustbic, main="Fit of MW214")
 @
@@ -245,13 +366,12 @@ here show behaviour in difficult cases
 
 here some examples of fitted mixtures
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
 <<fig214fit, fig=TRUE>>=
     f <- readRDS(file.path(savdir, claraMW[28]))
     ff <- f$fit$nMm[8,8][[1]]
     plot(ff$norMmix)
-    #points(ff$x)
 @
 \end{figure}
 
@@ -262,8 +382,7 @@ distribution. This is remarkable, given the small sample size and difficulty of 
 \section{Nonnormal Mixtures}
 
 here 2smi and 2var, maybe others as well.
-
-
+here mention that coverage of algo is extremely patchy.
 here 2smi:
 
 <<2smi>>=
@@ -274,7 +393,7 @@ here 2smi:
     fnmclus <- grep("__mcl.rds",  filenames, value=TRUE)
 @
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
 <<2smiplot, echo=FALSE, fig=TRUE>>=
     fnclbic <- massbic(fnclara, savdir)
@@ -298,3 +417,49 @@ To illustrate, here are the parameter sizes for this simulation:
 @
 
 
+<<2var, echo=FALSE, results=verbatim>>=
+    savdir <- file.path(mainsav, "2var")
+    filelistvar <- list.files(savdir, pattern=".rds")
+    flvclara <- grep("seed", filelistvar, value=TRUE)
+    flvmclust <- grep("mcl.rds", filelistvar, value=TRUE)
+
+    ciris <- grep("^iris", flvclara, value=TRUE)
+    ctriris <- grep("_iris", flvclara, value=TRUE)
+    closs <- grep("loss", flvclara, value=TRUE)
+
+    irisbic <- massbic(ciris, savdir)
+    tririsbic <- massbic(ctriris, savdir)
+    lossbic <- massbic(closs, savdir)
+
+    mirisbic <- readRDS(file=file.path(savdir,flvmclust[1]))
+    mtririsbic <- readRDS(file=file.path(savdir,flvmclust[3]))
+    mlossbic <- readRDS(file=file.path(savdir,flvmclust[2]))
+@
+
+
+\begin{figure}[h!]
+    \centering
+<<figiris, fig=TRUE, echo=FALSE>>=
+    compplot(irisbic, mirisbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+@
+    \caption{Iris Dataset}
+    \label{fig:iris}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+<<figtriris, fig=TRUE, echo=FALSE>>=
+    compplot(tririsbic, mtririsbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+@
+    \caption{Truncated Iris}
+    \label{fig:triris}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+<<figloss, fig=TRUE, echo=FALSE>>=
+    compplot(lossbic, mlossbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+@
+    \caption{Loss data}
+    \label{fig:loss}
+\end{figure}

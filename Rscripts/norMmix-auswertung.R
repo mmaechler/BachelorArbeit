@@ -3424,7 +3424,7 @@ plot(AA)
 #X  figure out how lm() works
 #   get chapters written
 #   start sims?? (figure out which)
-#   replot: clara/mclVVV/mclust (rewrite epfl)
+#X  replot: clara/mclVVV/mclust (rewrite epfl)
 #X  fix .Rd files
 #   translation functions
 #X  write examples
@@ -3440,3 +3440,154 @@ plot(AA)
 ## work on 2019-10-22
 
 ## writing chapters
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-27
+
+## code for tex docs
+    mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+
+## copy from here
+
+savdir <- file.path(mainsav, "2var")
+filelistvar <- list.files(savdir, pattern=".rds")
+flvclara <- grep("seed", filelistvar, value=TRUE)
+flvmclust <- grep("mcl.rds", filelistvar, value=TRUE)
+
+ciris <- grep("^iris", flvclara, value=TRUE)
+ctriris <- grep("_iris", flvclara, value=TRUE)
+closs <- grep("loss", flvclara, value=TRUE)
+
+irisbic <- massbic(ciris, savdir)
+tririsbic <- massbic(ctriris, savdir)
+lossbic <- massbic(closs, savdir)
+
+mirisbic <- readRDS(file=file.path(savdir,flvmclust[1]))
+mtririsbic <- readRDS(file=file.path(savdir,flvmclust[3]))
+mlossbic <- readRDS(file=file.path(savdir,flvmclust[2]))
+
+compplot(irisbic, mirisbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+compplot(tririsbic, mtririsbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+compplot(lossbic, mlossbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+
+
+## 2var done
+
+## small-tri
+
+savdir <- file.path(mainsav, "small-tri")
+fl <- list.files(savdir, pattern=".rds")
+flclara <- grep("clara_", fl, value=TRUE)
+flmclVV <- grep("mclVVV_", fl, value=TRUE)
+
+## these sims were done a while ago
+## returned values have changed enough, that massbic doesnt work anymore
+cbic <- array(unlist(lapply(flclara, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
+Vbic <- array(unlist(lapply(flmclVV, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
+mbic <- readRDS(file.path(savdir, fl[1]))
+
+compplot(cbic, Vbic, mbic, pars=FALSE)
+
+## ok works
+
+## smallinit
+
+savdir <- file.path(mainsav, "smallinit")
+fl <- list.files(savdir, pattern=".rds")
+fl500 <- grep("n=500", fl, value=TRUE)
+fl1000 <- grep("n=1000", fl, value=TRUE)
+
+f5mw210 <- grep("MW210", fl500, value=TRUE)
+f5mw213 <- grep("MW213", fl500, value=TRUE)
+f5mw214 <- grep("MW214", fl500, value=TRUE)
+f5mw24 <-  grep("MW24", fl500, value=TRUE)
+f5mw28 <-  grep("MW28", fl500, value=TRUE)
+f5mw29 <-  grep("MW29", fl500, value=TRUE)
+
+f5210cla <- grep("clara", f5mw210, value=TRUE)
+f5213cla <- grep("clara", f5mw213, value=TRUE)
+f5214cla <- grep("clara", f5mw214, value=TRUE)
+f524cla <-  grep("clara", f5mw24,  value=TRUE)
+f528cla <-  grep("clara", f5mw28,  value=TRUE)
+f529cla <-  grep("clara", f5mw29,  value=TRUE)
+
+f5210mclVV <- grep("mclVVV", f5mw210, value=TRUE)
+f5213mclVV <- grep("mclVVV", f5mw213, value=TRUE)
+f5214mclVV <- grep("mclVVV", f5mw214, value=TRUE)
+f524mclVV <-  grep("mclVVV", f5mw24,  value=TRUE)
+f528mclVV <-  grep("mclVVV", f5mw28,  value=TRUE)
+f529mclVV <-  grep("mclVVV", f5mw29,  value=TRUE)
+
+
+f10mw210 <- grep("MW210", fl1000, value=TRUE)
+f10mw214 <- grep("MW214", fl1000, value=TRUE)
+f10mw24 <-  grep("MW24",  fl1000, value=TRUE)
+
+f10210cla <- grep("clara", f10mw210, value=TRUE)
+f10214cla <- grep("clara", f10mw214, value=TRUE)
+f1024cla <-  grep("clara", f10mw24,  value=TRUE)
+
+f10210mclVV <- grep("mclVVV", f10mw210, value=TRUE)
+f10214mclVV <- grep("mclVVV", f10mw214, value=TRUE)
+f1024mclVV <-  grep("mclVVV", f10mw24,  value=TRUE)
+
+
+b5210cla <- massbic(f5210cla, savdir)
+b5213cla <- massbic(f5213cla, savdir)
+b5214cla <- massbic(f5214cla, savdir)
+b524cla <-  massbic(f524cla,  savdir)
+b528cla <-  massbic(f528cla,  savdir)
+b529cla <-  massbic(f529cla,  savdir)
+
+b5210mclVV <- massbic(f5210mclVV, savdir)
+b5213mclVV <- massbic(f5213mclVV, savdir)
+b5214mclVV <- massbic(f5214mclVV, savdir)
+b524mclVV <-  massbic(f524mclVV,  savdir)
+b528mclVV <-  massbic(f528mclVV,  savdir)
+b529mclVV <-  massbic(f529mclVV,  savdir)
+
+## create mclust files on the fly
+## b5210cla <- saveRDS(massbicm(f5210cla[1], savdir), file=file.path(savdir, "mclust5210.rds"))
+## b5213cla <- saveRDS(massbicm(f5213cla[1], savdir), file=file.path(savdir, "mclust5213.rds"))
+## b5214cla <- saveRDS(massbicm(f5214cla[1], savdir), file=file.path(savdir, "mclust5214.rds"))
+## b524cla <-  saveRDS(massbicm(f524cla[1], savdir), file=file.path(savdir,  "mclust524.rds"))
+## b528cla <-  saveRDS(massbicm(f528cla[1], savdir), file=file.path(savdir,  "mclust528.rds"))
+## b529cla <-  saveRDS(massbicm(f529cla[1], savdir), file=file.path(savdir,  "mclust529.rds"))
+
+mclust5210 <- readRDS(file.path(savdir, "mclust5210.rds"))
+mclust5213 <- readRDS(file.path(savdir, "mclust5213.rds"))
+mclust5214 <- readRDS(file.path(savdir, "mclust5214.rds"))
+mclust524 <-  readRDS(file.path(savdir, "mclust524.rds"))
+mclust528 <-  readRDS(file.path(savdir, "mclust528.rds"))
+mclust529 <-  readRDS(file.path(savdir, "mclust529.rds"))
+
+
+b10210cla <- massbic(f10210cla, savdir)
+b10214cla <- massbic(f10214cla, savdir)
+b1024cla <-  massbic(f1024cla,  savdir)
+
+b10210mclVV <- massbic(f10210mclVV, savdir)
+b10214mclVV <- massbic(f10214mclVV, savdir)
+b1024mclVV <-  massbic(f1024mclVV,  savdir)
+
+## b10210cla <- saveRDS(massbicm(f10210cla[1], savdir), file=file.path(savdir, "mclust10210.rds"))
+## b10214cla <- saveRDS(massbicm(f10214cla[1], savdir), file=file.path(savdir, "mclust10214.rds"))
+## b1024cla <-  saveRDS(massbicm(f1024cla[1], savdir), file=file.path(savdir,  "mclust1024.rds"))
+
+mclust10210 <- readRDS(file.path(savdir, "mclust10210.rds"))
+mclust10214 <- readRDS(file.path(savdir, "mclust10214.rds"))
+mclust1024 <-  readRDS(file.path(savdir, "mclust1024.rds"))
+
+
+compplot(b5210cla, b5210mclVV, mclust5210)
+compplot(b5213cla, b5213mclVV, mclust5213)
+compplot(b5214cla, b5214mclVV, mclust5214)
+compplot(b524cla,  b524mclVV,  mclust524)
+compplot(b528cla,  b528mclVV,  mclust528)
+compplot(b529cla,  b529mclVV,  mclust529)
+
+
+## done

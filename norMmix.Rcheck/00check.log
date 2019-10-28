@@ -33,9 +33,15 @@
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... OK
+* checking R code for possible problems ... NOTE
+compplot: no visible global function definition for ‘grid’
+Undefined global functions or variables:
+  grid
+Consider adding
+  importFrom("graphics", "grid")
+to your NAMESPACE file.
 * checking Rd files ... NOTE
-prepare_Rd: compplot.Rd:63-65: Dropping empty section \references
+prepare_Rd: compplot.Rd:66-68: Dropping empty section \references
 prepare_Rd: epfl.Rd:73-75: Dropping empty section \note
 prepare_Rd: epfl.Rd:68-69: Dropping empty section \references
 prepare_Rd: extracttimes.Rd:36-38: Dropping empty section \note
@@ -63,7 +69,12 @@ prepare_Rd: npar.Rd:41-43: Dropping empty section \references
 prepare_Rd: npar.Rd:54-56: Dropping empty section \seealso
 * checking Rd metadata ... OK
 * checking Rd cross-references ... OK
-* checking for missing documentation entries ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘nMmcols’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... OK
 * checking Rd contents ... OK
@@ -77,4 +88,4 @@ prepare_Rd: npar.Rd:54-56: Dropping empty section \seealso
   Running ‘testthat.R’
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 NOTE
+Status: 1 WARNING, 2 NOTEs

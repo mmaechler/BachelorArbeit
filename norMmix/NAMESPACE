@@ -76,6 +76,9 @@ export(MW21, MW22
      , MW51
        )
 
+## misc
+export(nMmcols)
+
 
 S3method(print,  norMmix)
 S3method(plot,   norMmix)

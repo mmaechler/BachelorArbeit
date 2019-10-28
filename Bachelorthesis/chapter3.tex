@@ -29,9 +29,13 @@ selection, as it is advertised in the package authors paper \cite{Scr16}.
 
 There is however a small but crucial change applied to these results.
 The {\tt mclust} package authors have flipped the definition of the BIC to mean:
-\[ 2 ln(\hat{L}) - ln(n) \theta\]
+\begin{equation} 
+    2 ln(\hat{L}) - ln(n) \theta
+\end{equation}
 instead of the more common
-\[ ln(n) \theta - 2 ln(\hat{L}) \]
+\begin{equation} 
+    ln(n) \theta - 2 ln(\hat{L})
+\end{equation}
 Where $n$ is the number of observations, $\theta$ is the cardinality of the 
 parameter vector and $\hat{L}$ is the estimated log-likelihood.
 
@@ -57,7 +61,7 @@ graph. Therefore we split the plot according to covariance model, putting 10
 models in 10 graphs in a plot. Here an example:
 
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
 \includegraphics{chapter3-bicplotdemoplot}
     \caption{Example of Comparison Plot}
@@ -75,12 +79,31 @@ or covering the dataset in a 'patchwork' of smaller components, to name a few.
 
 We will discuss them as they arise in the following analysis of simulations
 
-here explain simulations conducted, \ref{App:sims}
+The simulations were set up very simply. An \Rp script was written and in each
+the {\tt norMmix} package is loaded, the datasets are defined and {\tt fitnMm}
+was applied a number of times. An example script can be found in the appendix
+\ref{App:sims}.
+
 here explain the various sections: time, n, p, difficult , nonnormal 
+A few things of interest are what happens:
+\begin{itemize}
+    \item To time needed for the simulation
+    \item When we vary the sample size of the data sets.
+    \item When we vary the dimension of the data.
+    \item When the generating mixture is 'difficult'.
+    \item When the data does not arise from a normal mixture.
+\end{itemize}
+
+The data used here should have been provided along with this thesis in digital 
+form in a folder called {\tt /simulations}
+
 
 \section{Time Analysis}
 
-here how much time they take, in p,k and n give approximate O(x) value
+
+The data used here is taken from the subfolder {\tt /simulations/2time}.
+From these, the system time was extracted and analyzed as can be gleaned from
+the following code.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -90,7 +113,6 @@ here how much time they take, in p,k and n give approximate O(x) value
 >     savdir <- file.path(mainsav, "2time")
 >     filelist <- list.files(savdir, pattern=".rds")
 >     filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
->     ## need to split these better
 >     f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
 >     times <- unlist(lapply(f, function(j) extracttimes(j)[,,1]))
 >     dims <- unlist(lapply(f, function(j) attr(extracttimes(j), "p")))
@@ -98,37 +120,48 @@ here how much time they take, in p,k and n give approximate O(x) value
 >     ddims <- rep(dims, each=80)
 >     ssize <- rep(size, each=80)
 >     pars <- unlist(lapply(f, npar))
->     r <- lm(log(times) ~ log(pars) + log(ddims) + log(ssize))
+>     r <- lm(times ~ pars + ddims + ssize)
 >     summary(r)
 \end{Sinput}
 \begin{Soutput}
 Call:
-lm(formula = log(times) ~ log(pars) + log(ddims) + log(ssize))
+lm(formula = times ~ pars + ddims + ssize)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--3.4428 -0.2986  0.0671  0.4579  2.0936 
+   Min     1Q Median     3Q    Max 
+-86.89  -7.45  -1.55   6.30 556.32 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -9.74133    0.10598  -91.91   <2e-16 ***
-log(pars)    2.75983    0.01181  233.75   <2e-16 ***
-log(ddims)  -2.06063    0.02483  -82.99   <2e-16 ***
-log(ssize)   0.61301    0.01446   42.38   <2e-16 ***
+              Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -1.727e+01  8.274e-01  -20.87   <2e-16 ***
+pars         9.729e-01  1.056e-02   92.16   <2e-16 ***
+ddims       -3.749e+00  2.216e-01  -16.92   <2e-16 ***
+ssize        9.258e-03  3.887e-04   23.82   <2e-16 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.6946 on 7196 degrees of freedom
-Multiple R-squared:  0.8887,	Adjusted R-squared:  0.8887 
-F-statistic: 1.916e+04 on 3 and 7196 DF,  p-value: < 2.2e-16
+Residual standard error: 21.57 on 7916 degrees of freedom
+Multiple R-squared:  0.559,	Adjusted R-squared:  0.5588 
+F-statistic:  3344 on 3 and 7916 DF,  p-value: < 2.2e-16
 \end{Soutput}
 \end{Schunk}
 
-\begin{figure}[h]
+The necessary time appears to be well explained by the parameter count.
+
+\begin{figure}[h!]
     \centering
 \begin{Schunk}
 \begin{Sinput}
->     plot(times~pars, log="xy", yaxt="n", xaxt="n")
+>     plot(times~pars, log="xy", yaxt="n", xaxt="n", type="n")
+>     legend("bottomright", legend=c("MW214", "MW34","MW51"),
++            fill=nMmcols[c(3,4,2)])
+>     points(times[1:(80*30)]~pars[1:(80*30)], 
++            log="xy", yaxt="n", xaxt="n", col=nMmcols[3])
+>     points(times[(80*30+1):(80*60)]~pars[(80*30+1):(80*60)]
++            , log="xy", yaxt="n", xaxt="n", col=nMmcols[4])
+>     points(times[(60*80+1):(80*90)]~pars[(60*80+1):(80*90)], 
++            log="xy", yaxt="n", xaxt="n", col=nMmcols[2])
+>     grid()
 >     sfsmisc::eaxis(1)
 >     sfsmisc::eaxis(2)
 \end{Sinput}
@@ -138,7 +171,11 @@ F-statistic: 1.916e+04 on 3 and 7196 DF,  p-value: < 2.2e-16
     \label{fig:time}
 \end{figure}
 
-can see that time is almost one to one proportional to parameter length.
+We can see that time is almost one to one proportional to parameter length.
+It should be noted, that {\tt MW51} is a one component, standard normal 
+distribution. It is therefore sensible, that MLE should find an optimum faster,
+as it is a very simple mixture.
+
 
 \section{Behaviour in {\tt n}}
 
@@ -146,31 +183,35 @@ can see that time is almost one to one proportional to parameter length.
 here show as expected narrower scattering as n increases
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-\begin{Schunk}
-\begin{Sinput}
->     compplot(s05mw34bic, m0534)
-\end{Sinput}
-\end{Schunk}
+    \begin{minipage}{0.45\textwidth}
+        \centering
 \includegraphics{chapter3-fig5fit}
-\end{figure}[h]
-\begin{figure}
-\begin{Schunk}
-\begin{Sinput}
->     compplot(s10mw34bic, m1034)
-\end{Sinput}
-\end{Schunk}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
 \includegraphics{chapter3-fig10fit}
+    \end{minipage}
 \end{figure}
+
+\begin{figure}[h!]
+    \centering
+\includegraphics{chapter3-fig20fit}
+\end{figure}
+
+further plots in \ref{App:time}
 
 
 \section{Behaviour in {\tt p}}
 
 % it 1
 here show how norMmix is consistently competitive with mclust
+The same data as in the last section was used to analyze the behaviour for 
+varying dimensions, since they have a nice variation in dimensionality.
+We plot the BIC values and see how they differ among dimensions.
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{Schunk}
 \begin{Sinput}
 >     plot(MW34)
@@ -181,7 +222,7 @@ here show how norMmix is consistently competitive with mclust
 
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{Schunk}
 \begin{Sinput}
 >     compplot(clarabic, mclbic, mclustbic, main="Fit of MW34")
@@ -190,18 +231,42 @@ here show how norMmix is consistently competitive with mclust
 \includegraphics{chapter3-figMW34bic}
 \end{figure}
 
-\section{Diffixult Mixtures}
+\section{Difficult Mixtures}
 
 % it 1
 here show behaviour in difficult cases
+In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
+These are a trimodal and a claw-like distribution. These types of mixtures were 
+also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
+difficult to fit.
 
-\begin{figure}[h]
-\begin{Schunk}
-\begin{Sinput}
->     plot(MW214)
-\end{Sinput}
-\end{Schunk}
+First the trimodal mixture shown in figure \ref{fig:trimod}. The difficulty 
+lies in the components of various sizes close together.
+
+
+\begin{figure}[h!]
+    \centering
+\includegraphics{chapter3-figtrimod}
+    \caption{BIC Values for the Trimodal mixture}
+    \label{fig:trimod}
+\end{figure}
+
+We can see, that in many cases both initialization methods {\tt clara} and
+{\tt mclVVV} manage to achieve a lower BIC value than {\tt mclust}. Although in
+the case of the correct model and cluster, {\tt k=3, model="VEE"} the three 
+algorithms coincide.
+
+Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
+and a very simple {\tt "VII"} covariance model. A large encompassing component
+and five smaller, lightly wheighted components closely together along the 
+diagonal. The inherent difficulty lies in the fact that the components overlap
+and are close together as well. It is shown in figure \ref{fig:MW214}.
+
+\begin{figure}[h!]
+    \centering
 \includegraphics{chapter3-figMW214}
+    \caption{Claw-like mixture}
+    \label{fig:MW214}
 \end{figure}
 
 
@@ -220,7 +285,7 @@ here show behaviour in difficult cases
 \end{Sinput}
 \end{Schunk}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \begin{Schunk}
 \begin{Sinput}
 >     compplot(clarabic, mclbic, mclustbic, main="Fit of MW214")
@@ -231,14 +296,13 @@ here show behaviour in difficult cases
 
 here some examples of fitted mixtures
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
 \begin{Schunk}
 \begin{Sinput}
 >     f <- readRDS(file.path(savdir, claraMW[28]))
 >     ff <- f$fit$nMm[8,8][[1]]
 >     plot(ff$norMmix)
->     #points(ff$x)
 \end{Sinput}
 \end{Schunk}
 \includegraphics{chapter3-fig214fit}
@@ -251,8 +315,7 @@ distribution. This is remarkable, given the small sample size and difficulty of 
 \section{Nonnormal Mixtures}
 
 here 2smi and 2var, maybe others as well.
-
-
+here mention that coverage of algo is extremely patchy.
 here 2smi:
 
 \begin{Schunk}
@@ -265,7 +328,7 @@ here 2smi:
 \end{Sinput}
 \end{Schunk}
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
 \includegraphics{chapter3-2smiplot}
 \end{figure}
@@ -292,3 +355,25 @@ To illustrate, here are the parameter sizes for this simulation:
 \end{Schunk}
 
 
+
+
+\begin{figure}[h!]
+    \centering
+\includegraphics{chapter3-figiris}
+    \caption{Iris Dataset}
+    \label{fig:iris}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+\includegraphics{chapter3-figtriris}
+    \caption{Truncated Iris}
+    \label{fig:triris}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+\includegraphics{chapter3-figloss}
+    \caption{Loss data}
+    \label{fig:loss}
+\end{figure}

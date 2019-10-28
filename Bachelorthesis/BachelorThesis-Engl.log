@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  27 OCT 2019 01:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.10.4)  28 OCT 2019 07:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1132,7 +1132,7 @@ File: ts1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `TS1/aett/m/n' in size <10.95> not available
 (Font)              Font shape `TS1/cmtt/m/n' tried instead on input line 383.
 
-<chapter1-figTrimodal.pdf, id=283, 433.62pt x 433.62pt>
+<chapter1-figTrimodal.pdf, id=303, 433.62pt x 433.62pt>
 File: chapter1-figTrimodal.pdf Graphic file (type pdf)
 
 <use chapter1-figTrimodal.pdf>
@@ -1144,21 +1144,21 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6
 
-] <chapter1-fignor1mixEx.pdf, id=290, 433.62pt x 433.62pt>
+] <chapter1-fignor1mixEx.pdf, id=311, 433.62pt x 433.62pt>
 File: chapter1-fignor1mixEx.pdf Graphic file (type pdf)
 
 <use chapter1-fignor1mixEx.pdf>
 Package pdftex.def Info: chapter1-fignor1mixEx.pdf used on input line 416.
 (pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
-<chapter1-figplotemsteps.pdf, id=291, 433.62pt x 433.62pt>
+<chapter1-figplotemsteps.pdf, id=312, 433.62pt x 433.62pt>
 File: chapter1-figplotemsteps.pdf Graphic file (type pdf)
 
 <use chapter1-figplotemsteps.pdf>
 Package pdftex.def Info: chapter1-figplotemsteps.pdf used on input line 422.
 (pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
-<chapter1-figemll.pdf, id=292, 433.62pt x 433.62pt>
+<chapter1-figemll.pdf, id=313, 433.62pt x 433.62pt>
 File: chapter1-figemll.pdf Graphic file (type pdf)
  <use chapter1-figemll.pdf>
 Package pdftex.def Info: chapter1-figemll.pdf used on input line 436.
@@ -1183,7 +1183,7 @@ LaTeX Font Info:    External font `cmex7' loaded for size
 LaTeX Font Info:    Font shape `TS1/aett/m/sl' in size <10.95> not available
 (Font)              Font shape `TS1/cmtt/m/sl' tried instead on input line 379.
 
- <chapter2-testtt.pdf, id=377, 433.62pt x 433.62pt>
+ <chapter2-testtt.pdf, id=397, 433.62pt x 433.62pt>
 File: chapter2-testtt.pdf Graphic file (type pdf)
 
 <use chapter2-testtt.pdf>
@@ -1198,113 +1198,166 @@ Chapter 3.
 
 
 
-] <chapter3-bicplotdemoplot.pdf, id=399, 433.62pt x 433.62pt>
+] <chapter3-bicplotdemoplot.pdf, id=421, 433.62pt x 433.62pt>
 File: chapter3-bicplotdemoplot.pdf Graphic file (type pdf)
 
 <use chapter3-bicplotdemoplot.pdf>
-Package pdftex.def Info: chapter3-bicplotdemoplot.pdf used on input line 62.
+Package pdftex.def Info: chapter3-bicplotdemoplot.pdf used on input line 66.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
  [16 <./chapter3-bicplotdemoplot.pdf>]
-<chapter3-figtime.pdf, id=415, 433.62pt x 433.62pt>
+[17] <chapter3-figtime.pdf, id=441, 433.62pt x 433.62pt>
 File: chapter3-figtime.pdf Graphic file (type pdf)
- <use chapter3-figtime.pdf>
-Package pdftex.def Info: chapter3-figtime.pdf used on input line 136.
+
+<use chapter3-figtime.pdf>
+Package pdftex.def Info: chapter3-figtime.pdf used on input line 169.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<chapter3-fig5fit.pdf, id=416, 433.62pt x 433.62pt>
+ [18 <./chapter3-figtime.pdf>] <chapter3-fig5fit.pdf, id=453, 433.62pt x 433.62
+pt>
 File: chapter3-fig5fit.pdf Graphic file (type pdf)
- <use chapter3-fig5fit.pdf>
-Package pdftex.def Info: chapter3-fig5fit.pdf used on input line 156.
-(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
+<use chapter3-fig5fit.pdf>
+Package pdftex.def Info: chapter3-fig5fit.pdf used on input line 190.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<chapter3-fig10fit.pdf, id=417, 433.62pt x 433.62pt>
+<chapter3-fig10fit.pdf, id=454, 433.62pt x 433.62pt>
 File: chapter3-fig10fit.pdf Graphic file (type pdf)
 
 <use chapter3-fig10fit.pdf>
-Package pdftex.def Info: chapter3-fig10fit.pdf used on input line 164.
+Package pdftex.def Info: chapter3-fig10fit.pdf used on input line 194.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
+
+<chapter3-fig20fit.pdf, id=455, 433.62pt x 433.62pt>
+File: chapter3-fig20fit.pdf Graphic file (type pdf)
+
+<use chapter3-fig20fit.pdf>
+Package pdftex.def Info: chapter3-fig20fit.pdf used on input line 200.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
-<chapter3-figMW34.pdf, id=418, 433.62pt x 433.62pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19 <./chapter3-fig5fit.pdf> <./chapter3-fig10fit.pdf> <./chapter3-fig20fit.pd
+f>]
+<chapter3-figMW34.pdf, id=489, 433.62pt x 433.62pt>
 File: chapter3-figMW34.pdf Graphic file (type pdf)
  <use chapter3-figMW34.pdf>
-Package pdftex.def Info: chapter3-figMW34.pdf used on input line 179.
+Package pdftex.def Info: chapter3-figMW34.pdf used on input line 220.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<chapter3-figMW34bic.pdf, id=419, 433.62pt x 433.62pt>
+<chapter3-figMW34bic.pdf, id=490, 433.62pt x 433.62pt>
 File: chapter3-figMW34bic.pdf Graphic file (type pdf)
 
 <use chapter3-figMW34bic.pdf>
-Package pdftex.def Info: chapter3-figMW34bic.pdf used on input line 190.
+Package pdftex.def Info: chapter3-figMW34bic.pdf used on input line 231.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[17] <chapter3-figMW214.pdf, id=424, 433.62pt x 433.62pt>
+<chapter3-figtrimod.pdf, id=494, 433.62pt x 433.62pt>
+File: chapter3-figtrimod.pdf Graphic file (type pdf)
+
+<use chapter3-figtrimod.pdf>
+Package pdftex.def Info: chapter3-figtrimod.pdf used on input line 249.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[20 <./chapter3-figMW34.pdf>]
+<chapter3-figMW214.pdf, id=508, 433.62pt x 433.62pt>
 File: chapter3-figMW214.pdf Graphic file (type pdf)
 
 <use chapter3-figMW214.pdf>
-Package pdftex.def Info: chapter3-figMW214.pdf used on input line 204.
+Package pdftex.def Info: chapter3-figMW214.pdf used on input line 267.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<chapter3-figMW214bic.pdf, id=425, 433.62pt x 433.62pt>
+<chapter3-figMW214bic.pdf, id=509, 433.62pt x 433.62pt>
 File: chapter3-figMW214bic.pdf Graphic file (type pdf)
 
 <use chapter3-figMW214bic.pdf>
-Package pdftex.def Info: chapter3-figMW214bic.pdf used on input line 229.
+Package pdftex.def Info: chapter3-figMW214bic.pdf used on input line 294.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<chapter3-fig214fit.pdf, id=426, 433.62pt x 433.62pt>
+<chapter3-fig214fit.pdf, id=510, 433.62pt x 433.62pt>
 File: chapter3-fig214fit.pdf Graphic file (type pdf)
 
 <use chapter3-fig214fit.pdf>
-Package pdftex.def Info: chapter3-fig214fit.pdf used on input line 244.
+Package pdftex.def Info: chapter3-fig214fit.pdf used on input line 308.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
- [18 <./chapter3-figtime.pdf>]
-<chapter3-2smiplot.pdf, id=438, 433.62pt x 433.62pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \vbox (badness 1546) has occurred while \output is active []
+
+ [21 <./chapter3-figMW34bic.pdf>] <chapter3-2smiplot.pdf, id=524, 433.62pt x 43
+3.62pt>
 File: chapter3-2smiplot.pdf Graphic file (type pdf)
 
 <use chapter3-2smiplot.pdf>
-Package pdftex.def Info: chapter3-2smiplot.pdf used on input line 270.
+Package pdftex.def Info: chapter3-2smiplot.pdf used on input line 333.
 (pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[19 <./chapter3-fig5fit.pdf>] [20 <./chapter3-fig10fit.pdf>]) [21 <./chapter3-f
-igMW34.pdf>] [22 <./chapter3-figMW34bic.pdf>] [23 <./chapter3-figMW214.pdf>]
-[24 <./chapter3-figMW214bic.pdf>] [25 <./chapter3-fig214fit.pdf>] [26 <./chapte
-r3-2smiplot.pdf>]
+[22 <./chapter3-figtrimod.pdf>]
+<chapter3-figiris.pdf, id=538, 433.62pt x 433.62pt>
+File: chapter3-figiris.pdf Graphic file (type pdf)
+ <use chapter3-figiris.pdf>
+Package pdftex.def Info: chapter3-figiris.pdf used on input line 362.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<chapter3-figtriris.pdf, id=539, 433.62pt x 433.62pt>
+File: chapter3-figtriris.pdf Graphic file (type pdf)
+
+<use chapter3-figtriris.pdf>
+Package pdftex.def Info: chapter3-figtriris.pdf used on input line 369.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<chapter3-figloss.pdf, id=540, 433.62pt x 433.62pt>
+File: chapter3-figloss.pdf Graphic file (type pdf)
+ <use chapter3-figloss.pdf>
+Package pdftex.def Info: chapter3-figloss.pdf used on input line 376.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [23 <./chapter3-figMW214.pdf>] [24 <./chapter3-figMW214bic.pdf>] [25 <./chapt
+er3-fig214fit.pdf>] [26 <./chapter3-2smiplot.pdf>] [27 <./chapter3-figiris.pdf>
+] [28 <./chapter3-figtriris.pdf>] [29 <./chapter3-figloss.pdf>]
 \openout2 = `chapter4.aux'.
 
- (./chapter4.tex
+ (./chapter4.tex [30
+
+
+
+]
 Chapter 4.
-) [27
+) [31] (./BachelorThesis-Engl.bbl [32
 
 
-
-] (./BachelorThesis-Engl.bbl [28
-
-
-]) [29]
+]) [33]
 \openout2 = `App_llnorMmix.aux'.
 
- (./App_llnorMmix.tex [30
+ (./App_llnorMmix.tex [34
 
 
 ]
@@ -1322,32 +1375,107 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 1.
 
-[31]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 15.
+(/home/n/ethz/BA/norMmix/R/llnorMmix.R [35]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [32]
+ [36]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [33]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [34]
-[35]) [36
+ [37])
+[38] (/home/n/ethz/BA/Rscripts/2time/2time.R)) [39
 
 ]
 \openout2 = `App_plots.aux'.
 
- (./App_plots.tex
-Appendix B.
-) [37
+ (./App_plots.tex [40
 
-
-
-] [38
 
 
 ]
-<confirmation-originality-scan.pdf, id=597, 597.432pt x 845.07718pt>
+Appendix B.
+<App_plots-fig5fit.pdf, id=947, 433.62pt x 433.62pt>
+File: App_plots-fig5fit.pdf Graphic file (type pdf)
+
+<use App_plots-fig5fit.pdf>
+Package pdftex.def Info: App_plots-fig5fit.pdf used on input line 17.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
+
+<App_plots-fig10fit.pdf, id=948, 433.62pt x 433.62pt>
+File: App_plots-fig10fit.pdf Graphic file (type pdf)
+
+<use App_plots-fig10fit.pdf>
+Package pdftex.def Info: App_plots-fig10fit.pdf used on input line 20.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
+
+<App_plots-fig20fit.pdf, id=949, 433.62pt x 433.62pt>
+File: App_plots-fig20fit.pdf Graphic file (type pdf)
+
+<use App_plots-fig20fit.pdf>
+Package pdftex.def Info: App_plots-fig20fit.pdf used on input line 26.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+File: App_plots-fig5fit.pdf Graphic file (type pdf)
+ <use App_plots-fig5fit.pdf>
+Package pdftex.def Info: App_plots-fig5fit.pdf used on input line 33.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
+File: App_plots-fig10fit.pdf Graphic file (type pdf)
+
+<use App_plots-fig10fit.pdf>
+Package pdftex.def Info: App_plots-fig10fit.pdf used on input line 36.
+(pdftex.def)             Requested size: 153.64441pt x 153.64174pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: App_plots-fig20fit.pdf Graphic file (type pdf)
+<use App_plots-fig20fit.pdf>
+Package pdftex.def Info: App_plots-fig20fit.pdf used on input line 42.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <App_plots-009.pdf, id=950, 433.62pt x 433.62pt>
+File: App_plots-009.pdf Graphic file (type pdf)
+
+<use App_plots-009.pdf>
+Package pdftex.def Info: App_plots-009.pdf used on input line 61.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <App_plots-010.pdf, id=951, 433.62pt x 433.62pt>
+File: App_plots-010.pdf Graphic file (type pdf)
+
+<use App_plots-010.pdf>
+Package pdftex.def Info: App_plots-010.pdf used on input line 66.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <App_plots-011.pdf, id=952, 433.62pt x 433.62pt>
+File: App_plots-011.pdf Graphic file (type pdf)
+
+<use App_plots-011.pdf>
+Package pdftex.def Info: App_plots-011.pdf used on input line 71.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <App_plots-012.pdf, id=953, 433.62pt x 433.62pt>
+File: App_plots-012.pdf Graphic file (type pdf)
+
+<use App_plots-012.pdf>
+Package pdftex.def Info: App_plots-012.pdf used on input line 76.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <App_plots-013.pdf, id=954, 433.62pt x 433.62pt>
+File: App_plots-013.pdf Graphic file (type pdf)
+
+<use App_plots-013.pdf>
+Package pdftex.def Info: App_plots-013.pdf used on input line 81.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+ <App_plots-014.pdf, id=955, 433.62pt x 433.62pt>
+File: App_plots-014.pdf Graphic file (type pdf)
+
+<use App_plots-014.pdf>
+Package pdftex.def Info: App_plots-014.pdf used on input line 86.
+(pdftex.def)             Requested size: 341.43436pt x 341.4511pt.
+) [41 <./App_plots-fig5fit.pdf> <./App_plots-fig10fit.pdf>] [42 <./App_plots-fi
+g20fit.pdf>] [43] [44 <./App_plots-009.pdf>] [45 <./App_plots-010.pdf>] [46 <./
+App_plots-011.pdf>] [47 <./App_plots-012.pdf>] [48 <./App_plots-013.pdf>] [49 <
+./App_plots-014.pdf>] [50
+
+
+]
+<confirmation-originality-scan.pdf, id=1080, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf>
@@ -1361,7 +1489,7 @@ Package pdftex.def Info: confirmation-originality-scan.pdf used on input line 2
 30.
 (pdftex.def)             Requested size: 341.43436pt x 482.97559pt.
 
-<confirmation-originality-scan.pdf, id=600, page=1, 597.432pt x 845.07718pt>
+<confirmation-originality-scan.pdf, id=1083, page=1, 597.432pt x 845.07718pt>
 File: confirmation-originality-scan.pdf Graphic file (type pdf)
 
 <use confirmation-originality-scan.pdf, page 1>
@@ -1392,7 +1520,7 @@ File: confirmation-originality-scan.pdf Graphic file (type pdf)
 Package pdftex.def Info: confirmation-originality-scan.pdf, page1 used on input
  line 230.
 (pdftex.def)             Requested size: 597.43054pt x 845.07512pt.
- [39 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
+ [51 <./confirmation-originality-scan.pdf, page is rotated 270 degrees>]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 231.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
  (./BachelorThesis-Engl.aux
@@ -1401,45 +1529,47 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 231.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 231.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 231.
 Package rerunfilecheck Info: File `BachelorThesis-Engl.out' has not changed.
-(rerunfilecheck)             Checksum: 0F96BD9421C14E2CE1ACABCF559B14EF;1547.
+(rerunfilecheck)             Checksum: 0E0A4F92AEA527856458DD87BBDB15AB;1658.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 231.
  ) 
 Here is how much of TeX's memory you used:
- 11904 strings out of 494953
- 164872 string characters out of 6180977
- 315178 words of memory out of 5000000
- 14669 multiletter control sequences out of 15000+600000
- 72472 words of font info for 160 fonts, out of 8000000 for 9000
+ 13313 strings out of 494953
+ 181051 string characters out of 6180977
+ 653178 words of memory out of 5000000
+ 15766 multiletter control sequences out of 15000+600000
+ 75016 words of font info for 169 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 43i,20n,51p,306b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,20n,51p,306b,2551s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/n/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcst1095.600pk> </home/n/.te
 xmf-var/fonts/pk/ljfour/jknappen/ec/tctt1095.600pk> </home/n/.texmf-var/fonts/p
 k/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmsltt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/latxfont/linew10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on BachelorThesis-Engl.pdf (45 pages, 1369118 bytes).
+/cmitt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsltt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/latxfont/linew10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on BachelorThesis-Engl.pdf (57 pages, 1682312 bytes).
 PDF statistics:
- 723 PDF objects out of 1000 (max. 8388607)
- 607 compressed objects within 7 object streams
- 118 named destinations out of 1000 (max. 500000)
- 296 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1270 PDF objects out of 1440 (max. 8388607)
+ 1107 compressed objects within 12 object streams
+ 399 named destinations out of 1000 (max. 500000)
+ 382 words of extra memory for PDF output out of 10000 (max. 10000000)
 
