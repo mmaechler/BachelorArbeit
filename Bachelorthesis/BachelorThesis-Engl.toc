@@ -13,11 +13,11 @@
 \contentsline {section}{\numberline {2.3}Demonstration}{13}{section.2.3}
 \contentsline {chapter}{\numberline {3}Comparing Algorithms}{15}{chapter.3}
 \contentsline {section}{\numberline {3.1}Time Analysis}{17}{section.3.1}
-\contentsline {section}{\numberline {3.2}Behaviour in {\tt n}}{19}{section.3.2}
-\contentsline {section}{\numberline {3.3}Behaviour in {\tt p}}{20}{section.3.3}
-\contentsline {section}{\numberline {3.4}Difficult Mixtures}{20}{section.3.4}
-\contentsline {section}{\numberline {3.5}Nonnormal Mixtures}{22}{section.3.5}
+\contentsline {section}{\numberline {3.2}Behaviour in {\tt n}}{20}{section.3.2}
+\contentsline {section}{\numberline {3.3}Difficult Mixtures}{23}{section.3.3}
+\contentsline {section}{\numberline {3.4}Nonnormal Mixtures}{28}{section.3.4}
 \contentsline {chapter}{\numberline {4}Discussion}{31}{chapter.4}
+\contentsline {section}{\numberline {4.1}Acknowledgements}{31}{section.4.1}
 \@LN@changevadjust \vspace {.5\baselineskip }
 \contentsline {chapter}{\numberline {}{Bibliography}}{32}{section*.4}
 \@LN@changevadjust \vspace {.5\baselineskip }
@@ -25,6 +25,5 @@
 \contentsline {section}{\numberline {A.1}{\tt llnorMmix}}{35}{section.A.1}
 \contentsline {section}{\numberline {A.2}Example Simulation Script}{39}{section.A.2}
 \contentsline {chapter}{\numberline {B}Further Plots}{41}{appendix.B}
-\contentsline {section}{\numberline {B.1}Chapter 3}{41}{section.B.1}
-\contentsline {section}{\numberline {B.2}time}{41}{section.B.2}
-\contentsline {section}{\numberline {B.3}Unused Data}{41}{section.B.3}
+\contentsline {section}{\numberline {B.1}Behaviour in $n$}{41}{section.B.1}
+\contentsline {section}{\numberline {B.2}Unused Data}{41}{section.B.2}

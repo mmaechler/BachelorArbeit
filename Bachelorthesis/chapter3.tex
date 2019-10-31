@@ -11,7 +11,7 @@ The specific command that performs the EM-algorithm is:
 
 \begin{Schunk}
 \begin{Sinput}
->     #mclust::Mclust(x, G=cl, modelNames=mo)$BIC
+>     mclust::Mclust(x, G=cl, modelNames=mo)$BIC
 \end{Sinput}
 \end{Schunk}
 
@@ -30,16 +30,16 @@ selection, as it is advertised in the package authors paper \cite{Scr16}.
 There is however a small but crucial change applied to these results.
 The {\tt mclust} package authors have flipped the definition of the BIC to mean:
 \begin{equation} 
-    2 ln(\hat{L}) - ln(n) \theta
+    2 ln(\hat{L}) - ln(n) \#\{par\}
 \end{equation}
 instead of the more common
 \begin{equation} 
-    ln(n) \theta - 2 ln(\hat{L})
+    ln(n) \#\{par\} - 2 ln(\hat{L})
 \end{equation}
-Where $n$ is the number of observations, $\theta$ is the cardinality of the 
+Where $n$ is the number of observations, \#\{par\} is the cardinality of the 
 parameter vector and $\hat{L}$ is the estimated log-likelihood.
 
-So even if not explicitly mentioned, we use the negative of the values returned
+So, even if not explicitly mentioned, we use the negative of the values returned
 by {\tt mclust}.
 
 Another thing that should be stated before all else is the difference in 
@@ -62,10 +62,11 @@ models in 10 graphs in a plot. Here an example:
 
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-bicplotdemoplot}
     \caption{Example of Comparison Plot}
     \label{fig:ExPlot}
+    \end{Rgraph}
 \end{figure}
 
 As can be seen from the formula of the BIC value, lower is better. When 
@@ -84,12 +85,10 @@ the {\tt norMmix} package is loaded, the datasets are defined and {\tt fitnMm}
 was applied a number of times. An example script can be found in the appendix
 \ref{App:sims}.
 
-here explain the various sections: time, n, p, difficult , nonnormal 
 A few things of interest are what happens:
 \begin{itemize}
     \item To time needed for the simulation
     \item When we vary the sample size of the data sets.
-    \item When we vary the dimension of the data.
     \item When the generating mixture is 'difficult'.
     \item When the data does not arise from a normal mixture.
 \end{itemize}
@@ -103,7 +102,19 @@ form in a folder called {\tt /simulations}
 
 The data used here is taken from the subfolder {\tt /simulations/2time}.
 From these, the system time was extracted and analyzed as can be gleaned from
-the following code.
+the following code. In it, we apply \Rp's {\tt lm} function for fitting linear 
+models to the times returned by the function call:
+\begin{Schunk}
+\begin{Sinput}
+>     system.time(norMmixMLE(x, ...))[[1]]
+\end{Sinput}
+\end{Schunk}
+We make here a choice that does not preserve any generality, as 
+{\tt system.time} produces more results, that could hold important information.
+However, since there is quite some measurement error to be expected as time 
+approaches zero, we will content ourselves with lower expectations to the 
+accuracy of the following results.
+
 
 \begin{Schunk}
 \begin{Sinput}
@@ -147,9 +158,12 @@ F-statistic:  3344 on 3 and 7916 DF,  p-value: < 2.2e-16
 \end{Schunk}
 
 The necessary time appears to be well explained by the parameter count.
+The purpose of this thesis is not to conduct complexity analysis, so we will
+leave it at this, satisfying our curiosity with a cursory look in figure 
+\ref{fig:time}, where we plot system time against parameter length.
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 \begin{Schunk}
 \begin{Sinput}
 >     plot(times~pars, log="xy", yaxt="n", xaxt="n", type="n")
@@ -169,92 +183,134 @@ The necessary time appears to be well explained by the parameter count.
 \includegraphics{chapter3-figtime}
     \caption{Log-log Plot of System Time against Parameter Length}
     \label{fig:time}
+    \end{Rgraph}
 \end{figure}
 
 We can see that time is almost one to one proportional to parameter length.
-It should be noted, that {\tt MW51} is a one component, standard normal 
-distribution. It is therefore sensible, that MLE should find an optimum faster,
-as it is a very simple mixture.
+It should be noted, that {\tt MW51} is a very simple mixture. It is therefore 
+sensible, that MLE should find an optimum faster.
 
+\clearpage
 
 \section{Behaviour in {\tt n}}
+\label{sec:ben}
 
 % it 1
-here show as expected narrower scattering as n increases
+What we would expect and like to see as we increase sample size, is a decrease
+in scattering of BIC values. To that end we again use simulation data 
+{\tt /2time}. In particular we show here the results of fitting to mixture 
+model {\tt MW34}, shown in figure \ref{fig:MW34}. The graphs 
+\ref{fig:bicmw34first} and \ref{fig:bicmw34second} show three columns
+of BIC plots, each representing different sample sizes, with 
+$n = \{500, 1000, 2000\}$ respectively. Furthermore, the BIC values were 
+divided by the samplesize, to normalize the values to an equal scale.
 
-
-\begin{figure}[h!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-\includegraphics{chapter3-fig5fit}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-\includegraphics{chapter3-fig10fit}
-    \end{minipage}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-\includegraphics{chapter3-fig20fit}
-\end{figure}
-
-further plots in \ref{App:time}
-
-
-\section{Behaviour in {\tt p}}
-
-% it 1
-here show how norMmix is consistently competitive with mclust
-The same data as in the last section was used to analyze the behaviour for 
-varying dimensions, since they have a nice variation in dimensionality.
-We plot the BIC values and see how they differ among dimensions.
-
-\begin{figure}[h!]
-\begin{Schunk}
-\begin{Sinput}
->     plot(MW34)
-\end{Sinput}
-\end{Schunk}
+\begin{figure}[h]
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figMW34}
+    \caption{The mixture model {\tt MW34}, a three dimensional, two component
+             mixture with one smaller, lesser weighted component inside a 
+             smaller one.}
+    \label{fig:MW34}
+    \end{Rgraph}
 \end{figure}
 
 
+\begin{figure}[h!]
+    \begin{Rgraph}[0.9]
+\includegraphics{chapter3-figmw34bicfirst}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34first}
+    \end{Rgraph}
+\end{figure}
+
+As can be seen the desired effect is achieved. Of note are the behaviour of 
+the model {\tt VEI}, where the increase in observation corrects a selection
+error appearing at $n=500$. Furthermore, the correct model {\tt VVI} exhibits
+a very tight grouping. The instances where {\tt mclust} is better than 
+{\tt norMmix} are quite infrequent.
+
+This type of analysis was also conducted with mixture objects {\tt MW214} and 
+{\tt MW51}, but were ommited due to the lack of clear results. They are 
+provided in the appendix \ref{app:ben}, with brief discussions.
 
 \begin{figure}[h!]
+    \begin{Rgraph}[0.9]
+\includegraphics{chapter3-figmw34bicsecond}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34second}
+    \end{Rgraph}
+\end{figure}
+
+\clearpage
+
+\section{Difficult Mixtures}
+\label{sec:dif}
+
+% it 1
+In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
+These are a trimodal and a claw-like distribution. These types of mixtures were 
+also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
+difficult to fit.
+
+First the trimodal mixture shown in figure \ref{fig:MW215}. The difficulty 
+lies in the components of various sizes lying close together.
+
+\begin{figure}
+\begin{Rgraph}[0.9]
+\includegraphics{chapter3-figMW215}
+    \caption{Trimodal mixture {\tt MW215}. Three equally weighted, oriented, and
+             shaped components of different volumes along the diagonal}
+    \label{fig:MW215}
+\end{Rgraph}
+\end{figure}
+
+
+\begin{figure}[h!]
+    \begin{Rgraph}[0.9]
 \begin{Schunk}
 \begin{Sinput}
 >     compplot(clarabic, mclbic, mclustbic, main="Fit of MW34")
 \end{Sinput}
 \end{Schunk}
 \includegraphics{chapter3-figMW34bic}
-\end{figure}
-
-\section{Difficult Mixtures}
-
-% it 1
-here show behaviour in difficult cases
-In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
-These are a trimodal and a claw-like distribution. These types of mixtures were 
-also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
-difficult to fit.
-
-First the trimodal mixture shown in figure \ref{fig:trimod}. The difficulty 
-lies in the components of various sizes close together.
-
-
-\begin{figure}[h!]
-    \centering
-\includegraphics{chapter3-figtrimod}
-    \caption{BIC Values for the Trimodal mixture}
-    \label{fig:trimod}
+    \caption{BIC values of {\tt MW34}, correct: {\tt model="VVI", k=2}}
+    \label{fig:bicMW34}
+    \end{Rgraph}
 \end{figure}
 
 We can see, that in many cases both initialization methods {\tt clara} and
 {\tt mclVVV} manage to achieve a lower BIC value than {\tt mclust}. Although in
 the case of the correct model and cluster, {\tt k=3, model="VEE"} the three 
 algorithms coincide.
+
+A search for best values reveals, that the best models selected are in almost 
+all cases the correct model.
+
+\begin{Schunk}
+\begin{Soutput}
+     model   count
+[1,] "2 VVI" "49" 
+[2,] "4 VEI" "1"  
+\end{Soutput}
+\end{Schunk}
+
+The one incorrect model looks like this:
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+\includegraphics{chapter3-figerrorMW215}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+\includegraphics{chapter3-figerrorMW215x}
+    \end{minipage}
+\end{figure}
+
+and has the weights: 0.942, 0.0321, 0.0244, 0.002, again, an issue of 
+spurious clusters.
 
 Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
 and a very simple {\tt "VII"} covariance model. A large encompassing component
@@ -263,54 +319,41 @@ diagonal. The inherent difficulty lies in the fact that the components overlap
 and are close together as well. It is shown in figure \ref{fig:MW214}.
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figMW214}
     \caption{Claw-like mixture}
     \label{fig:MW214}
+    \end{Rgraph}
 \end{figure}
 
 
-\begin{Schunk}
-\begin{Sinput}
->     savdir <- file.path(mainsav, "2init")
->     filenames <- list.files(savdir, pattern=".rds")
->     MW214fn <- grep("MW214", filenames, value="TRUE")
->     mclustfiles <- grep("mcl.rds", MW214fn, value=TRUE)
->     MW214fn <- grep("mcl.rds", MW214fn, value="TRUE", invert=TRUE)
->     claraMW <- grep("clara", MW214fn, value=TRUE)
->     mclMW <- grep("mclVVV", MW214fn, value=TRUE)
->     clarabic <- massbic(claraMW, savdir)
->     mclbic <- massbic(mclMW, savdir)
->     mclustbic <- readRDS(file.path(savdir,mclustfiles[1]))
-\end{Sinput}
-\end{Schunk}
 
 \begin{figure}[h!]
-\begin{Schunk}
-\begin{Sinput}
->     compplot(clarabic, mclbic, mclustbic, main="Fit of MW214")
-\end{Sinput}
-\end{Schunk}
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figMW214bic}
+    \caption{BIC values of claw-like mixture. Best fit: {\tt model="VEE", k=8},
+             correct: {model="VII", k=6}}
+    \label{}
+    \end{Rgraph}
 \end{figure}
 
 here some examples of fitted mixtures
 
 \begin{figure}[h!]
-    \centering
-\begin{Schunk}
-\begin{Sinput}
->     f <- readRDS(file.path(savdir, claraMW[28]))
->     ff <- f$fit$nMm[8,8][[1]]
->     plot(ff$norMmix)
-\end{Sinput}
-\end{Schunk}
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-fig214fit}
+    \caption{Best Fit over $n=$ model selections. {\tt model="VEE", k=8} Correct
+             model {\tt model="VII", k=6}. Of Note Here are the Spurious 
+             Clusters Appearing.}%whats n?? should be verbose
+    \label{fig:MW214bestfit}
+    \end{Rgraph}
 \end{figure}
 
 We can see, that, subtracting the obvious hiccups of the small erroneous
 components, {\tt norMmix} has correctly found the 'intended' 
 distribution. This is remarkable, given the small sample size and difficulty of distribution
+
+\clearpage
 
 \section{Nonnormal Mixtures}
 
@@ -318,19 +361,11 @@ here 2smi and 2var, maybe others as well.
 here mention that coverage of algo is extremely patchy.
 here 2smi:
 
-\begin{Schunk}
-\begin{Sinput}
->     savdir <- file.path(mainsav, "2smi")
->     filenames <- list.files(savdir, pattern=".rds")
->     fnclara <- grep("clara_seed", filenames, value=TRUE)
->     fnmclVV <- grep("mclVVV_see", filenames, value=TRUE)
->     fnmclus <- grep("__mcl.rds",  filenames, value=TRUE)
-\end{Sinput}
-\end{Schunk}
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-2smiplot}
+    \end{Rgraph}
 \end{figure}
 
 While not very spectacular, the graphs show that even at large parameter
@@ -356,24 +391,18 @@ To illustrate, here are the parameter sizes for this simulation:
 
 
 
-
 \begin{figure}[h!]
-    \centering
-\includegraphics{chapter3-figiris}
-    \caption{Iris Dataset}
-    \label{fig:iris}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figtriris}
     \caption{Truncated Iris}
     \label{fig:triris}
+    \end{Rgraph}
 \end{figure}
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figloss}
     \caption{Loss data}
     \label{fig:loss}
+    \end{Rgraph}
 \end{figure}

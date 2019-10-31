@@ -18,6 +18,7 @@ importFrom("graphics", legend, matplot, mtext
          , plot, points
          , polygon, text, title
          , axis, boxplot, par
+         , grid
            )
 
 importFrom("stats", median, quantile

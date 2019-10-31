@@ -304,22 +304,22 @@ included.
 \begin{table}
     \centering
     \begin{tabular}{l|l l|l|r}
-        $\Sigma$ model  & $\mu$, $\pi$  & $\Sigma$      & reduced       & $\mathcal{O}()$ \\
+        $\Sigma$ model  & $\mu$, $\pi$  & $\Sigma$      & total \#\{par\}       & $\mathcal{O}()$ \\
         \hline
-        EII        & $ K -1 + pK$  & $1$                        & $Kp+K$                & $Kp+K$ \\
-        VII        & $ K -1 + pK$  & $K$                        & $Kp+2K-1$             & $Kp+K$ \\
-        EEI        & $ K -1 + pK$  & $1+(p-1)$                  & $Kp+p+K-1$            & $Kp+p+K$ \\
-        VEI        & $ K -1 + pK$  & $K+(p-1)$                  & $Kp+p+2K-2$           & $Kp+p+K$ \\
+        EII        & $ K -1 + pK$  & $1$                        & $Kp+K$                & $Kp$ \\
+        VII        & $ K -1 + pK$  & $K$                        & $Kp+2K-1$             & $Kp$ \\
+        EEI        & $ K -1 + pK$  & $1+(p-1)$                  & $Kp+p+K-1$            & $Kp$ \\
+        VEI        & $ K -1 + pK$  & $K+(p-1)$                  & $Kp+p+2K-2$           & $Kp$ \\
         EVI        & $ K -1 + pK$  & $1+K(p-1)$                 & $2Kp$                 & $Kp$ \\
         VVI        & $ K -1 + pK$  & $K+K(p-1)$                 & $2Kp+K-1$             & $Kp$ \\
         EEE        & $ K -1 + pK$  & $1+(p-1)+\frac{p(p-1)}{2}$         & $\frac{(p+2)(p-1)}{2}+Kp+K$    
-            & $p^2+Kp+K$ \\
+            & $p^2+Kp$ \\
         VEE        & $ K -1 + pK$  & $K+(p-1)+\frac{p(p-1)}{2}$         & $\frac{(p+2)(p-1)}{2}+Kp+2K-2$  
-            & $p^2+Kp+K$ \\
+            & $p^2+Kp$ \\
         EVV        & $ K -1 + pK$  & $1+K(p-1)+K\frac{p(p-1)}{2}$       & $K\frac{(p+2)(p-1)}{2}+Kp+K$       
-            & $Kp^2+Kp+K$ \\
+            & $Kp^2$ \\
         VVV        & $ K -1 + pK$  & $K+K(p-1)+K\frac{p(p-1)}{2}$       & $K\frac{(p+2)(p-1)}{2}+Kp+2K-1$       
-            & $Kp^2+Kp+K$ \\
+            & $Kp^2$ \\
     \end{tabular}
     \caption{Full Table of Parameters}
     \label{table:param}

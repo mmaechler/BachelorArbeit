@@ -1,50 +1,68 @@
 \chapter{Further Plots}
 
 
-here further plots:
+\begin{Schunk}
+\begin{Sinput}
+>     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+>     mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+\end{Sinput}
+\end{Schunk}
 
-\section{Chapter 3}
-not nec best way to go about it, section differently.
+\section{Behaviour in $n$}
+\label{app:ben}
 
-\section{time}
-\label{App:time}
+Here are the further plots ommited in section \ref{sec:ben}.
+First is a very difficult mixture, ommited because it is studied in greater 
+detail in section \ref{sec:def}. Second is a very easy mixture, because all
+fitting lines overlap, making meaningful analysis futile.
+
+{\tt MW214}
+
+\begin{Schunk}
+\begin{Sinput}
+>     MW214
+\end{Sinput}
+\begin{Soutput}
+norMmix object: 
+multivariate normal mixture model with the following attributes:
+name: 		 #14 Smooth Comb 
+ model: 		 VII 
+ dimension:	 2 
+ components:	 6 
+weight of components 0.5 0.1 0.1 0.1 0.1 0.1 
+\end{Soutput}
+\end{Schunk}
 
 
-
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \begin{minipage}{0.45\textwidth}
-\includegraphics{App_plots-fig5fit}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-\includegraphics{App_plots-fig10fit}
-    \end{minipage}
+\includegraphics{App_plots-figmw21bicfirst}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34first}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
-\includegraphics{App_plots-fig20fit}
+\includegraphics{App_plots-figmw21bicsecond}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34second}
 \end{figure}
 
+{\tt MW51}
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \begin{minipage}{0.45\textwidth}
-\includegraphics{App_plots-fig5fit}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-\includegraphics{App_plots-fig10fit}
-    \end{minipage}
+\includegraphics{App_plots-figmw51bicfirst}
+    \caption{BIC values of {\tt MW51} with $n=2000$}
+    \label{fig:bicmw34first}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
-\includegraphics{App_plots-fig20fit}
+\includegraphics{App_plots-figmw51bicsecond}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34second}
 \end{figure}
-
-
-dsfasdf
-
 
 \section{Unused Data}
 

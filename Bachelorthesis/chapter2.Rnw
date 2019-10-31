@@ -271,12 +271,14 @@ To end this chapter, here a small demonstration of the capabilities of
 
 % it 1
 \begin{figure}
-    \centering
+    \begin{Rgraph}[0.9]
 <<demoMW>>=
     plot(MW215)
 @
-    \caption{Demonstration of the MW Objects}
+    \caption{Demonstration of the MW Object {\tt MW215}. Correct model: 
+             {\tt model="VEE", k=3}}
     \label{fig:demoMW}
+    \end{Rgraph}
 \end{figure}
 
 It is a trimodal mixture along the diagonal.
@@ -293,9 +295,9 @@ display of the results.
 
 
 \begin{figure}[h]
-    \centering
+    \begin{Rgraph}[0.9]
 <<testtt, fig=TRUE>>=
-    op <- par(mfrow=c(1,2), mar=c(10,4,8,2))
+    op <- par(mfrow=c(1,2), mar=c(1,2,3,1))
     plot(MW215, asp=1, ylab='', xlab='')
     points(x, col=adjustcolor("black", 0.5))
     plot(MW215, asp=1, ylab='', xlab='')
@@ -306,5 +308,5 @@ display of the results.
 @
     \caption{Correct Mixture (left) and Fitted overlayed in orange (right)}
     \label{fig:democorfit}
-
+    \end{Rgraph}
 \end{figure}

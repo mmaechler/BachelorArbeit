@@ -9,14 +9,15 @@ deviation from out-of-the-box, safe for restriction of the covariance models.
 This is done, so we can compare like with like.
 The specific command that performs the EM-algorithm is:
 
-<<mclustcall, echo=TRUE, results=hide>>=
-    #mclust::Mclust(x, G=cl, modelNames=mo)$BIC
+<<mclustcall, echo=TRUE, results=hide, eval=FALSE>>=
+    mclust::Mclust(x, G=cl, modelNames=mo)$BIC
 @
 
 Where {\tt cl} is a vector of integers of however many components we are trying 
 to fit and {\tt mo} are the model names:
 
 <<modelnames, echo=FALSE, results=verbatim>>=
+    source(file="~/ethz/BA/Rscripts/adafuncs.R")
     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
     norMmix:::mods()
 @
@@ -27,16 +28,16 @@ selection, as it is advertised in the package authors paper \cite{Scr16}.
 There is however a small but crucial change applied to these results.
 The {\tt mclust} package authors have flipped the definition of the BIC to mean:
 \begin{equation} 
-    2 ln(\hat{L}) - ln(n) \theta
+    2 ln(\hat{L}) - ln(n) \#\{par\}
 \end{equation}
 instead of the more common
 \begin{equation} 
-    ln(n) \theta - 2 ln(\hat{L})
+    ln(n) \#\{par\} - 2 ln(\hat{L})
 \end{equation}
-Where $n$ is the number of observations, $\theta$ is the cardinality of the 
+Where $n$ is the number of observations, \#\{par\} is the cardinality of the 
 parameter vector and $\hat{L}$ is the estimated log-likelihood.
 
-So even if not explicitly mentioned, we use the negative of the values returned
+So, even if not explicitly mentioned, we use the negative of the values returned
 by {\tt mclust}.
 
 Another thing that should be stated before all else is the difference in 
@@ -66,12 +67,13 @@ models in 10 graphs in a plot. Here an example:
 @
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 <<bicplotdemoplot, echo=FALSE, fig=TRUE>>=
-    compplot(bic, bicmclust, main="Example Plot")
+    compplot(bic, bicmclust, main="unnamed")
 @
     \caption{Example of Comparison Plot}
     \label{fig:ExPlot}
+    \end{Rgraph}
 \end{figure}
 
 As can be seen from the formula of the BIC value, lower is better. When 
@@ -90,12 +92,10 @@ the {\tt norMmix} package is loaded, the datasets are defined and {\tt fitnMm}
 was applied a number of times. An example script can be found in the appendix
 \ref{App:sims}.
 
-here explain the various sections: time, n, p, difficult , nonnormal 
 A few things of interest are what happens:
 \begin{itemize}
     \item To time needed for the simulation
     \item When we vary the sample size of the data sets.
-    \item When we vary the dimension of the data.
     \item When the generating mixture is 'difficult'.
     \item When the data does not arise from a normal mixture.
 \end{itemize}
@@ -109,7 +109,17 @@ form in a folder called {\tt /simulations}
 
 The data used here is taken from the subfolder {\tt /simulations/2time}.
 From these, the system time was extracted and analyzed as can be gleaned from
-the following code.
+the following code. In it, we apply \Rp's {\tt lm} function for fitting linear 
+models to the times returned by the function call:
+<<sys.time, echo=TRUE, eval=FALSE>>=
+    system.time(norMmixMLE(x, ...))[[1]]
+@
+We make here a choice that does not preserve any generality, as 
+{\tt system.time} produces more results, that could hold important information.
+However, since there is quite some measurement error to be expected as time 
+approaches zero, we will content ourselves with lower expectations to the 
+accuracy of the following results.
+
 
 <<time, echo=TRUE>>=
     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
@@ -135,9 +145,12 @@ the following code.
 @
 
 The necessary time appears to be well explained by the parameter count.
+The purpose of this thesis is not to conduct complexity analysis, so we will
+leave it at this, satisfying our curiosity with a cursory look in figure 
+\ref{fig:time}, where we plot system time against parameter length.
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 <<figtime, echo=TRUE, fig=TRUE>>=
     plot(times~pars, log="xy", yaxt="n", xaxt="n", type="n")
     legend("bottomright", legend=c("MW214", "MW34","MW51"),
@@ -154,18 +167,39 @@ The necessary time appears to be well explained by the parameter count.
 @
     \caption{Log-log Plot of System Time against Parameter Length}
     \label{fig:time}
+    \end{Rgraph}
 \end{figure}
 
 We can see that time is almost one to one proportional to parameter length.
-It should be noted, that {\tt MW51} is a one component, standard normal 
-distribution. It is therefore sensible, that MLE should find an optimum faster,
-as it is a very simple mixture.
+It should be noted, that {\tt MW51} is a very simple mixture. It is therefore 
+sensible, that MLE should find an optimum faster.
 
+\clearpage
 
 \section{Behaviour in {\tt n}}
+\label{sec:ben}
 
 % it 1
-here show as expected narrower scattering as n increases
+What we would expect and like to see as we increase sample size, is a decrease
+in scattering of BIC values. To that end we again use simulation data 
+{\tt /2time}. In particular we show here the results of fitting to mixture 
+model {\tt MW34}, shown in figure \ref{fig:MW34}. The graphs 
+\ref{fig:bicmw34first} and \ref{fig:bicmw34second} show three columns
+of BIC plots, each representing different sample sizes, with 
+$n = \{500, 1000, 2000\}$ respectively. Furthermore, the BIC values were 
+divided by the samplesize, to normalize the values to an equal scale.
+
+\begin{figure}[h]
+    \begin{Rgraph}[0.9]
+<<figMW34, fig=TRUE, echo=FALSE>>=
+    plot(MW34)
+@
+    \caption{The mixture model {\tt MW34}, a three dimensional, two component
+             mixture with one smaller, lesser weighted component inside a 
+             smaller one.}
+    \label{fig:MW34}
+    \end{Rgraph}
+\end{figure}
 
 <<nfit, echo=FALSE>>=
     savdir <- file.path(mainsav, "2time")
@@ -230,45 +264,97 @@ here show as expected narrower scattering as n increases
 @
 
 \begin{figure}[h!]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-        \centering
-<<fig5fit, fig=TRUE, echo=FALSE>>=
-    compplot(s05mw34bic, mVV0534, m0534, main="")
+    \begin{Rgraph}[0.9]
+<<figmw34bicfirst, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw34bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 1:5) {
+        matplot(s05mw34bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV0534[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m0534[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw34bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV1034[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m1034[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw34bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV2034[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m2034[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
 @
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-<<fig10fit, fig=TRUE, echo=FALSE>>=
-    compplot(s10mw34bic, mVV1034, m1034, main="")
-@
-    \end{minipage}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34first}
+    \end{Rgraph}
 \end{figure}
+
+As can be seen the desired effect is achieved. Of note are the behaviour of 
+the model {\tt VEI}, where the increase in observation corrects a selection
+error appearing at $n=500$. Furthermore, the correct model {\tt VVI} exhibits
+a very tight grouping. The instances where {\tt mclust} is better than 
+{\tt norMmix} are quite infrequent.
+
+This type of analysis was also conducted with mixture objects {\tt MW214} and 
+{\tt MW51}, but were ommited due to the lack of clear results. They are 
+provided in the appendix \ref{app:ben}, with brief discussions.
 
 \begin{figure}[h!]
-    \centering
-<<fig20fit, fig=TRUE, echo=FALSE>>=
-    compplot(s20mw34bic, mVV2034, m2034, main="")
+    \begin{Rgraph}[0.9]
+<<figmw34bicsecond, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw34bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 6:10) {
+        matplot(s05mw34bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV0534[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m0534[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw34bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV1034[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m1034[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw34bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV2034[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m2034[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
 @
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34second}
+    \end{Rgraph}
 \end{figure}
 
-further plots in \ref{App:time}
+\clearpage
 
-
-\section{Behaviour in {\tt p}}
+\section{Difficult Mixtures}
+\label{sec:dif}
 
 % it 1
-here show how norMmix is consistently competitive with mclust
-The same data as in the last section was used to analyze the behaviour for 
-varying dimensions, since they have a nice variation in dimensionality.
-We plot the BIC values and see how they differ among dimensions.
+In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
+These are a trimodal and a claw-like distribution. These types of mixtures were 
+also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
+difficult to fit.
 
-\begin{figure}[h!]
-<<figMW34, fig=TRUE>>=
-    plot(MW34)
+First the trimodal mixture shown in figure \ref{fig:MW215}. The difficulty 
+lies in the components of various sizes lying close together.
+
+\begin{figure}
+\begin{Rgraph}[0.9]
+<<figMW215, fig=TRUE, echo=FALSE>>=
+    plot(MW215, asp=1)
 @
+    \caption{Trimodal mixture {\tt MW215}. Three equally weighted, oriented, and
+             shaped components of different volumes along the diagonal}
+    \label{fig:MW215}
+\end{Rgraph}
 \end{figure}
-
 
 <<MW34fit, echo=FALSE>>=
     savdir <- file.path(mainsav, "2init")
@@ -284,49 +370,54 @@ We plot the BIC values and see how they differ among dimensions.
 @
 
 \begin{figure}[h!]
+    \begin{Rgraph}[0.9]
 <<figMW34bic, fig=TRUE>>=
     compplot(clarabic, mclbic, mclustbic, main="Fit of MW34")
 @
-\end{figure}
-
-\section{Difficult Mixtures}
-
-% it 1
-here show behaviour in difficult cases
-In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
-These are a trimodal and a claw-like distribution. These types of mixtures were 
-also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
-difficult to fit.
-
-First the trimodal mixture shown in figure \ref{fig:trimod}. The difficulty 
-lies in the components of various sizes close together.
-
-<<trimod, echo=FALSE, results=hide>>=
-    savdir <- file.path(mainsav, "small-tri")
-    fl <- list.files(savdir, pattern=".rds")
-    flclara <- grep("clara_", fl, value=TRUE)
-    flmclVV <- grep("mclVVV_", fl, value=TRUE)
-
-    ## these sims were done a while ago
-    ## returned values have changed enough, that massbic doesnt work anymore
-    cbic <- array(unlist(lapply(flclara, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
-    Vbic <- array(unlist(lapply(flmclVV, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
-    mbic <- readRDS(file.path(savdir, fl[1]))
-@
-
-\begin{figure}[h!]
-    \centering
-<<figtrimod, fig=TRUE, echo=FALSE>>=
-    compplot(cbic, Vbic, mbic, pars=FALSE, main="")
-@
-    \caption{BIC Values for the Trimodal mixture}
-    \label{fig:trimod}
+    \caption{BIC values of {\tt MW34}, correct: {\tt model="VVI", k=2}}
+    \label{fig:bicMW34}
+    \end{Rgraph}
 \end{figure}
 
 We can see, that in many cases both initialization methods {\tt clara} and
 {\tt mclVVV} manage to achieve a lower BIC value than {\tt mclust}. Although in
 the case of the correct model and cluster, {\tt k=3, model="VEE"} the three 
 algorithms coincide.
+
+A search for best values reveals, that the best models selected are in almost 
+all cases the correct model.
+
+<<bicbestMW214, echo=FALSE>>=
+    cc <- bicbest(clarabic)
+    bb <- cbind(cc$values, cc$reps)
+    colnames(bb) <- c("model", "count")
+    bb
+@
+
+The one incorrect model looks like this:
+
+\begin{figure}[h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+<<figerrorMW215, echo=FALSE, fig=TRUE>>=
+    op <- par(oma=c(0,0,0,0))
+    ff <- readRDS(file.path(savdir, claraMW[26]))
+    wei <- ff$fit$nMm[4,4][[1]]$norMmix$weight
+    w <- sort(signif(wei, digits=3), decreasing=TRUE)
+    plot(ff$fit$nMm[4,4][[1]])
+@
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+<<figerrorMW215x, echo=FALSE, fig=TRUE>>=
+    pairs(ff$fit$x)
+@
+    \end{minipage}
+\end{figure}
+
+and has the weights: \Sexpr{paste(w, collapse=", ")}, again, an issue of 
+spurious clusters.
 
 Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
 and a very simple {\tt "VII"} covariance model. A large encompassing component
@@ -335,17 +426,18 @@ diagonal. The inherent difficulty lies in the fact that the components overlap
 and are close together as well. It is shown in figure \ref{fig:MW214}.
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 <<figMW214, fig=TRUE, echo=FALSE>>=
     plot(MW214, ylab='', xlab='')
     grid()
 @
     \caption{Claw-like mixture}
     \label{fig:MW214}
+    \end{Rgraph}
 \end{figure}
 
 
-<<MW214fit>>=
+<<MW214fit, echo=FALSE, results=hide>>=
     savdir <- file.path(mainsav, "2init")
     filenames <- list.files(savdir, pattern=".rds")
     MW214fn <- grep("MW214", filenames, value="TRUE")
@@ -359,25 +451,37 @@ and are close together as well. It is shown in figure \ref{fig:MW214}.
 @
 
 \begin{figure}[h!]
-<<figMW214bic, fig=TRUE>>=
+    \begin{Rgraph}[0.9]
+<<figMW214bic, fig=TRUE, echo=FALSE>>=
     compplot(clarabic, mclbic, mclustbic, main="Fit of MW214")
 @
+    \caption{BIC values of claw-like mixture. Best fit: {\tt model="VEE", k=8},
+             correct: {model="VII", k=6}}
+    \label{}
+    \end{Rgraph}
 \end{figure}
 
 here some examples of fitted mixtures
 
 \begin{figure}[h!]
-    \centering
-<<fig214fit, fig=TRUE>>=
+    \begin{Rgraph}[0.9]
+<<fig214fit, fig=TRUE, echo=FALSE>>=
     f <- readRDS(file.path(savdir, claraMW[28]))
     ff <- f$fit$nMm[8,8][[1]]
     plot(ff$norMmix)
 @
+    \caption{Best Fit over $n=$ model selections. {\tt model="VEE", k=8} Correct
+             model {\tt model="VII", k=6}. Of Note Here are the Spurious 
+             Clusters Appearing.}%whats n?? should be verbose
+    \label{fig:MW214bestfit}
+    \end{Rgraph}
 \end{figure}
 
 We can see, that, subtracting the obvious hiccups of the small erroneous
 components, {\tt norMmix} has correctly found the 'intended' 
 distribution. This is remarkable, given the small sample size and difficulty of distribution
+
+\clearpage
 
 \section{Nonnormal Mixtures}
 
@@ -385,7 +489,7 @@ here 2smi and 2var, maybe others as well.
 here mention that coverage of algo is extremely patchy.
 here 2smi:
 
-<<2smi>>=
+<<2smi, echo=FALSE>>=
     savdir <- file.path(mainsav, "2smi")
     filenames <- list.files(savdir, pattern=".rds")
     fnclara <- grep("clara_seed", filenames, value=TRUE)
@@ -394,7 +498,7 @@ here 2smi:
 @
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 <<2smiplot, echo=FALSE, fig=TRUE>>=
     fnclbic <- massbic(fnclara, savdir)
     fnmcbic <- massbic(fnmclVV, savdir)
@@ -402,6 +506,7 @@ here 2smi:
 
     compplot(fnclbic, fnmcbic, mcbic, main="BIC of SMI.12")
 @
+    \end{Rgraph}
 \end{figure}
 
 While not very spectacular, the graphs show that even at large parameter
@@ -436,30 +541,22 @@ To illustrate, here are the parameter sizes for this simulation:
     mlossbic <- readRDS(file=file.path(savdir,flvmclust[2]))
 @
 
-
 \begin{figure}[h!]
-    \centering
-<<figiris, fig=TRUE, echo=FALSE>>=
-    compplot(irisbic, mirisbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
-@
-    \caption{Iris Dataset}
-    \label{fig:iris}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 <<figtriris, fig=TRUE, echo=FALSE>>=
     compplot(tririsbic, mtririsbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
 @
     \caption{Truncated Iris}
     \label{fig:triris}
+    \end{Rgraph}
 \end{figure}
 
 \begin{figure}[h!]
-    \centering
+    \begin{Rgraph}[0.9]
 <<figloss, fig=TRUE, echo=FALSE>>=
     compplot(lossbic, mlossbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
 @
     \caption{Loss data}
     \label{fig:loss}
+    \end{Rgraph}
 \end{figure}

@@ -9,7 +9,7 @@
     arrays and overlays their plots.
 }
 \usage{
-compplot(f, g, h=NULL, main = "unnamed", adj = 1/dim(f)[3],
+compplot(f, g, h=NULL, main = NULL, adj = 1/dim(f)[3],
          col = nMmcols[1:3], mar = 0.1 + c(1.4, 2, 3, 1), 
          compnames = c("clara", "mclVVV", "Mclust"), 
          oma=c(7,0,2.8,0), pars=TRUE,

@@ -33,13 +33,7 @@
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-compplot: no visible global function definition for ‘grid’
-Undefined global functions or variables:
-  grid
-Consider adding
-  importFrom("graphics", "grid")
-to your NAMESPACE file.
+* checking R code for possible problems ... OK
 * checking Rd files ... NOTE
 prepare_Rd: compplot.Rd:66-68: Dropping empty section \references
 prepare_Rd: epfl.Rd:73-75: Dropping empty section \note
@@ -88,4 +82,4 @@ Extensions’ manual.
   Running ‘testthat.R’
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 WARNING, 2 NOTEs
+Status: 1 WARNING, 1 NOTE

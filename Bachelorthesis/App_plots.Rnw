@@ -1,15 +1,26 @@
 \chapter{Further Plots}
 
 
-here further plots:
+<<>>=
+    library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+    mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+@
 
-\section{Chapter 3}
-not nec best way to go about it, section differently.
+\section{Behaviour in $n$}
+\label{app:ben}
 
-\section{time}
-\label{App:time}
+Here are the further plots ommited in section \ref{sec:ben}.
+First is a very difficult mixture, ommited because it is studied in greater 
+detail in section \ref{sec:def}. Second is a very easy mixture, because all
+fitting lines overlap, making meaningful analysis futile.
 
-<<time, echo=FALSE, results=hide>>=
+{\tt MW214}
+
+<<MW214>>=
+    MW214
+@
+
+<<nfit, echo=FALSE>>=
     library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
     mainsav <- normalizePath("~/ethz/BA/Rscripts/")
     savdir <- file.path(mainsav, "2time")
@@ -60,66 +71,135 @@ not nec best way to go about it, section differently.
     m2051 <- readRDS(file.path(savdir,mfn[9]))
     
     ## mclVVV vals
-    mVV05214 <- array(BIC(readRDS(file.path(savdir,mVVVfn[1]))$fit)[[1]], c(8,10,1))
-    mVV10214 <- array(BIC(readRDS(file.path(savdir,mVVVfn[2]))$fit)[[1]], c(8,10,1))
-    mVV20214 <- array(BIC(readRDS(file.path(savdir,mVVVfn[3]))$fit)[[1]], c(8,10,1))
-    #VV MW34                                                  
-    mVV0534 <-  array(BIC(readRDS(file.path(savdir,mVVVfn[4]))$fit)[[1]], c(8,10,1))
-    mVV1034 <-  array(BIC(readRDS(file.path(savdir,mVVVfn[5]))$fit)[[1]], c(8,10,1))
-    mVV2034 <-  array(BIC(readRDS(file.path(savdir,mVVVfn[6]))$fit)[[1]], c(8,10,1))
-    #VV MW51                                                  
-    mVV0551 <-  array(BIC(readRDS(file.path(savdir,mVVVfn[7]))$fit)[[1]], c(8,10,1))
-    mVV1051 <-  array(BIC(readRDS(file.path(savdir,mVVVfn[8]))$fit)[[1]], c(8,10,1))
-    mVV2051 <-  array(BIC(readRDS(file.path(savdir,mVVVfn[9]))$fit)[[1]], c(8,10,1))
+    mVV05214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[1]))$fit)[[1]], 30), c(8,10,30))
+    mVV10214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[2]))$fit)[[1]], 30), c(8,10,30))
+    mVV20214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[3]))$fit)[[1]], 30), c(8,10,30))
+    #VV MW34          rep(                                        
+    mVV0534 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[4]))$fit)[[1]], 30), c(8,10,30))
+    mVV1034 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[5]))$fit)[[1]], 30), c(8,10,30))
+    mVV2034 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[6]))$fit)[[1]], 30), c(8,10,30))
+    #VV MW51          rep(                                        
+    mVV0551 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[7]))$fit)[[1]], 30), c(8,10,30))
+    mVV1051 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[8]))$fit)[[1]], 30), c(8,10,30))
+    mVV2051 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[9]))$fit)[[1]], 30), c(8,10,30))
 @
 
-
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \begin{minipage}{0.45\textwidth}
-<<fig5fit, fig=TRUE, echo=FALSE>>=
-    compplot(s05mw21bic, mVV05214, m05214)
+<<figmw21bicfirst, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw21bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 1:5) {
+        matplot(s05mw21bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw21bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw21bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
 @
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-<<fig10fit, fig=TRUE, echo=FALSE>>=
-    compplot(s10mw21bic, mVV10214, m10214)
-@
-    \end{minipage}
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34first}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
-<<fig20fit, fig=TRUE, echo=FALSE>>=
-    compplot(s20mw21bic, mVV20214, m10214)
+<<figmw21bicsecond, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw21bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 6:10) {
+        matplot(s05mw21bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw21bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw21bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
+
+
 @
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34second}
 \end{figure}
 
+{\tt MW51}
 
-\begin{figure}[h]
+\begin{figure}[h!]
     \centering
-    \begin{minipage}{0.45\textwidth}
-<<fig5fit, fig=TRUE, echo=FALSE>>=
-    compplot(s05mw51bic, mVV0551, m0551)
+<<figmw51bicfirst, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw51bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 1:5) {
+        matplot(s05mw51bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw51bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw51bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
 @
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
-<<fig10fit, fig=TRUE, echo=FALSE>>=
-    compplot(s10mw51bic, mVV1051, m1051)
-@
-    \end{minipage}
+    \caption{BIC values of {\tt MW51} with $n=2000$}
+    \label{fig:bicmw34first}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h!]
     \centering
-<<fig20fit, fig=TRUE, echo=FALSE>>=
-    compplot(s20mw51bic, mVV2051, m1051)
+<<figmw51bicsecond, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw51bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 6:10) {
+        matplot(s05mw51bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw51bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw51bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
+
 @
+    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \label{fig:bicmw34second}
 \end{figure}
-
-
-dsfasdf
-
 
 \section{Unused Data}
 
@@ -216,10 +296,6 @@ smallinit:
     mclust10210 <- readRDS(file.path(savdir, "mclust10210.rds"))
     mclust10214 <- readRDS(file.path(savdir, "mclust10214.rds"))
     mclust1024 <-  readRDS(file.path(savdir, "mclust1024.rds"))
-
-
-
-
 @
 
 \begin{figure}

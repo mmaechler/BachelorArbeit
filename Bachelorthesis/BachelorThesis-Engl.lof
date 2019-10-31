@@ -6,16 +6,25 @@
 \contentsline {figure}{\numberline {1.4}{\ignorespaces 200 EM steps}}{7}{figure.1.4}
 \contentsline {figure}{\numberline {1.5}{\ignorespaces Log-likelihood Plotted against Iteration Count for the Example in \ref {fig:200em}}}{8}{figure.1.5}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Demonstration of the MW Objects}}{13}{figure.2.1}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Demonstration of the MW Object {\tt MW215}. Correct model: {\tt model="VEE", k=3}}}{13}{figure.2.1}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Correct Mixture (left) and Fitted overlayed in orange (right)}}{14}{figure.2.2}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Example of Comparison Plot}}{16}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Log-log Plot of System Time against Parameter Length}}{18}{figure.3.2}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces BIC Values for the Trimodal mixture}}{22}{figure.3.3}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Claw-like mixture}}{23}{figure.3.4}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Iris Dataset}}{27}{figure.3.5}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Truncated Iris}}{28}{figure.3.6}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Loss data}}{29}{figure.3.7}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Log-log Plot of System Time against Parameter Length}}{19}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces The mixture model {\tt MW34}, a three dimensional, two component mixture with one smaller, lesser weighted component inside a smaller one.}}{20}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces BIC values of {\tt MW34} with $n=2000$}}{21}{figure.3.4}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces BIC values of {\tt MW34} with $n=2000$}}{22}{figure.3.5}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Trimodal mixture {\tt MW215}. Three equally weighted, oriented, and shaped components of different volumes along the diagonal}}{23}{figure.3.6}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces BIC values of {\tt MW34}, correct: {\tt model="VVI", k=2}}}{24}{figure.3.7}
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Claw-like mixture}}{25}{figure.3.8}
+\contentsline {figure}{\numberline {3.9}{\ignorespaces BIC values of claw-like mixture. Best fit: {\tt model="VEE", k=8}, correct: {model="VII", k=6}}}{26}{figure.3.9}
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Best Fit over $n=$ model selections. {\tt model="VEE", k=8} Correct model {\tt model="VII", k=6}. Of Note Here are the Spurious Clusters Appearing.}}{27}{figure.3.10}
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Truncated Iris}}{29}{figure.3.11}
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Loss data}}{30}{figure.3.12}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {B.1}{\ignorespaces BIC values of {\tt MW34} with $n=2000$}}{42}{figure.B.1}
+\contentsline {figure}{\numberline {B.2}{\ignorespaces BIC values of {\tt MW34} with $n=2000$}}{43}{figure.B.2}
+\contentsline {figure}{\numberline {B.3}{\ignorespaces BIC values of {\tt MW51} with $n=2000$}}{44}{figure.B.3}
+\contentsline {figure}{\numberline {B.4}{\ignorespaces BIC values of {\tt MW34} with $n=2000$}}{45}{figure.B.4}

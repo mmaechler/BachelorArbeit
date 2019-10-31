@@ -38,6 +38,7 @@
 \usepackage{color} %% to allow coloring in code listings
 \usepackage{Sweave}
 \usepackage{listings}% Fuer R-code, C-code, ....  and settings for these:
+\usepackage{m-floating}% for tables and figures.
 
 \usepackage{lineno}  %TODO comment this out when not needed anymore
 
@@ -114,6 +115,10 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 \renewcommand{\labelenumi}{\roman{enumi}.)}
 
 
+\newenvironment{Rgraph}[1][0.6]{\vspace{-5mm}%
+%% NOTA BENE: MM thinks we should  replace the "vspace" by using pdfCrop
+\begin{center} \setkeys{Gin}{width=#1\textwidth}}{\end{center}}
+
 
 
 
@@ -146,13 +151,17 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
  \newpage
 \begin{abstract}
 	The intent of this work is to compare The EM algorithm to a MLE approach in the
-	case of multivariate normal mixture models using the Cholesky decomposition.
+	case of multivariate normal mixture models. 
+    using the Cholesky decomposition.
 	The EM algorithm is widely used in statistics and is proven to converge, 
 	however in pathological cases convergence slows down considerably. 
 
-	methods(not done)
+    We compare two implementations of each algorithm with two different 
+    initialization strategies by judging their performance in model selection.
+    Model selection is decided by the Bayesian Information Criterion (BIC).
 
-	results(not done)
+    The results are promising. In many cases MLE is equal or better than EM.
+    It is certainly a competitive model selection strategy.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

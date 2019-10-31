@@ -18,7 +18,35 @@ strong points:
 flexibility of approach: given an logLik fctn can do mixture fitting w/ arbitrary
 models
 
-further study might include: other presumed component distributions, 'high' dimensions
+As we have seen, the algorithm works and is in many cases equal if not better 
+to existing clustering methods. The approach is also very generalizable, with 
+the biggest hurdle being an efficient implementation of a log-likelihood 
+function and a parametrization strategy.
+Should this approach be improved upon, it may provide a valuable tool in the
+arsenal of mixture model analysis.
 
-failures of implementation: no lower boundary for variance, can lead to minuscule components
-not as bad as it used to be.
+There are many directions further research in this area may be conducted. For 
+instance, the initialization methods may prove to be an essential factor in 
+correct model selection. Furthermore, in the case of CLARA, the parameters 
+chosen are somewhat arbitrary. It could yield useful results how CLARA behaves 
+with different sampling parameters.
+
+The investigation conducted in this thesis also falls short in the study of 
+high-dimensional datasets. the behaviour in these cases might also hold its own
+difficulties.
+
+Further research could also go in the direction of model selection theory. The 
+Bayesian Information Criterion was chosen in this work for its reliable results
+and usefulness, but other methods might yield more appropriate results.
+
+There are also implementation related improvements, that could prove useful.
+For example, as seen in figure \ref{fig:MW214bestfit}, spurious clusters are 
+not accounted for at all in our implementation, which could strongly impact the
+strength of this tool.
+
+
+\section{Acknowledgements}
+
+The Author would like to thank the 'Seminar fur Statistik' and ETH Zurich 
+for providing the computing resources needed for the simulations used in this
+thesis. 

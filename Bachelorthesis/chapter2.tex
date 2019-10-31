@@ -121,7 +121,7 @@ scrutiny. It is reproduced here.
 function (n, k, p) 
 pmin(n, pmax(40, round(10 * log(n))) + round(2 * k * pmax(1, 
     log(n * p))))
-<bytecode: 0x53326e0>
+<bytecode: 0x4cd1590>
 <environment: namespace:norMmix>
 \end{Soutput}
 \end{Schunk}
@@ -248,8 +248,8 @@ list of length $K-1$ into a valid weight parameter. For example:
 > ret
 \end{Sinput}
 \begin{Soutput}
-[1] -3.1799488  0.6873643  0.5082601  0.5882967  0.5561986  0.6248973  0.5356415
-[8]  0.6792903
+[1] -3.4625672  0.6000848  0.7212913  0.6687171  0.5170553  0.7044645  0.7253437
+[8]  0.5256106
 \end{Soutput}
 \end{Schunk}
 
@@ -318,14 +318,16 @@ To end this chapter, here a small demonstration of the capabilities of
 
 % it 1
 \begin{figure}
-    \centering
+    \begin{Rgraph}[0.9]
 \begin{Schunk}
 \begin{Sinput}
 >     plot(MW215)
 \end{Sinput}
 \end{Schunk}
-    \caption{Demonstration of the MW Objects}
+    \caption{Demonstration of the MW Object {\tt MW215}. Correct model: 
+             {\tt model="VEE", k=3}}
     \label{fig:demoMW}
+    \end{Rgraph}
 \end{figure}
 
 It is a trimodal mixture along the diagonal.
@@ -342,7 +344,7 @@ iter  20 value 2125.658743
 final  value 2125.658364 
 converged
    user  system elapsed 
-  0.256   0.012   0.270 
+  0.268   0.000   0.268 
 \end{Soutput}
 \begin{Sinput}
 >     mleResult
@@ -352,6 +354,7 @@ object of class 'norMmixMLE'
 norMmix object: 
 multivariate normal mixture model with the following attributes:
 name: 		 model = VEE , components = 3 
+ model: 		 VEE 
  dimension:	 2 
  components:	 3 
 weight of components 0.365 0.325 0.31 
@@ -372,10 +375,10 @@ display of the results.
 
 
 \begin{figure}[h]
-    \centering
+    \begin{Rgraph}[0.9]
 \begin{Schunk}
 \begin{Sinput}
->     op <- par(mfrow=c(1,2), mar=c(10,4,8,2))
+>     op <- par(mfrow=c(1,2), mar=c(1,2,3,1))
 >     plot(MW215, asp=1, ylab='', xlab='')
 >     points(x, col=adjustcolor("black", 0.5))
 >     plot(MW215, asp=1, ylab='', xlab='')
@@ -388,5 +391,5 @@ display of the results.
 \includegraphics{chapter2-testtt}
     \caption{Correct Mixture (left) and Fitted overlayed in orange (right)}
     \label{fig:democorfit}
-
+    \end{Rgraph}
 \end{figure}
