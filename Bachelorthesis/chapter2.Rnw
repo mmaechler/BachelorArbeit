@@ -226,7 +226,8 @@ specifying {\tt trafo="logit"}, but it shouldn't be used.
 
 % it 1
 Another issue during development cropped up during fitting of high dimensional
-data. We studied the dataset {\tt SMI.12} from the package {\tt copula}:
+data. We studied the dataset {\tt SMI.12} from the package {\tt copula}, 
+\cite{cop18}:
 
 <<smi,echo=TRUE>>=
 data(SMI.12, package="copula")

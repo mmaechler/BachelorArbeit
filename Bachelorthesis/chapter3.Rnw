@@ -416,8 +416,10 @@ The one incorrect model looks like this:
     \end{minipage}
 \end{figure}
 
-and has the weights: \Sexpr{paste(w, collapse=", ")}, again, an issue of 
-spurious clusters.
+and has the weights: \Sexpr{paste(w, collapse=", ")}. This is an issue of 
+spurious clusters. These are clusters formed by a low number of datapoints
+conjoined into a component with small determinant of its covariance matrix.
+It is a flaw in the {\tt norMmix} package, that is not adressed.
 
 Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
 and a very simple {\tt "VII"} covariance model. A large encompassing component
@@ -461,7 +463,26 @@ and are close together as well. It is shown in figure \ref{fig:MW214}.
     \end{Rgraph}
 \end{figure}
 
-here some examples of fitted mixtures
+We take a look at the best results per simulation again:
+
+<<bicbest214, echo=FALSE, results=verbatim>>=
+    aa <- bicbest(clarabic)
+    bb <- cbind(aa$values, aa$reps)
+    colnames(bb) <- c("model", "count")
+    bb
+@
+
+And here are the ten best values:
+
+<<bicbest214val, echo=FALSE>>=
+    cc <- massbest(clarabic)
+    dd <- cc[order(cc[,3]),]
+    colnames(dd) <- c("comp", "model", "BIC")
+    dd[1:10,]
+@
+
+
+Here some examples of fitted mixtures:
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
@@ -477,9 +498,30 @@ here some examples of fitted mixtures
     \end{Rgraph}
 \end{figure}
 
+\begin{figure}[h]
+    \begin{Rgraph}[0.9]
+<<fig214fit2, fig=TRUE, echo=FALSE>>=
+    op <- par(mfrow=c(1,2), mar=c(2,2,1,1), oma=c(0,0,0,0))
+    f <- readRDS(file.path(savdir, claraMW[37]))
+    ff <- f$fit$nMm[8,7][[1]]
+    plot(ff, asp=1)
+    f <- readRDS(file.path(savdir, claraMW[23]))
+    ff <- f$fit$nMm[4,7][[1]]
+    plot(ff, asp=1)
+    par(op)
+@
+    \end{Rgraph}
+    \caption{Two of the better clusters. They both follow the 'patchwork'
+             covering strategy, laying patches of components over the dataset}
+    \label{fig:214fit2}
+\end{figure}
+
 We can see, that, subtracting the obvious hiccups of the small erroneous
 components, {\tt norMmix} has correctly found the 'intended' 
-distribution. This is remarkable, given the small sample size and difficulty of distribution
+distribution. This is remarkable, given the small sample size and difficulty of 
+distribution. As can be seen in figure \ref{fig:214fit2}, there are mistakes in
+the near best clusters, where the data is overlayed with a 'patchwork' of 
+components.
 
 \clearpage
 
@@ -488,6 +530,16 @@ distribution. This is remarkable, given the small sample size and difficulty of 
 here 2smi and 2var, maybe others as well.
 here mention that coverage of algo is extremely patchy.
 here 2smi:
+Using only datasets generated from the intended model can hide important 
+structural errors in an algorithm. To that end we also applied {\tt norMmix}
+to nonnormal data to see if any erratic behaviour appears.
+
+The data used are the {\tt SMI.12} and {\tt loss} from the package {\tt copula}
+\cite{cop18}, as well as the {\tt iris} data included in base \Rp.
+
+We begin with the {\tt SMI.12} dataset, that has already been discussed 
+previously. This also doubles as high-dimensional analysis, as it is 20 
+dimensional.
 
 <<2smi, echo=FALSE>>=
     savdir <- file.path(mainsav, "2smi")
@@ -507,6 +559,11 @@ here 2smi:
     compplot(fnclbic, fnmcbic, mcbic, main="BIC of SMI.12")
 @
     \end{Rgraph}
+    \caption{The BIC values of the {\tt SMI.12} data. The blue line representing
+             the {\tt clara} values is covered by the other lines. The last 
+             three models are not plotted for all component sizes, as the 
+             algorithm returns an error if the fitting problem is ill defined.}
+    \label{}
 \end{figure}
 
 While not very spectacular, the graphs show that even at large parameter
@@ -514,13 +571,32 @@ counts our algorithm closes in on the same values as {\tt mclust}.
 At these dimensions it is difficult to compare if these are actually 
 equal, or even similar fits, but going by BIC values, it is at the very 
 least equally viable as a working model.
+The last three models are not fully plotted for all components. The reason for 
+this is that {\tt norMmix} relies on {\tt mclust} in its m-step. The 
+{\tt mclust} package halts computation when the clustering problem is badly 
+posed. In this instance the problem is that the parameter count is much larger 
+than the number of observations.
 
 To illustrate, here are the parameter sizes for this simulation:
+
 <<2smiparams, echo=FALSE, results=verbatim>>=
     f <- readRDS(file.path(savdir, fnclara[1]))
     npar(f$fit)
 @
 
+{\tt SMI.12} has 141 observations, which is exceeded by the parameter count by
+all component sizes and covariance models. With a ratio of observations to 
+parameters this low, it is desirable for clustering algorithms to break off and
+return an error, so conclusions are not drawn from ill posed problems.
+
+For curiosity's sake we include here the system times taken for the simulations
+
+<<smitimes, echo=FALSE, results=verbatim>>=
+    af <- extracttimes(f$fit)[,,1]
+    af
+@
+
+The longest, {\tt model="VVV", k=4}, took \Sexpr{af[4,10]/60} minutes.
 
 <<2var, echo=FALSE, results=verbatim>>=
     savdir <- file.path(mainsav, "2var")
@@ -541,15 +617,42 @@ To illustrate, here are the parameter sizes for this simulation:
     mlossbic <- readRDS(file=file.path(savdir,flvmclust[2]))
 @
 
+Next, we take a look at the {\tt iris} dataset with 150 observations of 4 
+variables. The {\tt fitnMm} was run with $25$ different seeds. In this instance
+the {\tt mclVVV} initialization was not applied, so we only compare to 
+{\tt mclust}.
+
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 <<figtriris, fig=TRUE, echo=FALSE>>=
-    compplot(tririsbic, mtririsbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+    # due to some error only the first 25 vals of mtririsbic are actually
+    # the correct dataset
+    compplot(tririsbic, mtririsbic[,,1:25], compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
 @
-    \caption{Truncated Iris}
+    \caption{The BIC values for the {\tt iris} data}
     \label{fig:triris}
     \end{Rgraph}
 \end{figure}
+
+The iris data originates from three types of plant species, which is not 
+correctly identified by either {\tt norMmix} or {\tt mclust}. The best models
+chosen are:
+
+<<tririsbestbic, echo=FALSE>>=
+    ee <- bicbest(tririsbic)
+    fff <- cbind(ee$values, ee$reps)
+    colnames(fff) <- c("model", "count")
+    fff
+@
+
+both far from three components. Furthermore {\tt mclust} does not return values
+for some combinations of {\tt k} and {\tt model}. It is not clear what causes 
+this, as a call to {\tt Mclust} simply returns {\tt NULL}.
+
+Lastly, the data {\tt loss}, from the {\tt copula} package \cite{cop18}. This 
+data is described as "Indemnity payment and allocated loss adjustment expense 
+from an insurance company." It consists of $1500$ observations with $4$ 
+variables. The BIC values are shown in \ref{fig:loss}
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
@@ -560,3 +663,13 @@ To illustrate, here are the parameter sizes for this simulation:
     \label{fig:loss}
     \end{Rgraph}
 \end{figure}
+
+The data resists any attempt at fitting. {\tt mclust} returns {\tt NULL}, as 
+with {\tt iris}. In {\tt norMmix}, the {\tt optim} function encounters an error.
+
+<<losserror>>=
+    data(loss, package="copula")
+    to <- try(norMmixMLE(loss, k=3, model="EEI"))
+    print(to)
+@
+

@@ -121,7 +121,7 @@ scrutiny. It is reproduced here.
 function (n, k, p) 
 pmin(n, pmax(40, round(10 * log(n))) + round(2 * k * pmax(1, 
     log(n * p))))
-<bytecode: 0x4cd1590>
+<bytecode: 0x5ae5478>
 <environment: namespace:norMmix>
 \end{Soutput}
 \end{Schunk}
@@ -248,8 +248,8 @@ list of length $K-1$ into a valid weight parameter. For example:
 > ret
 \end{Sinput}
 \begin{Soutput}
-[1] -3.4625672  0.6000848  0.7212913  0.6687171  0.5170553  0.7044645  0.7253437
-[8]  0.5256106
+[1] -3.0619765  0.6618731  0.5259321  0.5327439  0.6684533  0.5201867  0.5809991
+[8]  0.5717883
 \end{Soutput}
 \end{Schunk}
 
@@ -265,7 +265,8 @@ specifying {\tt trafo="logit"}, but it shouldn't be used.
 
 % it 1
 Another issue during development cropped up during fitting of high dimensional
-data. We studied the dataset {\tt SMI.12} from the package {\tt copula}:
+data. We studied the dataset {\tt SMI.12} from the package {\tt copula}, 
+\cite{cop18}:
 
 \begin{Schunk}
 \begin{Sinput}
@@ -344,7 +345,7 @@ iter  20 value 2125.658743
 final  value 2125.658364 
 converged
    user  system elapsed 
-  0.268   0.000   0.268 
+  0.260   0.012   0.271 
 \end{Soutput}
 \begin{Sinput}
 >     mleResult

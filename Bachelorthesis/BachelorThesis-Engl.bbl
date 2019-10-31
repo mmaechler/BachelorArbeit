@@ -37,6 +37,12 @@ Genz, A., F.~Bretz, T.~Miwa, X.~Mi, F.~Leisch, F.~Scheipl, and T.~Hothorn
 \newblock {\em {mvtnorm}: Multivariate Normal and t Distributions}.
 \newblock R package version 1.0-11.
 
+\bibitem[\protect\citeauthoryear{Hofert, Kojadinovic, Maechler, and Yan}{Hofert
+  et~al.}{2018}]{cop18}
+Hofert, M., I.~Kojadinovic, M.~Maechler, and J.~Yan (2018).
+\newblock {\em copula: Multivariate Dependence with Copulas}.
+\newblock R package version 0.999-19.1.
+
 \bibitem[\protect\citeauthoryear{Maechler}{Maechler}{2019}]{sfs19}
 Maechler, M. (2019).
 \newblock {\em sfsmisc: Utilities from 'Seminar fuer Statistik' ETH Zurich}.

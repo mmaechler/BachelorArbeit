@@ -309,8 +309,10 @@ The one incorrect model looks like this:
     \end{minipage}
 \end{figure}
 
-and has the weights: 0.942, 0.0321, 0.0244, 0.002, again, an issue of 
-spurious clusters.
+and has the weights: 0.942, 0.0321, 0.0244, 0.002. This is an issue of 
+spurious clusters. These are clusters formed by a low number of datapoints
+conjoined into a component with small determinant of its covariance matrix.
+It is a flaw in the {\tt norMmix} package, that is not adressed.
 
 Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
 and a very simple {\tt "VII"} covariance model. A large encompassing component
@@ -337,7 +339,39 @@ and are close together as well. It is shown in figure \ref{fig:MW214}.
     \end{Rgraph}
 \end{figure}
 
-here some examples of fitted mixtures
+We take a look at the best results per simulation again:
+
+\begin{Schunk}
+\begin{Soutput}
+     model   count
+[1,] "8 VII" "27" 
+[2,] "7 VEE" "8"  
+[3,] "7 VEI" "8"  
+[4,] "7 VII" "4"  
+[5,] "8 VEE" "3"  
+\end{Soutput}
+\end{Schunk}
+
+And here are the ten best values:
+
+\begin{Schunk}
+\begin{Soutput}
+      comp model BIC               
+ [1,] "8"  "VEE" "1905.61014581771"
+ [2,] "8"  "VEE" "1907.24944742008"
+ [3,] "8"  "VEE" "1913.57109788463"
+ [4,] "7"  "VII" "1913.68061849043"
+ [5,] "7"  "VII" "1913.68062199219"
+ [6,] "7"  "VEE" "1916.40190209225"
+ [7,] "7"  "VEE" "1916.40195605402"
+ [8,] "7"  "VEI" "1918.15484419568"
+ [9,] "7"  "VII" "1918.35924550811"
+[10,] "7"  "VII" "1918.4864952664" 
+\end{Soutput}
+\end{Schunk}
+
+
+Here some examples of fitted mixtures:
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
@@ -349,9 +383,21 @@ here some examples of fitted mixtures
     \end{Rgraph}
 \end{figure}
 
+\begin{figure}[h]
+    \begin{Rgraph}[0.9]
+\includegraphics{chapter3-fig214fit2}
+    \end{Rgraph}
+    \caption{Two of the better clusters. They both follow the 'patchwork'
+             covering strategy, laying patches of components over the dataset}
+    \label{fig:214fit2}
+\end{figure}
+
 We can see, that, subtracting the obvious hiccups of the small erroneous
 components, {\tt norMmix} has correctly found the 'intended' 
-distribution. This is remarkable, given the small sample size and difficulty of distribution
+distribution. This is remarkable, given the small sample size and difficulty of 
+distribution. As can be seen in figure \ref{fig:214fit2}, there are mistakes in
+the near best clusters, where the data is overlayed with a 'patchwork' of 
+components.
 
 \clearpage
 
@@ -360,12 +406,27 @@ distribution. This is remarkable, given the small sample size and difficulty of 
 here 2smi and 2var, maybe others as well.
 here mention that coverage of algo is extremely patchy.
 here 2smi:
+Using only datasets generated from the intended model can hide important 
+structural errors in an algorithm. To that end we also applied {\tt norMmix}
+to nonnormal data to see if any erratic behaviour appears.
+
+The data used are the {\tt SMI.12} and {\tt loss} from the package {\tt copula}
+\cite{cop18}, as well as the {\tt iris} data included in base \Rp.
+
+We begin with the {\tt SMI.12} dataset, that has already been discussed 
+previously. This also doubles as high-dimensional analysis, as it is 20 
+dimensional.
 
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-2smiplot}
     \end{Rgraph}
+    \caption{The BIC values of the {\tt SMI.12} data. The blue line representing
+             the {\tt clara} values is covered by the other lines. The last 
+             three models are not plotted for all component sizes, as the 
+             algorithm returns an error if the fitting problem is ill defined.}
+    \label{}
 \end{figure}
 
 While not very spectacular, the graphs show that even at large parameter
@@ -373,8 +434,14 @@ counts our algorithm closes in on the same values as {\tt mclust}.
 At these dimensions it is difficult to compare if these are actually 
 equal, or even similar fits, but going by BIC values, it is at the very 
 least equally viable as a working model.
+The last three models are not fully plotted for all components. The reason for 
+this is that {\tt norMmix} relies on {\tt mclust} in its m-step. The 
+{\tt mclust} package halts computation when the clustering problem is badly 
+posed. In this instance the problem is that the parameter count is much larger 
+than the number of observations.
 
 To illustrate, here are the parameter sizes for this simulation:
+
 \begin{Schunk}
 \begin{Soutput}
   EII VII EEI VEI EVI VVI EEE VEE  EVV  VVV
@@ -389,15 +456,64 @@ To illustrate, here are the parameter sizes for this simulation:
 \end{Soutput}
 \end{Schunk}
 
+{\tt SMI.12} has 141 observations, which is exceeded by the parameter count by
+all component sizes and covariance models. With a ratio of observations to 
+parameters this low, it is desirable for clustering algorithms to break off and
+return an error, so conclusions are not drawn from ill posed problems.
 
+For curiosity's sake we include here the system times taken for the simulations
+
+\begin{Schunk}
+\begin{Soutput}
+   models
+k     EII    VII    EEI    VEI     EVI    VVI     EEE     VEE      EVV      VVV
+  1 0.059  0.051  0.058  0.059   0.070  0.070   0.201   0.202    0.273    0.275
+  2 0.273  0.331  1.719  1.763   4.545  3.805  61.951  59.924  224.436  232.331
+  3 0.435  1.950  4.816  5.248  12.660 12.860  96.099 125.053  660.375  638.954
+  4 1.384  2.456  8.715  9.145  22.173 23.065 136.370 151.448 1438.264 1556.838
+  5 1.869  3.289 13.293 14.703  26.584 28.580 218.786   0.683    0.690    0.682
+  6 2.703  4.125 20.578 20.490  45.355 41.667 256.036   0.010    0.011    0.022
+  7 2.235  4.337 31.705 34.893  89.809 83.015 353.466   0.012    0.014    0.025
+  8 3.079 13.737 63.725 44.501 110.690 98.954 396.502   0.011    0.014    0.026
+\end{Soutput}
+\end{Schunk}
+
+The longest, {\tt model="VVV", k=4}, took 25.9473 minutes.
+
+
+Next, we take a look at the {\tt iris} dataset with 150 observations of 4 
+variables. The {\tt fitnMm} was run with $25$ different seeds. In this instance
+the {\tt mclVVV} initialization was not applied, so we only compare to 
+{\tt mclust}.
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figtriris}
-    \caption{Truncated Iris}
+    \caption{The BIC values for the {\tt iris} data}
     \label{fig:triris}
     \end{Rgraph}
 \end{figure}
+
+The iris data originates from three types of plant species, which is not 
+correctly identified by either {\tt norMmix} or {\tt mclust}. The best models
+chosen are:
+
+\begin{Schunk}
+\begin{Soutput}
+     model   count
+[1,] "6 VVV" "18" 
+[2,] "7 VVV" "7"  
+\end{Soutput}
+\end{Schunk}
+
+both far from three components. Furthermore {\tt mclust} does not return values
+for some combinations of {\tt k} and {\tt model}. It is not clear what causes 
+this, as a call to {\tt Mclust} simply returns {\tt NULL}.
+
+Lastly, the data {\tt loss}, from the {\tt copula} package \cite{cop18}. This 
+data is described as "Indemnity payment and allocated loss adjustment expense 
+from an insurance company." It consists of $1500$ observations with $4$ 
+variables. The BIC values are shown in \ref{fig:loss}
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
@@ -406,3 +522,31 @@ To illustrate, here are the parameter sizes for this simulation:
     \label{fig:loss}
     \end{Rgraph}
 \end{figure}
+
+The data resists any attempt at fitting. {\tt mclust} returns {\tt NULL}, as 
+with {\tt iris}. In {\tt norMmix}, the {\tt optim} function encounters an error.
+
+\begin{Schunk}
+\begin{Sinput}
+>     data(loss, package="copula")
+>     to <- try(norMmixMLE(loss, k=3, model="EEI"))
+\end{Sinput}
+\begin{Soutput}
+initial  value 58082.835867 
+iter  10 value 56418.201189
+iter  20 value 53014.372756
+iter  30 value 49490.970255
+iter  40 value 46802.853871
+\end{Soutput}
+\begin{Sinput}
+>     print(to)
+\end{Sinput}
+\begin{Soutput}
+[1] "Error in optim(initpar., neglogl, method = method, control = control) : \n  non-finite finite-difference value [6]\n"
+attr(,"class")
+[1] "try-error"
+attr(,"condition")
+<simpleError in optim(initpar., neglogl, method = method, control = control): non-finite finite-difference value [6]>
+\end{Soutput}
+\end{Schunk}
+

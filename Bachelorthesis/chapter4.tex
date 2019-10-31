@@ -2,17 +2,9 @@
 
 
 
-
 one shortcoming is time inefficiency. largely due to implementation.
-mclust has 16'000 lines of Fortran code, impossible in the scope of this thesis.
-
 proof of concept??
 definitely possible to do model selection using a general optimizer.
-
-strong points:
-'randomness' of clara/optim allows 'confidence intervalls' for selected model
-flexibility of approach: given an logLik fctn can do mixture fitting w/ arbitrary
-models
 
 As we have seen, the algorithm works and is in many cases equal if not better 
 to existing clustering methods. The approach is also very generalizable, with 
@@ -28,8 +20,9 @@ chosen are somewhat arbitrary. It could yield useful results how CLARA behaves
 with different sampling parameters.
 
 The investigation conducted in this thesis also falls short in the study of 
-high-dimensional datasets. the behaviour in these cases might also hold its own
-difficulties.
+high-dimensional datasets. While we have looked into it with the analysis of 
+the {\tt SMI.12} data, the behaviour in these cases might also hold its own
+difficulties, that have not cropped up in the study of one dataset.
 
 Further research could also go in the direction of model selection theory. The 
 Bayesian Information Criterion was chosen in this work for its reliable results
@@ -38,7 +31,9 @@ and usefulness, but other methods might yield more appropriate results.
 There are also implementation related improvements, that could prove useful.
 For example, as seen in figure \ref{fig:MW214bestfit}, spurious clusters are 
 not accounted for at all in our implementation, which could strongly impact the
-strength of this tool.
+strength of this tool. This is most likely the most pressing issue with the 
+implementation in this package, that no measures against spurious clusters
+have been developed.
 
 
 \section{Acknowledgements}
