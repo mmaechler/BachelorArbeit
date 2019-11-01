@@ -88,7 +88,7 @@ them. We will give a detailed description of the models assumed in this thesis
 in section \ref{sec:models}.
 
 
-\section{The EM-Algorithm in Sketch}
+\section{The EM-algorithm in Sketch}
 \label{sec:sketch}
 
 With this definition, we immediately face the problem of how to fit these
@@ -285,7 +285,6 @@ included.
 
 \clearpage
 
-%% TODO: fluff text, connecting the two tables
 \begin{table}
     \centering
     \begin{tabular}{l|l l|l|r}
@@ -366,7 +365,7 @@ done using \Rp's CLARA implementation from the cluster package \ref{clu19}.
 \begin{figure}[h]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter1-figTrimodal}
-    \caption{True and Estimated density of {\tt MW.nm9}}
+    \caption{True and estimated density of {\tt MW.nm9}}
     \label{fig:MW.nm9}
     \end{Rgraph}
 \end{figure}
@@ -408,23 +407,3 @@ a flatspot, after which convergence accelerates again.
 
 In fact, it seems that the previous solution is a saddle point in the likelihood
 function, where EM has chronic problems continuing improvements.
-
-\clearpage
-
-For the initial clustering we will use the CLARA algorithm from the \Rp package
-{\tt cluster} \ref{clu19}.
-
-% TODO: here need fluff text explaining motivation of package
-what do we hope from this?
-better convergence
-proof of concept i.e. not complete failure
-
-raise questions about implementation,
-clara fctn
-optim params
-
-the subsequent chapter is devoted to answering this question by documenting the 
-development of norMmix
-
-
-%% TODO: need somwhere that MLE is abbreviated ...

@@ -1,15 +1,15 @@
 \select@language {english}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces True and Estimated density of {\tt MW.nm9}}}{8}{figure.1.1}
+\contentsline {figure}{\numberline {1.1}{\ignorespaces True and estimated density of {\tt MW.nm9}}}{8}{figure.1.1}
 \contentsline {figure}{\numberline {1.2}{\ignorespaces 20 EM steps}}{9}{figure.1.2}
 \contentsline {figure}{\numberline {1.3}{\ignorespaces 200 EM steps}}{10}{figure.1.3}
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Log-likelihood plotted against iteration count for the example in \ref {fig:200em}}}{11}{figure.1.4}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Demonstration of the MW Object {\tt MW215}. Correct model: {\tt model="VEE", k=3}}}{17}{figure.2.1}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Demonstration of the MW object {\tt MW215}. Correct model: {\tt model="VEE", k=3}.}}{17}{figure.2.1}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Correct Mixture (left) and Fitted overlayed in orange (right)}}{19}{figure.2.2}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Example of Comparison Plot}}{22}{figure.3.1}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Log-log Plot of System Time against Parameter Length}}{25}{figure.3.2}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Example of comparison plot}}{22}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Log-log plot of system time against parameter length}}{25}{figure.3.2}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces The mixture model {\tt MW34}, a three dimensional, two component mixture with one smaller, lesser weighted component inside a smaller one.}}{26}{figure.3.3}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces BIC values of {\tt MW34} with $n=\{500, 1000, 2000\}$. Clara was applied with $10$ seeds.}}{27}{figure.3.4}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces BIC values of {\tt MW34} with $n=\{500, 1000, 2000\}$. CLARA was applied with 10 seeds.}}{28}{figure.3.5}
@@ -20,8 +20,8 @@
 \contentsline {figure}{\numberline {3.10}{\ignorespaces {\tt model="VEE", k=8}, correct model: {\tt model="VII", k=6}. Of Note Here are the Spurious Clusters Appearing.}}{33}{figure.3.10}
 \contentsline {figure}{\numberline {3.11}{\ignorespaces Two of the better clusters. They both follow the 'patchwork' covering strategy, laying patches of components over the data.}}{34}{figure.3.11}
 \contentsline {figure}{\numberline {3.12}{\ignorespaces The BIC values of the {\tt SMI.12} data. The blue line representing the {\tt clara} values is covered by the other lines. The last three models are not plotted for all component sizes, as the algorithm returns an error if the fitting problem is ill defined.}}{35}{figure.3.12}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces The BIC values for the {\tt iris} data}}{37}{figure.3.13}
-\contentsline {figure}{\numberline {3.14}{\ignorespaces Loss data}}{38}{figure.3.14}
+\contentsline {figure}{\numberline {3.13}{\ignorespaces The BIC values of the {\tt iris} data}}{37}{figure.3.13}
+\contentsline {figure}{\numberline {3.14}{\ignorespaces The BIC values of the {\tt loss}data}}{38}{figure.3.14}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

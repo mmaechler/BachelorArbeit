@@ -70,7 +70,7 @@ models in 10 graphs in a plot. Here an example:
 <<bicplotdemoplot, echo=FALSE, fig=TRUE>>=
     compplot(bic, bicmclust, main="unnamed")
 @
-    \caption{Example of Comparison Plot}
+    \caption{Example of comparison plot}
     \label{fig:ExPlot}
     \end{Rgraph}
 \end{figure}
@@ -170,7 +170,7 @@ leave it at this, satisfying our curiosity with a cursory look in figure
     sfsmisc::eaxis(1)
     sfsmisc::eaxis(2)
 @
-    \caption{Log-log Plot of System Time against Parameter Length}
+    \caption{Log-log plot of system time against parameter length}
     \label{fig:time}
     \end{Rgraph}
 \end{figure}
@@ -630,7 +630,7 @@ the {\tt mclVVV} initialization was not applied, so we only compare to
     # the correct dataset
     compplot(tririsbic, mtririsbic[,,1:25], compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
 @
-    \caption{The BIC values for the {\tt iris} data}
+    \caption{The BIC values of the {\tt iris} data}
     \label{fig:triris}
     \end{Rgraph}
 \end{figure}
@@ -660,7 +660,7 @@ variables. The BIC values are shown in \ref{fig:loss}
 <<figloss, fig=TRUE, echo=FALSE>>=
     compplot(lossbic, mlossbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
 @
-    \caption{Loss data}
+    \caption{The BIC values of the {\tt loss}data}
     \label{fig:loss}
     \end{Rgraph}
 \end{figure}

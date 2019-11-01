@@ -240,8 +240,8 @@ To end this chapter, here a small demonstration of the capabilities of
 <<demoMW>>=
     plot(MW215)
 @
-    \caption{Demonstration of the MW Object {\tt MW215}. Correct model: 
-             {\tt model="VEE", k=3}}
+    \caption{Demonstration of the MW object {\tt MW215}. Correct model: 
+             {\tt model="VEE", k=3}.}
     \label{fig:demoMW}
     \end{Rgraph}
 \end{figure}
