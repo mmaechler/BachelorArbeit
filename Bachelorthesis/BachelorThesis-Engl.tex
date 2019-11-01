@@ -40,8 +40,6 @@
 \usepackage{listings}% Fuer R-code, C-code, ....  and settings for these:
 \usepackage{m-floating}% for tables and figures.
 
-\usepackage{lineno}  %TODO comment this out when not needed anymore
-
 \definecolor{Mygrey}{gray}{0.75}% for linenumbers only!
 \definecolor{Cgrey}{gray}{0.4}% for comments
 \lstloadlanguages{R}
@@ -135,12 +133,13 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
  \dasatype{Bachelor Thesis}
  \students{Nicolas Trutmann} %e.g. Patrick M\"uller
  \mainreaderprefix{Advisor:}
- \mainreader{placeholder} %e.g. Prof. Dr. Martin M\"achler
+ \mainreader{Dr. Martin M\"achler} %e.g. Prof. Dr. Martin M\"achler
  \alternatereaderprefix{}
  \alternatereader{}
- \issuedate{placeholder} %e.g. September 15th 2019
- \submissiondate{placeholder} %e.g. February 31st 2019
- \title{Comparison of EM-algorithm and MLE using Cholesky decomposition} %title of your work
+ \issuedate{June 12th 2019} %e.g. September 15th 2019
+ \submissiondate{November 1st 2019} %e.g. February 31st 2019
+ \title{Comparing the EM-algorithm and Maximum Likelihood Estimation Using the 
+        Cholesky Decomposition} %title of your work
 
  \maketitle%- Titelseite wird abgeschlossen
  %%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -150,18 +149,23 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \newpage
 \begin{abstract}
-	The intent of this work is to compare The EM algorithm to a MLE approach in the
-	case of multivariate normal mixture models. 
-    using the Cholesky decomposition.
+	The intent of this work is to compare The EM algorithm to an MLE approach in 
+    the	case of multivariate normal mixture models. 
 	The EM algorithm is widely used in statistics and is proven to converge, 
 	however in pathological cases convergence slows down considerably. 
+
+    Our proposed alternative consists of a clustering algorithm as 
+    initialization step, followed by a parametrization step, that is then fed 
+    into a general optimizer.
 
     We compare two implementations of each algorithm with two different 
     initialization strategies by judging their performance in model selection.
     Model selection is decided by the Bayesian Information Criterion (BIC).
 
     The results are promising. In many cases MLE is equal or better than EM.
-    It is certainly a competitive model selection strategy.
+    It is certainly a competitive model selection strategy. This could yield
+    improvements in the field of model selection. The algorithm design is also 
+    versatile and translates easily to other problems.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -184,7 +188,6 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %%% or even better: write in separate files   %%%
 %%% that you just have to include here.       %%% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\linenumbers  %% TODO remove after not needed anymore
 \include{chapter1}
 \include{chapter2}
 \include{chapter3}
@@ -236,5 +239,5 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %% General info on plagiarism:
 %% https://www.ethz.ch/students/en/studies/performance-assessments/plagiarism.html 
 \cleardoublepage
-\includepdf[pages={-}, frame=true,scale=1]{confirmation-originality-scan.pdf}
+\includepdf[pages={-}, frame=true,scale=1]{DeclofOrig.pdf}
 \end{document}

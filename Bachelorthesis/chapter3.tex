@@ -5,8 +5,8 @@
 With the {\tt norMmix} package explained, we can turn to comparing it to 
 existing methods. As previously stated, the implementation representing the 
 EM-algorithm is the {\tt mclust} package. It will be used with very little 
-deviation from out-of-the-box, safe for restriction of the covariance models.
-This is done, so we can compare like with like.
+deviation from out-of-the-box settings, safe for restriction of the covariance 
+models. This is done, so we can compare like with like.
 The specific command that performs the EM-algorithm is:
 
 \begin{Schunk}
@@ -35,6 +35,7 @@ The {\tt mclust} package authors have flipped the definition of the BIC to mean:
 instead of the more common
 \begin{equation} 
     ln(n) \#\{par\} - 2 ln(\hat{L})
+    \label{eqn:BIC}
 \end{equation}
 Where $n$ is the number of observations, \#\{par\} is the cardinality of the 
 parameter vector and $\hat{L}$ is the estimated log-likelihood.
@@ -44,14 +45,12 @@ by {\tt mclust}.
 
 Another thing that should be stated before all else is the difference in 
 initialization between {mclust}'s pre-clustering and CLARA. CLARA is dependent
-on random number generators (RNG). As such, unless a fixed seed is chosen, 
-every iteration of CLARA will return a different result. Unlike {\tt mclust}, 
-which will, for given data, always return the same results. The effect on the 
+on random number generators. As such, unless a fixed seed is chosen, every 
+iteration of CLARA will return a different result. Unlike {\tt mclust}, which 
+will, for given data, always return the same results. The effect on the 
 following findings is that results will spread out for data obtained from 
 CLARA results.
 
-
-% it 1
 First, we illustrate the structure of the graphical results we will be 
 presenting hereafter. The basic shape of the plots will be the BIC value 
 plotted against the number of components. This is in line with {\tt mclust}'s
@@ -69,16 +68,15 @@ models in 10 graphs in a plot. Here an example:
     \end{Rgraph}
 \end{figure}
 
-As can be seen from the formula of the BIC value, lower is better. When 
-selecting a model based on BIC, we take the model and component with the 
+As can be seen from the formula of the BIC value \ref{eqn:BIC}, lower is better.
+When selecting a model based on BIC, we take the model and component with the 
 lowest value to be the best fitting model. Although this may not necessarily
 the 'correct' model, that is, the model from which the data arises.
 
 There are many ways in which this type of model selection might miss the 
 correct model, for example by 'gluing together' multiple components into one,
 or covering the dataset in a 'patchwork' of smaller components, to name a few.
-
-We will discuss them as they arise in the following analysis of simulations
+We will discuss them as they arise in the following analysis of simulations.
 
 The simulations were set up very simply. An \Rp script was written and in each
 the {\tt norMmix} package is loaded, the datasets are defined and {\tt fitnMm}
@@ -86,6 +84,7 @@ was applied a number of times. An example script can be found in the appendix
 \ref{App:sims}.
 
 A few things of interest are what happens:
+
 \begin{itemize}
     \item To time needed for the simulation
     \item When we vary the sample size of the data sets.
@@ -94,21 +93,27 @@ A few things of interest are what happens:
 \end{itemize}
 
 The data used here should have been provided along with this thesis in digital 
-form in a folder called {\tt /simulations}
+form in a folder called {\tt /simulations}, with individual simulations in 
+their own subfolder.
 
 
 \section{Time Analysis}
-
+\label{sec:time}
 
 The data used here is taken from the subfolder {\tt /simulations/2time}.
+In this simulation we take several example mixtures and generate $n = \{500, 1000, 2000\}$.
+We apply {\tt fitnMm} with {\tt clara} using ten different seeds and {\tt mclVVV}
+initializations, and {\tt Mclust}.
 From these, the system time was extracted and analyzed as can be gleaned from
 the following code. In it, we apply \Rp's {\tt lm} function for fitting linear 
 models to the times returned by the function call:
+
 \begin{Schunk}
 \begin{Sinput}
 >     system.time(norMmixMLE(x, ...))[[1]]
 \end{Sinput}
 \end{Schunk}
+
 We make here a choice that does not preserve any generality, as 
 {\tt system.time} produces more results, that could hold important information.
 However, since there is quite some measurement error to be expected as time 
@@ -170,11 +175,11 @@ leave it at this, satisfying our curiosity with a cursory look in figure
 >     legend("bottomright", legend=c("MW214", "MW34","MW51"),
 +            fill=nMmcols[c(3,4,2)])
 >     points(times[1:(80*30)]~pars[1:(80*30)], 
-+            log="xy", yaxt="n", xaxt="n", col=nMmcols[3])
++            log="xy", yaxt="n", xaxt="n", col=nMmcols[3], pch=1)
 >     points(times[(80*30+1):(80*60)]~pars[(80*30+1):(80*60)]
-+            , log="xy", yaxt="n", xaxt="n", col=nMmcols[4])
++            , log="xy", yaxt="n", xaxt="n", col=nMmcols[4], pch=9)
 >     points(times[(60*80+1):(80*90)]~pars[(60*80+1):(80*90)], 
-+            log="xy", yaxt="n", xaxt="n", col=nMmcols[2])
++            log="xy", yaxt="n", xaxt="n", col=nMmcols[2], pch=8)
 >     grid()
 >     sfsmisc::eaxis(1)
 >     sfsmisc::eaxis(2)
@@ -195,11 +200,10 @@ sensible, that MLE should find an optimum faster.
 \section{Behaviour in {\tt n}}
 \label{sec:ben}
 
-% it 1
 What we would expect and like to see as we increase sample size, is a decrease
 in scattering of BIC values. To that end we again use simulation data 
-{\tt /2time}. In particular we show here the results of fitting to mixture 
-model {\tt MW34}, shown in figure \ref{fig:MW34}. The graphs 
+{\tt /simulations/2time}. In particular we show here the results of fitting to 
+mixture model {\tt MW34}, shown in figure \ref{fig:MW34}. The graphs 
 \ref{fig:bicmw34first} and \ref{fig:bicmw34second} show three columns
 of BIC plots, each representing different sample sizes, with 
 $n = \{500, 1000, 2000\}$ respectively. Furthermore, the BIC values were 
@@ -219,7 +223,8 @@ divided by the samplesize, to normalize the values to an equal scale.
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figmw34bicfirst}
-    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \caption{BIC values of {\tt MW34} with $n=\{500, 1000, 2000\}$. Clara was 
+             applied with $10$ seeds.}
     \label{fig:bicmw34first}
     \end{Rgraph}
 \end{figure}
@@ -231,13 +236,14 @@ a very tight grouping. The instances where {\tt mclust} is better than
 {\tt norMmix} are quite infrequent.
 
 This type of analysis was also conducted with mixture objects {\tt MW214} and 
-{\tt MW51}, but were ommited due to the lack of clear results. They are 
+{\tt MW51}, but were omitted due to the lack of clear results. They are 
 provided in the appendix \ref{app:ben}, with brief discussions.
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figmw34bicsecond}
-    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \caption{BIC values of {\tt MW34} with $n=\{500, 1000, 2000\}$. CLARA was 
+             applied with 10 seeds.}
     \label{fig:bicmw34second}
     \end{Rgraph}
 \end{figure}
@@ -247,8 +253,8 @@ provided in the appendix \ref{app:ben}, with brief discussions.
 \section{Difficult Mixtures}
 \label{sec:dif}
 
-% it 1
 In this section we analyze the two mixtures given by {\tt MW215} and {\tt MW214}.
+These were generated with $n=500$ and CLARA was applied $50$ times.
 These are a trimodal and a claw-like distribution. These types of mixtures were 
 also discussed in \cite{Mar92}, in the univariate case, where they proved to be 
 difficult to fit.
@@ -274,7 +280,8 @@ lies in the components of various sizes lying close together.
 \end{Sinput}
 \end{Schunk}
 \includegraphics{chapter3-figMW34bic}
-    \caption{BIC values of {\tt MW34}, correct: {\tt model="VVI", k=2}}
+    \caption{BIC values of {\tt MW34}, correct: {\tt model="VVI", k=2}. 
+             $n=500$, CLARA was applied $50$ times.}
     \label{fig:bicMW34}
     \end{Rgraph}
 \end{figure}
@@ -310,20 +317,20 @@ The one incorrect model looks like this:
 \end{figure}
 
 and has the weights: 0.942, 0.0321, 0.0244, 0.002. This is an issue of 
-spurious clusters. These are clusters formed by a low number of datapoints
+spurious clusters. These are clusters formed by a low number of data points
 conjoined into a component with small determinant of its covariance matrix.
-It is a flaw in the {\tt norMmix} package, that is not adressed.
+It is a flaw in the {\tt norMmix} package, that is not addressed.
 
 Now for the claw-like mixture, {\tt MW214}. It is a mixture of six components
 and a very simple {\tt "VII"} covariance model. A large encompassing component
-and five smaller, lightly wheighted components closely together along the 
+and five smaller, lightly weighted components closely together along the 
 diagonal. The inherent difficulty lies in the fact that the components overlap
 and are close together as well. It is shown in figure \ref{fig:MW214}.
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figMW214}
-    \caption{Claw-like mixture}
+    \caption{Claw-like mixture {\tt MW214}}
     \label{fig:MW214}
     \end{Rgraph}
 \end{figure}
@@ -334,8 +341,8 @@ and are close together as well. It is shown in figure \ref{fig:MW214}.
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-figMW214bic}
     \caption{BIC values of claw-like mixture. Best fit: {\tt model="VEE", k=8},
-             correct: {model="VII", k=6}}
-    \label{}
+             correct: {model="VII", k=6}. $n=500$, CLARA was applied $50$ times.}
+    \label{fig:214bis11}
     \end{Rgraph}
 \end{figure}
 
@@ -370,14 +377,13 @@ And here are the ten best values:
 \end{Soutput}
 \end{Schunk}
 
-
 Here some examples of fitted mixtures:
 
 \begin{figure}[h!]
     \begin{Rgraph}[0.9]
 \includegraphics{chapter3-fig214fit}
-    \caption{Best Fit over $n=$ model selections. {\tt model="VEE", k=8} Correct
-             model {\tt model="VII", k=6}. Of Note Here are the Spurious 
+    \caption{{\tt model="VEE", k=8}, correct
+             model: {\tt model="VII", k=6}. Of Note Here are the Spurious 
              Clusters Appearing.}%whats n?? should be verbose
     \label{fig:MW214bestfit}
     \end{Rgraph}
@@ -388,7 +394,7 @@ Here some examples of fitted mixtures:
 \includegraphics{chapter3-fig214fit2}
     \end{Rgraph}
     \caption{Two of the better clusters. They both follow the 'patchwork'
-             covering strategy, laying patches of components over the dataset}
+             covering strategy, laying patches of components over the data.}
     \label{fig:214fit2}
 \end{figure}
 
@@ -396,16 +402,13 @@ We can see, that, subtracting the obvious hiccups of the small erroneous
 components, {\tt norMmix} has correctly found the 'intended' 
 distribution. This is remarkable, given the small sample size and difficulty of 
 distribution. As can be seen in figure \ref{fig:214fit2}, there are mistakes in
-the near best clusters, where the data is overlayed with a 'patchwork' of 
+the near best clusters, where the data is overlaid with a 'patchwork' of 
 components.
 
 \clearpage
 
 \section{Nonnormal Mixtures}
 
-here 2smi and 2var, maybe others as well.
-here mention that coverage of algo is extremely patchy.
-here 2smi:
 Using only datasets generated from the intended model can hide important 
 structural errors in an algorithm. To that end we also applied {\tt norMmix}
 to nonnormal data to see if any erratic behaviour appears.
@@ -413,9 +416,7 @@ to nonnormal data to see if any erratic behaviour appears.
 The data used are the {\tt SMI.12} and {\tt loss} from the package {\tt copula}
 \cite{cop18}, as well as the {\tt iris} data included in base \Rp.
 
-We begin with the {\tt SMI.12} dataset, that has already been discussed 
-previously. This also doubles as high-dimensional analysis, as it is 20 
-dimensional.
+We begin with the {\tt SMI.12} dataset, described as "SMI.12 contains the close prices of all 20 constituents of the Swiss Market Index (SMI) from 2011-09-09 to 2012-03-28." This also doubles as high-dimensional analysis, as it is 20 dimensional.
 
 
 \begin{figure}[h!]
@@ -506,7 +507,7 @@ chosen are:
 \end{Soutput}
 \end{Schunk}
 
-both far from three components. Furthermore {\tt mclust} does not return values
+Both far from three components. Furthermore {\tt mclust} does not return values
 for some combinations of {\tt k} and {\tt model}. It is not clear what causes 
 this, as a call to {\tt Mclust} simply returns {\tt NULL}.
 
@@ -532,11 +533,11 @@ with {\tt iris}. In {\tt norMmix}, the {\tt optim} function encounters an error.
 >     to <- try(norMmixMLE(loss, k=3, model="EEI"))
 \end{Sinput}
 \begin{Soutput}
-initial  value 58082.835867 
-iter  10 value 56418.201189
-iter  20 value 53014.372756
-iter  30 value 49490.970255
-iter  40 value 46802.853871
+initial  value 58083.148470 
+iter  10 value 56821.083089
+iter  20 value 54297.401164
+iter  30 value 51327.537889
+iter  40 value 46382.022784
 \end{Soutput}
 \begin{Sinput}
 >     print(to)

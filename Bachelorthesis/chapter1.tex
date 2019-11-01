@@ -2,9 +2,6 @@
 
 
 
-
-
-%% it 3
 \section{Definitions}
 \label{sec:def}
 
@@ -15,37 +12,30 @@ We will here give a short overview of normal mixtures to fix notation and
 nomenclature.
 The motivating idea behind mixture models is, that in real world examples
 a sample might be suspected to arise from more than one population or be 
-more simply modelled by several overlayed distributions.
+more simply modelled by several overlaid distributions.
 The example of this, that is generally considered to be the first of this kind,
 is the one by Karl Pearson, who fitted two normal distributions with different 
-means and variances.
+means and variances to a dataset.
 In his book, \cite{Pea96}[Section 4.d.; page 266], Pearson analyzed measurements
 of forehead to body length of crabs sampled from the bay of Naples. His mixture 
 model-based approach suggested, that the crabs were evolving into two new 
 subspecies.
 This is a historically important example, because it presents statistical 
 evidence of evolution in process.
-%% the approach to decompose distributions has gained tremendous popularity after the availabity of computing power made parametrized MLE possible.
-% TODO: fix sentence
-Mixture models have been used since, but research took off after the 
-availability of computing power made computational research possible
-%TODO: less confused desc of pearsons research
 
-% it 2
 While the theory of mixture models holds for a much broader class of 
-distributions, we restrict ourselves here to the case of normal distributions,
-because this restriction fits more comfortably into the scope of this work and 
+distributions, we restrict ourselves here to the case of normal mixture models,
 because normal distributions allow for a parsimonious parametrization, that is 
 of interest to study.
 
-% it 2
-This parametrization is the $\pmb{LDL}\top$ decomposition, which allows a very 
+This parametrization is the $\pmb{LDL}\top$ decomposition, a variation of the 
+Cholesky decomposition, which allows for a very 
 simple parametrization and a straightforward connection between degrees of 
 freedom and necessarily generated numerical values. This will be explained 
 further in section \ref{sec:models}.
 
-But before we delve deeper into the topic of this research, we first define the
-concept of a normal mixture model:
+But before we delve deeper into the topic of this research, we first need to 
+define the concept of a normal mixture model:
 
 Let $ \mu \in \mathbb{R}^p , \quad \Sigma \in \mathbb{R}^{p \times p} $ be
 symmetric positive definite and $ \phi(- ; \mu, \Sigma) $ be the normal 
@@ -59,6 +49,7 @@ function:
 \end{equation}
 
 for $\pmb{x} \in \mathbb{R}^p$.
+
 Since we are studying mixture models, we will need several overlapping of 
 normal distributions, of differing means and covariance. Therefore, we choose
 notation allowing us to refer to the components in shorthand. Let us assume we
@@ -71,7 +62,6 @@ $\pmb{\mu}_k, \pmb{\Sigma}_k,\quad k \in \{1, \dots , K\}$, then we fix:
 \end{equation}
 
 And going forward, we will refer to components by the subscript $k$.
-
 
 \begin{definition}
     Suppose we have a random sample $ \pmb{Y}_1, \dots , \pmb{Y}_n $, where
@@ -88,34 +78,29 @@ And going forward, we will refer to components by the subscript $k$.
     with parameters $\pmb{\mu}_k$ and $\pmb{\Sigma}_k$ as described above 
     (\ref{eqn:phik}).
     The $ \pi_k $ are called the component densities of the mixture and are
-    constrainded by the rules $\pi_k > 0$ and $\sum_k \pi_k = 1$.
-
+    constrained by the rules $\pi_k > 0$ and $\sum_k \pi_k = 1$.
 \end{definition}
 
-%TODO: need some fill text here?
-
-% it 1
-For 'large' datasets there are more parsimonious parametrizations, that reduce
-computation time. These, for example, assume that all components have the same
-covariance, or have certain restrictions placed on them. We will give a 
-detailed description of the models assumed in this thesis in section 
-\ref{sec:models}.
+For 'large' datasets there are applicable constraints to the $\pmb{\Sigma}_k$, 
+that reduce the number of necessary parameters. These, for example, assume that 
+all components have the same covariance, or have certain restrictions placed on 
+them. We will give a detailed description of the models assumed in this thesis 
+in section \ref{sec:models}.
 
 
 \section{The EM-Algorithm in Sketch}
 \label{sec:sketch}
 
-%% it 1
 With this definition, we immediately face the problem of how to fit these
 mixture components to given data. A popular algorithm to solve this problem 
 is the {\bf E}xpectation-{\bf M}aximization algorithm, abbreviated as 
 EM-algorithm.
 
-We give here a sketch of the EM-algorithm in the case of all normal mixture 
-components. This roughly follows the content in \cite{McL00}. For a more 
-thorough treatment of the matter see chapter 3.
+We give here a sketch of the EM-algorithm in the case of normal mixtures. This 
+roughly follows the content in \cite{McL00}. For a more thorough treatment of 
+the matter see chapter 3.
 
-Suppose we have a $p-$dimensional dataset of $n$ samples $x_1, \dots ,x_n$,
+Suppose we have a $p-$dimensional dataset of $n$ samples $\pmb{y}_1, \dots ,\pmb{y}_n$,
 onto which we would like to fit a $K$ component normal mixture with mixture
 components $\phi_k,\ k \in {1,\dots , n}$. 
 
@@ -126,9 +111,11 @@ observation $i$ is a member of component $j$.
 The EM-algorithm is a two step, iterative process consisting of an 'e'-step
 and an 'm'-step.
 In the e-step the expectation of component membership is updated.
+
 \begin{equation} 
     \tau_j(\pmb{y}_i;\Psi) = \phi_j(\pmb{y}_i)/ \sum_{k=1}^K \phi_k(\pmb{y}_i)
 \end{equation}
+
 and in the m-step given the component membership information we update the 
 component means and covariances by weighted versions of the usual estimators.
 \begin{equation}
@@ -138,8 +125,6 @@ component means and covariances by weighted versions of the usual estimators.
     \pmb{\Sigma}_j = \sum_{i=1}^n \tau_j(\pmb{y}_i) (\pmb{y}_i- \pmb{\mu}_j)(\pmb{y}_i-\pmb{\mu}_j)^\top /  \sum_{i=1}^n \tau_j(\pmb{y}_i)
 \end{equation}
 
-
-% it 2
 There remains to be stated how to start the algorithm. Since both steps of the
 algorithm depend on data from the other, the EM-algorithm needs some form of 
 initialization step.
@@ -147,28 +132,26 @@ Most popular implementations use some form of pre clustering and use the
 EM-algorithm as subsequent tools to fit the data. The R-package {\tt mclust} 
 for example uses hierarchical agglomerative clustering \cite{Scr16}.
 
-% TODO: some fluff text here
-
 
 \section{Choice of Notation}
 \label{sec:notation}
 
-% it 1
 The classification of models in this paper relies heavily on the work of 
 \cite{Cel95}, however, out of necessity for clarity, we break with their 
-notation. 
-So as to not confuse the reader we describe here in depth the differences in 
-notation between \cite{Cel95} and ours.
+notation. So as to not confuse the reader we describe here in depth the 
+differences between \cite{Cel95} and this work.
 
 The basis of classification in \cite{Cel95} is the decomposition of a
 symmetric matrix into an orthogonal and a diagonal component.
-A symmetric positive definite matrix $ \Sigma $ can be decomposed as follows
+A symmetric positive definite matrix $\Sigma$ can be decomposed as
+
 \begin{equation} 
     \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^{\top}
 \end{equation}
-with $ \pmb{D} $ an orthogonal matrix and $ \pmb{A} $ a diagonal matrix and
-$ \lambda = \sqrt[\uproot{3}p]{det(\Sigma)} $ the $ p-th $ root of the 
-determinant of $ \Sigma $.
+
+with $\pmb{D}$ an orthogonal matrix and $\pmb{A}$ a diagonal matrix and
+$\lambda = \sqrt[\uproot{3}p]{det(\Sigma)}$ the $p$-th root of the determinant 
+of $ \Sigma $.
 
 This decomposition has an appealing geometric interpretation, with $ \pmb{D} $ 
 as the \textit{orientation} of the distribution, $ \pmb{A} $ the \textit{shape},
@@ -186,70 +169,76 @@ Therefore we, from here on, when referring to the decomposition as described by
     \pmb{D} \longmapsto \pmb{Q} \\
     \pmb{A} \longmapsto \pmb{\Lambda} \\
     \lambda \longmapsto \alpha  \\
-    \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^\top =
+    \Sigma = \lambda \pmb{D} \pmb{A} \pmb{D}^\top \longmapsto
         \alpha \pmb{Q} \pmb{\Lambda} \pmb{Q}^\top
 \end{gather}
 
 These were chosen according to general conventions of linear algebra. $ \pmb{Q} $
 is usually chosen for orthonormal matrices; $ \pmb{\Lambda} $ is often a choice 
-for diagonal matrices of eigenvectors and $ \alpha $ was somewhat arbitrarily 
-chosen.
+for diagonal matrices of eigenvectors and $ \alpha $ was chosen arbitrarily.
 
 
 \section{Models of Covariance Matrices}
 \label{sec:models}
 
+As mentioned in the introduction, there are ways to constrain the covariance 
+matrices. There are instances where the resulting loss of information is seen 
+as acceptable, for example if, through consideration of the data, that a 
+simplified model is acceptable. Another is if the sheer size of the data makes 
+application of full generality impossible.
 
-% it 1
-As mentioned above, there are ways to constrain the covariance matrices for 
-computational reasons. There are istances where the resulting loss of 
-information is seen as acceptable, for example if, through consideration of the
-data, that a simplified model is acceptable. Another is if the sheer size of 
-the data makes application of full generality impossible.
+With the above mentioned decomposition, we have the following options to 
+constrain the covariance model:
+
 \begin{itemize}
-    \item We restrict the complexity of the decomposition components
-    \item We restrict the variability of the mixture components
+    \item We restrict the complexity of the decomposition, substituting it with 
+        a simpler component.
+    \item We restrict the variability of the mixture components, fixing a part 
+        of the decomposition to be equal.
 \end{itemize}
+
 Let us look at the first case. We take the decomposition of a covariance matrix
 as $\Sigma = \alpha \pmb{Q\Lambda Q}^\top$. Of these, we can simplify the 
 structure of $\pmb{Q}$ and $\pmb{\Lambda}$, by replacing them with the identity.
 If we set $\pmb{Q}=\mathrm{Id}$, we lose the freedom of orientation and if we 
 set $\pmb{\Lambda}=\mathrm{Id}$ we restrict ourselves to spherical 
-distributions.
+distributions. Of course, we cannot restrict $\pmb{\lambda}$ while letting 
+$\pmb{q}$ free, since
 
-of course, we cannot restrict $\pmb{\lambda}$ while letting $\pmb{q}$ free, 
-since
 \begin{equation} 
     \pmb{Q\Lambda Q}^\top = \pmb{Q}\mathrm{Id}\pmb{Q}^\top = \mathrm{Id}
 \end{equation}
 
 The second restriction simply means we hold the decomposition fixed throughout 
 all covariance matrices.
-% it 1
-There is however an issue with the cholesky decomposition. For 10 out of 14
-cases as defined by \cite{Cel95}, there exists a canonical translation of
-decompositions.
-The 6 diagonal cases need no translation; the eigen and cholesky decomposition
-are equal to identity.
-For the non-diagonal cases note that for a given sym. pos. def. matrix
-$ \Sigma $ we have decompositions:
+
+There is however an issue with the Cholesky decomposition. For ten out of 
+fourteen cases defined by \cite{Cel95}, there exists a canonical translation of
+decompositions, but for four of them no translation is possible.
+
+The six diagonal cases need no translation; the eigen- and Cholesky 
+decomposition are equal to the non decomposed form. For the non diagonal cases 
+note that for a given symmetric positive definite matrix $\Sigma$ we have 
+decompositions:
+
 \begin{equation}
     \Sigma = \alpha \pmb{Q \Lambda Q}^\top \quad \Sigma =\alpha \pmb{L D L}^\top
 \end{equation}
+
 Since in both cases the enclosing matrices $ \pmb{Q} $ and $ \pmb{L} $ have 
-determinant $ 1 $ the determinant of $ \Sigma $ falls entirely on $ \alpha $.
-therefore $ \alpha $, in these particular decompositions, is equal for both.
+determinant $1$ the determinant of $\Sigma$ falls entirely on $ \alpha $.
+Therefore $ \alpha $, in these particular decompositions, is equal for both.
 \cite{Cel95} vary $\sigma$ by either varying or holding fixed the volume 
 $(\alpha / \alpha_k)$, shape $(\pmb{\Lambda} / \pmb{\Lambda_k})$ and orientation
 $(\pmb{Q} / \pmb{Q}_k)$.
-These 3 times 2 cases would yield the 8 out of 14 cases of non-diagonal cases.
-However there is no canonical transform for either variable orientation and 
-fixed shape or fixed orientation and variable shape.
+
+These three times two cases would yield the eight out of fourteen cases of non 
+diagonal cases. However there is no canonical transform for either variable 
+orientation and fixed shape or fixed orientation and variable shape.
 The reason for this is that in the $\pmb{LDL}^\top$ decomposition the lower
 diagonal matrix $\pmb{L}$ holds some of the shape of the matrix, which in 
 the eigendecomposition is in the $\pmb{\Lambda}$ matrix.
-In fact, $\pmb{L}$ is orthogonal if and only if 
-$\pmb{L} = \mathrm{Id}_{n\times n}$.
+In fact, $\pmb{L}$ is orthogonal if and only if $\pmb{L} = \mathrm{Id}_{n\times n}$.
 Therefore we can only decompose matrices where either both or neither shape and
 orientation vary. See table \ref{table:paramSigma}.
 
@@ -328,52 +317,38 @@ There is an attractive advantage in using the $\pmb{LDL}^\top$ decomposition.
 Since both the $\pmb{LDL}^\top$ and eigendecomposition derive from the same 
 covariance matrix, the necessary parameters are the same in cardinality.
 In the case of the $\pmb{Q}$ and $\pmb{L}$ matrices, there need to be $\frac{p(p-1)}{2}$
-parameters to be determined to uniquely define these matrices.
+parameters that uniquely define these matrices.
 In the case of the $\pmb{L}$ matrix these are straightforward the entries of 
 the lower diagonal matrix, whereas $\pmb{Q}$ needs a nontrivial amount of work
 to determine a minimal generating set of parameters, which makes computation
 of the decomposition as in \cite{Cel95} a lot more difficult.
-Therefore the $\pmb{LDL}^\top$ decomposition was chosen for the purpose of this
-thesis.
 
 
 \section{Problems of the EM-algorithm}
 \label{sec:emproblems}
 
-
-The EM-algorithm has stalling problems especially close to a local optimum.
-% it 1
 In their seminal work, \cite{Dem77}, have proven that the EM-algorithm 
-converges under mild regularity conditions. 
-%TODO: talk more about Dem77, in more detail about convergence conditions
-However, convergence does not guarantee fast convergence. In fact, a lot of 
-the work, that has gone into the research around the EM-algorithm has been 
-concerned with speeding up convergence, see \cite{McL00}[section 2.17].
-The concern here is that a slowing in convergence might be mistaken for actual
-convergence.
+converges under mild regularity conditions. However, convergence does not 
+guarantee fast convergence. In fact, a lot of the work, that has gone into the 
+research around the EM-algorithm has been concerned with speeding up 
+convergence, see \cite{McL00}[section 2.17]. The concern here is that a slowing 
+in convergence might be mistaken for actual convergence.
 
-% it 1
 This phenomenon is not infrequent and in difficult mixtures quite visible.
 To illustrate let us look at a particular mixture taken from \cite{Mar92} and
-the {\tt nor1mix} package from CRAN.
+the {\tt nor1mix} package \cite{n1m19}.
 {\tt nor1mix} is a package designed and developed for educational purposes to 
 teach about univariate normal mixtures. It is also the spiritual predecessor 
 of this thesis' \Rp code.
 
 The mixture is a trimodal mixture of uneven weight, as shown in figure
-\ref{fig:MW.nm9}.
-While not the most difficult mixture studied by \cite{Mar92}, it is certainly
-not trivial either.
-In the figures below, \ref{fig:20em} and \ref{fig:200em}, we demonstrate, that
-even after 200 iterations of the EM-algorithm the convergence is poor.
-In this instance, the initialization is done using \Rp's CLARA implementation
-from the cluster package. %TODO: citation here.
+\ref{fig:MW.nm9}. While not the most difficult mixture studied by \cite{Mar92}, 
+it is certainly not trivial either. In the figures below, \ref{fig:20em} and 
+\ref{fig:200em}, we demonstrate, that even after 200 iterations of the 
+EM-algorithm the convergence is poor. In this instance, the initialization is 
+done using \Rp's CLARA implementation from the cluster package \ref{clu19}.
 
 
-
-\begin{figure}[h]
-    \centering
-    \begin{minipage}{0.45\textwidth}
 \begin{Schunk}
 \begin{Sinput}
 >     library("nor1mix")
@@ -387,84 +362,57 @@ from the cluster package. %TODO: citation here.
 [3,]  0.0  0.25 0.10
 \end{Soutput}
 \end{Schunk}
-% TODO: fix position size??
-        \caption{Parameters of {\tt MW.nm9}}
-        \label{tab:MW.nm9}
-    \end{minipage}
-    \begin{minipage}{0.45\textwidth}
+
+\begin{figure}[h]
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter1-figTrimodal}
-        \caption{True and Estimated density}
-        \label{fig:MW.nm9}
-    \end{minipage}
+    \caption{True and Estimated density of {\tt MW.nm9}}
+    \label{fig:MW.nm9}
+    \end{Rgraph}
 \end{figure}
-% TODO: fix placement issue and caption location
 
-then an illustration of MW examples of pathological cases
-
-We can see, that the EM-algorithm seems to converge to an intermediary
-solution, where the smaller middle solution is weighted lower, until it manages
-to correct back and find the correct components.
-
-
+We can see in \ref{fig:20em}, that the EM-algorithm seems to converge to an 
+intermediary solution, where the smaller middle solution is weighted lower, 
+until it manages to correct back and find the correct components.
 
 
 
 \begin{figure}[h]
-    \centering
-    \begin{minipage}{0.45\textwidth}
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter1-fignor1mixEx}
     \label{fig:20em}
     \caption{20 EM steps}
-    \end{minipage}\hfill
-    \begin{minipage}{0.45\textwidth}
-    \centering
+    \end{Rgraph}
+\end{figure}
+
+\begin{figure}[h]
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter1-figplotemsteps}
     \label{fig:200em}
     \caption{200 EM steps}
-    \end{minipage}
-    \label{adfafdafds}
+    \end{Rgraph}
 \end{figure}
 
 We see how change in log-likelihood seems to stagnate. However, this does not 
-stay that way. If we let EM run a bit further we see, the log-likelihood hits 
+stay that way. If we let EM run a bit further we see in figure \ref{fig:emll}, the log-likelihood hits 
 a flatspot, after which convergence accelerates again.
 
-
 \begin{figure}[h]
-    \centering
+    \begin{Rgraph}[0.9]
 \includegraphics{chapter1-figemll}
     \label{fig:emll}
-    \caption{Log-likelihood Plotted against Iteration Count for the Example in \ref{fig:200em}}
+    \caption{Log-likelihood plotted against iteration count for the example in 
+             \ref{fig:200em}}
+    \end{Rgraph}
 \end{figure}
-
-
 
 In fact, it seems that the previous solution is a saddle point in the likelihood
 function, where EM has chronic problems continuing improvements.
 
-give 2D demonstration.
+\clearpage
 
-
-\section{Alternative Option}
-\label{sec:alt}
-
-
-% it 1
-In conclusion, the EM-algorithm has very appealing advantages. However, as we
-have shown, there are chronic problems in convergence rates. The aim of this 
-thesis is to test if some improvement could be achieved by a different method.
-
-The plan is reasonably straightforward:
-
-\begin{enumerate}
-    \item Initialize using CLARA.
-    \item Perform one m-step, to transform CLARA's results into the form of a 
-        normal mixture.
-    \item Apply a general optimizer, using the mixture's log-likelihood function.
-\end{enumerate}
-
-%% this is going to be a longer part
+For the initial clustering we will use the CLARA algorithm from the \Rp package
+{\tt cluster} \ref{clu19}.
 
 % TODO: here need fluff text explaining motivation of package
 what do we hope from this?

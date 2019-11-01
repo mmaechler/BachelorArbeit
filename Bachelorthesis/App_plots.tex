@@ -16,7 +16,7 @@ First is a very difficult mixture, ommited because it is studied in greater
 detail in section \ref{sec:def}. Second is a very easy mixture, because all
 fitting lines overlap, making meaningful analysis futile.
 
-{\tt MW214}
+\subsection{{\tt MW214}}
 
 \begin{Schunk}
 \begin{Sinput}
@@ -37,41 +37,47 @@ weight of components 0.5 0.1 0.1 0.1 0.1 0.1
 \begin{figure}[h!]
     \centering
 \includegraphics{App_plots-figmw21bicfirst}
-    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \caption{BIC values of {\tt MW214} with $n=\{500, 1000, 2000\}$, first five models}
     \label{fig:bicmw34first}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
 \includegraphics{App_plots-figmw21bicsecond}
-    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \caption{BIC values of {\tt MW214} with $n=\{500, 1000, 2000\}$, last five models.}
     \label{fig:bicmw34second}
 \end{figure}
 
-{\tt MW51}
+\clearpage
+
+\subsection{{\tt MW51}}
 
 \begin{figure}[h!]
     \centering
 \includegraphics{App_plots-figmw51bicfirst}
-    \caption{BIC values of {\tt MW51} with $n=2000$}
+    \caption{BIC values of {\tt MW51} with $n=\{500, 1000, 2000\}$}
     \label{fig:bicmw34first}
 \end{figure}
 
 \begin{figure}[h!]
     \centering
 \includegraphics{App_plots-figmw51bicsecond}
-    \caption{BIC values of {\tt MW34} with $n=2000$}
+    \caption{BIC values of {\tt MW51} with $n=\{500, 1000, 2000\}$}
     \label{fig:bicmw34second}
 \end{figure}
 
-\section{Unused Data}
+\clearpage
 
-Unfortunately not all simulations were well planned. In part, because they were
-done for exploratory purposes.
+\section{Other Data}
 
-Some are displayed here
+Unfortunately not all simulations were as useful to show in the main body of 
+this work. In part, because they were done for exploratory purposes. However,
+they show some other properties that are of interest.
 
-smallinit:
+The data in {\tt /simulations/smallinit} varied the dataset with a set seed.
+The values for every individual dataset are not as interesting as 
+{\tt /simulations/2time}, but they show that {\tt norMmix} is consistent in its
+results for similar datasets.
 
 
 \begin{figure}

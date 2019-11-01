@@ -19,6 +19,6 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 NeedsCompilation: no
-Packaged: 2019-10-31 00:59:15 UTC; n
+Packaged: 2019-11-01 03:23:19 UTC; n
 Depends: R (>= 3.5.0)
-Built: R 3.6.1; ; 2019-10-31 00:59:17 UTC; unix
+Built: R 3.6.1; ; 2019-11-01 03:23:22 UTC; unix

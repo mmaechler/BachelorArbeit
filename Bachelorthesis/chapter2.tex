@@ -1,25 +1,28 @@
 \chapter{The {\tt norMmix} Package}
 
 
+\section{Introduction to the {\tt norMmix} Package}
+\label{sec:nMm}
 
-
-
-\section{Introduction to the Package}
-
-% it 1
-For this thesis, an \Rp package was developed that implements the algorithm
+For this thesis, an \Rp package was developed that implements an algorithm
 that fits multivariate normal mixtures to given data.
 \footnote{The package was written with \Rp version 3.6.1 (2019-07-05) last 
 updated on 2019-10-22.}
-There is a lot of unused code still in the package. These were at one point
-implemented used and discarded. They are still included for demonstration.
+
+The algorithm is reasonably straightforward:
+
+\begin{enumerate}
+    \item Initialize using a common clustering algorithm.
+    \item Perform one m-step, to transform clustering results into the form of a
+        normal mixture.
+    \item Apply a general optimizer, using the mixture's log-likelihood function.
+\end{enumerate}
+
 The {\tt norMmix} package is constructed around the {\tt norMmix} object that 
 codifies a {\tt nor}mal {\tt M}ultivariate {\tt mix}ture model,  and the {\tt 
 llnorMmix()} function, that calculates the log-likelihood given a model and 
 data.
 
-
-%% table of params
 In the table \ref{tab:code-notation} the notation used in code is listed
 along with a translation to the previously used mathematical notation.
 Additionally, functions with ambiguous names are listed here.
@@ -39,7 +42,7 @@ Additionally, functions with ambiguous names are listed here.
         $\pmb{\Sigma}$ model & {\tt model} \\
         {\tt cluster}'s CLARA & {\tt clara} \\
         {\tt mclust}'s hierarchical clustering & {\tt mclVVV} \\
-        {\tt mclust}'s {\tt Mclust} fuction & {\tt mclust} \\
+        {\tt mclust}'s {\tt Mclust} function & {\tt mclust} \\
         \hline
     \end{tabular}
     \caption{Translation Table: Mathematical Notation to \Rp Code}
@@ -55,63 +58,57 @@ The package contains the following functionality:
         {\tt norMmix} objects. There exist {\tt is.norMmix} {\tt rnorMmix} and
         {\tt dnorMmix} functions.
     \item [parametrization] The main functions that handle reparametrization
-        of models from and to $\pmb{LDL}^\top$ decomposition are {\tt nMm2par}
-        and {\tt par2nMm}, which are inverse to each other.
+        of models from and to the $\pmb{LDL}^\top$ decomposition are 
+        {\tt nMm2par} and {\tt par2nMm}, which are inverse to each other.
     \item [MLE] The function {\tt norMmixMLE} marries the main components of 
         this package. It initializes a model and parametrizes it for use with 
         {\tt optim}
-    \item [model choice] Using {\tt norMmixMLE}, the function fitnMm allows fitting 
-        of multiple models and components. Functions analyzing the output of 
-        this are also provided, e.g. {\tt BIC} and {\tt print} methods.
-    \item [misc] There are also various methods of generics, like {\tt logLik,
-        print, BIC, AIC} and {\tt nobs} as well as various {\tt print} methods.
+    \item [model choice] Using {\tt norMmixMLE}, the function fitnMm allows 
+        fitting of multiple models and components. Functions analyzing the 
+        output of this are also provided, e.g. {\tt BIC} and {\tt print} methods.
     \item [example objects] Following the paper of \cite{Mar92} various example
         objects are provided and used for study. They follow the naming 
         convention: MW + dimension + number. For example {\tt MW213} for the 
         13th model of dimension 2.
     \item [simulations] A good portion of the package is designed with the study 
         of simulations in mind. Therefore there are functions provided to study 
-        large collections of evaluated data. e.g {\tt compplot} %TODO: describe and give ref.
+        large collections of evaluated data. e.g {\tt compplot}
+    \item [misc] There are also various methods of generics, like {\tt logLik,
+        print, BIC, AIC} and {\tt nobs} as well as various {\tt print} methods.
 \end{description}
 \end{table}
 
-%relies on {\tt optim()} generic optimizer. maximizes llnormix by varying model 
-%parameters.
+The package relies on {\tt optim} from the {\tt stats} package \cite{sta19} 
+for general optimization. We use the standard method implemented in {\tt optim} 
+which is {\tt BFGS}, which is a quasi-Newton method (also known as a variable 
+metric algorithm) as described in \cite{Bro70} among others. 
 
-% it 1
-The package relies on {\tt optim} from the {\tt stats} package for general 
-optimization. we use the standard method implemented in {\tt optim} which is
-{\tt BFGS}, which is a quasi-Newton method (also known as a variable metric 
-algorithm) as described in \cite{Bro70} among others. 
-
-%% explain workflow for package and sims
 The workflow when using the package is as follows.
-%% in package norMmix() generates object. encodes mu Sigma weights name model
 The function {\tt rnorMmix} can be used to generate data from a {\tt norMmix} 
 object. The {\tt MW} objects provide ready made examples and objects of study
 and the {\tt norMmix} function can be used to define normal mixtures from 
 scratch. Of course, other data sets can be used for analysis. The following 
-functions rely, however, on the {\tt matrix} data structure. So dataframes 
+functions rely, however, on the {\tt matrix} data structure. So data frames 
 must be converted beforehand and non numerical data is not accepted.
 
-Given data, the functions that accept it for analysis are mainly 
-{\tt norMmixMLE} and {\tt fitnMm}. The former performs model fit on data, and 
-the latter performs model selection, by calling {\tt norMmixMLE} for specified
-{\tt k} and {\tt model} vectors. 
+The functions that accept it for analysis are mainly {\tt norMmixMLE} and 
+{\tt fitnMm}. The former performs model fit on data, and the latter performs 
+model selection, by calling {\tt norMmixMLE} for specified {\tt k} and 
+{\tt model} vectors. 
 
 \subsection{{\tt norMmixMLE}}
 
 The core of {\tt norMmixMLE} is the application of {\tt optim} in conjunction
 with {\tt llnorMmix} as function to be optimized. {\tt llnorMmix} can be 
 accessed directly, however, it needs a transposed dataset.
-%% init divergence norMmixMLE offers clara, mclVV contrast with mclust
-As stated in section \ref{sec:alt} the MLE implicitly performs initialization.
+The {\tt norMmixMLE} function implicitly performs initialization.
+
 There are two options for this initialization step. One is the CLARA clustering
 algoritm, with non-standard arguments. The standard arguments are somewhat 
 historic in origin and were, at the time, chosen because of hardware 
-limitations. The newer function, due to this thesis' advisor Martin M\"achler, 
-was designed to be a 'sensible' alternative, but should be subject to further 
-scrutiny. It is reproduced here.
+limitations. The arguments used in this work are defined by a function, due to 
+this thesis' advisor Martin M\"achler, which was designed to be a 'sensible' 
+alternative, but should be subject to further scrutiny. It is reproduced here.
 
 \begin{Schunk}
 \begin{Sinput}
@@ -121,19 +118,19 @@ scrutiny. It is reproduced here.
 function (n, k, p) 
 pmin(n, pmax(40, round(10 * log(n))) + round(2 * k * pmax(1, 
     log(n * p))))
-<bytecode: 0x5ae5478>
+<bytecode: 0x4fc98d8>
 <environment: namespace:norMmix>
 \end{Soutput}
 \end{Schunk}
 
 It is dependent on the size and dimension of the dataset, as well as the 
 demanded number of clusters.
+
 The alternative to CLARA is {\tt mclust}'s hierarchical agglomerative 
 clustering, which follows the work of \cite{Fra98}. The intention behind using 
 {\tt mclust}'s initialization function is to directly compare how much 
 difference the initialization process makes.
 
-%% mstep give ref to section, lower in this chapter
 The initialization stage does not yield a normal mixture. This requires a way
 to transform a clustering into a mixture. The method chosen in this package is
 to use an m-step from the EM-algorithm. Unlike the EM-algorithm, clustering 
@@ -146,18 +143,13 @@ reasons better explained in section \ref{sec:devel}.
 It has the advantage of being able to generate a mixture object with the 
 correct covariance model.
 
-%% param fctns
 This mixture object is still in human readable form and not the necessary 
 parameter vector demanded by {\tt optim}. So an application of the function
 {\tt nMm2par} is carried out, resulting in a starting value for {\tt optim}.
 
-%% optim vs em
-%% what is returned
-
-Due to the nature of the package the returned results are more than abundant.
-Not only is the fitted model returned but also everything produced by 
-{\tt optim} and the entire dataset. Here are listed the stucture the returned 
-values:
+The returned results from {\tt norMmixMLE} are more than abundant. Not only is 
+the fitted model returned but also everything produced by {\tt optim} and the 
+entire dataset. Here the return values are listed:
 
 \begin{Schunk}
 \begin{Sinput}
@@ -191,32 +183,21 @@ List of 6
 \end{Soutput}
 \end{Schunk}
 
-%% fitnMm function to iterate over various things, give ref to App_code.2
-%% we compare to mclust
+Besides {\tt mclust} and {\tt cluster}, the package also relies on a number of other packages for 
+various tasks. Listed in no particular order: 
+{\tt MASS} \cite{mas02}, 
+{\tt mvtnorm} \cite{mvt19}, 
+{\tt mixtools} \cite{mix09} and 
+{\tt sfsmisc} \cite{sfs19}.
 
-Besides {\tt mclust} the package also relies on a number of other packages for 
-various tasks. Listed in no particular order: {\tt cluster}, {\tt MASS}, 
-{\tt mvtnorm}, {\tt mclust}, {\tt mixtools} and {\tt sfsmisc}.
-% TODO: add citations
-
-since mclust is one of the more popular packages implementing the EM algo, we 
-employ a lot of functions from mclust, to keep things around EM as similar as 
-possible.
-
-% it 1
-
-also relies on {\tt mixtools} package for random generating function 
-{\tt rnorMmix} using {\tt rmvnorm}.
 
 \section{On The Development of {\tt norMmix}}
 \label{sec:devel}
 
-% TODO:  have this already somewhere??
-about Cholesky decomp as ldlt. has advantages: fast, parametrically 
-parsimonious, can easily compute loglikelihood
+During the development of the {\tt norMmix} package several mistakes were made
+and dead-ends were reached. In the interest of documentation, we discuss some
+of them in this section. 
 
-
-% it 1
 One dead-end was the parametrization of the weights of a mixture using the 
 {\tt logit} function.
 
@@ -248,8 +229,8 @@ list of length $K-1$ into a valid weight parameter. For example:
 > ret
 \end{Sinput}
 \begin{Soutput}
-[1] -3.0619765  0.6618731  0.5259321  0.5327439  0.6684533  0.5201867  0.5809991
-[8]  0.5717883
+[1] -3.5126255  0.5779730  0.5829241  0.6341084  0.6635547  0.7132425  0.6950183
+[8]  0.6458045
 \end{Soutput}
 \end{Schunk}
 
@@ -261,9 +242,6 @@ a result of {\tt logit}.
 The option to use {\tt logit} is still an argument to {\tt norMmixMLE} by 
 specifying {\tt trafo="logit"}, but it shouldn't be used.
 
-
-
-% it 1
 Another issue during development cropped up during fitting of high dimensional
 data. We studied the dataset {\tt SMI.12} from the package {\tt copula}, 
 \cite{cop18}:
@@ -298,26 +276,13 @@ using the functions from the {\tt Mclust} package. Not only were these
 numerically stable they were also able to differentiate between models, whereas
 ours would assume VVV for every fit.
 
-testing of mvtnorm as proof that ldlt is in fact faster parametrization
-
-mention, that there may be faster ways to apply backsolve. 
-quote knuth about premature optimization?
-
-%it 1
-not possible to sensibly compare normal mixtures except maybe a strange sorting 
-algorithm using Mahalanobis distance or Kullback-Leibler distance or similar
-(Hellinger), but not numerically sensible to integrate over potentially 
-high-dimensional spaces.
-
-%% TODO: explain comparison
-
 
 \section{Demonstration}
+\label{sec:demo}
 
 To end this chapter, here a small demonstration of the capabilities of 
 {\tt norMmix}. First a small plot to show an MW mixture.
 
-% it 1
 \begin{figure}
     \begin{Rgraph}[0.9]
 \begin{Schunk}
@@ -333,6 +298,9 @@ To end this chapter, here a small demonstration of the capabilities of
 
 It is a trimodal mixture along the diagonal.
 
+The results of a run of {\tt norMmixMLE} are shown along with a plot of the 
+fitted mixture overlaid over the correct mixture in figure \ref{fig:democorfit}.
+
 \begin{Schunk}
 \begin{Sinput}
 >     set.seed(2019); x <- rnorMmix(500, MW215)
@@ -345,7 +313,7 @@ iter  20 value 2125.658743
 final  value 2125.658364 
 converged
    user  system elapsed 
-  0.260   0.012   0.271 
+  0.248   0.020   0.270 
 \end{Soutput}
 \begin{Sinput}
 >     mleResult
@@ -370,10 +338,6 @@ log-likelihood: -2125.658
  500 	 13 	 38.46154 
 \end{Soutput}
 \end{Schunk}
-
-Here are the results of a run of {\tt norMmixMLE} and below the graphical 
-display of the results.
-
 
 \begin{figure}[h]
     \begin{Rgraph}[0.9]
