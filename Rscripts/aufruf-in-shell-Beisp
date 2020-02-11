@@ -1,0 +1,63 @@
+nicolatr@lynne:Rscripts$ R_BATCH Auswertung-fit-nm.R
+nicolatr@lynne:Rscripts$ R_BATCH Auswertung-fit-nm.R
+nicolatr@lynne:Rscripts$ lln
+total 2183
+-rw-r--r--. 1 nicolatr students 15219 Aug 19 09:57 Auswertung-fit-nm.Rout
+-rw-r--r--. 1 nicolatr students  2347 Aug 19 09:57 Auswertung-fit-nm.R
+-rw-r--r--. 1 nicolatr students 27483 Aug 19 09:43 Auswertung-fit-nm.Rout.last
+-rw-------. 1 nicolatr students     0 Aug 19 09:43 .nfs000000001e808b080000001e
+-rw-r--r--. 1 nicolatr students  2336 Aug 19 09:09 Auswertung-fit-nm.Rout.lastT
+-rw-r--r--. 1 nicolatr students  1221 Aug 19 01:48 Auswertung-fit-nm.R~
+-rw-r--r--. 1 nicolatr students 27038 Aug 18 23:56 norMmix-auswertung.R
+-rw-r--r--. 1 nicolatr students  3439 Aug 18 23:56 Cholesky.R
+-rw-r--r--. 1 nicolatr students   758 Aug 17 16:11 zmarrwandnMm.R
+-rw-r--r--. 1 nicolatr students   294 Aug 17 16:11 weight.R
+-rw-r--r--. 1 nicolatr students  1122 Aug 17 16:11 testnor1Mix.R
+-rw-r--r--. 1 nicolatr students  1920 Aug 17 16:11 testmclust.R
+-rw-r--r--. 1 nicolatr students  1661 Aug 17 16:11 test-speed-loglik.R
+-rw-r--r--. 1 nicolatr students  1016 Aug 17 16:11 test-matrixcalc-speedtest.R
+-rw-r--r--. 1 nicolatr students  5153 Aug 17 16:11 param.R
+-rw-r--r--. 1 nicolatr students    29 Aug 17 16:11 norMmixMLE.R
+-rw-r--r--. 1 nicolatr students  1250 Aug 17 16:11 norMmixEM.R
+-rw-r--r--. 1 nicolatr students  4131 Aug 17 16:11 norMmix.R
+-rw-r--r--. 1 nicolatr students   973 Aug 17 16:11 norMmix-auswertung.R.tmp.R
+nicolatr@lynne:Rscripts$ date
+Mon 19 Aug 2019 09:58:11 AM CEST
+nicolatr@lynne:Rscripts$ ll Auswertung-fit-nm.Rout
+-rw-r--r--. 1 nicolatr students 23996 Aug 19 09:58 Auswertung-fit-nm.Rout
+nicolatr@lynne:Rscripts$ cp -p Auswertung-fit-nm.R* ~/BScThesis/4MM/
+nicolatr@lynne:Rscripts$ tail Auswertung-fit-nm.Rout
+iter  30 value 536.006751
+iter  35 value 534.845692
+iter  40 value 534.356562
+iter  45 value 534.263980
+iter  50 value 534.259309
+iter  55 value 534.259183
+iter  55 value 534.259179
+iter  55 value 534.259179
+final  value 534.259179 
+converged
+nicolatr@lynne:Rscripts$ ll Auswertung-fit-nm.Rout
+-rw-r--r--. 1 nicolatr students 168131 Aug 19 10:10 Auswertung-fit-nm.Rout
+nicolatr@lynne:Rscripts$ lln
+total 1192
+-rw-r--r--. 1 nicolatr students 1028089 Aug 19 11:26 Auswertung-fit-nm.Rout
+lrwxrwxrwx. 1 nicolatr students      31 Aug 19 11:26 .#aufruf-in-shell-Beisp -> nicolatr@lynne.21749:1566195879
+-rw-r--r--. 1 nicolatr students    2170 Aug 19 10:11 aufruf-in-shell-Beisp
+-rw-r--r--. 1 nicolatr students    2347 Aug 19 09:57 Auswertung-fit-nm.R
+-rw-r--r--. 1 nicolatr students   27483 Aug 19 09:43 Auswertung-fit-nm.Rout.last
+-rw-------. 1 nicolatr students       0 Aug 19 09:43 .nfs000000001e808b080000001e
+-rw-r--r--. 1 nicolatr students    2336 Aug 19 09:09 Auswertung-fit-nm.Rout.lastT
+-rw-r--r--. 1 nicolatr students    1221 Aug 19 01:48 Auswertung-fit-nm.R~
+-rw-r--r--. 1 nicolatr students   27038 Aug 18 23:56 norMmix-auswertung.R
+-rw-r--r--. 1 nicolatr students    3439 Aug 18 23:56 Cholesky.R
+-rw-r--r--. 1 nicolatr students     758 Aug 17 16:11 zmarrwandnMm.R
+-rw-r--r--. 1 nicolatr students     294 Aug 17 16:11 weight.R
+-rw-r--r--. 1 nicolatr students    1122 Aug 17 16:11 testnor1Mix.R
+-rw-r--r--. 1 nicolatr students    1920 Aug 17 16:11 testmclust.R
+-rw-r--r--. 1 nicolatr students    1661 Aug 17 16:11 test-speed-loglik.R
+-rw-r--r--. 1 nicolatr students    1016 Aug 17 16:11 test-matrixcalc-speedtest.R
+-rw-r--r--. 1 nicolatr students    5153 Aug 17 16:11 param.R
+-rw-r--r--. 1 nicolatr students      29 Aug 17 16:11 norMmixMLE.R
+-rw-r--r--. 1 nicolatr students    1250 Aug 17 16:11 norMmixEM.R
+nicolatr@lynne:Rscripts$ 

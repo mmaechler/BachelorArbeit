@@ -1,0 +1,13 @@
+\chapter{\Rp Code}
+
+
+\section{{\tt llnorMmix}}
+
+\lstinputlisting[firstline=1, lastline=211]{/home/n/ethz/BA/norMmix/R/llnorMmix.R}
+
+\clearpage
+\section{Example Simulation Script}
+
+\label{App:sims}
+
+\lstinputlisting{/home/n/ethz/BA/Rscripts/2time/2time.R}

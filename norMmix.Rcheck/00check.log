@@ -1,0 +1,85 @@
+* using log directory ‘/home/n/ethz/BA/norMmix.Rcheck’
+* using R version 3.6.1 (2019-07-05)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘norMmix/DESCRIPTION’ ... OK
+* this is package ‘norMmix’ version ‘0.0-1’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘norMmix’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... NOTE
+prepare_Rd: compplot.Rd:66-68: Dropping empty section \references
+prepare_Rd: epfl.Rd:73-75: Dropping empty section \note
+prepare_Rd: epfl.Rd:68-69: Dropping empty section \references
+prepare_Rd: extracttimes.Rd:36-38: Dropping empty section \note
+prepare_Rd: extracttimes.Rd:30-32: Dropping empty section \references
+prepare_Rd: fSMI.12.Rd:30-32: Dropping empty section \details
+prepare_Rd: fSMI.12.Rd:33-35: Dropping empty section \source
+prepare_Rd: fSMI.12.Rd:36-38: Dropping empty section \references
+prepare_Rd: massbic.Rd:25-27: Dropping empty section \details
+prepare_Rd: massbic.Rd:44-46: Dropping empty section \note
+prepare_Rd: massbic.Rd:38-40: Dropping empty section \references
+prepare_Rd: massbicm.Rd:26-28: Dropping empty section \details
+prepare_Rd: massbicm.Rd:29-35: Dropping empty section \value
+prepare_Rd: massbicm.Rd:42-44: Dropping empty section \note
+prepare_Rd: massbicm.Rd:39-41: Dropping empty section \author
+prepare_Rd: massbicm.Rd:36-38: Dropping empty section \references
+prepare_Rd: massbicm.Rd:48-50: Dropping empty section \seealso
+prepare_Rd: massplot.Rd:37-39: Dropping empty section \details
+prepare_Rd: massplot.Rd:40-46: Dropping empty section \value
+prepare_Rd: massplot.Rd:54-56: Dropping empty section \note
+prepare_Rd: massplot.Rd:47-49: Dropping empty section \references
+prepare_Rd: massplot.Rd:60-62: Dropping empty section \seealso
+prepare_Rd: npar.Rd:32-35: Dropping empty section \details
+prepare_Rd: npar.Rd:48-50: Dropping empty section \note
+prepare_Rd: npar.Rd:41-43: Dropping empty section \references
+prepare_Rd: npar.Rd:54-56: Dropping empty section \seealso
+* checking Rd metadata ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘nMmcols’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking examples ... OK
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘testthat.R’
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 WARNING, 1 NOTE

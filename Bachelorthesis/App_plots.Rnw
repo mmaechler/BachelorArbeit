@@ -1,0 +1,347 @@
+\chapter{Further Plots}
+
+
+<<>>=
+    library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+    mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+@
+
+\section{Behaviour in $n$}
+\label{app:ben}
+
+Here are the further plots ommited in section \ref{sec:ben}.
+First is a very difficult mixture, ommited because it is studied in greater 
+detail in section \ref{sec:def}. Second is a very easy mixture, because all
+fitting lines overlap, making meaningful analysis futile.
+
+\subsection{{\tt MW214}}
+
+<<MW214>>=
+    MW214
+@
+
+<<nfit, echo=FALSE>>=
+    library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+    mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+    savdir <- file.path(mainsav, "2time")
+    filenames <- list.files(savdir, pattern="seed=")
+    size05 <- grep("size=0500", filenames, value=TRUE)
+    size10 <- grep("size=1000", filenames, value=TRUE)
+    size20 <- grep("size=2000", filenames, value=TRUE)
+
+    size05mw34 <- grep("MW34", size05, value=TRUE)
+    size05mw51 <- grep("MW51", size05, value=TRUE)
+    size05mw214 <- grep("MW214", size05, value=TRUE)
+
+    size10mw34 <- grep("MW34", size10, value=TRUE)
+    size10mw51 <- grep("MW51", size10, value=TRUE)
+    size10mw214 <- grep("MW214", size10, value=TRUE)
+
+    size20mw34 <- grep("MW34", size20, value=TRUE)
+    size20mw51 <- grep("MW51", size20, value=TRUE)
+    size20mw214 <- grep("MW214", size20, value=TRUE)
+
+    s05mw21bic <- massbic(size05mw214, savdir)
+    s10mw21bic <- massbic(size10mw214, savdir)
+    s20mw21bic <- massbic(size20mw214, savdir)
+
+    s05mw34bic <- massbic(size05mw34, savdir)
+    s10mw34bic <- massbic(size10mw34, savdir)
+    s20mw34bic <- massbic(size20mw34, savdir)
+
+    s05mw51bic <- massbic(size05mw51, savdir)
+    s10mw51bic <- massbic(size10mw51, savdir)
+    s20mw51bic <- massbic(size20mw51, savdir)
+
+    mVVVfn <- list.files(savdir, pattern="mclVVV")
+    mfn <- list.files(savdir, pattern="mcl.rds")
+
+    ## mclust bic values
+    # MW214
+    m05214 <- readRDS(file.path(savdir,mfn[1]))
+    m10214 <- readRDS(file.path(savdir,mfn[2]))
+    m20214 <- readRDS(file.path(savdir,mfn[3]))
+    # MW34
+    m0534 <- readRDS(file.path(savdir,mfn[4]))
+    m1034 <- readRDS(file.path(savdir,mfn[5]))
+    m2034 <- readRDS(file.path(savdir,mfn[6]))
+    # MW51
+    m0551 <- readRDS(file.path(savdir,mfn[7]))
+    m1051 <- readRDS(file.path(savdir,mfn[8]))
+    m2051 <- readRDS(file.path(savdir,mfn[9]))
+    
+    ## mclVVV vals
+    mVV05214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[1]))$fit)[[1]], 30), c(8,10,30))
+    mVV10214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[2]))$fit)[[1]], 30), c(8,10,30))
+    mVV20214 <- array(rep(BIC(readRDS(file.path(savdir,mVVVfn[3]))$fit)[[1]], 30), c(8,10,30))
+    #VV MW34          rep(                                        
+    mVV0534 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[4]))$fit)[[1]], 30), c(8,10,30))
+    mVV1034 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[5]))$fit)[[1]], 30), c(8,10,30))
+    mVV2034 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[6]))$fit)[[1]], 30), c(8,10,30))
+    #VV MW51          rep(                                        
+    mVV0551 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[7]))$fit)[[1]], 30), c(8,10,30))
+    mVV1051 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[8]))$fit)[[1]], 30), c(8,10,30))
+    mVV2051 <-  array(rep(BIC(readRDS(file.path(savdir,mVVVfn[9]))$fit)[[1]], 30), c(8,10,30))
+@
+
+\begin{figure}[h!]
+    \centering
+<<figmw21bicfirst, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw21bic/500, f=0.14)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 1:5) {
+        matplot(s05mw21bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw21bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw21bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
+@
+    \caption{BIC values of {\tt MW214} with $n=\{500, 1000, 2000\}$, first five models}
+    \label{fig:bicmw34first}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+<<figmw21bicsecond, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw21bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 6:10) {
+        matplot(s05mw21bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m05214[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw21bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m10214[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw21bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m20214[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
+
+
+@
+    \caption{BIC values of {\tt MW214} with $n=\{500, 1000, 2000\}$, last five models.}
+    \label{fig:bicmw34second}
+\end{figure}
+
+\clearpage
+
+\subsection{{\tt MW51}}
+
+\begin{figure}[h!]
+    \centering
+<<figmw51bicfirst, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw51bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 1:5) {
+        matplot(s05mw51bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw51bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw51bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
+@
+    \caption{BIC values of {\tt MW51} with $n=\{500, 1000, 2000\}$}
+    \label{fig:bicmw34first}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+<<figmw51bicsecond, fig=TRUE, echo=FALSE>>=
+    rang <- extendrange(s05mw51bic/500)
+
+    op <- sfsmisc::mult.fig(mfrow=c(5,3), mar=c(0.8,1.5,3,1), oma=c(0,0,0,0))
+    models <- norMmix:::mods()
+
+    for (i in 6:10) {
+        matplot(s05mw51bic[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m0551[,i,]/500, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s10mw51bic[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1], main=norMmix:::mods()[i])
+        matplot(mVV1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m1051[,i,]/1000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+        matplot(s20mw51bic[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[1])
+        matplot(mVV2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[2], add=TRUE)
+        matplot(m2051[,i,]/2000, lty=1, type="l", ylim=rang, ylab='', col=nMmcols[3], add=TRUE)
+        grid()
+    }
+    par(op$old.par)
+
+@
+    \caption{BIC values of {\tt MW51} with $n=\{500, 1000, 2000\}$}
+    \label{fig:bicmw34second}
+\end{figure}
+
+\clearpage
+
+\section{Other Data}
+
+Unfortunately not all simulations were as useful to show in the main body of 
+this work. In part, because they were done for exploratory purposes. However,
+they show some other properties that are of interest.
+
+The data in {\tt /simulations/smallinit} varied the dataset with a set seed.
+The values for every individual dataset are not as interesting as 
+{\tt /simulations/2time}, but they show that {\tt norMmix} is consistent in its
+results for similar datasets.
+
+<<smallinitwork, echo=FALSE, results=hide>>=
+    savdir <- file.path(mainsav, "smallinit")
+    fl <- list.files(savdir, pattern=".rds")
+    fl500 <- grep("n=500", fl, value=TRUE)
+    fl1000 <- grep("n=1000", fl, value=TRUE)
+
+    f5mw210 <- grep("MW210", fl500, value=TRUE)
+    f5mw213 <- grep("MW213", fl500, value=TRUE)
+    f5mw214 <- grep("MW214", fl500, value=TRUE)
+    f5mw24 <-  grep("MW24", fl500, value=TRUE)
+    f5mw28 <-  grep("MW28", fl500, value=TRUE)
+    f5mw29 <-  grep("MW29", fl500, value=TRUE)
+
+    f5210cla <- grep("clara", f5mw210, value=TRUE)
+    f5213cla <- grep("clara", f5mw213, value=TRUE)
+    f5214cla <- grep("clara", f5mw214, value=TRUE)
+    f524cla <-  grep("clara", f5mw24,  value=TRUE)
+    f528cla <-  grep("clara", f5mw28,  value=TRUE)
+    f529cla <-  grep("clara", f5mw29,  value=TRUE)
+
+    f5210mclVV <- grep("mclVVV", f5mw210, value=TRUE)
+    f5213mclVV <- grep("mclVVV", f5mw213, value=TRUE)
+    f5214mclVV <- grep("mclVVV", f5mw214, value=TRUE)
+    f524mclVV <-  grep("mclVVV", f5mw24,  value=TRUE)
+    f528mclVV <-  grep("mclVVV", f5mw28,  value=TRUE)
+    f529mclVV <-  grep("mclVVV", f5mw29,  value=TRUE)
+
+
+    f10mw210 <- grep("MW210", fl1000, value=TRUE)
+    f10mw214 <- grep("MW214", fl1000, value=TRUE)
+    f10mw24 <-  grep("MW24",  fl1000, value=TRUE)
+
+    f10210cla <- grep("clara", f10mw210, value=TRUE)
+    f10214cla <- grep("clara", f10mw214, value=TRUE)
+    f1024cla <-  grep("clara", f10mw24,  value=TRUE)
+
+    f10210mclVV <- grep("mclVVV", f10mw210, value=TRUE)
+    f10214mclVV <- grep("mclVVV", f10mw214, value=TRUE)
+    f1024mclVV <-  grep("mclVVV", f10mw24,  value=TRUE)
+
+
+    b5210cla <- massbic(f5210cla, savdir)
+    b5213cla <- massbic(f5213cla, savdir)
+    b5214cla <- massbic(f5214cla, savdir)
+    b524cla <-  massbic(f524cla,  savdir)
+    b528cla <-  massbic(f528cla,  savdir)
+    b529cla <-  massbic(f529cla,  savdir)
+
+    b5210mclVV <- massbic(f5210mclVV, savdir)
+    b5213mclVV <- massbic(f5213mclVV, savdir)
+    b5214mclVV <- massbic(f5214mclVV, savdir)
+    b524mclVV <-  massbic(f524mclVV,  savdir)
+    b528mclVV <-  massbic(f528mclVV,  savdir)
+    b529mclVV <-  massbic(f529mclVV,  savdir)
+
+    ## create mclust files on the fly
+    ## b5210cla <- saveRDS(massbicm(f5210cla[1], savdir), file=file.path(savdir, "mclust5210.rds"))
+    ## b5213cla <- saveRDS(massbicm(f5213cla[1], savdir), file=file.path(savdir, "mclust5213.rds"))
+    ## b5214cla <- saveRDS(massbicm(f5214cla[1], savdir), file=file.path(savdir, "mclust5214.rds"))
+    ## b524cla <-  saveRDS(massbicm(f524cla[1], savdir), file=file.path(savdir,  "mclust524.rds"))
+    ## b528cla <-  saveRDS(massbicm(f528cla[1], savdir), file=file.path(savdir,  "mclust528.rds"))
+    ## b529cla <-  saveRDS(massbicm(f529cla[1], savdir), file=file.path(savdir,  "mclust529.rds"))
+
+    mclust5210 <- readRDS(file.path(savdir, "mclust5210.rds"))
+    mclust5213 <- readRDS(file.path(savdir, "mclust5213.rds"))
+    mclust5214 <- readRDS(file.path(savdir, "mclust5214.rds"))
+    mclust524 <-  readRDS(file.path(savdir, "mclust524.rds"))
+    mclust528 <-  readRDS(file.path(savdir, "mclust528.rds"))
+    mclust529 <-  readRDS(file.path(savdir, "mclust529.rds"))
+
+
+    b10210cla <- massbic(f10210cla, savdir)
+    b10214cla <- massbic(f10214cla, savdir)
+    b1024cla <-  massbic(f1024cla,  savdir)
+
+    b10210mclVV <- massbic(f10210mclVV, savdir)
+    b10214mclVV <- massbic(f10214mclVV, savdir)
+    b1024mclVV <-  massbic(f1024mclVV,  savdir)
+
+    ## b10210cla <- saveRDS(massbicm(f10210cla[1], savdir), file=file.path(savdir, "mclust10210.rds"))
+    ## b10214cla <- saveRDS(massbicm(f10214cla[1], savdir), file=file.path(savdir, "mclust10214.rds"))
+    ## b1024cla <-  saveRDS(massbicm(f1024cla[1], savdir), file=file.path(savdir,  "mclust1024.rds"))
+
+    mclust10210 <- readRDS(file.path(savdir, "mclust10210.rds"))
+    mclust10214 <- readRDS(file.path(savdir, "mclust10214.rds"))
+    mclust1024 <-  readRDS(file.path(savdir, "mclust1024.rds"))
+@
+
+\begin{figure}
+    \centering
+<<fig=TRUE, echo=FALSE>>=
+    compplot(b5210cla, b5210mclVV, mclust5210)
+@
+\end{figure}
+
+\begin{figure}
+    \centering
+<<fig=TRUE, echo=FALSE>>=
+    compplot(b5213cla, b5213mclVV, mclust5213)
+@
+\end{figure}
+
+\begin{figure}
+    \centering
+<<fig=TRUE, echo=FALSE>>=
+    compplot(b5214cla, b5214mclVV, mclust5214)
+@
+\end{figure}
+
+\begin{figure}
+    \centering
+<<fig=TRUE, echo=FALSE>>=
+    compplot(b524cla,  b524mclVV,  mclust524)
+@
+\end{figure}
+
+\begin{figure}
+    \centering
+<<fig=TRUE, echo=FALSE>>=
+    compplot(b528cla,  b528mclVV,  mclust528)
+@
+\end{figure}
+
+\begin{figure}
+    \centering
+<<fig=TRUE, echo=FALSE>>=
+    compplot(b529cla,  b529mclVV,  mclust529)
+@
+\end{figure}

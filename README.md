@@ -10,20 +10,10 @@ as of now tex documents are mostly layout and some typeface tests
 
 table of model
 
-## R Scripts
+## R Package:
 
-## /Rscripts is deprecated, relevant documents are in /norMmix
+The package is called norMmix. It implements an alternative to the ubiquitous
+EM-algorithm by using a general optimizer `optim()`.
 
-except for norMmix-auswertung.R which contains daily work and testing
-
-### status of R scripts:
-
-nMm2par: complete
-
-par2nMm: complete
-
-llnorMmix: complete
-
-norMmix: complete
-
-norMmixMLE: complete
+In addition, `norMmix` parametrizes covariance matrices of mixtures using 
+an `LDL` Cholesky decomposition.

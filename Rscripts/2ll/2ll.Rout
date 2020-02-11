@@ -1,0 +1,172 @@
+
+R version 3.6.1 (2019-07-05) -- "Action of the Toes"
+Copyright (C) 2019 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> ## Intent: compare logLik implementations
+> 
+> nmmdir <- normalizePath("~/BachelorArbeit/norMmix.Rcheck/")
+> savdir <- normalizePath("~/BachelorArbeit/Rscripts/2ll")
+> stopifnot(dir.exists(nmmdir), dir.exists(savdir))
+> library(norMmix, lib.loc=nmmdir)
+> library(mclust)
+Package 'mclust' version 5.4.5
+Type 'citation("mclust")' for citing this R package in publications.
+> 
+> ## at n=500,p=2 can do about 250xfitnMm(x,1:10) in 24h
+> lls <- c("nmm", "mvt")
+> seeds <- 1:25
+> nmm <- list(MW214, MW34)
+> ## => about 100 cases
+> 
+> # for naming purposes
+> nmnames <- c("MW214", "MW34")
+> files <- vector(mode="character")
+> 
+> 
+> for (nm in 1:2) {
++     set.seed(2019); x <- rnorMmix(500,nmm[[nm]])
++     for (seed in seeds) {
++         for (ll in lls) {
++             set.seed(2019+seed)
++             r <- tryCatch(fitnMm(x, k=1:8, ll=ll,
++                                  optREPORT=1e4, maxit=1e4),
++                           error = identity)
++             filename <- sprintf("%s_ll=%s_seed=%0.2d.rds",
++                                 nmnames[nm], ll, seed)
++             files <- append(files, filename)
++             cat("===> saving to file:", filename, "\n")
++             saveRDS(list(fit=r), file=file.path(savdir, filename))
++         }
++     }
++ }
+===> saving to file: MW214_ll=nmm_seed=01.rds 
+===> saving to file: MW214_ll=mvt_seed=01.rds 
+===> saving to file: MW214_ll=nmm_seed=02.rds 
+===> saving to file: MW214_ll=mvt_seed=02.rds 
+===> saving to file: MW214_ll=nmm_seed=03.rds 
+===> saving to file: MW214_ll=mvt_seed=03.rds 
+===> saving to file: MW214_ll=nmm_seed=04.rds 
+===> saving to file: MW214_ll=mvt_seed=04.rds 
+===> saving to file: MW214_ll=nmm_seed=05.rds 
+===> saving to file: MW214_ll=mvt_seed=05.rds 
+===> saving to file: MW214_ll=nmm_seed=06.rds 
+===> saving to file: MW214_ll=mvt_seed=06.rds 
+===> saving to file: MW214_ll=nmm_seed=07.rds 
+===> saving to file: MW214_ll=mvt_seed=07.rds 
+===> saving to file: MW214_ll=nmm_seed=08.rds 
+===> saving to file: MW214_ll=mvt_seed=08.rds 
+===> saving to file: MW214_ll=nmm_seed=09.rds 
+===> saving to file: MW214_ll=mvt_seed=09.rds 
+===> saving to file: MW214_ll=nmm_seed=10.rds 
+===> saving to file: MW214_ll=mvt_seed=10.rds 
+===> saving to file: MW214_ll=nmm_seed=11.rds 
+===> saving to file: MW214_ll=mvt_seed=11.rds 
+===> saving to file: MW214_ll=nmm_seed=12.rds 
+===> saving to file: MW214_ll=mvt_seed=12.rds 
+===> saving to file: MW214_ll=nmm_seed=13.rds 
+===> saving to file: MW214_ll=mvt_seed=13.rds 
+===> saving to file: MW214_ll=nmm_seed=14.rds 
+===> saving to file: MW214_ll=mvt_seed=14.rds 
+===> saving to file: MW214_ll=nmm_seed=15.rds 
+===> saving to file: MW214_ll=mvt_seed=15.rds 
+===> saving to file: MW214_ll=nmm_seed=16.rds 
+===> saving to file: MW214_ll=mvt_seed=16.rds 
+===> saving to file: MW214_ll=nmm_seed=17.rds 
+===> saving to file: MW214_ll=mvt_seed=17.rds 
+===> saving to file: MW214_ll=nmm_seed=18.rds 
+===> saving to file: MW214_ll=mvt_seed=18.rds 
+===> saving to file: MW214_ll=nmm_seed=19.rds 
+===> saving to file: MW214_ll=mvt_seed=19.rds 
+===> saving to file: MW214_ll=nmm_seed=20.rds 
+===> saving to file: MW214_ll=mvt_seed=20.rds 
+===> saving to file: MW214_ll=nmm_seed=21.rds 
+===> saving to file: MW214_ll=mvt_seed=21.rds 
+===> saving to file: MW214_ll=nmm_seed=22.rds 
+===> saving to file: MW214_ll=mvt_seed=22.rds 
+===> saving to file: MW214_ll=nmm_seed=23.rds 
+===> saving to file: MW214_ll=mvt_seed=23.rds 
+===> saving to file: MW214_ll=nmm_seed=24.rds 
+===> saving to file: MW214_ll=mvt_seed=24.rds 
+===> saving to file: MW214_ll=nmm_seed=25.rds 
+===> saving to file: MW214_ll=mvt_seed=25.rds 
+===> saving to file: MW34_ll=nmm_seed=01.rds 
+===> saving to file: MW34_ll=mvt_seed=01.rds 
+===> saving to file: MW34_ll=nmm_seed=02.rds 
+===> saving to file: MW34_ll=mvt_seed=02.rds 
+===> saving to file: MW34_ll=nmm_seed=03.rds 
+===> saving to file: MW34_ll=mvt_seed=03.rds 
+===> saving to file: MW34_ll=nmm_seed=04.rds 
+===> saving to file: MW34_ll=mvt_seed=04.rds 
+===> saving to file: MW34_ll=nmm_seed=05.rds 
+===> saving to file: MW34_ll=mvt_seed=05.rds 
+===> saving to file: MW34_ll=nmm_seed=06.rds 
+===> saving to file: MW34_ll=mvt_seed=06.rds 
+===> saving to file: MW34_ll=nmm_seed=07.rds 
+===> saving to file: MW34_ll=mvt_seed=07.rds 
+===> saving to file: MW34_ll=nmm_seed=08.rds 
+===> saving to file: MW34_ll=mvt_seed=08.rds 
+===> saving to file: MW34_ll=nmm_seed=09.rds 
+===> saving to file: MW34_ll=mvt_seed=09.rds 
+===> saving to file: MW34_ll=nmm_seed=10.rds 
+===> saving to file: MW34_ll=mvt_seed=10.rds 
+===> saving to file: MW34_ll=nmm_seed=11.rds 
+===> saving to file: MW34_ll=mvt_seed=11.rds 
+===> saving to file: MW34_ll=nmm_seed=12.rds 
+===> saving to file: MW34_ll=mvt_seed=12.rds 
+===> saving to file: MW34_ll=nmm_seed=13.rds 
+===> saving to file: MW34_ll=mvt_seed=13.rds 
+===> saving to file: MW34_ll=nmm_seed=14.rds 
+===> saving to file: MW34_ll=mvt_seed=14.rds 
+===> saving to file: MW34_ll=nmm_seed=15.rds 
+===> saving to file: MW34_ll=mvt_seed=15.rds 
+===> saving to file: MW34_ll=nmm_seed=16.rds 
+===> saving to file: MW34_ll=mvt_seed=16.rds 
+===> saving to file: MW34_ll=nmm_seed=17.rds 
+===> saving to file: MW34_ll=mvt_seed=17.rds 
+===> saving to file: MW34_ll=nmm_seed=18.rds 
+===> saving to file: MW34_ll=mvt_seed=18.rds 
+===> saving to file: MW34_ll=nmm_seed=19.rds 
+===> saving to file: MW34_ll=mvt_seed=19.rds 
+===> saving to file: MW34_ll=nmm_seed=20.rds 
+===> saving to file: MW34_ll=mvt_seed=20.rds 
+===> saving to file: MW34_ll=nmm_seed=21.rds 
+===> saving to file: MW34_ll=mvt_seed=21.rds 
+===> saving to file: MW34_ll=nmm_seed=22.rds 
+===> saving to file: MW34_ll=mvt_seed=22.rds 
+===> saving to file: MW34_ll=nmm_seed=23.rds 
+===> saving to file: MW34_ll=mvt_seed=23.rds 
+===> saving to file: MW34_ll=nmm_seed=24.rds 
+===> saving to file: MW34_ll=mvt_seed=24.rds 
+===> saving to file: MW34_ll=nmm_seed=25.rds 
+===> saving to file: MW34_ll=mvt_seed=25.rds 
+> 
+> fillis <- list()
+> for (i in seq_along(lls)) {
++     for (j in seq_along(nmnames)) {
++         # for lack of AND matching, OR match everything else and invert
++         ret <- grep(paste(lls[-i], nmnames[-j], sep="|"), 
++                     files, value=TRUE, invert=TRUE)
++         fillis[[paste0(lls[i], nmnames[j])]] <- ret
++     }
++ }
+> 
+> epfl(fillis, savdir)
+> 
+> proc.time()
+     user    system   elapsed 
+60127.360   181.305 60868.776 

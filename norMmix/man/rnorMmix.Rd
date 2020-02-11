@@ -11,8 +11,8 @@ rnorMmix(n, obj, index = FALSE, permute = TRUE)
 \arguments{
   \item{n}{sample size, non-negative.}
   \item{obj}{a \code{"\link{norMmix}"} object}
-  \item{index}{store the clustering information as first column}
-  \item{permute}{logical indicating if the observations should be randomly
+  \item{index}{Logical, store the clustering information as first column}
+  \item{permute}{Logical, indicating if the observations should be randomly
     permuted after creation \dQuote{cluster by cluster}.}
 }
 %% \details{
@@ -27,4 +27,8 @@ rnorMmix(n, obj, index = FALSE, permute = TRUE)
   \code{\link{rmultinom}}
 }
 \examples{
+x <- rnorMmix(500, MW213)
+plot(x)
+x <- rnorMmix(500, MW213, index=TRUE)
+plot(x[,-1], col=x[,1]) ## using index column to color components
 }

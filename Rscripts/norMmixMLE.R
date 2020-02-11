@@ -1,1 +1,0 @@
-#### MLE for norMmix objects

@@ -4,45 +4,56 @@ The top-level auxiliary file: BachelorThesis-Engl.aux
 The style file: chicago.bst
 A level-1 auxiliary file: chapter1.aux
 A level-1 auxiliary file: chapter2.aux
-Database file #1: myReferences.bib
-You've used 3 entries,
+A level-1 auxiliary file: chapter3.aux
+A level-1 auxiliary file: chapter4.aux
+A level-1 auxiliary file: App_llnorMmix.aux
+A level-1 auxiliary file: App_plots.aux
+Database file #1: References.bib
+Warning--empty organization in mvt19
+Warning--empty organization in cop18
+Warning--empty organization in n1m19
+Warning--empty organization in sfs19
+Warning--empty organization in clu19
+Warning--no volume for Scr16
+You've used 16 entries,
             2861 wiz_defined-function locations,
-            639 strings with 5298 characters,
-and the built_in function-call counts, 1942 in all, are:
-= -- 166
-> -- 130
+            724 strings with 7550 characters,
+and the built_in function-call counts, 10997 in all, are:
+= -- 885
+> -- 904
 < -- 0
-+ -- 40
-- -- 50
-* -- 158
-:= -- 366
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 19
-chr.to.int$ -- 3
-cite$ -- 3
-duplicate$ -- 53
-empty$ -- 121
-format.name$ -- 58
-if$ -- 349
-int.to.chr$ -- 1
++ -- 272
+- -- 310
+* -- 1029
+:= -- 2073
+add.period$ -- 50
+call.type$ -- 16
+change.case$ -- 114
+chr.to.int$ -- 15
+cite$ -- 22
+duplicate$ -- 264
+empty$ -- 601
+format.name$ -- 354
+if$ -- 1986
+int.to.chr$ -- 2
 int.to.str$ -- 0
-missing$ -- 4
-newline$ -- 18
-num.names$ -- 30
-pop$ -- 14
+missing$ -- 12
+newline$ -- 84
+num.names$ -- 158
+pop$ -- 78
 preamble$ -- 1
-purify$ -- 38
+purify$ -- 216
 quote$ -- 0
-skip$ -- 63
+skip$ -- 306
 stack$ -- 0
-substring$ -- 103
-swap$ -- 16
+substring$ -- 491
+swap$ -- 89
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 50
-warning$ -- 0
-while$ -- 34
+type$ -- 296
+warning$ -- 6
+while$ -- 148
 width$ -- 0
-write$ -- 42
+write$ -- 215
+(There were 6 warnings)

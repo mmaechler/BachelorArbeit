@@ -38,6 +38,8 @@
 \usepackage{color} %% to allow coloring in code listings
 \usepackage{Sweave}
 \usepackage{listings}% Fuer R-code, C-code, ....  and settings for these:
+\usepackage{m-floating}% for tables and figures.
+
 \definecolor{Mygrey}{gray}{0.75}% for linenumbers only!
 \definecolor{Cgrey}{gray}{0.4}% for comments
 \lstloadlanguages{R}
@@ -111,6 +113,10 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 \renewcommand{\labelenumi}{\roman{enumi}.)}
 
 
+\newenvironment{Rgraph}[1][0.6]{\vspace{-5mm}%
+%% NOTA BENE: MM thinks we should  replace the "vspace" by using pdfCrop
+\begin{center} \setkeys{Gin}{width=#1\textwidth}}{\end{center}}
+
 
 
 
@@ -127,12 +133,13 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
  \dasatype{Bachelor Thesis}
  \students{Nicolas Trutmann} %e.g. Patrick M\"uller
  \mainreaderprefix{Advisor:}
- \mainreader{placeholder} %e.g. Prof. Dr. Martin M\"achler
+ \mainreader{Dr. Martin M\"achler} %e.g. Prof. Dr. Martin M\"achler
  \alternatereaderprefix{}
  \alternatereader{}
- \issuedate{placeholder} %e.g. September 15th 2019
- \submissiondate{placeholder} %e.g. February 31st 2019
- \title{Comparison of EM-algorithm and MLE using Cholesky decomposition} %title of your work
+ \issuedate{June 12th 2019} %e.g. September 15th 2019
+ \submissiondate{November 1st 2019} %e.g. February 31st 2019
+ \title{Comparing the EM-algorithm and Maximum Likelihood Estimation Using the 
+        Cholesky Decomposition} %title of your work
 
  \maketitle%- Titelseite wird abgeschlossen
  %%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,16 +149,23 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \newpage
 \begin{abstract}
-	The intent of this work is to compare The EM algorithm to a MLE approach in the
-	case of multivariate normal mixture models using the Cholesky decomposition.
+	The intent of this work is to compare The EM algorithm to an MLE approach in 
+    the	case of multivariate normal mixture models. 
 	The EM algorithm is widely used in statistics and is proven to converge, 
 	however in pathological cases convergence slows down considerably. 
-	MLE doesn't have this particular error, but is computationally costly.
-	The Cholesky decomposition cuts down the necessary parameters almost in half....
 
-	methods(not done)
+    Our proposed alternative consists of a clustering algorithm as 
+    initialization step, followed by a parametrization step, that is then fed 
+    into a general optimizer.
 
-	results(not done)% insert your abstract
+    We compare two implementations of each algorithm with two different 
+    initialization strategies by judging their performance in model selection.
+    Model selection is decided by the Bayesian Information Criterion (BIC).
+
+    The results are promising. In many cases MLE is equal or better than EM.
+    It is certainly a competitive model selection strategy. This could yield
+    improvements in the field of model selection. The algorithm design is also 
+    versatile and translates easily to other problems.
 \end{abstract}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -176,6 +190,8 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{chapter1}
 \include{chapter2}
+\include{chapter3}
+\include{chapter4}
 %% and more
 % \include{....}
  
@@ -186,7 +202,15 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 % \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{\protect\numberline{}{Bibliography}}
-\bibliography{myReferences}
+
+\nocite{sfs19}
+\nocite{mvt19}
+\nocite{clu19}
+\nocite{mix09}
+\nocite{mas02}
+
+
+\bibliography{References}
 %% All books from our library (SfS) are already in a BiBTeX file
 %% 'Assbib.bib' (included here as well), using
 % \bibliography{myReferences,Assbib}
@@ -197,6 +221,8 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addtocontents{toc}{\vspace{.5\baselineskip}}
 \appendix
+\include{App_llnorMmix}
+\include{App_plots}
 % outcommented \include{Appendix1}
 % outcommented \include{Appendix_more_R}
 
@@ -213,5 +239,5 @@ literate={<-}{{$\leftarrow$}}1 {~}{{$\sim$}}1}
 %% General info on plagiarism:
 %% https://www.ethz.ch/students/en/studies/performance-assessments/plagiarism.html 
 \cleardoublepage
-\includepdf[pages={-}, frame=true,scale=1]{confirmation-originality-scan.pdf}
+\includepdf[pages={-}, frame=true,scale=1]{DeclofOrig.pdf}
 \end{document}

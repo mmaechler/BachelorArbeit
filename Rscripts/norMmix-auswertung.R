@@ -1,12 +1,18 @@
 ## 
 
+library(norMmix, lib.loc="~/ethz/BA/norMmix.Rcheck/")
+detach("package:norMmix", unload=TRUE)
 devtools::load_all("~/ethz/BA/norMmix")
+library(mclust)
+options(error=recover)
+options(error=NULL)
+source(file="~/ethz/BA/Rscripts/adafuncs.R")
 set.seed(2019)
 library(MASS)
 
 
 models <- c("EII","VII","EEI","VEI","EVI",
-	    "VVI","EEE","VEE","EVV","VVV")
+    	    "VVI","EEE","VEE","EVV","VVV")
 
 
 n <- 2000
@@ -37,8 +43,8 @@ p <- ncol(x)
 for (i in models) {
 	for (k in 1:5) {
 		ans <- norMmixMLE(x,p,k,trafo="clr1",model=i,maxiter=200)
-		bic[k,i] <- ans$parlen*log(n) +2*ans$optr$value
-		aic[k,i] <- ans$parlen*2 +2*ans$optr$value
+		bic[k,i] <- ans$npar*log(n) +2*ans$optr$value
+		aic[k,i] <- ans$npar*2 +2*ans$optr$value
 	}
 }
 
@@ -50,8 +56,8 @@ overmod <- function(x,k) {
 	p <- ncol(x)
 	for (i in models) {
 		ans <- norMmixMLE(x,p,k,trafo="clr1",model=i)
-		bic[i] <- ans$parlen*log(n)-2*ans$optr$value
-		aic[i] <- ans$parlen*2-2*ans$optr$value
+		bic[i] <- ans$npar*log(n)-2*ans$optr$value
+		aic[i] <- ans$npar*2-2*ans$optr$value
 	}
 	list(bic=bic, aic=aic)
 }
@@ -86,7 +92,7 @@ det(ans$norMmix$Sigma[,,2])
 # [1] 2.552217
 ## finally produces equal alpha!
 
-ans <- fit.norMmix(x,k=1:10,models=1:10, trafo="clr1")
+ans <- fitnMm(x,k=1:10,models=1:10, trafo="clr1")
 
 ans$BIC
 #          EII       VII       EEI       VEI       EVI       VVI
@@ -153,7 +159,7 @@ plot(val$norMmix)
 
 ## try again the bic over models:
 
-ans <- fit.norMmix(x26,k=1:10, models=1:10,trafo="clr1")
+ans <- fitnMm(x26,k=1:10, models=1:10,trafo="clr1")
 ans$topbic
 #      row col                     
 # [1,] "2" "EII" "9458.05706553518"
@@ -255,7 +261,7 @@ points(x213[indexmcl==3,], col="red")
 models <- c("EII","VII","EEI","VEI","EVI",
 	    "VVI","EEE","VEE","EVV","VVV")
 
-ansnMm <- fit.norMmix(x, k=1:10, models=1:10, ini="cla", trafo="clr1")
+ansnMm <- fitnMm(x, k=1:10, models=1:10, ini="cla", trafo="clr1")
 
 library(mclust)
 ansmcl <- Mclust(x, G=1:10, modelNames=models)
@@ -310,7 +316,7 @@ mean(diffbic)
 hist(c(diffbic))
 
 
-ansnMmmcl <- fit.norMmix(x, k=1:10, models=1:10, ini="mcl", trafo="clr1")
+ansnMmmcl <- fitnMm(x, k=1:10, models=1:10, ini="mcl", trafo="clr1")
 
 #Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model) :
 #  4 diffbic <- ansnMm$BIC + ansmcl$BIC                                              |  isTRUE(all(apply(sig, 3, function(j) (ldl(j)$Diag >= 0)))) is not TR
@@ -324,7 +330,7 @@ ansnMmmcl <- fit.norMmix(x, k=1:10, models=1:10, ini="mcl", trafo="clr1")
 
 x26 <- rnorMmix(500, MW26)
 
-ansnMm2 <- fit.norMmix(x26, k=1:10, models=1:10, ini="cla", trafo="clr1")
+ansnMm2 <- fitnMm(x26, k=1:10, models=1:10, ini="cla", trafo="clr1")
 
 ansmcl2 <- Mclust(x26, G=1:10, modelNames=models)
 
@@ -365,7 +371,7 @@ mean(asdf)
 ## what parameter counts does mclust use?
 ## 
 
-ansnMmmcl <- fit.norMmix(x26, k=1:5, models=1:10, ini="mcl", trafo="clr1")
+ansnMmmcl <- fitnMm(x26, k=1:5, models=1:10, ini="mcl", trafo="clr1")
 
 ## lower cluster number for time reasons
 
@@ -793,7 +799,7 @@ summaryRprof("profile.out", lines= "show")
 
 ## random test as sanity check
 
-ansnmm <- fit.norMmix(x, k= 1:5, models=1:10,trafo="clr1", ini="cla")
+ansnmm <- fitnMm(x, k= 1:5, models=1:10,trafo="clr1", ini="cla")
 
 ansmcl <- mclust::Mclust(x, G=1:5, modelNames=models)
 
@@ -888,7 +894,7 @@ points(sort(-ansmcl$BIC),col="blue")
 ## wrote some cases with p=3,5 and plot function works now for p>2
 
 x3 <- rnorMmix(2000, MW33)
-rnmm <- fit.norMmix(x3, k=1:5, models=1:10, ini="cla", trafo="clr1")
+rnmm <- fitnMm(x3, k=1:5, models=1:10, ini="cla", trafo="clr1")
 
 rmcl <- mclust::Mclust(x3, G=1:5, modelNames=models)
 
@@ -914,7 +920,7 @@ diffbic <- rnmm$BIC --rmcl$BIC
 # 5 -4.285166e+01
 
 
-tmp <- fit.norMmix(x3, k=1:10, model=1:10, ini="mcl", trafo="clr1", maxiter=6)
+tmp <- fitnMm(x3, k=1:10, model=1:10, ini="mcl", trafo="clr1", maxiter=6)
 tmp
 
 ## "mcl" issue could not be reproduced here, possibly other mixture is ill 
@@ -931,3 +937,2663 @@ tmp
 
 ## maybe fix up rnorMmix a bit
 ## now rnorMmix supports cluster index and sampling
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-17
+####
+
+## test saving objects
+
+x <- rnorMmix(1000, MW26, index=TRUE, sampling=TRUE)
+
+
+saveRDS(x, file="MW26e3")
+
+x26 <- readRDS("MW26e3")
+
+mods <- list(MW210,MW213,MW28,MW22,MW25,MW33,MW211,MW26,MW29,MW23,MW31,MW34,MW212,MW27,MW21,MW24,MW32,MW51)
+
+rnorMmix(12, mods[[3]])
+
+set.seed(2019)
+
+asdf <- function(j) {
+    set.seed(2019)
+    x <- rnorMmix(100, j, index=T, sampling=T)
+    saveRDS(x, file=paste0("mw.1e2.", j$dim, j$k, j$model,".RDS"))
+}
+
+lapply(mods, asdf)
+
+
+xx <- rnorMmix(10000, MW34)
+
+ans <- fitnMm(xx, k=1:10, models=1:10, trafo="clr1", ini="cla")
+
+####
+#-------------------------------------------------------------------------------
+####
+## work on 2019-08-17
+####
+
+## get readRDS writeRDS to work with norMmix
+
+## list.files?
+
+aa <- list.files("~/ethz/BA/Rscripts")
+
+## regex?
+
+aa <- list.files("~/ethz/BA/Rscripts", pattern="mw.*")
+
+## yes, close to gettin it right
+
+
+
+aa <- list.files("~/ethz/BA/Rscripts", pattern="mw.*")
+
+for (i in aa) {
+    x <- readRDS(paste0("~/ethz/BA/Rscripts/",i))
+    print(x[1,])
+}
+
+## works!!
+
+## now write file Auswertung-fit-mw.R
+
+
+## see if merging worked
+
+x <- rnorMmix(100, MW26)
+
+ans <- fitnMm(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
+
+## important things work
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-20
+
+## llnorMmix wasn't used for norMmixMLE until now and now its broken!!
+
+x <- rnorMmix(100, MW26)
+
+ans <- norMmixMLE(x,3,trafo="clr1", model="EII", ini="clara")
+
+## non-finite finite-difference value
+
+pp <- nMm2par(MW23, trafo="clr1", model="VVV")
+
+llnorMmix(pp, x, 2, trafo="clr1", model="VVV")
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-21
+
+
+## fixed error with llnorMmix
+## problem was the  (if(weights>1) return inf)  statement
+## commented that out and suddenly it doesnt crash everytime
+
+## see if it is stable
+
+
+x <- rnorMmix(100, MW26)
+
+ans <- fitnMm(x, k=1:10, models=1:10, trafo="clr1", ini="clara")
+
+aa <- BIC(ans)
+bb <- logLik(ans)
+
+mle <- norMmixMLE(x,k=1, model="EII", trafo="clr1", ini="clara")
+
+## testing tests
+
+asdf <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",ll="nmm")
+
+
+## larger numbers:
+
+(MWdat <- Filter(function(.) is.norMmix(get(., "package:norMmix")),
+                 ls("package:norMmix", pattern = "^MW[1-9]")))
+
+ret <- list()
+
+for (i in MWdat) {
+
+    nm <- get(i, "package:norMmix")
+
+    set.seed(2019); x <- rnorMmix(100, nm)
+
+    aa <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+                      ll="nmm")
+
+    bb <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+                      ll="mvt")
+
+    a <- BIC(aa)[[1]]
+    b <- BIC(bb)[[1]]
+
+    ret[[i]] <- a-b
+
+}
+
+
+for (i in MWdat) {print(max(abs(c(ret[[i]]))))}
+# [1] 9.71454e-09
+# [1] 0.9334958
+# [1] 0.2815176
+# [1] 3.326458
+# [1] 6.264971e-05
+# [1] 9.390533e-11
+# [1] 2.036131e-10
+# [1] 0.6392211
+# [1] 0.6392211
+# [1] 1.947797e-09
+# [1] 1.748394e-05
+# [1] 1.21986e-09
+# [1] 1.283524e-10
+# [1] 4.729372e-11
+# [1] 9.409709e-07
+# [1] 8.458301e-11
+# [1] 2.711181
+# [1] NA
+# NULL
+
+for (i in MWdat) {
+    print(ret[[i]])
+    readline(prompt="enter to cont")
+}
+
+## seems good but some weird values, maybe llnmm gives some weird retvals.
+## check manually
+
+retnmm <- list()
+
+for (i in MWdat) {
+
+    nm <- get(i, "package:norMmix")
+
+    set.seed(2019); x <- rnorMmix(100, nm)
+
+    aa <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara",
+                      ll="nmm")
+
+    retnmm[[i]] <- BIC(aa)
+}
+
+
+for (i in MWdat) {
+    print(retnmm[[i]])
+    readline(prompt="enter to cont")
+}
+
+## ah, I see an issue. deleted value <- -value in MLE
+## change in logLik
+
+
+uio <- fitnMm(x, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
+
+BIC(uio)
+
+
+## done, put it into a commit
+
+ij <- norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+plot(ij$norMmix)
+ij$norMmix$mu
+#          [,1]      [,2]     [,3]
+# [1,] 10.95137  6.267234 1.122263
+# [2,] 12.04606  6.907823 1.702433
+# [3,] 12.91923  8.034070 3.433608
+# [4,] 14.02475  8.738717 3.905640
+# [5,] 14.98502 10.057415 4.543396
+MW51$mu
+#      [,1] [,2] [,3]
+# [1,]    1    6   11
+# [2,]    2    7   12
+# [3,]    3    8   13
+# [4,]    4    9   14
+# [5,]    5   10   15
+
+## reasonable
+
+x <- rnorMmix(1000, MW51)
+ij <- norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+ij$norMmix$mu
+#          [,1]      [,2]     [,3]
+# [1,] 10.97616 0.9919569 6.043642
+# [2,] 11.97297 1.9991118 7.003464
+# [3,] 12.98681 2.9527947 8.042657
+# [4,] 13.99832 4.0824587 9.026949
+# [5,] 15.08960 5.0045929 9.900400
+MW51$mu
+#      [,1] [,2] [,3]
+# [1,]    1    6   11
+# [2,]    2    7   12
+# [3,]    3    8   13
+# [4,]    4    9   14
+# [5,]    5   10   15
+
+
+x <- rnorMmix(10000, MW51)
+ij <- norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+ij$norMmix$mu
+#           [,1]     [,2]     [,3]
+# [1,] 0.9916475 10.97603 5.997823
+# [2,] 1.9929993 11.97723 6.977599
+# [3,] 2.9983107 13.02145 8.021266
+# [4,] 3.9778741 14.01703 8.974741
+# [5,] 4.9951813 15.00860 9.998929
+
+
+## expected improvement in accuracy
+
+
+## time improvement?
+
+t1 <- system.time(norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="nmm"))
+t2 <- system.time(norMmixMLE(x, k=3, model="EII", trafo="clr1", ini="clara", ll="mvt"))
+
+t1
+#    user  system elapsed 
+#   3.764   0.128   3.895 
+t2
+#    user  system elapsed 
+#   5.380   0.176   5.563 
+t2/t1
+#     user   system  elapsed 
+# 1.429330 1.375000 1.428241 
+
+## after removing x <- t(x)
+t2/t1
+#     user   system  elapsed 
+# 1.483402 1.928571 1.496593 
+
+
+## Auswertung-fit-various given to ada server
+
+## write analysis tools for various data sets
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-22
+
+## ada server done analysing data sets:
+
+## results:
+## smi: failed for k>=5, models=EII,VII,VVI
+## loss, iris, crashed because is.numeric failed
+
+data(SMI.12, package="copula")
+
+smi <- SMI.12
+
+ans <- norMmixMLE(smi,k=1, model="EII", trafo="clr1", ini="clara", ll="nmm")
+#Error in optim(initpar., neglogl, method = method, control = control) :
+#initial value in 'vmmin' is not finite
+#Error in inherits(ok, "try-error") : object 'ok' not found
+
+## no clue what that means
+
+ans <- norMmixMLE(smi,k=7, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+## D!>=0
+
+## need to remove the check for non degenerate case
+
+iri <- iris[-5]
+ans <- norMmixMLE(iri,k=1, model="EII", trafo="clr1", ini="clara", ll="nmm")
+## is ok
+ans <- norMmixMLE(iri,k=4, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+
+data(loss, package="copula")
+
+ans <- norMmixMLE(loss,k=4, model="EVI", trafo="clr1", ini="clara", ll="mvt")
+
+## issues with non-finite finite-difference value, with both nmm and mvt
+
+ret <- fitnMm(iri, k=1:4, model=1:10, trafo="clr1", ini="clara", ll="nmm")
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-23
+
+## see if I can't speed up llnorMmix
+
+x <- rnorMmix(5000, MW29)
+
+models <- c("EII","VII","EEI","VEI","EVI",
+	    "VVI","EEE","VEE","EVV","VVV")
+
+retnmm <- list()
+retmvt <- list()
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retnmm[[i]] <- system.time(llnorMmix(pars, t(x), 2, trafo="clr1", model=i))
+}
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retmvt[[i]] <- system.time(llmvtnorm(pars, x, 2, trafo="clr1", model=i))
+}
+
+## no noticeable difference, more loops
+
+
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retnmm[[i]] <- system.time(
+        for (j in 1:100) {llnorMmix(pars, t(x), 2, trafo="clr1", model=i)})
+}
+
+for (i in models) {
+    pars <- nMm2par(MW29, trafo="clr1", model=i)
+    retmvt[[i]] <- system.time(
+        for (j in 1:100) {llmvtnorm(pars, x, 2, trafo="clr1", model=i)})
+}
+
+## llnorMmix strictly better!!
+
+ret <- list()
+for (i in models) {
+    ret[[i]] <- retmvt[[i]]/retnmm[[i]]
+}
+ret
+# $EII
+#     user   system  elapsed 
+# 1.692308      NaN 1.784314 
+# 
+# $VII
+#     user   system  elapsed 
+# 1.769231      NaN 1.840000 
+# 
+# $EEI
+#     user   system  elapsed 
+# 1.571429      NaN 1.750000 
+# 
+# $VEI
+#     user   system  elapsed 
+# 1.923077      NaN 2.000000 
+# 
+# $EVI
+#     user   system  elapsed 
+# 1.785714      NaN 1.771930 
+# 
+# $VVI
+#     user   system  elapsed 
+# 1.866667      NaN 1.931034 
+# 
+# $EEE
+#    user  system elapsed 
+# 1.56250     NaN 1.59375 
+# 
+# $VEE
+#     user   system  elapsed 
+# 1.562500      NaN 1.584615 
+# 
+# $EVV
+#     user   system  elapsed 
+# 1.555556      NaN 1.513514 
+# 
+# $VVV
+#     user   system  elapsed 
+# 1.473684      NaN 1.473684 
+# 
+
+a <- lapply(ret, function(j) j[[1]] )
+a <- unlist(a, use.names=FALSE)
+a
+#  [1] 1.692308 1.769231 1.571429 1.923077 1.785714 1.866667
+#  [7] 1.562500 1.562500 1.555556 1.473684
+mean(a)
+# [1] 1.676266
+sqrt(var(a))
+# [1] 0.1529464
+
+
+## look again into error in smi.12
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- norMmixMLE(smi,k=1, model="EII", trafo="clr1", ini="clara", ll="nmm")
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-23
+
+
+## forcing positive definite matrix
+
+d <- 1:4
+L <- matrix(c(1,2,3,4,0,1,2,1,0,0,1,4,0,0,0,1),4,4)
+
+A <- L%*% diag(d) %*% t(L)
+
+x <- rnorMmix(1000, MW51)
+
+ans <- norMmixMLE(x,3,model="VVI", trafo="clr1", ini="clara", ll="nmm")
+
+## wrote forcePositive and inserted into MLE
+ans <- norMmixMLE(x,3,model="VVI", trafo="clr1", ini="clara", ll="nmm")
+
+## test with known 
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- norMmixMLE(smi,k=7, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+
+## doesn't work...
+
+ds <- .Machine$double.eps
+# [1] 2.220446e-16
+
+## at p~20 numerical error is large enough to become non-negligible
+log2(.Machine$double.eps)
+# [1] -52
+
+## sleep on this
+
+
+## analyse fit-various
+
+fv_dir <- normalizePath("~/ethz/BA/fit-various")
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+library(mclust)
+models <- c("EII","VII","EEI","VEI","EVI",
+	    "VVI","EEE","VEE","EVV","VVV")
+mcl <- Mclust(smi, G=1:9, modelNames=models)
+mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 -27040.40 -27040.40 -18221.49 -18221.49 -18221.49 -18221.49
+# 2 -23616.88 -23210.41 -15963.08 -15855.59 -15804.29 -15706.51
+# 3 -21993.92 -21779.22 -15093.34 -15026.02 -15020.48 -14930.06
+# 4 -21145.54 -21020.72 -14449.88 -14612.14 -14333.75 -14457.47
+# 5 -20451.94 -20132.82 -14183.27 -14169.27 -14158.41 -14112.15
+# 6 -20374.68 -19867.57 -13902.63 -13920.47 -14259.14 -13974.76
+# 7 -19936.92 -20074.01 -13591.04 -13663.24 -13963.23 -13818.66
+# 8 -19962.27 -19592.58 -13502.57 -13323.99 -14020.86 -13614.06
+# 9 -19479.90 -19429.46 -13168.27 -13033.79 -13504.23 -13359.90
+#         EEE       VEE       EVV       VVV
+# 1 -12246.64 -12246.64 -12246.64 -12246.64
+# 2 -12113.03 -12108.64 -12025.43 -11805.19
+# 3 -11996.94        NA        NA        NA
+# 4 -11801.07        NA        NA        NA
+# 5 -11640.26        NA        NA        NA
+# 6 -11520.27        NA        NA        NA
+# 7 -11494.28        NA        NA        NA
+# 8 -11389.07        NA        NA        NA
+# 9 -11322.15        NA        NA        NA
+# 
+# Top 3 models based on the BIC criterion: 
+#     EEE,9     EEE,8     EEE,7 
+# -11322.15 -11389.07 -11494.28 
+
+## also has NAs for m=VEE,EVV,VVV k>2
+## possibly because it is ill conditioned?
+
+parcond(smi, k=3, model="VVV")
+# [1] 0.2037572
+## cutoff
+parcond(smi, k=2, model="VVV")
+# [1] 0.3058568
+
+## how did MLE do?
+
+nmm <- readRDS(file=file.path(fv_dir, "fit_smi_clr1_clara_nmm.rds"))
+
+BIC(nmm$fit)
+# [[1]]
+#   EII VII      EEI      VEI      EVI VVI      EEE      VEE
+# 1  NA  NA 18221.49 18221.49 18221.49  NA 12246.64 12246.64
+# 2  NA  NA 15963.10 15893.15 15804.21  NA 12142.69 12132.12
+# 3  NA  NA 15146.46 15085.00 14912.88  NA 12060.13 12031.97
+# 4  NA  NA 14449.88 14421.11 14353.18  NA 11796.38 11843.84
+# 5  NA  NA       NA       NA       NA  NA       NA       NA
+# 6  NA  NA       NA       NA       NA  NA       NA       NA
+# 7  NA  NA       NA       NA       NA  NA       NA       NA
+# 8  NA  NA       NA       NA       NA  NA       NA       NA
+# 9  NA  NA       NA       NA       NA  NA       NA       NA
+#        EVV      VVV
+# 1 12246.64 12246.64
+# 2 11844.60 11698.89
+# 3 11882.80 11872.70
+# 4 12214.68 12151.10
+# 5       NA       NA
+# 6       NA       NA
+# 7       NA       NA
+# 8       NA       NA
+# 9       NA       NA
+# 
+# $best
+# [1] "2"   "VVV"
+# 
+
+BIC(nmm$fit)[[1]] + mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#   EII VII          EEI        VEI           EVI VVI       EEE
+# 1  NA  NA  0.000000000    0.00000    0.00000000  NA  0.000000
+# 2  NA  NA  0.016141443   37.56204   -0.08607942  NA 29.654752
+# 3  NA  NA 53.115187442   58.98080 -107.59887927  NA 63.191110
+# 4  NA  NA  0.001328303 -191.03100   19.42585791  NA -4.696372
+# 5  NA  NA           NA         NA            NA  NA        NA
+# 6  NA  NA           NA         NA            NA  NA        NA
+# 7  NA  NA           NA         NA            NA  NA        NA
+# 8  NA  NA           NA         NA            NA  NA        NA
+# 9  NA  NA           NA         NA            NA  NA        NA
+#       VEE       EVV           VVV
+# 1  0.0000    0.0000  1.818989e-12
+# 2 23.4841 -180.8275 -1.063070e+02
+# 3      NA        NA            NA
+# 4      NA        NA            NA
+# 5      NA        NA            NA
+# 6      NA        NA            NA
+# 7      NA        NA            NA
+# 8      NA        NA            NA
+# 9      NA        NA            NA
+
+
+## varies wildly, not surprising as parcond is terrible
+
+
+nmmm <- readRDS(file=file.path(fv_dir, "fit_smi_clr1_mclVVV_nmm.rds"))
+
+BIC(nmmm$fit)[[1]] + mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#   EII VII          EEI        VEI          EVI VVI       EEE
+# 1  NA  NA 0.000000e+00    0.00000    0.0000000  NA   0.00000
+# 2  NA  NA 3.896003e-04   37.56039   -0.1053436  NA  17.82603
+# 3  NA  NA 7.330341e+01   58.98109 -107.5995117  NA 103.11319
+# 4  NA  NA 3.985540e-04 -191.03112  100.5534188  NA 126.96456
+# 5  NA  NA           NA         NA           NA  NA        NA
+# 6  NA  NA           NA         NA           NA  NA        NA
+# 7  NA  NA           NA         NA           NA  NA        NA
+# 8  NA  NA           NA         NA           NA  NA        NA
+# 9  NA  NA           NA         NA           NA  NA        NA
+#        VEE      EVV          VVV
+# 1  0.00000   0.0000 1.818989e-12
+# 2 72.64549 147.8577 3.741246e+02
+# 3       NA       NA           NA
+# 4       NA       NA           NA
+# 5       NA       NA           NA
+# 6       NA       NA           NA
+# 7       NA       NA           NA
+# 8       NA       NA           NA
+# 9       NA       NA           NA
+# 
+# Top 3 models based on the BIC criterion: 
+#    VVV,2    EVV,2    EEE,4 
+# 374.1246 147.8577 126.9646 
+
+
+
+
+data(loss , package="copula")
+mcll <- Mclust(loss, G=1:9, modelNames=models)
+
+nmml <- readRDS(file=file.path(fv_dir, "fit_los_clr1_clara_nmm.rds"))
+
+mcll$BIC
+# Bayesian Information Criterion (BIC): 
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 -164785.1 -164785.1 -115645.4 -115645.4 -115645.4 -115645.4
+# 2 -162295.2 -161948.7        NA        NA        NA        NA
+# 3 -161913.9 -153697.6        NA        NA        NA        NA
+# 4 -156442.1 -144833.1        NA        NA        NA        NA
+# 5 -156478.7 -143439.6        NA        NA        NA        NA
+# 6 -156337.3 -139234.4        NA        NA        NA        NA
+# 7 -152566.7 -137717.3        NA        NA        NA        NA
+# 8 -152603.3 -137276.6        NA        NA        NA        NA
+# 9 -152639.9 -135576.2        NA        NA        NA        NA
+#         EEE       VEE       EVV       VVV
+# 1 -115267.2 -115267.2 -115267.2 -115267.2
+# 2        NA        NA        NA        NA
+# 3        NA        NA        NA        NA
+# 4        NA        NA        NA        NA
+# 5        NA        NA        NA        NA
+# 6        NA        NA        NA        NA
+# 7        NA        NA        NA        NA
+# 8        NA        NA        NA        NA
+# 9        NA        NA        NA        NA
+# 
+# Top 3 models based on the BIC criterion: 
+#     EEE,1     EVV,1     VEE,1 
+# -115267.2 -115267.2 -115267.2 
+
+BIC(nmml$fit)
+# [[1]]
+#        EII      VII      EEI       VEI      EVI       VVI EEE
+# 1       NA       NA 115645.4 115645.45 115645.4 115645.45  NA
+# 2       NA       NA 115762.5  92460.41       NA  90259.66  NA
+# 3       NA       NA       NA        NA       NA  79833.80  NA
+# 4       NA       NA       NA        NA       NA  62367.79  NA
+# 5 156541.7       NA       NA        NA       NA        NA  NA
+# 6       NA 139884.9       NA        NA       NA        NA  NA
+# 7       NA 139529.2       NA        NA       NA        NA  NA
+# 8       NA 138531.6       NA        NA       NA        NA  NA
+# 9       NA       NA       NA        NA       NA        NA  NA
+#   VEE EVV VVV
+# 1  NA  NA  NA
+# 2  NA  NA  NA
+# 3  NA  NA  NA
+# 4  NA  NA  NA
+# 5  NA  NA  NA
+# 6  NA  NA  NA
+# 7  NA  NA  NA
+# 8  NA  NA  NA
+# 9  NA  NA  NA
+# 
+# $best
+# [1] "4"   "VVI"
+# 
+
+BIC(nmml$fit)[[1]] + mcll$BIC
+# Bayesian Information Criterion (BIC): 
+#        EII       VII EEI VEI EVI          VVI EEE VEE EVV VVV
+# 1       NA        NA   0   0   0 9.538839e-06  NA  NA  NA  NA
+# 2       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 3       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 4       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 5 63.04807        NA  NA  NA  NA           NA  NA  NA  NA  NA
+# 6       NA  650.5279  NA  NA  NA           NA  NA  NA  NA  NA
+# 7       NA 1811.8753  NA  NA  NA           NA  NA  NA  NA  NA
+# 8       NA 1254.9862  NA  NA  NA           NA  NA  NA  NA  NA
+# 9       NA        NA  NA  NA  NA           NA  NA  NA  NA  NA
+
+
+irt <- iris[,-5]
+mclit <- Mclust(irt, G=1:9, modelNames=models)
+
+nmmit <- readRDS(file=file.path(fv_dir, "fit_irt_clr1_clara_nmm.rds"))
+
+mclit$BIC
+# Bayesian Information Criterion (BIC): 
+#          EII        VII        EEI        VEI        EVI
+# 1 -1804.0854 -1804.0854 -1522.1202 -1522.1202 -1522.1202
+# 2 -1123.4117 -1012.2352 -1042.9679  -956.2823 -1007.3082
+# 3  -878.7650  -853.8144  -813.0504  -779.1566  -797.8342
+# 4  -893.6140  -812.6048  -827.4036  -748.4529  -837.5452
+# 5  -782.6441  -742.6083  -741.9185  -688.3463  -766.8158
+# 6  -715.7136  -705.7811  -693.7908  -676.1697  -774.0673
+# 7  -731.8821  -698.5413  -713.1823  -680.7377  -813.5220
+# 8  -725.0805  -701.4806  -691.4133  -679.4640  -740.4068
+# 9  -694.5205  -700.0276  -696.2607  -702.0143  -767.8044
+#          VVI       EEE       VEE       EVV       VVV
+# 1 -1522.1202 -829.9782 -829.9782 -829.9782 -829.9782
+# 2  -857.5515 -688.0972 -656.3270 -658.3306 -574.0178
+# 3  -744.6382 -632.9647 -605.3982 -656.0359 -580.8396
+# 4  -751.0198 -646.0258 -604.8371 -725.2925 -630.6000
+# 5  -711.4502 -604.8131        NA        NA -676.6061
+# 6  -707.2901 -609.8543 -609.5584        NA -754.7938
+# 7  -766.6500 -632.4947        NA -809.8276 -806.9277
+# 8  -764.1969 -639.2640 -654.8237 -831.7520 -830.6373
+# 9  -755.8290 -653.0878        NA -882.4391 -883.6931
+# 
+# Top 3 models based on the BIC criterion: 
+#     VVV,2     VVV,3     EEE,5 
+# -574.0178 -580.8396 -604.8131 
+
+BIC(nmmit$fit)
+# [[1]]
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 1804.0854 1804.0854 1522.1202 1522.1202 1522.1202 1522.1202
+# 2 1123.4113 1012.2352 1042.9679  956.2823 1007.3082  857.5515
+# 3  878.7639  853.8090  813.0425  779.1502  797.8329  743.9974
+# 4  784.2954  783.8168  735.4786  716.5224  732.4552  714.9112
+# 5  734.3842  746.9900  694.3888  703.0489  695.6716  700.9021
+# 6  715.6928  705.7721  693.7673  675.5589  722.1392  696.8944
+# 7  712.0852  712.5276  671.6553  662.5188  704.1570  699.2258
+# 8  686.0821  692.0590  661.0738  661.7881  703.6519  709.8228
+# 9  694.5147  688.0760  678.5744  671.4087  737.3026  733.3708
+#        EEE      VEE      EVV      VVV
+# 1 829.9782 829.9782 829.9782 829.9782
+# 2 688.0972 656.3270 658.3306 574.0178
+# 3 632.9633 605.3968 621.5184 580.8389
+# 4 591.4057 611.9207 629.9138 616.8043
+# 5 600.5329 602.5561 670.4908 669.9706
+# 6 621.8101 618.3594 706.4132 433.2243
+# 7 617.5893 617.4666 758.0385 393.4651
+# 8 622.4162 626.2729 795.3359 787.2027
+# 9 638.2022 640.1674 859.4296 857.2945
+# 
+# $best
+# [1] "7"   "VVV"
+# 
+
+BIC(nmmit$fit)[[1]] + mclit$BIC
+# Bayesian Information Criterion (BIC): 
+#             EII           VII           EEI           VEI
+# 1  2.273737e-13  2.273737e-13  6.821210e-13  6.821210e-13
+# 2 -4.448742e-04  6.431594e-08 -2.055176e-05  6.435812e-09
+# 3 -1.104799e-03 -5.417018e-03 -7.953653e-03 -6.399837e-03
+# 4 -1.093186e+02 -2.878799e+01 -9.192505e+01 -3.193045e+01
+# 5 -4.825986e+01  4.381677e+00 -4.752970e+01  1.470255e+01
+# 6 -2.076121e-02 -8.947392e-03 -2.354640e-02 -6.108759e-01
+# 7 -1.979692e+01  1.398625e+01 -4.152700e+01 -1.821894e+01
+# 8 -3.899832e+01 -9.421606e+00 -3.033954e+01 -1.767594e+01
+# 9 -5.803030e-03 -1.195158e+01 -1.768631e+01 -3.060569e+01
+#             EVI           VVI           EEE           VEE
+# 1  6.821210e-13  2.989964e-10  0.000000e+00  0.000000e+00
+# 2  2.010631e-08  5.820621e-07  3.864592e-07 -6.269241e-07
+# 3 -1.257164e-03 -6.407446e-01 -1.399013e-03 -1.404603e-03
+# 4 -1.050899e+02 -3.610858e+01 -5.462006e+01  7.083578e+00
+# 5 -7.114416e+01 -1.054812e+01 -4.280213e+00            NA
+# 6 -5.192812e+01 -1.039569e+01  1.195577e+01  8.800940e+00
+# 7 -1.093650e+02 -6.742418e+01 -1.490546e+01            NA
+# 8 -3.675494e+01 -5.437412e+01 -1.684782e+01 -2.855085e+01
+# 9 -3.050181e+01 -2.245817e+01 -1.488556e+01            NA
+#             EVV           VVV
+# 1  0.000000e+00  0.000000e+00
+# 2  7.579956e-09  1.122521e-08
+# 3 -3.451749e+01 -7.226431e-04
+# 4 -9.537873e+01 -1.379562e+01
+# 5            NA -6.635417e+00
+# 6            NA -3.215696e+02
+# 7 -5.178908e+01 -4.134627e+02
+# 8 -3.641605e+01 -4.343452e+01
+# 9 -2.300949e+01 -2.639865e+01
+# 
+# Top 3 models based on the BIC criterion: 
+#    VEI,5    VII,7    EEE,6 
+# 14.70255 13.98625 11.95577 
+
+
+## results all over the place.., no idea what to do
+
+
+
+
+## try mahalanobis distance for matching
+
+mu <- t(MW32$mu)
+set.seed(2019);x <- rnorMmix(500, MW32)
+nm <- norMmixMLE(x, k=3, model="VEI",trafo="clr1", ini="clara")
+
+ret <- matrix(0, 3, 5)
+
+for (i in 1:5) {
+    ret[,i] <- mahalanobis(t(nm$norMmix$mu), center=mu[i,], cov=MW32$Sigma[,,i])
+}
+
+ret
+#              [,1]      [,2]      [,3]      [,4]      [,5]
+# [1,]   0.02723181 14.322284 37.087301 61.969810 87.699315
+# [2,] 336.73335067 86.521204 21.117156  1.915131  1.193917
+# [3,]  56.86232857  2.751678  2.714795 16.196353 35.085288
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-25
+
+
+## continuation of yesterday
+mumw <- t(MW32$mu)
+set.seed(2019);x <- rnorMmix(500, MW32)
+muf <- norMmixMLE(x, k=3, model="VEI", trafo="clr1", ini="clara")
+ret <- matrix(0, 5, 3)
+for (i in 1:3) {
+    ret[,i] <- mahalanobis(mumw, center=muf$norMmix$mu[,i], cov=muf$norMmix$Sigma[,,i])
+}
+ret
+#              [,1]       [,2]      [,3]
+# [1,]   0.02910772 49.8109160 13.581450
+# [2,]  31.15541733 25.5992264  1.311877
+# [3,] 121.05523549  9.3737762  1.951380
+# [4,] 269.72856218  1.1345655 15.499959
+# [5,] 477.17539740  0.8815942 41.957614
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-27
+
+
+## reproduce norMmixMLE up untill mstep
+
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+options(error = recover)
+ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+## here issue vmmin??
+
+ans <- norMmixMLE(smi, k=7, model="EVI", trafo="clr1", ini="clara", ll="nmm")
+## here issue D<0
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-30
+
+
+## fix vmmin issue. put mean in first few cases
+ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+
+## in theory fixed for first 3 cases
+ans <- norMmixMLE(smi, k=2, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+## no
+ans <- norMmixMLE(smi, k=1, model="VII", trafo="clr1", ini="mclVVV", ll="nmm")
+## no
+ans <- norMmixMLE(smi, k=1, model="EEI", trafo="clr1", ini="mclVVV", ll="nmm")
+## converged
+ans <- norMmixMLE(smi, k=2, model="VII", trafo="clr1", ini="mclVVV", ll="nmm")
+## no
+
+
+ans <- fitnMm(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#   EII VII
+# 1  NA  NA
+# 2  NA  NA
+# 3  NA  NA
+# 
+# $best
+# character(0)
+# 
+
+
+## try again with force positive
+ans <- norMmixMLE(smi, k=1, model="EII", trafo="clr1", ini="mclVVV", ll="nmm")
+
+
+ans <- fitnMm(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#   EII VII
+# 1  NA  NA
+# 2  NA  NA
+# 3  NA  NA
+# 
+# $best
+# character(0)
+# 
+
+## no
+ans <- norMmixMLE(smi, k=7, model="VVI", trafo="clr1", ini="mclVVV", ll="nmm")
+## something wrong here too
+
+
+## error handling
+## fitnMm now saves proper error
+
+## list with dim
+
+x9 <- rnorMmix(100, MW29)
+ans <- fitnMm(x9, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm")
+rr <- ans$nMm
+dim(rr) <- c(3,2)
+
+## can't acces sublists after assigning dims
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-08-31
+
+
+## try again with numerical stability
+## make epsilon accessible variable
+ans <- norMmixMLE(smi, k=1, model="VII", trafo="clr1", ini="mclVVV", ll="nmm", epsilon=1e-1)
+## first converges with epsilon at 1e-1
+
+ans <- fitnMm(smi, k=1:3, model=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+## this fixes it
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-01
+
+
+## further work on stability in n2p,p2n. mainly transforming to log scale
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-02
+
+## since nmm2par, par2nmm should now be more stable, see if numerically better
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+ans
+# $nMm
+# $nMm$EII1
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$VII1
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$EII2
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$VII2
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$EII3
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+# 
+# $nMm$VII3
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+
+## no... try larger epsilon
+
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-6)
+
+## no
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+## all converged
+
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=4e-2)
+str(ans$nMm,max=1)
+# List of 6
+#  $ EII1:List of 2
+#   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+#  $ VII1:List of 2
+#   ..- attr(*, "class")= chr [1:3] "simpleError" "error" "condition"
+#  $ EII2:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+#  $ VII2:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+#  $ EII3:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+#  $ VII3:List of 7
+#   ..- attr(*, "class")= chr "norMmixfit"
+# NULL
+
+## somewhere between 0.01 and 0.1 fitting fails
+ll <- ans$nMm$EII3$optr$value
+# [1] 10820.24
+parl <- ans$nMm$EII3$npar
+n <- ans$nMm$EII3$n
+
+log(n)*parl + 2*ll
+# [1] 21952.26
+
+## same as value with tighter tolerances
+
+
+## removed one operation from llnorMmix
+
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+
+## how about large k
+ans <- fitnMm(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-10)
+ans
+# $nMm
+# $nMm$VVI1
+# <simpleError in optim(initpar., neglogl, method = method, control = control): initial value in 'vmmin' is not finite>
+ans <- fitnMm(smi, k=7, models=7, trafo="clr1", ini="clara", ll="nmm", epsilon=1e3)
+ans$nMm$EEE1$optr$value
+# [1] 6028.542
+## not fixed
+
+
+## there is still an issue with VVI model
+
+## loaded norMmix again
+ans <- fitnMm(smi, k=7, models=6, trafo="clr1", ini="clara", ll="nmm", epsilon=1e-1)
+## yay converged
+
+
+## try "claw" like norMmix obj
+
+mu <- matrix(c(0,0,0,-2,0,0,0,0,0,2,0,0), 3,4)
+we <- c(0.7,0.1,0.1,0.1)
+Si <- array( c(diag(5,3), diag(0.5,3), diag(0.5,3), diag(0.5,3)), c(3,3,4) )
+mo <- "VEI"
+obj <- norMmix(mu, Sigma=Si, weight=we, model=mo, name="claw like")
+xobj <- rnorMmix(1000, obj)
+
+plot(xobj)
+
+ans <- fitnMm(xobj, k=1:7, models=1:10, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#        EII      VII      EEI      VEI      EVI      VVI      EEE
+# 1 12514.64 12514.64 12515.14 12515.14 12515.14 12515.14 12532.40
+# 2 12530.85 12471.10 12539.99 12465.14 12538.02 12393.42 12558.56
+# 3 12536.75 12412.84 12516.08 12420.65 12543.71 12441.77 12530.19
+# 4 12549.31 12447.40 12527.37 12393.90 12571.28 12452.86 12548.26
+# 5 12565.23 12427.95 12539.18 12468.53 12581.23 12503.19 12547.36
+# 6 12585.76 12453.27 12586.42 12498.22 12592.22 12528.97 12584.07
+# 7 12584.41 12473.97 12538.82 12512.06 12611.30 12547.71 12552.78
+#        VEE      EVV      VVV
+# 1 12532.40 12532.40 12532.40
+# 2 12482.45 12562.94 12429.94
+# 3 12438.77 12583.96 12472.64
+# 4 12474.73 12606.72 12518.75
+# 5 12483.54 12630.01 12569.62
+# 6 12507.25 12666.35 12613.50
+# 7 12532.87 12698.68 12664.01
+# 
+# $best
+# [1] "2"   "VVI"
+# 
+models <- c("EII","VII","EEI","VEI","EVI",
+	    "VVI","EEE","VEE","EVV","VVV")
+mcl <- Mclust(xobj, G=1:7, modelNames=models)
+mcl$BIC
+# Bayesian Information Criterion (BIC): 
+#         EII       VII       EEI       VEI       EVI       VVI
+# 1 -12514.64 -12514.64 -12515.14 -12515.14 -12515.14 -12515.14
+# 2 -12531.12 -12475.69 -12541.27 -12466.05 -12526.41 -12394.05
+# 3 -12539.01 -12413.44 -12567.55 -12421.31 -12557.92 -12423.00
+# 4 -12565.27 -12442.04 -12547.05 -12446.81 -12578.69 -12464.37
+# 5 -12590.65 -12473.32 -12554.24 -12470.79 -12586.67 -12494.65
+# 6 -12618.90 -12459.89 -12582.05 -12472.23 -12623.80 -12517.19
+# 7 -12617.83 -12487.67 -12609.62 -12500.03 -12633.18 -12563.38
+#         EEE       VEE       EVV       VVV
+# 1 -12532.40 -12532.40 -12532.40 -12532.40
+# 2 -12559.68 -12483.36 -12575.60 -12430.51
+# 3 -12585.91 -12439.46 -12569.62 -12470.78
+# 4 -12559.25 -12467.58 -12611.11 -12532.16
+# 5 -12568.25 -12484.44 -12651.87 -12578.99
+# 6 -12595.83 -12491.05 -12675.75 -12621.69
+# 7 -12614.12 -12518.31 -12717.92 -12678.44
+# 
+# Top 3 models based on the BIC criterion: 
+#     VVI,2     VII,3     VEI,3 
+# -12394.05 -12413.44 -12421.31 
+
+## new job to ada server?
+
+
+dd <- norMmixMLE(smi, k=1, model="EII", trace=1)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-04
+
+
+
+## today implement other models for mstep
+
+## inserted mclusts functions, and browser(). look at data:
+x <- matrix(rnorm(400), 200,2)
+
+ret <- norMmixMLE(x, k=3)
+## so far so good.
+
+## added transform to norMmix
+ret <- norMmixMLE(x, k=3)
+## ok seems to work.
+
+## try to remove forcePositive
+data(SMI.12, package="copula")
+smi <- SMI.12
+
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+BIC(ans)
+# [[1]]
+#        EII      VII
+# 1 27040.40 27040.40
+# 2 23616.70 23210.41
+# 3 21952.26 21779.22
+# 
+# $best
+# [1] "VII"
+# 
+
+## yay seems to converge accurately, ie to same place as forced pos results
+## of earlier results
+
+## try  <- VVI, since it also had problems
+ans <- fitnMm(smi, k=1:3, models=6)
+BIC(ans)
+# [[1]]
+#        VVI
+# 1 18221.49
+# 2 15695.47
+# 3 14885.71
+# 
+# $best
+# [1] "VVI"
+# 
+## also converges, but BIC seems to not return best k
+## fixed
+
+## do some documentation
+
+## give smi as job to ada-server
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-05
+
+
+## ada job done, examine results
+
+smifit <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_clr1_clara_nmm.rds")
+smifit2 <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_logit_clara_nmm.rds")
+
+BIC(smifit$fit)
+BIC(smifit2$fit)
+round(BIC(smifit$fit)[[1]]-BIC(smifit2$fit)[[1]], 1)
+
+## wrote displayError.fittednorMmix()
+displayError.fittednorMmix(smifit$fit)
+# VEE 5 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 5 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 5 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+#  
+# VEE 6 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+#  
+# EVV 6 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 6 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+# 
+# VEE 7 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 7 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 7 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+# 
+# VEE 8 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 8 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 8 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+#  
+# VEE 9 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# EVV 9 	 Error in norMmix(mcl.mstep$parameters$mean, Sigma = mcl.mstep$parameters$variance$sigma, : is.numeric(Sigma) is not TRUE
+# 
+# VVV 9 	 Error in nMm2par(obj = nMm.temp, trafo = trafo, model = model, meanFUN = mean): isTRUE(all(apply(sig, 3, function(j) (ldl(j)$D >= 0)))) is not TRUE
+
+
+## wrote AIC.fittednorMmix()
+AIC(smifit$fit)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-11
+
+## try again getting dim(list) to work
+
+a1 <- list(aa="a", ab="b", ac="c")
+a2 <- list(aa="a", ab="b", ac="c")
+a3 <- list(aa="a", ab="b", ac="c")
+a4 <- list(aa="a", ab="b", ac="c")
+a5 <- list(aa="a", ab="b", ac="c")
+a6 <- list(aa="a", ab="b", ac="c")
+b <- list(a1,a2,a3,a4,a5,a6)
+dim(b) <- c(2,3)
+
+b[2,3][[1]]$ab
+# [1] "b"
+## works with [[1]] modifier
+
+smifit <- readRDS(file="~/ethz/BA/Rscripts/fit-smi2/fit_smi_clr1_clara_nmm.rds")
+
+d <- smifit$fit$nMm
+dim(d) <- c(10,9)
+e <- t(d)
+colnames(e) <- smifit$fit$models
+rownames(e) <- smifit$fit$k
+
+
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+## ok now change analysis tools to fit this
+logLik(ans)
+## ok
+BIC(ans)
+## ok
+ans$nMm[3,2][[1]] <- list("asdfsadlfkajsd", c(33,44))
+displayError.fittednorMmix(ans)
+## ok
+
+
+## write plot.fittednorMmix
+plot(ans, name="smi")
+## ok better
+## add "best"
+plot(ans, name="smi")
+## cols "fixed"
+
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-12
+
+
+## write sllnorMmix()
+set.seed(2019); x <- rnorMmix(400, MW27)
+sllnorMmix(x, MW27)
+# [1] -1986.315
+
+## played around in NAMESPACE
+data(SMI.12, package="copula")
+smi <- SMI.12
+ans <- fitnMm(smi, k=1:3, models=1:2, trafo="clr1", ini="clara", ll="nmm")
+
+## test mle against true model
+ret <- norMmixMLE(x, k=2, model="VEI", maxit=1e4)
+sllnorMmix(x, MW27)
+# [1] -1986.315
+sllnorMmix(x, ret$norMmix)
+# [1] -1980.861
+
+plot(BIC(ans)[[3]]$norMmix)
+
+
+
+(rdat <- list.files(file.path(GH_BA_dir, "norMmix/data"), pattern="mw.*"))
+
+(MWdat <- Filter(function(.) is.norMmix(get(., "package:norMmix")),
+                 ls("package:norMmix", pattern = "^MW[1-9]")))
+
+trafos <- c("clr1", "logit")
+inits <- c("clara", "mclVVV")
+lls <- c("nmm", "mvt")
+size <- c(400,500)
+seeds <- 1:50
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-15
+
+
+## get data from ada
+## ok looks weird. logit doesnt seem to work..
+
+adabic <- function(string, na.rm=FALSE) {
+    arr <- array(0, c(7,10,50))
+    val <- list()
+
+    for (i in 1:50) {
+        dir1 <- "~/ethz/BA/Rscripts/nm2"
+        nm <- readRDS(file.path(dir1,paste0(string,as.character(i),".rds")))
+        arr[,,i] <- BIC(nm$fit)[[1]]
+        val[[i]] <- BIC(nm$fit)[[2]]
+    }
+
+    mus <- apply(arr,c(1,2), function(j) mean(j, na.rm=na.rm))
+    sds <- apply(arr,c(1,2), sd)
+
+    list(mu=mus, sd=sds, best=val)
+}
+
+string1 <- "fit_MW21_n=400_clr1_mclVVV_seed="
+adabic(string1)
+mean(adabic(string1)$sd)
+# [1] 43.32461
+
+rle(sort(unlist(lapply(adabic(string1)$best, function(j)paste(j[[1]],j[[2]])))))
+
+
+adabest <- function(string) {
+    ret <- rle(sort(unlist(lapply(adabic(string1)$best, function(j)paste(j[[1]],j[[2]])))))
+    cbind(ret$values, ret$lengths)
+}
+adabest(string1)
+#      [,1]    [,2]
+# [1,] "1 EEI" "2" 
+# [2,] "1 EII" "40"
+# [3,] "1 VII" "2" 
+# [4,] "2 VEE" "2" 
+# [5,] "2 VEI" "1" 
+# [6,] "2 VII" "2" 
+# [7,] "5 VII" "1" 
+
+string2 <- "fit_MW21_n=500_logit_mclVVV_seed="
+adabic(string2)
+mean(adabic(string2)$sd)
+# [1] 47.40294
+
+strings <- c("fit_MW21_n=400_clr1_clara_seed=",
+             "fit_MW21_n=400_clr1_mclVVV_seed=",
+             "fit_MW21_n=400_logit_clara_seed=",
+             "fit_MW21_n=400_logit_mclVVV_seed=",
+             "fit_MW21_n=500_clr1_clara_seed=",
+             "fit_MW21_n=500_clr1_mclVVV_seed=",
+             "fit_MW21_n=500_logit_clara_seed=",
+             "fit_MW21_n=500_logit_mclVVV_seed=")
+sapply(strings, function(j) mean(adabic(j)$sd))
+#   fit_MW21_n=400_clr1_clara_seed= 
+#                          43.05809 
+#  fit_MW21_n=400_clr1_mclVVV_seed= 
+#                          43.32461 
+#  fit_MW21_n=400_logit_clara_seed= 
+#                                NA 
+# fit_MW21_n=400_logit_mclVVV_seed= 
+#                                NA 
+#   fit_MW21_n=500_clr1_clara_seed= 
+#                          47.47940 
+#  fit_MW21_n=500_clr1_mclVVV_seed= 
+#                          47.40294 
+#  fit_MW21_n=500_logit_clara_seed= 
+#                                NA 
+# fit_MW21_n=500_logit_mclVVV_seed= 
+#                                NA 
+
+sapply(strings, function(j) mean(adabic(j)$sd, na.rm=TRUE))
+#   fit_MW21_n=400_clr1_clara_seed= 
+#                          43.05809 
+#  fit_MW21_n=400_clr1_mclVVV_seed= 
+#                          43.32461 
+#  fit_MW21_n=400_logit_clara_seed= 
+#                         196.20206 
+# fit_MW21_n=400_logit_mclVVV_seed= 
+#                         185.64215 
+#   fit_MW21_n=500_clr1_clara_seed= 
+#                          47.47940 
+#  fit_MW21_n=500_clr1_mclVVV_seed= 
+#                          47.40294 
+#  fit_MW21_n=500_logit_clara_seed= 
+#                         265.28591 
+# fit_MW21_n=500_logit_mclVVV_seed= 
+#                         259.51564 
+
+
+adall <- function(string, model) {
+    rettrue <- numeric(50)
+    retfit <- numeric(50)
+    truenm <- get(model, "package:norMmix")
+
+    for (i in 1:50) {
+        dir1 <- "~/ethz/BA/Rscripts/nm2"
+        nm <- readRDS(file.path(dir1,paste0(string,as.character(i),".rds")))
+        val <- BIC(nm$fit)[[2]]
+        fitnm <- nm$fit$nMm[val[1],val[2]][[1]]$norMmix
+        retfit[i] <- tryCatch(sllnorMmix(nm$fit$x, fitnm), error = function(e) NA)
+        rettrue[i] <- sllnorMmix(nm$fit$x, truenm)
+    }
+
+    list(retfit,rettrue,retfit/rettrue)
+}
+
+string <- "fit_MW21_n=400_clr1_mclVVV_seed="
+model <- "MW21"
+llratio <- adall(string, model)
+hist(llratio[[3]])
+
+string3 <- "fit_MW21_n=400_clr1_clara_seed="
+model <- "MW21"
+llratio3 <- adall(string3, model)
+llratio3[[3]]
+#  [1] 0.9977740 0.9799483 0.9808983 0.9775089 0.9992064
+#  [6] 0.9997829 0.9995015 0.9992125 0.9998252 0.9520283
+# [11] 0.9993791 0.9989665 0.9984381 0.9992428 0.9973943
+# [16] 0.9953392 0.9985002 0.9997708 0.9989852 0.9997341
+# [21] 0.9768726 0.9976401 0.9979366 0.9959528 0.9985689
+# [26] 0.9996389 0.9982626 0.9985632 0.9992450 0.9998493
+# [31] 0.9988006 0.9994192 0.9961450 0.9991374 0.9975383
+# [36] 0.9988674 0.9994284 0.9768115 0.9988178 0.9993823
+# [41] 0.9982006 0.9984465 0.9974469 0.9986910 0.9993383
+# [46] 0.9989461 0.9969418 0.9995362 0.9996832 0.9948402
+mean(llratio3[[3]])
+# [1] 0.9956077
+sd(llratio3[[3]])
+# [1] 0.00884974
+
+## see how logit does
+
+string4 <- "fit_MW21_n=400_logit_clara_seed="
+model <- "MW21"
+llratio4 <- adall(string4, model)
+llratio4[[3]]
+#  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+# [20] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+# [39] NA NA NA NA NA NA NA NA NA NA NA NA
+
+## turns out logit doesn't return correct weights
+sllnorMmix(nm$fit$x, fitnm)
+# Error in clr1(w) : all(w >= 0) not TRUE
+
+## seems uses clr1 for some reason???
+
+## put functions so far into own script "adafunc" source command on line 6
+## sweep out summary stats from several .rds files according to some pattern
+
+
+sllnorMmix(nm$fit$x, fitnm, trafo="logit")
+# Error in logit(w) : all(e >= 0) is not TRUE
+
+## ok some error in logit. not fault of sllnorMmix
+
+
+## ok logit doesn't work
+## maybe just work with clr1
+
+
+## test if using set.seed affects norMmixMLE
+
+set.seed(2019); x <- rnorMmix(500, MW25)
+
+## let's assume 'correct' model
+
+set.seed(20191); ret1 <- norMmixMLE(x,2, model="VII")
+set.seed(20192); ret2 <- norMmixMLE(x,2, model="VII")
+
+## yes, need to vary over seed for MLE.
+## although differences minimal.
+## do 2 ada jobs to analyse this.
+
+
+set.seed(20191); ret1 <- fitnMm(x,k=5, models=1)
+set.seed(20192); ret2 <- fitnMm(x,k=5, models=1)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-19
+
+## analyse small-data
+
+massbic <- function(string, DIR) {
+    nm1 <- readRDS(file=file.path(DIR,string[1]))
+    aa <- dim(nm1$fit$nMm)
+    val <- array(0, c(aa[1],aa[2],length(string)))
+
+    for (i in 1:length(string)) {
+        nm <- readRDS(file=file.path(DIR,string[i]))
+        val[,,i] <- BIC(nm$fit)[[1]]
+    }
+
+    mus <- apply(val,3, mean)
+    sds <- apply(val,3, sd)
+    list(mean=mus, sd=sds, v=val)
+}
+
+dat <- list.files("~/ethz/BA/Rscripts/smallsize/", pattern="^fit*")
+DIR <- "~/ethz/BA/Rscripts/smallsize"
+dat2 <- dat[grep("1500", dat)]
+x <- massbic(dat2, DIR)
+
+f <- x$v
+dimnames(f) <- list(a=1:8, b=models, seed=1:10)
+
+boxplot(x$v[1,,])
+
+matplot(f[,,1], col=rainbow(10), type="l")
+for (i in 2:10) {
+    matplot(f[,,i], col=rainbow(10), type="l",add=TRUE)
+}
+
+boxplot(t(f[,"VVV",]), col=rainbow(10)[10])
+
+op <- par(mfrow=c(4,5))
+for (i in 1:10) {
+    matplot(f[,i,], lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+for (i in 1:10) {
+    boxplot(t(f[,i,]), lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+par(op)
+
+
+DI <- "~/ethz/BA/Rscripts/smallseed"
+stri <- list.files(DI, pattern="*.rds")
+y <- massbic(stri, DI)
+g <- y$v
+pdf(file=file.path(DI,"summary.pdf"),20,16)
+op <- par(mfrow=c(4,5))
+for (i in 1:10) {
+    matplot(g[,i,], lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+for (i in 1:10) {
+    boxplot(t(g[,i,]), lty=1, col=rainbow(10)[i], main=models[i], type="l")
+}
+par(op)
+dev.off()
+
+## ok for now. gives nice overview of data.
+
+set.seed(2020); x <- rnorMmix(500, MW214)
+nmm <- readRDS(file="~/ethz/BA/Rscripts/smallsize/fit_MW214_size=500_seed=1.rds")
+nmm <- BIC(nmm$fit)[[1]]
+
+mcl <- Mclust(x, modelNames=models)$BIC
+
+diffs <- nmm+mcl[1:8,]
+
+
+
+s <- dat[grep("=500", dat)]
+d <- DIR
+valnmm <- massbic(s,d)$v
+
+valmcl <- array(0, c(8,10,10))
+for (i in 1:10) {
+    valmcl[,,i] <- Mclust(x, modelNames=models)$BIC[1:8,]
+}
+
+massdiff <- valnmm+valmcl
+pdf(file="~/ethz/BA/Rscripts/smallsize_diffmcl.pdf", 25,20)
+massplot(massdiff)
+dev.off()
+
+
+
+s2 <- dat[grep("=1500", dat)]
+d2 <- DIR
+valnmm2 <- massbic(s,d)$v
+
+valmcl2 <- array(0, c(8,10,10))
+for (i in 1:10) {
+    set.seed(2019+i); x <- rnorMmix(1500, MW214)
+    valmcl2[,,i] <- Mclust(x, modelNames=models)$BIC[1:8,]
+}
+
+massdiff2 <- valnmm2+valmcl2
+pdf(file="~/ethz/BA/Rscripts/smallsize_diffmcl_size=1500.pdf", 25,20)
+massplot(massdiff2)
+dev.off()
+
+## unclear results for n=1500. try again tomorrow.
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-22
+
+
+##
+op <- par(mfrow=c(4,5))
+for (i in 1:10) {
+    matplot(f[,i,], lty=1, col=adjustcolor(rainbow(10)[i],0.5), main=models[i], type="l")
+}
+for (i in 1:10) {
+    boxplot(t(f[,i,]), lty=1, col=adjustcolor(rainbow(10)[i],0.5), main=models[i], type="l")
+}
+par(op)
+
+
+## test adjustcolor for plots
+z <- matrix(cbind(seq(0,1,length.out=100),seq(1,0,length.out=100)),100,2)
+matplot(t(z),type="l", col=adjustcolor(c("red", "blue"), 0.3), lty=1)
+
+
+## analyse smallseed
+
+d <- "~/ethz/BA/Rscripts/smallseed"
+s <- list.files(d, pattern="^fit")
+
+valseed <- massbic(s,d)
+massplot(valseed$v)
+
+valseed10 <- massbic(list.files(d, pattern="*seed=10.rds"), d)
+massplot(valseed10$v)
+
+## compare against mclust
+set.seed(2029);x <- rnorMmix(500, MW214)
+
+valmcl <- array(0, c(7,10,100))
+for (i in 1:100) {
+    valmcl[,,i] <- Mclust(x, G=1:7, modelNames=models)$BIC
+}
+dimnames(valmcl) <- list(clusters=1:7, models=models, i=1:100)
+
+massplot(valmcl)
+adjvalmcl <- -valmcl
+massplot(adjvalmcl)
+
+diffval <- valseed10$v- adjvalmcl
+massplot(diffval)
+
+## mclust seems not to use any RNG functions...
+## diffval all over the place though
+
+## effect of size on loglik
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+zsh <- massbic(st,ds)
+rr <- array(0, c(8,10,110))
+rr[,,1:50] <- zsh$v[,,61:110]
+rr[,,51:110] <- zsh$v[,,1:60]
+dsd <- rep(5:15*100, each=8*100)
+dff <- data.frame(dsd, c(rr))
+lm(dff)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-23
+
+
+set.seed(2019); x <- rnorMmix(500, MW28)
+
+val <- array(0, c(7,10,50))
+id <- 1:50
+for (i in id) {
+    set.seed(2019+i)
+    val[,,i] <- Mclust(x, G=1:7, modelNames=models)$BIC
+}
+ret <- massplot(val)
+
+## mclust seems to be independent of seed
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-24
+
+## work on tex files
+
+## improve massplot fctn
+
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+st <- st[grep("size=900", st)]
+val <- massbic(st, ds)
+massplot(val$v)
+range(val$v)
+# [1] 3233.913 4446.136
+
+## discovered extendrange function, adapting to plot.R
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-25
+
+## compare mclust to norMmix
+
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+st <- st[grep("size=900", st)]
+val <- massbic(st, ds)
+massplot(val$v)
+
+valm <- array(0, c(8,10,10))
+for (i in 1:10) {
+    nm <- readRDS(file.path(ds, st[i]))
+    x <- nm$fit$x
+    valm[,,i] <- Mclust(x, G=1:8, modelNames=models)$BIC
+}
+massplot(-valm)
+
+## added 'best' to massbic
+val <- massbic(st, ds)
+val$best
+#       [,1] [,2] 
+#  [1,] "8"  "VII"
+#  [2,] "8"  "VVV"
+#  [3,] "8"  "VVI"
+#  [4,] "8"  "VII"
+#  [5,] "8"  "VVV"
+#  [6,] "8"  "VVI"
+#  [7,] "8"  "VII"
+#  [8,] "8"  "VII"
+#  [9,] "8"  "VEI"
+# [10,] "8"  "VEI"
+
+## added massbest
+dimnames(valm) <- list(clusters=1:8, models=models, dataset=1:10)
+massbest(-valm)
+#       [,1] [,2] 
+#  [1,] "6"  "VII"
+#  [2,] "6"  "VII"
+#  [3,] "6"  "VII"
+#  [4,] "6"  "VII"
+#  [5,] "7"  "VII"
+#  [6,] "6"  "VII"
+#  [7,] "6"  "VII"
+#  [8,] "6"  "VII"
+#  [9,] "6"  "VII"
+# [10,] "7"  "VII"
+
+r  <- apply(val$best, 1, function(j) paste(j[1], j[2]))
+ss <- rle(sort(r))
+ix <- sort(ss$lengths, decreasing=TRUE, index.return=TRUE)$ix
+ss$values[ix]
+ss$lengths[ix]
+
+## wrote sort best
+massbest(valm)
+
+## decided to add *all* mins to best list
+af <- sortbest(massbest(valm))
+# $values
+#  [1] "1 EEI" "1 EVI" "1 VEI" "1 VVI" "3 EEE" "4 EEE" "5 EEE"
+#  [8] "5 EVI" "6 EEE" "6 EEI" "7 EEI"
+# 
+# $reps
+#  [1] 3 3 3 3 1 1 1 1 1 1 1
+# 
+
+cbind(af$values, af$reps)
+#       [,1]    [,2]
+#  [1,] "1 EEI" "3" 
+#  [2,] "1 EVI" "3" 
+#  [3,] "1 VEI" "3" 
+#  [4,] "1 VVI" "3" 
+#  [5,] "3 EEE" "1" 
+#  [6,] "4 EEE" "1" 
+#  [7,] "5 EEE" "1" 
+#  [8,] "5 EVI" "1" 
+#  [9,] "6 EEE" "1" 
+# [10,] "6 EEI" "1" 
+# [11,] "7 EEI" "1" 
+
+## this is still negative values, so worst instead of best
+
+
+ds <- "~/ethz/BA/Rscripts/smallsize"
+st <- list.files(ds, pattern="*.rds")
+
+ev <- massbic(st, ds)
+be <- sortbest(massbest(ev$v))
+cbind(be$values, be$reps)
+#       [,1]    [,2]
+#  [1,] "8 VII" "30"
+#  [2,] "8 VEI" "13"
+#  [3,] "7 VVV" "11"
+#  [4,] "7 VEI" "9" 
+#  [5,] "8 VVI" "8" 
+#  [6,] "8 VVV" "8" 
+#  [7,] "2 VVV" "6" 
+#  [8,] "8 VEE" "6" 
+#  [9,] "7 VII" "5" 
+# [10,] "5 VVV" "3" 
+# [11,] "6 VII" "3" 
+# [12,] "7 VVI" "3" 
+# [13,] "4 VVV" "2" 
+# [14,] "5 VII" "1" 
+# [15,] "6 VVV" "1" 
+# [16,] "7 VEE" "1" 
+
+## added massbicm
+
+valm <- massbicm(st,ds)
+massbest(valm)
+
+
+## ada-jobs are taking longer than hoped for
+
+## try tools on nm2
+
+dd <- "~/ethz/BA/Rscripts/nm2"
+ss <- list.files(dd, pattern="*.rds")
+ss <- ss[grep("*clr1*", ss)]
+ss <- ss[grep("*MW210_*", ss)]
+
+nmv <- massbic(ss,dd)$v
+nmm <- massbicm(ss,dd)
+
+vv <- sortbest(massbest(nmv))
+vm <- sortbest(massbest(nmm))
+
+## n=* clr1 ini=* seed=*
+cbind(vv$values, vv$reps)
+#       [,1]    [,2] 
+#  [1,] "2 EEE" "169"
+#  [2,] "2 VEE" "9"  
+#  [3,] "3 VEE" "9"  
+#  [4,] "2 EVV" "3"  
+#  [5,] "4 VVV" "3"  
+#  [6,] "5 VEE" "3"  
+#  [7,] "3 VVV" "2"  
+#  [8,] "3 EEE" "1"  
+#  [9,] "4 VEE" "1"  
+cbind(vm$values, vm$reps)
+#      [,1]    [,2] 
+# [1,] "2 EEE" "186"
+# [2,] "2 VEE" "4"  
+# [3,] "3 EEE" "2"  
+
+
+## n=400 clr1 ini=* seed=*
+vv <- sortbest(massbest(nmv[,,1:100]))
+vm <- sortbest(massbest(nmm[,,1:100]))
+cbind(vv$values, vv$reps)
+#      [,1]    [,2]
+# [1,] "2 EEE" "90"
+# [2,] "3 VEE" "5" 
+# [3,] "4 VVV" "2" 
+# [4,] "5 VEE" "2" 
+# [5,] "3 VVV" "1" 
+cbind(vm$values, vm$reps)
+#      [,1]    [,2]
+# [1,] "2 EEE" "92"
+
+## n=500 clr1 ini=* seed=*
+vv <- sortbest(massbest(nmv[,,101:200]))
+vm <- sortbest(massbest(nmm[,,101:200]))
+cbind(vv$values, vv$reps)
+#       [,1]    [,2]
+#  [1,] "2 EEE" "79"
+#  [2,] "2 VEE" "9" 
+#  [3,] "3 VEE" "4" 
+#  [4,] "2 EVV" "3" 
+#  [5,] "3 EEE" "1" 
+#  [6,] "3 VVV" "1" 
+#  [7,] "4 VEE" "1" 
+#  [8,] "4 VVV" "1" 
+#  [9,] "5 VEE" "1" 
+cbind(vm$values, vm$reps)
+#      [,1]    [,2]
+# [1,] "2 EEE" "94"
+# [2,] "2 VEE" "4" 
+# [3,] "3 EEE" "2" 
+
+
+massplot(nmv[,,1:100])
+
+
+## how many iterations??
+
+
+optrcount(nm)
+
+counts <- masscount(ss, dd)
+
+massplot(counts$fn)
+
+
+## make massplots
+
+savdir <- "~/ethz/BA/Rscripts/smallpresentation"
+dir.exists(savdir)
+
+## complete simulations
+dir_ssi <- "~/ethz/BA/Rscripts/smallsize"
+dir_sse <- "~/ethz/BA/Rscripts/smallseed"
+dir_nm2 <- "~/ethz/BA/Rscripts/nm2" 
+#dir_smi <- "~/ethz/BA/Rscripts/fit-smi2" not proper format
+
+## partial simulations
+dir_ssmi <- "~/ethz/BA/Rscripts/smallsmi" 
+dir_sini <- "~/ethz/BA/Rscripts/smallinit" 
+
+## rds files per simulation
+sssi <- list.files(dir_ssi, pattern="*.rds")
+    ## along rep(c(10,11,12,13,14,15,5,6,7,8,9)*100, each=10)
+ssse <- list.files(dir_sse, pattern="*.rds")
+    ## mle 1:100, seed 1:10
+snm2 <- list.files(dir_nm2, pattern="*.rds")
+    snm2 <- snm2[grep("*clr1*", snm2)]
+        snm2_MW210 <- snm2[grep("*MW210_*", snm2)]
+            snm2_MW210_clara <- snm2[grep("*clara*", snm2_MW210)]
+            snm2_MW210_mclVVV <- snm2[grep("*mclVVV*", snm2_MW210)]
+        snm2_MW21 <- snm2[grep("*MW21_n*", snm2)]
+            snm2_MW21_clara <- snm2[grep("*clara*", snm2_MW21)]
+            snm2_MW21_mclVVV <- snm2[grep("*mclVVV*", snm2_MW21)]
+sssmi <- list.files(dir_ssmi, pattern="*.rds")
+    ## just seeds
+ssini <- list.files(dir_sini, pattern="*.rds")
+    ssini_MW24 <- ssini[grep("*MW24*", ssini)]
+        ssini_MW24_clara <- ssini_MW24[grep("*clara*", ssini_MW24)]
+        ssini_MW24_mclVVV <- ssini_MW24[grep("*mclVVV*", ssini_MW24)]
+    ssini_MW28 <- ssini[grep("*MW28*", ssini)]
+        ssini_MW28_clara <- ssini_MW28[grep("*clara*", ssini_MW28)]
+        ssini_MW28_mclVVV <- ssini_MW28[grep("*mclVVV*", ssini_MW28)]
+    ssini_MW29 <- ssini[grep("*MW29*", ssini)]
+        ssini_MW29_clara <- ssini_MW29[grep("*clara*", ssini_MW29)]
+        ssini_MW29_mclVVV <- ssini_MW29[grep("*mclVVV*", ssini_MW29)]
+
+## bics
+
+# small size
+bssi <- massbic(sssi, dir_ssi)
+# small seed
+bsse <- massbic(ssse, dir_sse)
+## nm2
+    bnm2_MW210 <- massbic(snm2_MW210, dir_nm2)
+        bnm2_MW210_clara <- massbic(snm2_MW210_clara, dir_nm2)
+        bnm2_MW210_mclVVV <- massbic(snm2_MW210_mclVVV, dir_nm2)
+    bnm2_MW21 <- massbic(snm2_MW21, dir_nm2)
+        bnm2_MW21_clara <- massbic(snm2_MW21_clara, dir_nm2)
+        bnm2_MW21_mclVVV <- massbic(snm2_MW21_mclVVV, dir_nm2)
+# small smi
+bssmi <- massbic(sssmi, dir_ssmi)
+# small init
+bsini <- massbic(ssini, dir_sini)
+    bsini_MW24 <- massbic(ssini_MW24, dir_sini)
+        bsini_MW24_clara <- massbic(ssini_MW24_clara, dir_sini)
+        bsini_MW24_mclVVV <- massbic(ssini_MW24_mclVVV, dir_sini)
+    bsini_MW28 <- massbic(ssini_MW28, dir_sini)
+        bsini_MW28_clara <- massbic(ssini_MW28_clara, dir_sini)
+        bsini_MW28_mclVVV <- massbic(ssini_MW28_mclVVV, dir_sini)
+    bsini_MW29 <- massbic(ssini_MW29, dir_sini)
+        bsini_MW29_clara <- massbic(ssini_MW29_clara, dir_sini)
+        bsini_MW29_mclVVV <- massbic(ssini_MW29_mclVVV, dir_sini)
+    
+# small size
+mbssi <- massbicm(sssi, dir_ssi)
+# small seed
+mbsse <- massbicm(ssse, dir_sse)
+## nm2
+    mbnm2_MW210 <- massbicm(snm2_MW210, dir_nm2)
+        mbnm2_MW210_clara <- massbicm(snm2_MW210_clara, dir_nm2)
+        mbnm2_MW210_mclVVV <- massbicm(snm2_MW210_mclVVV, dir_nm2)
+    mbnm2_MW21 <- massbicm(snm2_MW21, dir_nm2)
+        mbnm2_MW21_clara <- massbicm(snm2_MW21_clara, dir_nm2)
+        mbnm2_MW21_mclVVV <- massbicm(snm2_MW21_mclVVV, dir_nm2)
+# small smi
+mbssmi <- massbicm(sssmi, dir_ssmi)
+# small init
+mbsini <- massbicm(ssini, dir_sini)
+    mbsini_MW24 <- massbicm(ssini_MW24, dir_sini)
+        mbsini_MW24_clara <- massbicm(ssini_MW24_clara, dir_sini)
+        mbsini_MW24_mclVVV <- massbicm(ssini_MW24_mclVVV, dir_sini)
+    mbsini_MW28 <- massbicm(ssini_MW28, dir_sini)
+        mbsini_MW28_clara <- massbicm(ssini_MW28_clara, dir_sini)
+        mbsini_MW28_mclVVV <- massbicm(ssini_MW28_mclVVV, dir_sini)
+    mbsini_MW29 <- massbicm(ssini_MW29, dir_sini)
+        mbsini_MW29_clara <- massbicm(ssini_MW29_clara, dir_sini)
+        mbsini_MW29_mclVVV <- massbicm(ssini_MW29_mclVVV, dir_sini)
+
+
+mclusts <- list(mbssi=mbssi, mbsse=mbsse, mbnm2_MW210=mbnm2_MW210,
+                mbnm2_MW210_clara=mbnm2_MW210_clara,
+                mbnm2_MW210_mclVVV=mbnm2_MW210_mclVVV,
+                mbnm2_MW21=mbnm2_MW21,
+                mbnm2_MW21_clara=mbnm2_MW21_clara,
+                mbnm2_MW21_mclVVV=mbnm2_MW21_mclVVV,
+                mbssmi=mbssmi,
+                mbsini=mbsini,
+                mbsini_MW24=mbsini_MW24,
+                mbsini_MW24_clara=mbsini_MW24_clara,
+                mbsini_MW24_mclVVV=mbsini_MW24_mclVVV,
+                mbsini_MW28=mbsini_MW28,
+                mbsini_MW28_clara=mbsini_MW28_clara,
+                mbsini_MW28_mclVVV=mbsini_MW28_mclVVV,
+                mbsini_MW29=mbsini_MW29,
+                mbsini_MW29_clara=mbsini_MW29_clara,
+                mbsini_MW29_mclVVV=mbsini_MW29_mclVVV
+)
+
+saveRDS(mclusts, file=file.path(savdir,"mclust_simulations.rds"))
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-26
+
+
+
+## compplot
+
+compplot(bsini_MW24, mbsini_MW24)
+compplot(mbssi, bssi)
+compplot(mbnm2_MW21, bnm2_MW21)
+compplot(mbnm2_MW210, bnm2_MW210)
+compplot(mbsse, bsse)
+compplot(bsse, mbsse)
+
+## make plots
+
+pdf(file=file.path(savdir, "smallsize.pdf"),50,20)
+massplot(bssi)
+dev.off()
+pdf(file=file.path(savdir, "smallseed.pdf"),50,20)
+massplot(bsse)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW210.pdf"),50,20)
+massplot(bnm2_MW210)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW210_clara.pdf"),50,20)
+massplot(bnm2_MW210_clara)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW210_mclVVV.pdf"),50,20)
+massplot(bnm2_MW210_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW21.pdf"),50,20)
+massplot(bnm2_MW21)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW21_clara.pdf"),50,20)
+massplot(bnm2_MW21_clara)
+dev.off()
+pdf(file=file.path(savdir, "nm2_MW21_mclVVV.pdf"),50,20)
+massplot(bnm2_MW21_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "smallsmi.pdf"),50,20)
+massplot(bssmi)
+dev.off()
+pdf(file=file.path(savdir, "smallinit.pdf"),50,20)
+massplot(bsini)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW24.pdf"),50,20)
+massplot(bsini_MW24)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW24_clara.pdf"),50,20)
+massplot(bsini_MW24_clara)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW24_mclVVV.pdf"),50,20)
+massplot(bsini_MW24_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW28.pdf"),50,20)
+massplot(bsini_MW28)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW28_clara.pdf"),50,20)
+massplot(bsini_MW28_clara)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW28_mclVVV.pdf"),50,20)
+massplot(bsini_MW28_mclVVV)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW29.pdf"),50,20)
+massplot(bsini_MW29)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW29_clara.pdf"),50,20)
+massplot(bsini_MW29_clara)
+dev.off()
+pdf(file=file.path(savdir, "smallinit_MW29_mclVVV.pdf"),50,20)
+massplot(bsini_MW29_mclVVV)
+dev.off()
+
+
+pdf(file=file.path(savdir, "comp_smallseed.pdf"),50,20)
+compplot(bsse, mbsse)
+dev.off()
+pdf(file=file.path(savdir, "comp_smallsize.pdf"),50,20)
+compplot(bssi, mbssi)
+dev.off()
+pdf(file=file.path(savdir, "comp_smallinit.pdf"),50,20)
+compplot(bsini, mbsini)
+dev.off()
+
+aa <- sortbest(massbest(bsse))
+cbind(aa$values, aa$reps)
+#       [,1]    [,2] 
+#  [1,] "2 VVV" "318"
+#  [2,] "7 VVV" "106"
+#  [3,] "7 VII" "94" 
+#  [4,] "7 VEI" "84" 
+#  [5,] "6 VII" "64" 
+#  [6,] "5 VII" "62" 
+#  [7,] "3 VVV" "60" 
+#  [8,] "7 VVI" "52" 
+#  [9,] "4 VVV" "48" 
+# [10,] "5 VVV" "30" 
+# [11,] "6 VEI" "28" 
+# [12,] "6 VVI" "19" 
+# [13,] "7 VEE" "14" 
+# [14,] "6 VVV" "12" 
+# [15,] "5 VEI" "7"  
+# [16,] "5 VVI" "2"  
+ma <- sortbest(massbest(mbsse))
+cbind(ma$values, ma$reps)
+#      [,1]    [,2] 
+# [1,] "7 VII" "800"
+# [2,] "6 VII" "200"
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-09-30
+
+## try mult.fig
+
+#testplot(bsse, main="small seed test case")
+
+## massplot <- testplot, testplot no longer here
+
+## finish plot_simulations_...
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-01
+
+## match.arg??
+
+aa <- function(j=c("a", "b")) {
+    j <- match.arg(j)
+    j
+}
+
+aa()
+
+
+##
+## built package.
+
+
+## try Trimodal??
+
+mu <- matrix(c(-2,-2,0,0,2,2), 2, 3)
+sig <- array(c(2, -2, -2, 4, 1, -1, -1, 2, 2, -2, -2, 4), c(2,2,3))
+w <- c(1,1,1)/3
+
+Tri <- norMmix(mu, Sigma=sig, weight=w, model="VEE")
+plot(Tri)
+
+x <- rnorMmix(500, Tri)
+
+ret <- fitnMm(x, k=c(1:3,8), models=1:3)
+BIC(ret)[[1]]
+
+## fixed fitnMm
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-02
+
+## clara function.. ssClaraL(n,k,p)
+ssClaraL(500, 3, 2)
+val <- matrix(0, 20, 20)
+for (i in 1:20) {
+    for (j in 1:20) {
+        val[i,j] <- ssClaraL(500, i, j)
+    }
+}
+
+## not sure how it works, or what we should expect when changing inputs
+## improved input stability for .fittednorMmix methods
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-04
+
+## wrote logLik for norMmixfit
+
+x <- rnorMmix(500, MW213)
+ret <- norMmixMLE(x, 3, "VEE")
+rer <- norMmixMLE(x, 4, "VEE")
+logLik(ret)
+AIC(ret)
+BIC(ret)
+
+a <- logLik(ret)
+b <- logLik(rer)
+AIC(a,b)
+
+aa <- fitnMm(x, k=1:2, models=1:3)
+logLik(aa)
+BIC(aa)[[1]]
+## ?? why does logLik lose matrix structure?
+bb <- logLik(aa)
+class(bb)
+# [1] "matrix"
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-05
+
+## testing print methods
+aa <- fitnMm(x, k=1:2, models=1:3)
+extracttimes(aa)
+print(aa)
+
+## ok for now. improve later
+
+## adjust titles in massplot
+
+dir_sse <- "~/ethz/BA/Rscripts/smallseed"
+ssse <- list.files(dir_sse, pattern="*.rds")
+ret <- massbic(ssse, dir_sse)
+massplot(ret, p=2)
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-05
+
+massplot(ret[,,1:5], p=2)
+plot(aa, plotbest=TRUE)
+points(x)
+
+bb <- norMmixMLE(x, 3, "VVV")
+plot(bb)
+plot(bb, points=FALSE)
+plot(MW213, x)
+plot(aa, x, plotbest=TRUE)
+
+## ok
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-11
+
+
+## added some adafuncs to package
+
+# maximum time values:
+x1 <- matrix(rnorm(1000), 500, 2)
+time1 <- system.time(fitnMm(x1, 1:10))
+time1
+#    user  system elapsed 
+# 301.436   1.244 303.835 
+x2 <- matrix(rnorm(2000), 500, 4)
+time2 <- system.time(nm2 <- fitnMm(x2, 1:10))
+time2
+#    user  system elapsed 
+# 519.040   2.316 522.313 
+x3 <- matrix(rnorm(2000), 1000, 2)
+time3 <- system.time(nm3 <- fitnMm(x3, 1:10))
+time3
+#    user  system elapsed 
+# 406.444   1.220 408.051 
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-12
+
+## need to figure out more sensible way to do plots on large scale
+## suppose we have filelist:
+files <- list(list.files("~/ethz/BA/Rscripts/smallinit", pattern="fit*")[1:10])
+savdir <- "~/ethz/BA/Rscripts/smallinit"
+
+epfl <- function(files, savdir) {
+    stopifnot(is.list(files), dir.exists(savdir))
+    for (fi in files) {
+        ## plot
+        f <- massbic(fi, savdir)
+        g <- massbicm(fi, savdir)
+        pdf(file=paste0(fi[1],".pdf"))
+        massplot(f)
+        dev.off()
+        pdf(file=paste0(fi[1],"_mcl.pdf"))
+        massplot(g)
+        dev.off()
+        pdf(file=paste0(fi[1],"_comp.pdf"))
+        compplot(f,g)
+        dev.off()
+    }
+}
+
+epfl(files, "~/ethz/BA/Rscripts/smallinit")
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-15
+
+## did some tidying up in .tex files,
+## still can't get whole code to print into appendix
+## fixed, used scan(what="raw", sep="\n") | cat(sep="\n")
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-17
+
+## gave fitnMm save options: savdir and name
+## improved .Rd files
+## fixed plots in /2time
+
+## analyze /2time
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+files <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
+filetimes <- lapply(files, extracttimes)
+
+timetest <- extracttimes(files[[1]])
+at <- attributes(timetest)
+timetest[,,1] # loses attributes
+attributes(timetest[,,1])
+
+tmptime <- function(filetime) {
+    at <- attributes(filetime)
+    ft <- filetime[,,1]
+    attr(ft, "n") <- at$n
+    attr(ft, "p") <- at$p
+    ft
+}
+
+tryy <- lapply(filetimes, tmptime)
+
+dims <- unlist(lapply(filetimes, function(j) attr(j, "p")))
+size <- unlist(lapply(filetimes, function(j) attr(j, "n")))
+
+times <- unlist(tryy)
+ddims <- rep(dims, each=80)
+ssize <- rep(size, each=80)
+plot(log(ddims), log(times)-log(ssize))
+plot(log(ssize), log(times))
+
+## no idea how to analyze this
+tryyVVV <- lapply(tryy, function(j) j[,10])
+tVVV <- unlist(tryyVVV)
+plot(rep(dims, each=8), tVVV)
+tryy8 <- lapply(tryy, function(j) j[8,])
+t8 <- unlist(tryy8)
+plot(rep(dims, each=10), t8)
+
+tryymax <- unlist(lapply(tryy, function(j) j[8,10]))
+plot(dims, tryymax/size)
+
+
+f <- times ~ ddims + ssize
+r <- lm(f)
+
+aa <- norMmix:::npar.fittednorMmix
+aa(files[[1]])
+
+pars <- lapply(files, aa)
+ppars <- unlist(pars)
+
+g <- times ~ ppars
+r <- lm(g)
+plot(ppars, times)
+plot(log(ppars), log(times))
+
+## same same w/ 2init and 2ll
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2ll")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("*mcl.rds", filelist, value=TRUE, invert=TRUE)
+
+lis <- list()
+nmnames <- c("MW214", "MW34")
+
+for (i in nmnames) {
+    r <- grep(i, filelist, value=TRUE)
+    lis[[i]] <- r
+}
+
+epfl(lis, savdir, subt=18)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-18
+
+## fix plot colors
+
+nMmcols <- c("#4363d8", "#f58231", "#800000", "#ffe119", "#000075", 
+             "#fabebe", "#e6beff", "#a9a9a9", "#ffffff", "#000000")
+x <- rnorm(100)
+hist(x, col=nMmcols)
+
+## good colors
+
+## fixed massplot, compplot colors
+
+savdir <- normalizePath("~/ethz/BA/Rscripts/2time")
+filelist <- list.files(savdir, pattern=".rds")
+filelist <- grep("mcl.rds", filelist, invert=TRUE, value=TRUE)
+f <- lapply(file.path(savdir,filelist), function(j) readRDS(j)$fit)
+times <- unlist(lapply(f, function(j) extracttimes(j)[,,1]))
+dims <- unlist(lapply(f, function(j) attr(extracttimes(j), "p")))
+size <- unlist(lapply(f, function(j) attr(extracttimes(j), "n")))
+
+ddims <- rep(dims, each=80)
+ssize <- rep(size, each=80)
+
+pars <- unlist(lapply(f, npar))
+
+AA <- lm(log(times) ~ log(pars) + log(ddims) + log(ssize))
+summary(AA)
+plot(AA)
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-19
+
+
+## to do today:
+#X  figure out how lm() works
+#   get chapters written
+#   start sims?? (figure out which)
+#X  replot: clara/mclVVV/mclust (rewrite epfl)
+#X  fix .Rd files
+#   translation functions
+#X  write examples
+#X  put in example data                # fSMI.12
+#X  print method for MLE
+#X  put chapters in separate .Rnw files
+#   example of 2d em algo???
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-22
+
+## writing chapters
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-27
+
+## code for tex docs
+    mainsav <- normalizePath("~/ethz/BA/Rscripts/")
+
+## copy from here
+
+savdir <- file.path(mainsav, "2var")
+filelistvar <- list.files(savdir, pattern=".rds")
+flvclara <- grep("seed", filelistvar, value=TRUE)
+flvmclust <- grep("mcl.rds", filelistvar, value=TRUE)
+
+ciris <- grep("^iris", flvclara, value=TRUE)
+ctriris <- grep("_iris", flvclara, value=TRUE)
+closs <- grep("loss", flvclara, value=TRUE)
+
+irisbic <- massbic(ciris, savdir)
+tririsbic <- massbic(ctriris, savdir)
+lossbic <- massbic(closs, savdir)
+
+mirisbic <- readRDS(file=file.path(savdir,flvmclust[1]))
+mtririsbic <- readRDS(file=file.path(savdir,flvmclust[3]))
+mlossbic <- readRDS(file=file.path(savdir,flvmclust[2]))
+
+compplot(irisbic, mirisbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+compplot(tririsbic, mtririsbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+compplot(lossbic, mlossbic, compnames=c("clara","Mclust"), col=nMmcols[c(1,3)])
+
+
+## 2var done
+
+## small-tri
+
+savdir <- file.path(mainsav, "small-tri")
+fl <- list.files(savdir, pattern=".rds")
+flclara <- grep("clara_", fl, value=TRUE)
+flmclVV <- grep("mclVVV_", fl, value=TRUE)
+
+## these sims were done a while ago
+## returned values have changed enough, that massbic doesnt work anymore
+cbic <- array(unlist(lapply(flclara, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
+Vbic <- array(unlist(lapply(flmclVV, function(j) BIC(readRDS(file.path(savdir, j)))[[1]])), c(7,10,50))
+mbic <- readRDS(file.path(savdir, fl[1]))
+
+compplot(cbic, Vbic, mbic, pars=FALSE)
+
+## ok works
+
+## smallinit
+
+savdir <- file.path(mainsav, "smallinit")
+fl <- list.files(savdir, pattern=".rds")
+fl500 <- grep("n=500", fl, value=TRUE)
+fl1000 <- grep("n=1000", fl, value=TRUE)
+
+f5mw210 <- grep("MW210", fl500, value=TRUE)
+f5mw213 <- grep("MW213", fl500, value=TRUE)
+f5mw214 <- grep("MW214", fl500, value=TRUE)
+f5mw24 <-  grep("MW24", fl500, value=TRUE)
+f5mw28 <-  grep("MW28", fl500, value=TRUE)
+f5mw29 <-  grep("MW29", fl500, value=TRUE)
+
+f5210cla <- grep("clara", f5mw210, value=TRUE)
+f5213cla <- grep("clara", f5mw213, value=TRUE)
+f5214cla <- grep("clara", f5mw214, value=TRUE)
+f524cla <-  grep("clara", f5mw24,  value=TRUE)
+f528cla <-  grep("clara", f5mw28,  value=TRUE)
+f529cla <-  grep("clara", f5mw29,  value=TRUE)
+
+f5210mclVV <- grep("mclVVV", f5mw210, value=TRUE)
+f5213mclVV <- grep("mclVVV", f5mw213, value=TRUE)
+f5214mclVV <- grep("mclVVV", f5mw214, value=TRUE)
+f524mclVV <-  grep("mclVVV", f5mw24,  value=TRUE)
+f528mclVV <-  grep("mclVVV", f5mw28,  value=TRUE)
+f529mclVV <-  grep("mclVVV", f5mw29,  value=TRUE)
+
+
+f10mw210 <- grep("MW210", fl1000, value=TRUE)
+f10mw214 <- grep("MW214", fl1000, value=TRUE)
+f10mw24 <-  grep("MW24",  fl1000, value=TRUE)
+
+f10210cla <- grep("clara", f10mw210, value=TRUE)
+f10214cla <- grep("clara", f10mw214, value=TRUE)
+f1024cla <-  grep("clara", f10mw24,  value=TRUE)
+
+f10210mclVV <- grep("mclVVV", f10mw210, value=TRUE)
+f10214mclVV <- grep("mclVVV", f10mw214, value=TRUE)
+f1024mclVV <-  grep("mclVVV", f10mw24,  value=TRUE)
+
+
+b5210cla <- massbic(f5210cla, savdir)
+b5213cla <- massbic(f5213cla, savdir)
+b5214cla <- massbic(f5214cla, savdir)
+b524cla <-  massbic(f524cla,  savdir)
+b528cla <-  massbic(f528cla,  savdir)
+b529cla <-  massbic(f529cla,  savdir)
+
+b5210mclVV <- massbic(f5210mclVV, savdir)
+b5213mclVV <- massbic(f5213mclVV, savdir)
+b5214mclVV <- massbic(f5214mclVV, savdir)
+b524mclVV <-  massbic(f524mclVV,  savdir)
+b528mclVV <-  massbic(f528mclVV,  savdir)
+b529mclVV <-  massbic(f529mclVV,  savdir)
+
+## create mclust files on the fly
+## b5210cla <- saveRDS(massbicm(f5210cla[1], savdir), file=file.path(savdir, "mclust5210.rds"))
+## b5213cla <- saveRDS(massbicm(f5213cla[1], savdir), file=file.path(savdir, "mclust5213.rds"))
+## b5214cla <- saveRDS(massbicm(f5214cla[1], savdir), file=file.path(savdir, "mclust5214.rds"))
+## b524cla <-  saveRDS(massbicm(f524cla[1], savdir), file=file.path(savdir,  "mclust524.rds"))
+## b528cla <-  saveRDS(massbicm(f528cla[1], savdir), file=file.path(savdir,  "mclust528.rds"))
+## b529cla <-  saveRDS(massbicm(f529cla[1], savdir), file=file.path(savdir,  "mclust529.rds"))
+
+mclust5210 <- readRDS(file.path(savdir, "mclust5210.rds"))
+mclust5213 <- readRDS(file.path(savdir, "mclust5213.rds"))
+mclust5214 <- readRDS(file.path(savdir, "mclust5214.rds"))
+mclust524 <-  readRDS(file.path(savdir, "mclust524.rds"))
+mclust528 <-  readRDS(file.path(savdir, "mclust528.rds"))
+mclust529 <-  readRDS(file.path(savdir, "mclust529.rds"))
+
+
+b10210cla <- massbic(f10210cla, savdir)
+b10214cla <- massbic(f10214cla, savdir)
+b1024cla <-  massbic(f1024cla,  savdir)
+
+b10210mclVV <- massbic(f10210mclVV, savdir)
+b10214mclVV <- massbic(f10214mclVV, savdir)
+b1024mclVV <-  massbic(f1024mclVV,  savdir)
+
+## b10210cla <- saveRDS(massbicm(f10210cla[1], savdir), file=file.path(savdir, "mclust10210.rds"))
+## b10214cla <- saveRDS(massbicm(f10214cla[1], savdir), file=file.path(savdir, "mclust10214.rds"))
+## b1024cla <-  saveRDS(massbicm(f1024cla[1], savdir), file=file.path(savdir,  "mclust1024.rds"))
+
+mclust10210 <- readRDS(file.path(savdir, "mclust10210.rds"))
+mclust10214 <- readRDS(file.path(savdir, "mclust10214.rds"))
+mclust1024 <-  readRDS(file.path(savdir, "mclust1024.rds"))
+
+
+compplot(b5210cla, b5210mclVV, mclust5210)
+compplot(b5213cla, b5213mclVV, mclust5213)
+compplot(b5214cla, b5214mclVV, mclust5214)
+compplot(b524cla,  b524mclVV,  mclust524)
+compplot(b528cla,  b528mclVV,  mclust528)
+compplot(b529cla,  b529mclVV,  mclust529)
+
+
+## done
+
+
+####
+##------------------------------------------------------------------------------
+####
+## work on 2019-10-29

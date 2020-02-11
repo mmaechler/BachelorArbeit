@@ -1,0 +1,34 @@
+MarronWand              Marron-Wand-like Specific Multivariate Normal
+                        Mixture 'norMmix' Objects
+compplot                composition plot
+dfnMm                   Number of Free Parameters of Multivariate
+                        Normal Mixture Models
+epfl                    evaluate and plot from file list
+extracttimes            Extract system time from 'fittednorMmix' object
+fSMI.12                 Model selection of the SMI.12 dataset from the
+                        'SMI.12' package.
+fitnMm                  Fit Several Normal Mixture Models to a Dataset
+ldl                     LDL' Cholesky Decomposition
+llmvtnorm               Log-Likelihood of Multivariate Normal Mixture
+                        Relying on 'mvtnorm::dmvnorm'
+llnorMmix               Log-likelihood of parameter vector given data
+massbic                 extract BIC from .rds files
+massbicm                Do mclust along .rds files from fitnMm
+massplot                plot from massbic
+nMm2par                 Multivariate Normal Mixture Model to parameter
+                        for MLE
+nc2p                    Wrapper function for 'nMm2par'
+norMmix                 Constructor for Multivariate Normal Mixture
+                        Objects
+norMmixMLE              Maximum Likelihood Estimation for Multivariate
+                        Normal Mixture Models
+npar                    Extract degrees of freedom from objects of the
+                        'norMmix' package
+par2nMm                 Transform Parameter Vector to Multivariate
+                        Normal Mixture
+plot.fittednorMmix      Plot method for the class 'fittednorMmix'
+plot.norMmix            Plot Method for "norMmix" Objects
+rnorMmix                Random Sample from Multivariate Normal Mixture
+                        Distribution
+sllnorMmix              Simple wrapper for Log-Likelihood Function or
+                        Multivariate Normal Mixture
